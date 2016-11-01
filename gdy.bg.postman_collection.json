@@ -1,0 +1,145 @@
+{
+	"id": "469c00b0-fdb4-790f-26ad-452fbfc96327",
+	"name": "gdy.bg",
+	"description": "",
+	"order": [
+		"9e4433a0-b9c3-dfba-a5e1-1def87971e93",
+		"a566fc00-2fb4-0557-eddc-e851f03a5378",
+		"ec198855-9629-f5e1-c1c2-2ff4d1a0fc9a",
+		"3a9f2927-d89c-7515-6790-ae6d9191769a",
+		"ba5f7b91-6891-7d52-39be-1dc0ee60ea9c"
+	],
+	"folders": [],
+	"timestamp": 1477836904388,
+	"owner": "1093150",
+	"public": false,
+	"requests": [
+		{
+			"id": "3a9f2927-d89c-7515-6790-ae6d9191769a",
+			"headers": "",
+			"url": "http://localhost:1337/competition/5816349b75cba5bc87ff0f9b?source=housetohome&title=Elvin&img=IMG&url=URL",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "PUT",
+			"collectionId": "469c00b0-fdb4-790f-26ad-452fbfc96327",
+			"data": null,
+			"dataMode": "params",
+			"name": "Update a competition",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1477850411730,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "9e4433a0-b9c3-dfba-a5e1-1def87971e93",
+			"headers": "",
+			"url": "http://localhost:1337/competition",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "GET",
+			"data": [
+				{
+					"key": "source",
+					"value": "housetohome",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "title",
+					"value": "Win vouchers worth £100",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "img",
+					"value": "http://c5.dmri-library.com/housetohome/images/comps/Network_VEKA_housetohome_400x250.png",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "url",
+					"value": "http://comps.housetohome.co.uk/competition/Network_VEKA_housetohome.php",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "time",
+					"value": "2016-03-13T12:22:12.864Z",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1477849015198,
+			"name": "List competitions",
+			"description": "",
+			"collectionId": "469c00b0-fdb4-790f-26ad-452fbfc96327",
+			"responses": []
+		},
+		{
+			"id": "a566fc00-2fb4-0557-eddc-e851f03a5378",
+			"headers": "",
+			"url": "http://localhost:1337/competition",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "469c00b0-fdb4-790f-26ad-452fbfc96327",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Create a competition",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1477849883997,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "source:housetohome\ntitle:Testing\nimg:female\nurl:chad.paget@hotmail.co.uk\n"
+		},
+		{
+			"id": "ba5f7b91-6891-7d52-39be-1dc0ee60ea9c",
+			"headers": "",
+			"url": "http://localhost:1337/competition/5816314a75cba5bc87ff0f95",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "DELETE",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1477850677813,
+			"name": "Delete competition",
+			"description": "",
+			"collectionId": "469c00b0-fdb4-790f-26ad-452fbfc96327",
+			"responses": []
+		},
+		{
+			"id": "ec198855-9629-f5e1-c1c2-2ff4d1a0fc9a",
+			"headers": "",
+			"url": "http://localhost:1337/competition/5816349b75cba5bc87ff0f9b",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1477850303682,
+			"name": "Retrieve a competition",
+			"description": "",
+			"collectionId": "469c00b0-fdb4-790f-26ad-452fbfc96327",
+			"responses": []
+		}
+	]
+}

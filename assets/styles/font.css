@@ -1,0 +1,56 @@
+/* then for WOFF-capable browsers */
+
+@font-face {
+    font-family: 'FuturaExtraBold';
+    src: url('../font/FuturaExtraBold.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'FuturaBold';
+    src: url('../font/GOTHAM-MEDIUM-0.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'GothamLightItalic';
+    src: url('../font/GOTHAM-LIGHTITALIC.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'GothamBoldItalic';
+    src: url('../font/GOTHAM-BOLDITALIC.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'DidotBoldItalic';
+    src: url('../font/Didot/DidotBoldItalic.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'DidotMedium';
+    src: url('../font/Didot/DidotMedium.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'DidotLTStdBold';
+    src: url('../font/Didot/DidotLTStdBold.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'DidotLTStdHeadline';
+    src: url('../font/Didot/DidotLTStdHeadline.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'DidotLTStdRoman';
+    src: url('../font/Didot/DidotLTStdRoman.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'DidotLtStdRegular';
+    src: url('../font/Didot/DidotLtStdRegular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'DidotItalic';
+    src: url('../font/Didot/ufonts.com_didot-italic.woff') format('woff');
+}
