@@ -1,0 +1,35 @@
+{
+  "name": "gdy.bg-cas",
+  "version": "1.0.0",
+  "description": "scheduled scraping task",
+  "main": "handler.js",
+  "dependencies": {
+    "async": "^2.1.2",
+    "dynamoose": "^0.7.0",
+    "lodash": "^4.17.2",
+    "moment": "^2.16.0",
+    "utf8": "^2.1.2",
+    "uuid": "^3.0.0",
+    "x-ray": "^2.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/lvnhmd/gdy.bg.git"
+  },
+  "keywords": [
+    "gdy.bg",
+    "competitions",
+    "cron",
+    "scrape"
+  ],
+  "author": "elvin ali",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lvnhmd/gdy.bg/issues"
+  },
+  "homepage": "https://github.com/lvnhmd/gdy.bg#readme"
+}
