@@ -5,11 +5,13 @@
   "main": "handler.js",
   "dependencies": {
     "async": "^2.1.2",
-    "dynamoose": "^0.7.0",
+    "aws-sdk": "^2.7.5",
+    "joi": "^10.0.1",
     "lodash": "^4.17.2",
     "moment": "^2.16.0",
     "utf8": "^2.1.2",
     "uuid": "^3.0.0",
+    "vogels": "^2.2.0",
     "x-ray": "^2.3.1"
   },
   "devDependencies": {},
