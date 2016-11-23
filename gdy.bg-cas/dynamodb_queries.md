@@ -2,6 +2,8 @@ cd /usr/local/bin/dynamodb_local_2016-05-17/
 
 java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
 
+http://localhost:8000/shell/
+
 var params = { 
     TableName: "SourceMeta"
 };
