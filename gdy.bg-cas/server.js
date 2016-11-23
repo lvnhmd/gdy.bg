@@ -52,7 +52,7 @@ var callback = function (err, metas) {
 
   metas.forEach(function(doc) {
 
-  	console.log(doc.name);
+  console.log(doc.name);
 
 	// var tasks = [];
 	// var source = new require('./sources/' + doc.name);
