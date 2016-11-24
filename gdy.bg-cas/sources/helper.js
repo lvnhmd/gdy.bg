@@ -10,6 +10,8 @@ var _ = require('lodash');
 // var moment = require('moment');
 // var Validation = require('../../models/validation');
 
+var log = require('../log');
+
 module.exports = {
 
 	get: function(_host, _path, callback) {
@@ -21,8 +23,8 @@ module.exports = {
 
 			// Continuously update stream with data
 			var body = '';
-			response.on('data', function(d) {
-				body += d;
+			response.on('data', function(chunk) {
+				body += chunk;
 			});
 			response.on('end', function() {
 
@@ -40,14 +42,14 @@ module.exports = {
 
 	},
 
-	persistSource: function(sourceName, xOptions, done) {
+	persistSource: function(source, xOptions, done, msg) {
 
 		x(xOptions.url, xOptions.scope, [
 			xOptions.selector
 		])(function(err, links) {
 
 			// <link rel="shortcut icon" href="/assets/img/stylist/meta/6b25e2b7f02f0dd5a43a88c3cb929267/favicon.ico">
-			if (err) console.log(err);
+			if (err) log.error(err);
 
 			var filtered = _.filter(links, function(link) {
 				return link.match('favicon');
@@ -56,13 +58,14 @@ module.exports = {
 			//after saving into db call done 
 
 			var meta = new SourceMeta({
-				name: sourceName,
+				name: source,
 				favicon: (filtered[0]) ? filtered[0] : ''
 			});
 
 			meta.save( function(err, doc) {
-				if (err) console.log(err);
-				done(null, 'source ' + sourceName + ' updated');
+				if (err) log.error(err);
+				log.info(msg)
+				done(null, msg);
 			});
 
 		});
@@ -72,56 +75,56 @@ module.exports = {
 	// TODO: change this to send me an email only when there are new competitions
 	// else I ll end up getting email every time scraper scrapes
 
-	persistCompetitions: function(comps, done) {
+	// persistCompetitions: function(comps, done) {
 
-		var validation = [];
+	// 	var validation = [];
 
-		for (var index in comps) {
+	// 	for (var index in comps) {
 
-			(function(i) {
+	// 		(function(i) {
 
-				// Competition.findOne({
-				// 	url: comps[i].url
-				// }, function(err, result) {
-				// 	if (err) console.log(err);
-					// var ipp = +i + 1;
-					// if (result) {
-					// 	if (ipp == comps.length) {
-					// 		done(null, 'save competitions done', validation);
-					// 	}
-					// } else {
-						var comp = new Competition();
-						comp.uri = comps[i].url;
-						comp.img = comps[i].img;
-						comp.title = comps[i].title;
-						comp.source = comps[i].source;
-						comp.closes = comps[i].closes;
-						// newComp.id = newComp._id;
+	// 			// Competition.findOne({
+	// 			// 	url: comps[i].url
+	// 			// }, function(err, result) {
+	// 			// 	if (err) console.log(err);
+	// 				// var ipp = +i + 1;
+	// 				// if (result) {
+	// 				// 	if (ipp == comps.length) {
+	// 				// 		done(null, 'save competitions done', validation);
+	// 				// 	}
+	// 				// } else {
+	// 					var comp = new Competition();
+	// 					comp.uri = comps[i].url;
+	// 					comp.img = comps[i].img;
+	// 					comp.title = comps[i].title;
+	// 					comp.source = comps[i].source;
+	// 					comp.closes = comps[i].closes;
+	// 					// newComp.id = newComp._id;
 
-						// console.log('add new competition ' + newComp.url);
+	// 					// console.log('add new competition ' + newComp.url);
 
-						// if (!newComp.url || !newComp.img || !newComp.title || !newComp.source || !newComp.closes) {
-						// 	validation.push(newComp);
-						// 	newComp.show = false;
-						// }
+	// 					// if (!newComp.url || !newComp.img || !newComp.title || !newComp.source || !newComp.closes) {
+	// 					// 	validation.push(newComp);
+	// 					// 	newComp.show = false;
+	// 					// }
 
-						comp.save({
-						    overwrite : false
-						  },function(err) {
-							if (err) console.log(err);
+	// 					comp.save({
+	// 					    overwrite : false
+	// 					  },function(err) {
+	// 						if (err) console.log(err);
 
-							// convert i to number 
-							var ipp = +i + 1;
-							if (ipp == comps.length) {
-								// done(null, comps[0].source + ' competitions persisted', validation);
-								done(null, comps[0].source + ' competitions persisted', null);
-							}
-						});
-					// }
-				// });
-			})(index);
-		}
-	},
+	// 						// convert i to number 
+	// 						var ipp = +i + 1;
+	// 						if (ipp == comps.length) {
+	// 							// done(null, comps[0].source + ' competitions persisted', validation);
+	// 							done(null, comps[0].source + ' competitions persisted', null);
+	// 						}
+	// 					});
+	// 				// }
+	// 			// });
+	// 		})(index);
+	// 	}
+	// },
 
 	// persistValidation: function(validation, done) {
 

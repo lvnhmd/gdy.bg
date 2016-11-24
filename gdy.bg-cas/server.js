@@ -1,95 +1,110 @@
+'use strict';
+process.chdir(__dirname);
+// var bunyan = require('bunyan');
+
+// var PrettyStream = require('bunyan-prettystream');
+// var prettyStdOut = new PrettyStream();
+// prettyStdOut.pipe(process.stdout);
+
+// var log = bunyan.createLogger({
+//     name: 'gdybg',
+//     streams: [{
+//         level: 'debug',
+//         type: 'raw',
+//         stream: prettyStdOut
+//     }]
+// });
+
+var log = require('./log');
+
+// TODO : check out vogels-cache as well
+var vogels = require('vogels'),
+    _ = require('lodash'),
+    util = require('util'),
+    AWS = vogels.AWS,
+    Joi = require('joi');
+
 var async = require("async");
 var helper = require('./sources/helper');
+var sourcemeta = require('./models/sourcemeta');
 
-var SourceMeta = require('./models/sourcemeta');
 
-var uuid = require('uuid');
+AWS.config.loadFromPath(__dirname + '/credentials.json');
 
-// var dynamoose = require('dynamoose');
-// dynamoose.AWS.config.update({
-//   accessKeyId: 'AKID',
-//   secretAccessKey: 'SECRET',
-//   region: 'eu-west-1'
-// });
-// dynamoose.local();
+// tables will be created only if they do not exist
 
-var vogels = require('vogels');
-// vogels.AWS.config.update({accessKeyId: 'AKID', secretAccessKey: 'SECRET', region: "eu-west-1"});
-// vogels.local();
+sourcemeta.describeTable(function(err, tableInfo) {
 
-var AWS = require('aws-sdk');
-// var opts = { endpoint : 'http://localhost:8000', apiVersion: '2012-08-10' };
-// vogels.dynamoDriver(new AWS.DynamoDB(opts));
+	// I do not want this error logged
+    // if (err) log.error(err);
 
-vogels.dynamoDriver(new AWS.DynamoDB());
+    // if table sourcemetas exist, drop it before recreating 
+    // that is because I can add additional sources to sources.json
+    
+    if (typeof tableInfo !== 'undefined') {
+	    sourcemeta.deleteTable(function(err) {
+	        if (err) log.error(err);
+	        seed();
+	    });
+	} else {
+	    	seed();
+	}
 
-vogels.AWS.config.update({
-  accessKeyId: 'AKID',
-  secretAccessKey: 'SECRET',
-  region: 'eu-west-1',
-  endpoint : 'http://localhost:8000'
-});
 
-var stylist = new SourceMeta({name: 'stylist'});
-
-stylist.save(function(err, metas) {
-    console.log('created SourceMeta in DynamoDB', stylist.get('name'));
-
-    console.dir(metas);
-
-    // SourceMeta.scan().exec(callback);
 });
 
 
-var callback = function (err, metas) {
-  
-  // console.dir(metas);
 
-  var done = function(err, msg) {
-    console.log(msg);
-  };
+var seed = function() {
 
+    vogels.createTables(function(err) {
+        if (err) log.error(err);
 
-  metas.forEach(function(doc) {
+        // insert all sources into sourcemetas
+        var sources = JSON.parse(require('fs').readFileSync(__dirname + '/sources/sources.json', 'utf8'));
 
-  console.log(doc.name);
+        sourcemeta.create(sources, function(err, result) {
+            if (err) log.error(err);
+            result.forEach(function(doc) {
 
-	// var tasks = [];
-	// var source = new require('./sources/' + doc.name);
-	// tasks.push(function(done) {
- //        console.log('push source.meta');
- //        source.meta(done, doc.name + ' meta done');
- //    });
-	
-	// tasks.push(function(arg1, done) {
-	// 	console.log('push source.xray');
-	// 	source.xray(done, doc.name + ' xray done');
-	// });
-	// 	tasks.push(function(arg1, arg2, done) {
-	// 		// console.log('3 : ' + arg2);
-	// 		// persist and validate and send email to admin
-	// 		helper.persistCompetitions(arg1, function(err, msg, validation) {
-	// 			// if (validation.length > 0) {
-	// 			// 	helper.persistValidation(validation, function() {
-	// 			// 		util.sendAdminEmail(validation[0].source, validation);
-	// 			// 		done(null, '4 : ' + arg1[0].source + ' validation and competitions persisted');
-	// 			// 	});
-	// 			// } else {
-	// 				done(null, '4 : ' + arg1[0].source + ' competitions persisted');
-	// 			// }
-	// 		});
-	// 	});
+                log.info(doc.attrs.name);
 
-	// console.dir(tasks);
+                var tasks = [];
+                var source = new require('./sources/' + doc.attrs.name);
+                tasks.push(function(done) {
+                    log.info('push ' + doc.attrs.name + '.meta');
+                    source.meta(done, doc.attrs.name + '.meta done');
+                });
 
-	// async.waterfall(tasks, function(err, results) {
-	// 	if (err) console.log(error);
-	// 	console.log('>>> DONE ', results);
-	// });
+                // tasks.push(function(arg1, done) {
+                //     log.info('push ' + doc.attrs.name + '.xray');
+                //     source.xray(done, doc.attrs.name + '.xray done');
+                // });
+                // tasks.push(function(arg1, arg2, done) {
+                //     // console.log('3 : ' + arg2);
+                //     // persist and validate and send email to admin
+                //     helper.persistCompetitions(arg1, function(err, msg, validation) {
+                //         if (err) log.error(err);
+                //         // if (validation.length > 0) {
+                //         // 	helper.persistValidation(validation, function() {
+                //         // 		util.sendAdminEmail(validation[0].source, validation);
+                //         // 		done(null, '4 : ' + arg1[0].source + ' validation and competitions persisted');
+                //         // 	});
+                //         // } else {
+                //         done(null, '4 : ' + arg1[0].source + ' competitions persisted');
+                //         // }
+                //     });
+                // });
 
- });		
+                log.info(tasks);
 
+                async.waterfall(tasks, function(err, result) {
+                    if (err) log.error(err);
+                    log.info('>>> DONE ', result);
+                });
+
+            });
+        });
+
+    });
 };
-
-
-

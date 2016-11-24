@@ -11,7 +11,7 @@ var moment = require('moment');
 
 module.exports = {
 
-	meta: function(done) {
+	meta: function(done,msg) {
 
 		var xOptions = {
 			url: 'http://www.stylist.co.uk',
@@ -22,7 +22,7 @@ module.exports = {
 
 		// done(null, 'source ' + 'stylist' + ' updated');
 
-		helper.persistSource('stylist', xOptions, done);
+		helper.persistSource('stylist', xOptions, done, msg);
 
 	},
 
