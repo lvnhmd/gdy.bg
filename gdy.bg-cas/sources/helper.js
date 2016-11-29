@@ -62,9 +62,8 @@ module.exports = {
 				favicon: (filtered[0]) ? filtered[0] : ''
 			});
 
-			meta.save( function(err, doc) {
+			meta.save(function(err, doc) {
 				if (err) logger.error(err);
-				logger.info(msg)
 				done(null, msg);
 			});
 
@@ -75,56 +74,57 @@ module.exports = {
 	// TODO: change this to send me an email only when there are new competitions
 	// else I ll end up getting email every time scraper scrapes
 
-	// persistCompetitions: function(comps, done) {
+	persistCompetitions: function(comps, done) {
 
-	// 	var validation = [];
+		var validation = [];
 
-	// 	for (var index in comps) {
+		for (var index in comps) {
 
-	// 		(function(i) {
+			(function(i) {
 
-	// 			// Competition.findOne({
-	// 			// 	url: comps[i].url
-	// 			// }, function(err, result) {
-	// 			// 	if (err) console.logger(err);
-	// 				// var ipp = +i + 1;
-	// 				// if (result) {
-	// 				// 	if (ipp == comps.length) {
-	// 				// 		done(null, 'save competitions done', validation);
-	// 				// 	}
-	// 				// } else {
-	// 					var comp = new Competition();
-	// 					comp.uri = comps[i].url;
-	// 					comp.img = comps[i].img;
-	// 					comp.title = comps[i].title;
-	// 					comp.source = comps[i].source;
-	// 					comp.closes = comps[i].closes;
-	// 					// newComp.id = newComp._id;
+				// Competition.findOne({
+				// 	url: comps[i].url
+				// }, function(err, result) {
+				// 	if (err) console.logger(err);
+					// var ipp = +i + 1;
+					// if (result) {
+					// 	if (ipp == comps.length) {
+					// 		done(null, 'save competitions done', validation);
+					// 	}
+					// } else {
 
-	// 					// console.logger('add new competition ' + newComp.url);
+						var comp = new Competition({
+							uri: comps[i].url,
+							img: comps[i].img,
+							title: comps[i].title,
+							source: comps[i].source,
+							closes: comps[i].closes
+						});
+						
+						// newComp.id = newComp._id;
 
-	// 					// if (!newComp.url || !newComp.img || !newComp.title || !newComp.source || !newComp.closes) {
-	// 					// 	validation.push(newComp);
-	// 					// 	newComp.show = false;
-	// 					// }
+						// logger.info('add new competition ' + newComp.url);
 
-	// 					comp.save({
-	// 					    overwrite : false
-	// 					  },function(err) {
-	// 						if (err) console.logger(err);
+						// if (!newComp.url || !newComp.img || !newComp.title || !newComp.source || !newComp.closes) {
+						// 	validation.push(newComp);
+						// 	newComp.show = false;
+						// }
 
-	// 						// convert i to number 
-	// 						var ipp = +i + 1;
-	// 						if (ipp == comps.length) {
-	// 							// done(null, comps[0].source + ' competitions persisted', validation);
-	// 							done(null, comps[0].source + ' competitions persisted', null);
-	// 						}
-	// 					});
-	// 				// }
-	// 			// });
-	// 		})(index);
-	// 	}
-	// },
+						comp.save(function(err, doc) {
+							if (err) logger.error(err);
+
+							// convert i to number 
+							var ipp = +i + 1;
+							if (ipp == comps.length) {
+								// done(null, comps[0].source + ' competitions persisted', validation);
+								done(null, comps[0].source + ' competitions persisted', null);
+							}
+						});
+					// }
+				// });
+			})(index);
+		}
+	},
 
 	// persistValidation: function(validation, done) {
 

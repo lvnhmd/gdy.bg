@@ -53,40 +53,37 @@ var seed = function() {
             if (err) logger.error(err);
             result.forEach(function(doc) {
 
-                logger.info(doc.attrs.name);
-
                 var tasks = [];
                 var source = new require('./sources/' + doc.attrs.name);
                 tasks.push(function(done) {
-                    logger.info('push ' + doc.attrs.name + '.meta');
-                    source.meta(done, doc.attrs.name + '.meta done');
+                    logger.info('ADD TASK ' + doc.attrs.name + '.meta');
+                    source.meta(done, doc.attrs.name + '.meta');
                 });
 
-                // tasks.push(function(arg1, done) {
-                //     logger.info('push ' + doc.attrs.name + '.xray');
-                //     source.xray(done, doc.attrs.name + '.xray done');
-                // });
-                // tasks.push(function(arg1, arg2, done) {
-                //     // console.logger('3 : ' + arg2);
-                //     // persist and validate and send email to admin
-                //     helper.persistCompetitions(arg1, function(err, msg, validation) {
-                //         if (err) logger.error(err);
-                //         // if (validation.length > 0) {
-                //         // 	helper.persistValidation(validation, function() {
-                //         // 		util.sendAdminEmail(validation[0].source, validation);
-                //         // 		done(null, '4 : ' + arg1[0].source + ' validation and competitions persisted');
-                //         // 	});
-                //         // } else {
-                //         done(null, '4 : ' + arg1[0].source + ' competitions persisted');
-                //         // }
-                //     });
-                // });
-
-                logger.info(tasks);
+                tasks.push(function(arg1, done) {
+                    logger.info('ADD TASK ' + doc.attrs.name + '.xray');
+                    source.xray(done, doc.attrs.name + '.xray');
+                });
+                
+                tasks.push(function(arg1, arg2, done) {
+                    
+                    // persist and validate and send email to admin
+                    helper.persistCompetitions(arg1, function(err, msg, validation) {
+                        if (err) logger.error(err);
+                        // if (validation.length > 0) {
+                        // 	helper.persistValidation(validation, function() {
+                        // 		util.sendAdminEmail(validation[0].source, validation);
+                        // 		done(null, '4 : ' + arg1[0].source + ' validation and competitions persisted');
+                        // 	});
+                        // } else {
+                        done(null, '4 : ' + arg1[0].source + ' competitions persisted');
+                        // }
+                    });
+                });
 
                 async.waterfall(tasks, function(err, result) {
                     if (err) logger.error(err);
-                    logger.info('>>> DONE ', result);
+                    logger.info('TASKS COMPLETED', result);
                 });
 
             });

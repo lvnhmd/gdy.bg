@@ -14,7 +14,7 @@ module.exports = vogels.define('competition', {
   schema : {
     uri        : Joi.string(),
     img        : Joi.string(),
-    title	   : Joi.string(),
+    title	     : Joi.string(),
     source	   : Joi.string(),
     closes	   : Joi.date(),
     show       : Joi.boolean().default(false)
