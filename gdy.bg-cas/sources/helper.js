@@ -10,12 +10,12 @@ var _ = require('lodash');
 // var moment = require('moment');
 // var Validation = require('../../models/validation');
 
-var log = require('../log');
+var logger = require('../logger');
 
 module.exports = {
 
 	get: function(_host, _path, callback) {
-		// console.log('get ' + _host + _path);
+		
 		return http.get({
 			host: _host,
 			path: _path
@@ -49,7 +49,7 @@ module.exports = {
 		])(function(err, links) {
 
 			// <link rel="shortcut icon" href="/assets/img/stylist/meta/6b25e2b7f02f0dd5a43a88c3cb929267/favicon.ico">
-			if (err) log.error(err);
+			if (err) logger.error(err);
 
 			var filtered = _.filter(links, function(link) {
 				return link.match('favicon');
@@ -63,8 +63,8 @@ module.exports = {
 			});
 
 			meta.save( function(err, doc) {
-				if (err) log.error(err);
-				log.info(msg)
+				if (err) logger.error(err);
+				logger.info(msg)
 				done(null, msg);
 			});
 
@@ -86,7 +86,7 @@ module.exports = {
 	// 			// Competition.findOne({
 	// 			// 	url: comps[i].url
 	// 			// }, function(err, result) {
-	// 			// 	if (err) console.log(err);
+	// 			// 	if (err) console.logger(err);
 	// 				// var ipp = +i + 1;
 	// 				// if (result) {
 	// 				// 	if (ipp == comps.length) {
@@ -101,7 +101,7 @@ module.exports = {
 	// 					comp.closes = comps[i].closes;
 	// 					// newComp.id = newComp._id;
 
-	// 					// console.log('add new competition ' + newComp.url);
+	// 					// console.logger('add new competition ' + newComp.url);
 
 	// 					// if (!newComp.url || !newComp.img || !newComp.title || !newComp.source || !newComp.closes) {
 	// 					// 	validation.push(newComp);
@@ -111,7 +111,7 @@ module.exports = {
 	// 					comp.save({
 	// 					    overwrite : false
 	// 					  },function(err) {
-	// 						if (err) console.log(err);
+	// 						if (err) console.logger(err);
 
 	// 						// convert i to number 
 	// 						var ipp = +i + 1;
@@ -138,7 +138,7 @@ module.exports = {
 	// 		(function(i) {
 	// 			var vComp = casted[i];
 	// 			vComp.save(function(err) {
-	// 				if (err) console.log(err);
+	// 				if (err) console.logger(err);
 
 	// 				var ipp = +i + 1;
 	// 				if (ipp == casted.length) {

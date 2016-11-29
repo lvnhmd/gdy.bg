@@ -6,7 +6,7 @@ var prettystream = require('bunyan-prettystream');
 var prettyStdOut = new prettystream();
 prettyStdOut.pipe(process.stdout);
 
-var log = bunyan.createLogger({
+var logger = bunyan.createLogger({
     name: 'gdybg',
     streams: [{
         level: 'debug',
@@ -15,4 +15,4 @@ var log = bunyan.createLogger({
     }]
 });
 
-module.exports = log;
+module.exports = logger;

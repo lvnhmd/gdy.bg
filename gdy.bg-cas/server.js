@@ -1,21 +1,7 @@
 'use strict';
 process.chdir(__dirname);
-// var bunyan = require('bunyan');
 
-// var PrettyStream = require('bunyan-prettystream');
-// var prettyStdOut = new PrettyStream();
-// prettyStdOut.pipe(process.stdout);
-
-// var log = bunyan.createLogger({
-//     name: 'gdybg',
-//     streams: [{
-//         level: 'debug',
-//         type: 'raw',
-//         stream: prettyStdOut
-//     }]
-// });
-
-var log = require('./log');
+var logger = require('./logger');
 
 // TODO : check out vogels-cache as well
 var vogels = require('vogels'),
@@ -36,14 +22,14 @@ AWS.config.loadFromPath(__dirname + '/credentials.json');
 sourcemeta.describeTable(function(err, tableInfo) {
 
 	// I do not want this error logged
-    // if (err) log.error(err);
+    // if (err) logger.error(err);
 
     // if table sourcemetas exist, drop it before recreating 
     // that is because I can add additional sources to sources.json
     
     if (typeof tableInfo !== 'undefined') {
 	    sourcemeta.deleteTable(function(err) {
-	        if (err) log.error(err);
+	        if (err) logger.error(err);
 	        seed();
 	    });
 	} else {
@@ -58,33 +44,33 @@ sourcemeta.describeTable(function(err, tableInfo) {
 var seed = function() {
 
     vogels.createTables(function(err) {
-        if (err) log.error(err);
+        if (err) logger.error(err);
 
         // insert all sources into sourcemetas
         var sources = JSON.parse(require('fs').readFileSync(__dirname + '/sources/sources.json', 'utf8'));
 
         sourcemeta.create(sources, function(err, result) {
-            if (err) log.error(err);
+            if (err) logger.error(err);
             result.forEach(function(doc) {
 
-                log.info(doc.attrs.name);
+                logger.info(doc.attrs.name);
 
                 var tasks = [];
                 var source = new require('./sources/' + doc.attrs.name);
                 tasks.push(function(done) {
-                    log.info('push ' + doc.attrs.name + '.meta');
+                    logger.info('push ' + doc.attrs.name + '.meta');
                     source.meta(done, doc.attrs.name + '.meta done');
                 });
 
                 // tasks.push(function(arg1, done) {
-                //     log.info('push ' + doc.attrs.name + '.xray');
+                //     logger.info('push ' + doc.attrs.name + '.xray');
                 //     source.xray(done, doc.attrs.name + '.xray done');
                 // });
                 // tasks.push(function(arg1, arg2, done) {
-                //     // console.log('3 : ' + arg2);
+                //     // console.logger('3 : ' + arg2);
                 //     // persist and validate and send email to admin
                 //     helper.persistCompetitions(arg1, function(err, msg, validation) {
-                //         if (err) log.error(err);
+                //         if (err) logger.error(err);
                 //         // if (validation.length > 0) {
                 //         // 	helper.persistValidation(validation, function() {
                 //         // 		util.sendAdminEmail(validation[0].source, validation);
@@ -96,11 +82,11 @@ var seed = function() {
                 //     });
                 // });
 
-                log.info(tasks);
+                logger.info(tasks);
 
                 async.waterfall(tasks, function(err, result) {
-                    if (err) log.error(err);
-                    log.info('>>> DONE ', result);
+                    if (err) logger.error(err);
+                    logger.info('>>> DONE ', result);
                 });
 
             });
