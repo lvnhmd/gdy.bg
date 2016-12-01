@@ -43,7 +43,7 @@ module.exports = {
 	},
 
 	persistSource: function(source, xOptions, done, msg) {
-
+		logger.info(JSON.stringify(done));
 		x(xOptions.url, xOptions.scope, [
 			xOptions.selector
 		])(function(err, links) {
@@ -64,6 +64,7 @@ module.exports = {
 
 			meta.save(function(err, doc) {
 				if (err) logger.error(err);
+				logger.info(JSON.stringify(done));
 				done(null, msg);
 			});
 
@@ -110,7 +111,7 @@ module.exports = {
 						// 	newComp.show = false;
 						// }
 
-						comp.save(function(err, doc) {
+						comp.update(function(err, doc) {
 							if (err) logger.error(err);
 
 							// convert i to number 

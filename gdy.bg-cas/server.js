@@ -40,7 +40,6 @@ sourcemeta.describeTable(function(err, tableInfo) {
 });
 
 
-
 var seed = function() {
 
     vogels.createTables(function(err) {
@@ -51,6 +50,13 @@ var seed = function() {
 
         sourcemeta.create(sources, function(err, result) {
             if (err) logger.error(err);
+
+            var done = function(err, msg) {
+                if (err) logger.error(err);
+                logger.info(msg);
+            };
+
+
             result.forEach(function(doc) {
 
                 var tasks = [];
@@ -67,6 +73,7 @@ var seed = function() {
                 
                 tasks.push(function(arg1, arg2, done) {
                     
+                    logger.info('ADD TASK ' + doc.attrs.name + '.persistCompetitions');
                     // persist and validate and send email to admin
                     helper.persistCompetitions(arg1, function(err, msg, validation) {
                         if (err) logger.error(err);
@@ -76,7 +83,8 @@ var seed = function() {
                         // 		done(null, '4 : ' + arg1[0].source + ' validation and competitions persisted');
                         // 	});
                         // } else {
-                        done(null, '4 : ' + arg1[0].source + ' competitions persisted');
+                        
+                        // done(null, arg1[0].source + '.persistCompetitions');
                         // }
                     });
                 });

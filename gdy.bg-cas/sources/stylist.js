@@ -48,7 +48,8 @@ module.exports = {
 							closes = closes.substring(0, closes.length - 4) + closes.substring(closes.length - 2, closes.length);
 						}
 						// moment loses a day, add it back
-						comp.closes = (moment(closes, 'DD/MM/YY').add(1, 'days')).toISOString();
+						// comp.closes = (moment(closes, 'DD/MM/YY').add(1, 'days')).toISOString();
+						comp.closes = moment(closes, 'DD/MM/YY').toISOString();
 						logger.info(' comp.closes ' + comp.closes);
 					}
 				}
