@@ -14,150 +14,146 @@ var logger = require('../logger');
 
 module.exports = {
 
-	get: function(_host, _path, callback) {
-		
-		return http.get({
-			host: _host,
-			path: _path
-		}, function(response) {
+    get: function(_host, _path, callback) {
 
-			// Continuously update stream with data
-			var body = '';
-			response.on('data', function(chunk) {
-				body += chunk;
-			});
-			response.on('end', function() {
+        return http.get({
+            host: _host,
+            path: _path
+        }, function(response) {
 
-				// Data reception is done, do whatever with it!
-				var parsed = {};
-				try {
-					parsed = JSON.parse(body);
-				} catch (e) {
-					return callback('can not get ' + _host + _path, null);
-				}
+            // Continuously update stream with data
+            var body = '';
+            response.on('data', function(chunk) {
+                body += chunk;
+            });
+            response.on('end', function() {
 
-				return callback(null, parsed);
-			});
-		});
+                // Data reception is done, do whatever with it!
+                var parsed = {};
+                try {
+                    parsed = JSON.parse(body);
+                } catch (e) {
+                    return callback('can not get ' + _host + _path, null);
+                }
 
-	},
+                return callback(null, parsed);
+            });
+        });
 
-	persistSource: function(source, xOptions, done, msg) {
-		logger.info(JSON.stringify(done));
-		x(xOptions.url, xOptions.scope, [
-			xOptions.selector
-		])(function(err, links) {
+    },
 
-			// <link rel="shortcut icon" href="/assets/img/stylist/meta/6b25e2b7f02f0dd5a43a88c3cb929267/favicon.ico">
-			if (err) logger.error(err);
+    persistSource: function(source, xOptions) {
 
-			var filtered = _.filter(links, function(link) {
-				return link.match('favicon');
-			});
+        x(xOptions.url, xOptions.scope, [
+            xOptions.selector
+        ])(function(err, links) {
 
-			//after saving into db call done 
+            // <link rel="shortcut icon" href="/assets/img/stylist/meta/6b25e2b7f02f0dd5a43a88c3cb929267/favicon.ico">
+            if (err) logger.error(err);
 
-			var meta = new SourceMeta({
-				name: source,
-				favicon: (filtered[0]) ? filtered[0] : ''
-			});
+            var filtered = _.filter(links, function(link) {
+                return link.match('favicon');
+            });
 
-			meta.save(function(err, doc) {
-				if (err) logger.error(err);
-				logger.info(JSON.stringify(done));
-				done(null, msg);
-			});
+            var meta = new SourceMeta({
+                name: source,
+                favicon: (filtered[0]) ? filtered[0] : ''
+            });
 
-		});
+            meta.save(function(err, doc) {
+                if (err) logger.error(err);
+            });
 
-	},
+        });
 
-	// TODO: change this to send me an email only when there are new competitions
-	// else I ll end up getting email every time scraper scrapes
+    },
 
-	persistCompetitions: function(comps, done) {
+    // TODO: change this to send me an email only when there are new competitions
+    // else I ll end up getting email every time scraper scrapes
 
-		var validation = [];
+    persistCompetitions: function(comps, done) {
 
-		for (var index in comps) {
+        var validation = [];
 
-			(function(i) {
+        for (var index in comps) {
 
-				// Competition.findOne({
-				// 	url: comps[i].url
-				// }, function(err, result) {
-				// 	if (err) console.logger(err);
-					// var ipp = +i + 1;
-					// if (result) {
-					// 	if (ipp == comps.length) {
-					// 		done(null, 'save competitions done', validation);
-					// 	}
-					// } else {
+            (function(i) {
 
-						var comp = new Competition({
-							uri: comps[i].url,
-							img: comps[i].img,
-							title: comps[i].title,
-							source: comps[i].source,
-							closes: comps[i].closes
-						});
-						
-						// newComp.id = newComp._id;
+                // Competition.findOne({
+                // 	url: comps[i].url
+                // }, function(err, result) {
+                // 	if (err) console.logger(err);
+                // var ipp = +i + 1;
+                // if (result) {
+                // 	if (ipp == comps.length) {
+                // 		done(null, 'save competitions done', validation);
+                // 	}
+                // } else {
 
-						// logger.info('add new competition ' + newComp.url);
+                var comp = new Competition({
+                    uri: comps[i].url,
+                    img: comps[i].img,
+                    title: comps[i].title,
+                    source: comps[i].source,
+                    closes: comps[i].closes
+                });
 
-						// if (!newComp.url || !newComp.img || !newComp.title || !newComp.source || !newComp.closes) {
-						// 	validation.push(newComp);
-						// 	newComp.show = false;
-						// }
+                // newComp.id = newComp._id;
 
-						comp.update(function(err, doc) {
-							if (err) logger.error(err);
+                // logger.info('add new competition ' + newComp.url);
 
-							// convert i to number 
-							var ipp = +i + 1;
-							if (ipp == comps.length) {
-								// done(null, comps[0].source + ' competitions persisted', validation);
-								done(null, comps[0].source + ' competitions persisted', null);
-							}
-						});
-					// }
-				// });
-			})(index);
-		}
-	},
+                // if (!newComp.url || !newComp.img || !newComp.title || !newComp.source || !newComp.closes) {
+                // 	validation.push(newComp);
+                // 	newComp.show = false;
+                // }
 
-	// persistValidation: function(validation, done) {
+                comp.update(function(err, doc) {
+                    if (err) logger.error(err);
 
-	// 	var casted = validation.map(function(comp) {
-	// 		var vComp = new Validation();
-	// 		vComp.comp = comp._id;
-	// 		return vComp;
-	// 	});
+                    // convert i to number 
+                    var ipp = +i + 1;
+                    if (ipp == comps.length) {
+                        // done(null, comps[0].source + ' competitions persisted', validation);
+                        done(null, comps[0].source + ' competitions persisted', null);
+                    }
+                });
+                // }
+                // });
+            })(index);
+        }
+    },
 
-	// 	for (var index in casted) {
-	// 		(function(i) {
-	// 			var vComp = casted[i];
-	// 			vComp.save(function(err) {
-	// 				if (err) console.logger(err);
+    // persistValidation: function(validation, done) {
 
-	// 				var ipp = +i + 1;
-	// 				if (ipp == casted.length) {
-	// 					done(null);
-	// 				}
-	// 			});
-	// 		})(index);
-	// 	}
+    // 	var casted = validation.map(function(comp) {
+    // 		var vComp = new Validation();
+    // 		vComp.comp = comp._id;
+    // 		return vComp;
+    // 	});
 
-	// },
+    // 	for (var index in casted) {
+    // 		(function(i) {
+    // 			var vComp = casted[i];
+    // 			vComp.save(function(err) {
+    // 				if (err) console.logger(err);
 
-	containsRegex: function(a, regex) {
-		for (var i = 0; i < a.length; i++) {
-			if (a[i].search(regex) > -1) {
-				return i;
-			}
-		}
-		return -1;
-	}
+    // 				var ipp = +i + 1;
+    // 				if (ipp == casted.length) {
+    // 					done(null);
+    // 				}
+    // 			});
+    // 		})(index);
+    // 	}
+
+    // },
+
+    containsRegex: function(a, regex) {
+        for (var i = 0; i < a.length; i++) {
+            if (a[i].search(regex) > -1) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
 };
