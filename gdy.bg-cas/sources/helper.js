@@ -110,11 +110,11 @@ module.exports = {
                 comp.update(function(err, doc) {
                     if (err) logger.error(err);
 
-                    // convert i to number 
+                    // convert i to number
                     var ipp = +i + 1;
                     if (ipp == comps.length) {
                         // done(null, comps[0].source + ' competitions persisted', validation);
-                        done(null, comps[0].source + ' competitions persisted', null);
+                        done(null, comps[0].source + ' competitions persisted');
                     }
                 });
                 // }

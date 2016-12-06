@@ -5,7 +5,8 @@ var Xray = require('x-ray');
 var _ = require('lodash');
 var utf8 = require('utf8');
 var helper = require('./helper');
-var util = require('../../util.js');
+// var util = require('../../util.js');
+var logger = require('../logger');
 
 module.exports = {
 
@@ -15,24 +16,23 @@ module.exports = {
 			scope: 'link',
 			selector: '@href'
 		};
-		helper.persistSource('emeraldstreet', xOptions, done);
+		helper.persistSource('emeraldstreet', xOptions);
 	},
 
 	xray: function(end) {
 
 		var x = Xray();
 		var done = function(err, result) {
-			if (err) console.log(err);
-			console.log(result);
+			if (err) logger.error(err);
+			logger.info(result);
 		};
-
 
 		x('http://www.emeraldstreet.com/competitions', 'div.grid__item', [{
 			url: 'a@href',
 			img: 'div.grid__thumbnail img@src',
 			title: 'h2'
 		}])(function(err, results) {
-			if (err) console.log(err);
+			if (err) logger.error(err);
 
 			for (var i in results) {
 				results[i].title = _.trim(results[i].title);
@@ -42,8 +42,8 @@ module.exports = {
 
 			results = _.uniqBy(results, 'url');
 
-			end(null, results ,'emeraldstreet xray done');
-			
+			end(null, results);
+
 		});
 	}
 };

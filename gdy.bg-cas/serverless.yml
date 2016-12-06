@@ -19,7 +19,7 @@ service: gdybg-cas
 
 provider:
   name: aws
-  stage: prod
+  stage: dev
   runtime: nodejs4.3
   region: eu-west-1
 
@@ -41,7 +41,17 @@ provider:
 #          - ""
 #          - - "arn:aws:s3:::"
 #            - "Ref" : "ServerlessDeploymentBucket"
-
+iamRoleStatements:
+  - Effect: Allow
+    Action:
+      - dynamodb:DescribeTable
+      - dynamodb:Query
+      - dynamodb:Scan
+      - dynamodb:GetItem
+      - dynamodb:PutItem
+      - dynamodb:UpdateItem
+      - dynamodb:DeleteItem
+    Resource: "arn:aws:dynamodb:eu-west-1:*:*"
 # you can add packaging information here
 #package:
 #  exclude:
@@ -52,7 +62,7 @@ functions:
   cron:
     handler: handler.run
     events:
-      - schedule: rate(1 minute)
+      - schedule: rate(15 minutes)
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
@@ -77,3 +87,63 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
+
+# {
+#   "Table": {
+#     "AttributeDefinitions": [
+#       {
+#         "AttributeName": "uri",
+#         "AttributeType": "S"
+#       }
+#     ],
+#     "TableName": "competitions",
+#     "KeySchema": [
+#       {
+#         "AttributeName": "uri",
+#         "KeyType": "HASH"
+#       }
+#     ],
+#     "TableStatus": "ACTIVE",
+#     "CreationDateTime": "2016-11-25T17:50:09.804Z",
+#     "ProvisionedThroughput": {
+#       "LastIncreaseDateTime": "1970-01-01T00:00:00.000Z",
+#       "LastDecreaseDateTime": "1970-01-01T00:00:00.000Z",
+#       "NumberOfDecreasesToday": 0,
+#       "ReadCapacityUnits": 1,
+#       "WriteCapacityUnits": 1
+#     },
+#     "TableSizeBytes": 10554,
+#     "ItemCount": 34,
+#     "TableArn": "arn:aws:dynamodb:ddblocal:000000000000:table/competitions"
+#   }
+# }
+
+resources:
+  Resources:
+    CompetitionsTable:
+      Type: "AWS::DynamoDB::Table"
+      # DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: uri
+            AttributeType: S
+        KeySchema:
+          - AttributeName: uri
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: "competitions"
+      # SourcemetasTable:
+      #   Type: "AWS::DynamoDB::Table"
+      #   Properties:
+      #     AttributeDefinitions:
+      #       - AttributeName: name
+      #         AttributeType: S
+      #     KeySchema:
+      #       - AttributeName: name
+      #         KeyType: HASH
+      #     ProvisionedThroughput:
+      #       ReadCapacityUnits: 1
+      #       WriteCapacityUnits: 1
+      #     TableName: "sourcemetas"

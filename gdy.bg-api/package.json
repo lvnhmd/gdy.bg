@@ -1,0 +1,27 @@
+{
+  "name": "gdy.bg-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "gdy.bg",
+    "goody",
+    "bag",
+    "competitions",
+    "api"
+  ],
+  "author": "elvin ali",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.7.10",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "joi": "^10.0.2",
+    "morgan": "^1.7.0",
+    "vogels": "^2.2.0"
+  }
+}

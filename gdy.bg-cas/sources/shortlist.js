@@ -7,11 +7,13 @@ var utf8 = require('utf8');
 var helper = require('./helper');
 var async = require("async");
 var moment = require('moment');
-var util = require('../../util.js');
+// var util = require('../../util.js');
+var logger = require('../logger');
+
 
 module.exports = {
 
-	meta: function(done) {
+	meta: function() {
 
 		var xOptions = {
 			url: 'http://www.shortlist.com',
@@ -20,7 +22,7 @@ module.exports = {
 
 		};
 
-		helper.persistSource('shortlist', xOptions, done);
+		helper.persistSource('shortlist', xOptions);
 
 	},
 
@@ -30,14 +32,14 @@ module.exports = {
 		var date_regex = /\d{2}\/\d{2}\/(?:\d{4}|\d{2})/;
 
 		var done = function(err, result) {
-			if (err) console.log(err);
-			console.log(result);
+			if (err) logger.error(err)
+			logger.info(result);
 		};
 
 		function getCompetitionClosingDate(comp, done) {
 
 			x(comp.url, ['em'])(function(err, em) {
-				if (err) console.log(err);
+				if (err) logger.error(err)
 
 				if (em) {
 					var i = helper.containsRegex(em, date_regex);
@@ -45,10 +47,12 @@ module.exports = {
 						var closes = em[i].match(date_regex)[0];
 						// some of the competitions have 4 YYYY digits in closes by date
 						if (closes.search(/\d{4}/) > -1) {
-							closes = closes.substring(0, closes.length - 4) + closes.substring(closes.length - 2, closes.length);
+							closes = closes.substring(0, closes.length - 4) + closes.substring(
+								closes.length - 2, closes.length);
 						}
 						// moment loses a day, add it back
-						comp.closes = moment(closes, 'DD/MM/YY').add(1, 'days');
+						comp.closes = moment(closes, 'DD/MM/YY').toISOString();
+						// logger.info(' comp.closes ' + comp.closes);
 					}
 				}
 				done(null, comp);
@@ -61,13 +65,13 @@ module.exports = {
 				img: 'img@srcset',
 				title: 'h2'
 			}])(function(err, data) {
-				if (err) console.log(err);
+				if (err) logger.error(err)
 
 				for (var i in data) {
 
 					//prepend the url with the domain
 					data[i].url = 'http://www.shortlist.com' + data[i].url;
-					//get the image one before last 
+					//get the image one before last
 					var imgs = _.split(data[i].img, ' ');
 					data[i].img = imgs[imgs.length - 2];
 					data[i].source = 'shortlist';
@@ -82,7 +86,7 @@ module.exports = {
 			helper.get('www.shortlist.com',
 				'/api/widgets/win?ids=' + id,
 				function(err, json) {
-					if (err) console.log(err);
+					if (err) logger.error(err)
 					done(null, json);
 				}
 			);
@@ -92,9 +96,9 @@ module.exports = {
 		x('http://www.shortlist.com/win', 'div.widget__wrapper', [
 			'@data-widget-id'
 		])(function getWidgetIds(err, ids) {
-			if (err) console.log(err);
+			if (err) logger.error(err)
 
-			//call the api endpoints one by one and collect the result 
+			//call the api endpoints one by one and collect the result
 			// apiCalls = ids.length;
 			var tasks = [];
 			for (var i in ids) {
@@ -107,7 +111,7 @@ module.exports = {
 			}
 
 			async.series(tasks, function(err, results) {
-				if (err) console.log(error);
+				if (err) logger.error(err);
 				// results is array of arrays, flatten it
 				results = _.flattenDeep(results);
 				// console.log('shortlist done', results);
@@ -125,13 +129,12 @@ module.exports = {
 				}
 
 				async.series(tasks, function(err, results) {
-					if (err) console.log(error);
+					if (err) logger.error(err);
 					results = _.flattenDeep(results);
-					// console.log('shortlist done', results);
 
 					var tasks = [];
 					for (var i in results) {
-						console.log(results[i].url);
+						logger.info(results[i].url);
 						if (results[i]) {
 							(function(comp) {
 								tasks.push(function(done) {
@@ -143,13 +146,13 @@ module.exports = {
 					}
 
 					async.series(tasks, function(err, results) {
-						if (err) console.log(error);
+						if (err) logger.error(err);
 
 						//remove any duplicates
 						results = _.uniqBy(results, 'url');
 
-						end(null, results, 'shortlist xray done');
-					
+						end(null, results);
+
 					});
 
 				});

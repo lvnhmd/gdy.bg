@@ -5,7 +5,7 @@ var Xray = require('x-ray');
 var _ = require('lodash');
 var utf8 = require('utf8');
 var helper = require('./helper');
-var util = require('../../util.js');
+//var util = require('../../util.js');
 var async = require("async");
 var moment = require('moment');
 
@@ -18,7 +18,7 @@ module.exports = {
 			selector: '@href'
 
 		};
-		helper.persistSource('glamour', xOptions, done);
+		helper.persistSource('glamour', xOptions);
 	},
 
 	xray: function(end) {
@@ -26,13 +26,13 @@ module.exports = {
 		var x = Xray();
 
 		var done = function(err, result) {
-			if (err) console.log(err);
-			console.log(result);
+			if (err) logger.error(err);
+			logger.info(result);
 		};
 
 		function getCompetitionClosingDate(comp, done) {
 			x(comp.url, 'div.copy')(function(err, copy) {
-				if (err) console.log(err);
+				if (err) logger.error(err);
 
 				if (copy) {
 					var startI = copy.indexOf('closes on') + 'closes on '.length;
@@ -40,10 +40,13 @@ module.exports = {
 
 					var date = copy.substring(startI, endI).split(' ');
 					var day = date[0];
-					var month = 'January___February__March_____April_____May_______June______July______August____September_October___November__D‌​ecember__'.indexOf(date[1]) / 10 + 1;
+					var month =
+						'January___February__March_____April_____May_______June______July______August____September_October___November__D‌​ecember__'
+						.indexOf(date[1]) / 10 + 1;
 					var year = date[2];
 
-					comp.closes = moment(day + '/' + month + '/' + year, 'DD/MM/YYYY').add(1, 'days');
+					comp.closes = moment(day + '/' + month + '/' + year, 'DD/MM/YYYY').add(
+						1, 'days');
 
 				}
 				done(null, comp);
@@ -58,10 +61,11 @@ module.exports = {
 				}])
 				.paginate('li.next a@href')
 				.limit(10)(function(err, data) {
-					if (err) console.log(err);
+					if (err) logger.error(err);
 					for (var i in data) {
 						// substring(0, closes.length - 4) + closes.substring(closes.length - 2, closes.length);
-						data[i].title = data[i].title.substring(0, data[i].title.indexOf(' on GLAMOUR.com (UK)'));
+						data[i].title = data[i].title.substring(0, data[i].title.indexOf(
+							' on GLAMOUR.com (UK)'));
 						data[i].source = 'glamour';
 					}
 
@@ -78,7 +82,7 @@ module.exports = {
 		});
 
 		async.series(tasks, function(err, results) {
-			if (err) console.log(error);
+			if (err) logger.info(error);
 
 			results = _.flattenDeep(results);
 
@@ -94,12 +98,12 @@ module.exports = {
 			}
 
 			async.series(tasks, function(err, results) {
-				if (err) console.log(error);
+				if (err) logger.info(error);
 
 				// remove any duplicates
 				results = _.uniqBy(results, 'url');
 
-				end(null, results ,'glamour xray done');
+				end(null, results);
 
 			});
 		});
