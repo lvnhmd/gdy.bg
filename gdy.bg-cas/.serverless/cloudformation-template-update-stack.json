@@ -65,7 +65,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/gdybg-cas/dev/1480919706486-2016-12-05T06:35:06.486Z/gdybg-cas.zip"
+          "S3Key": "serverless/gdybg-cas/dev/1481026823766-2016-12-06T12:20:23.766Z/gdybg-cas.zip"
         },
         "FunctionName": "gdybg-cas-dev-cron",
         "Handler": "handler.run",

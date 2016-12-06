@@ -17,6 +17,8 @@ module.exports.run = () => {
 
   AWS.config.loadFromPath(__dirname + '/credentials.json');
 
+  logger.info(AWS.config);
+
   // tables will be created only if they do not exist
 
   sourcemeta.describeTable(function(err, tableInfo) {
@@ -27,12 +29,15 @@ module.exports.run = () => {
     // if table sourcemetas exist, drop it before recreating
     // that is because I can add additional sources to sources.json
 
+    logger.info('TableInfo ' + tableInfo);
+
     if (typeof tableInfo !== 'undefined') {
       sourcemeta.deleteTable(function(err) {
         if (err) logger.error(err);
         seed();
       });
     } else {
+      logger.info('Else ');
       seed();
     }
 
