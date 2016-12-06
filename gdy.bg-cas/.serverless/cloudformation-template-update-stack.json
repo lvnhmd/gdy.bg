@@ -65,7 +65,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/gdybg-cas/dev/1481026823766-2016-12-06T12:20:23.766Z/gdybg-cas.zip"
+          "S3Key": "serverless/gdybg-cas/dev/1481034935630-2016-12-06T14:35:35.630Z/gdybg-cas.zip"
         },
         "FunctionName": "gdybg-cas-dev-cron",
         "Handler": "handler.run",
@@ -137,6 +137,28 @@
           "WriteCapacityUnits": 1
         },
         "TableName": "competitions"
+      }
+    },
+    "SourcemetasTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "name",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "name",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 1,
+          "WriteCapacityUnits": 1
+        },
+        "TableName": "sourcemetas"
       }
     }
   },

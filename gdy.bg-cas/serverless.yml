@@ -118,6 +118,8 @@ functions:
 #   }
 # }
 
+# vogels should create my tables 
+
 resources:
   Resources:
     CompetitionsTable:
@@ -134,16 +136,19 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: "competitions"
-      # SourcemetasTable:
-      #   Type: "AWS::DynamoDB::Table"
-      #   Properties:
-      #     AttributeDefinitions:
-      #       - AttributeName: name
-      #         AttributeType: S
-      #     KeySchema:
-      #       - AttributeName: name
-      #         KeyType: HASH
-      #     ProvisionedThroughput:
-      #       ReadCapacityUnits: 1
-      #       WriteCapacityUnits: 1
-      #     TableName: "sourcemetas"
+    SourcemetasTable:
+      Type: "AWS::DynamoDB::Table"
+      # DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: name
+            AttributeType: S
+        KeySchema:
+          - AttributeName: name
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: "sourcemetas"
+
+      

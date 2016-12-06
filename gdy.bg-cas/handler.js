@@ -17,7 +17,7 @@ module.exports.run = () => {
 
   AWS.config.loadFromPath(__dirname + '/credentials.json');
 
-  logger.info(AWS.config);
+  // logger.info(AWS.config);
 
   // tables will be created only if they do not exist
 
@@ -37,7 +37,6 @@ module.exports.run = () => {
         seed();
       });
     } else {
-      logger.info('Else ');
       seed();
     }
 
