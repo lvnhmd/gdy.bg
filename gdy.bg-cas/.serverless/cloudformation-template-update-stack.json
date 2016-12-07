@@ -65,7 +65,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/gdybg-cas/dev/1481034935630-2016-12-06T14:35:35.630Z/gdybg-cas.zip"
+          "S3Key": "serverless/gdybg-cas/dev/1481110246062-2016-12-07T11:30:46.062Z/gdybg-cas.zip"
         },
         "FunctionName": "gdybg-cas-dev-cron",
         "Handler": "handler.run",
@@ -83,7 +83,7 @@
     "CronEventsRuleSchedule1": {
       "Type": "AWS::Events::Rule",
       "Properties": {
-        "ScheduleExpression": "rate(15 minutes)",
+        "ScheduleExpression": "rate(2 hours)",
         "State": "ENABLED",
         "Targets": [
           {
@@ -115,28 +115,6 @@
             "Arn"
           ]
         }
-      }
-    },
-    "CompetitionsTable": {
-      "Type": "AWS::DynamoDB::Table",
-      "Properties": {
-        "AttributeDefinitions": [
-          {
-            "AttributeName": "uri",
-            "AttributeType": "S"
-          }
-        ],
-        "KeySchema": [
-          {
-            "AttributeName": "uri",
-            "KeyType": "HASH"
-          }
-        ],
-        "ProvisionedThroughput": {
-          "ReadCapacityUnits": 1,
-          "WriteCapacityUnits": 1
-        },
-        "TableName": "competitions"
       }
     },
     "SourcemetasTable": {

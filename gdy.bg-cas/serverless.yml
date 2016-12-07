@@ -63,7 +63,7 @@ functions:
     handler: handler.run
     events:
       - schedule: rate(2 hours)
-
+      - timeout:  5 min  
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -122,20 +122,20 @@ functions:
 
 resources:
   Resources:
-    CompetitionsTable:
-      Type: "AWS::DynamoDB::Table"
-      # DeletionPolicy: Retain
-      Properties:
-        AttributeDefinitions:
-          - AttributeName: uri
-            AttributeType: S
-        KeySchema:
-          - AttributeName: uri
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: "competitions"
+    # CompetitionsTable:
+    #   Type: "AWS::DynamoDB::Table"
+    #   # DeletionPolicy: Retain
+    #   Properties:
+    #     AttributeDefinitions:
+    #       - AttributeName: uri
+    #         AttributeType: S
+    #     KeySchema:
+    #       - AttributeName: uri
+    #         KeyType: HASH
+    #     ProvisionedThroughput:
+    #       ReadCapacityUnits: 1
+    #       WriteCapacityUnits: 1
+    #     TableName: "competitions"
     SourcemetasTable:
       Type: "AWS::DynamoDB::Table"
       # DeletionPolicy: Retain

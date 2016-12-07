@@ -134,7 +134,7 @@ module.exports = {
 
 					var tasks = [];
 					for (var i in results) {
-						logger.info(results[i].url);
+						logger.info(' ' + results[i].url);
 						if (results[i]) {
 							(function(comp) {
 								tasks.push(function(done) {

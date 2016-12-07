@@ -132,7 +132,7 @@ module.exports = {
 
           var tasks = [];
           for (var i in results) {
-            logger.info(results[i].url);
+            logger.info(' ' + results[i].url);
             if (results[i]) {
               (function(comp) {
                 tasks.push(function(done) {
@@ -143,7 +143,7 @@ module.exports = {
           }
 
           async.series(tasks, function(err, results) {
-            if (err) logger.info(error);
+            if (err) logger.info(err);
 
             //remove any duplicates
             results = _.uniqBy(results, 'url');
