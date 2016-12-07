@@ -5,25 +5,27 @@ var Xray = require('x-ray');
 var _ = require('lodash');
 var utf8 = require('utf8');
 var helper = require('./helper');
-var util = require('../../util.js');
+var async = require("async");
+var moment = require('moment');
+var logger = require('../logger');
 
 module.exports = {
 
-	meta: function(done) {
+	meta: function() {
 		var xOptions = {
 			url: 'http://www.mrhyde.com',
 			scope: 'link',
 			selector: '@href'
 		};
-		helper.persistSource('mrhyde', xOptions, done);
+		helper.persistSource('mrhyde', xOptions);
 	},
 
 	xray: function(end) {
 
 		var x = Xray();
 		var done = function(err, result) {
-			if (err) console.log(err);
-			console.log(result);
+			if (err) logger.error(err);
+			logger.info(result);
 		};
 
 
@@ -31,18 +33,18 @@ module.exports = {
 			url: 'a@href',
 			img: 'img@src',
 			title: 'h3.grid__item__headline'
-		}])(function(err, results) {
-			if (err) console.log(err);
+		}])(function(err, result) {
+			if (err) logger.error(err);
 
-			for (var i in results) {
-				results[i].title = _.trim(results[i].title);
-				results[i].title = _.trim(results[i].title, '\n');
-				results[i].source = 'mrhyde';
+			for (var i in result) {
+				result[i].title = _.trim(result[i].title);
+				result[i].title = _.trim(result[i].title, '\n');
+				result[i].source = 'mrhyde';
 			}
 
-			results = _.uniqBy(results, 'url');
+			result = _.uniqBy(result, 'url');
 
-			end(null, results, 'mrhyde xray done');
+			end(null, result);
 
 		});
 	}

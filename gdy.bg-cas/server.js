@@ -19,7 +19,7 @@ if (process.env.NODE_ENV ==='local')
 else 
   AWS.config.loadFromPath(__dirname + '/credentials.json');
 
-logger.info(AWS.config);
+// logger.info(AWS.config);
 // tables will be created only if they do not exist
 
 sourcemeta.describeTable(function(err, tableInfo) {

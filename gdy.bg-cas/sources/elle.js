@@ -3,22 +3,21 @@
 
 var Xray = require('x-ray');
 var _ = require('lodash');
-var utf8 = require('utf8');
 var helper = require('./helper');
-var util = require('../../util.js');
 var async = require("async");
 var moment = require('moment');
+var logger = require('../logger');
 
 module.exports = {
 
-	meta: function(done) {
+	meta: function() {
 		var xOptions = {
 			url: 'http://www.elleuk.com/competitions',
 			scope: 'link',
 			selector: '@href'
 
 		};
-		helper.persistSource('elle', xOptions, done);
+		helper.persistSource('elle', xOptions);
 	},
 
 	xray: function(end) {
@@ -26,13 +25,13 @@ module.exports = {
 		var x = Xray();
 
 		var done = function(err, result) {
-			if (err) console.log(err);
-			console.log(result);
+			if (err) logger.error(err);
+			logger.info(result);
 		};
 
 		function getCompetitionClosingDate(comp, done) {
 			x(comp.url, '.wufoo')(function(err, copy) {
-				if (err) console.log(err);
+				if (err) logger.error(err);
 
 				if (copy) {
 					// var startI = copy.indexOf('closes on') + 'closes on '.length;
@@ -59,7 +58,7 @@ module.exports = {
 				}])
 				.paginate('div.pagination a@href')
 				.limit(10)(function(err, data) {
-					if (err) console.log(err);
+					if (err) logger.error(err);
 					for (var i in data) {
 						// substring(0, closes.length - 4) + closes.substring(closes.length - 2, closes.length);
 						// data[i].title = data[i].title.substring(0, data[i].title.indexOf(' on GLAMOUR.com (UK)'));
@@ -79,26 +78,26 @@ module.exports = {
 			getCompetitions(done);
 		});
 
-		async.series(tasks, function(err, results) {
-			if (err) console.log(error);
-			// console.dir(results);
-			results = _.flattenDeep(results);
-			results = _.uniqBy(results, 'url');
+		async.series(tasks, function(err, result) {
+			if (err) logger.info(error);
+			// console.dir(result);
+			result = _.flattenDeep(result);
+			result = _.uniqBy(result, 'url');
 
 			// var tasks = [];
-			// for (var i in results) {
-			// 	if (results[i]) {
+			// for (var i in result) {
+			// 	if (result[i]) {
 			// 		(function(comp) {
 			// 			tasks.push(function(done) {
 			// 				getCompetitionClosingDate(comp, done);
 			// 			});
-			// 		})(results[i]);
+			// 		})(result[i]);
 			// 	}
 			// }
 
-			// async.series(tasks, function(err, results) {
-			// 	if (err) console.log(error);
-				end(null, results, 'elle xray done');
+			// async.series(tasks, function(err, result) {
+			// 	if (err) logger.info(error);
+				end(null, result);
 			// });
 		});
 	}

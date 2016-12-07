@@ -10,7 +10,7 @@ var logger = require('../logger');
 
 module.exports = {
 
-	meta: function(done) {
+	meta: function() {
 		var xOptions = {
 			url: 'http://www.emeraldstreet.com',
 			scope: 'link',
