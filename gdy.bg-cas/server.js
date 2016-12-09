@@ -20,8 +20,6 @@ else
   AWS.config.loadFromPath(__dirname + '/credentials.json');
 
 // logger.info(AWS.config);
-// tables will be created only if they do not exist
-
 sourcemeta.describeTable(function(err, tableInfo) {
 
     // I do not want this error logged
@@ -44,6 +42,7 @@ sourcemeta.describeTable(function(err, tableInfo) {
 
 var seed = function() {
 
+    // / tables will be created only if they do not exist
     vogels.createTables(function(err) {
         if (err) logger.error(err);
 
