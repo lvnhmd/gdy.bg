@@ -3,7 +3,10 @@ var vogels = require('vogels'),
     Joi    = require('joi');
 
 process.chdir(__dirname);
-AWS.config.loadFromPath('../credentials.json');
+if (process.env.NODE_ENV ==='local') 
+  AWS.config.loadFromPath('../credentials_local.json');
+else 
+  AWS.config.loadFromPath('../credentials.json');
 
 module.exports = vogels.define('sourcemeta', {
   hashKey : 'name',
