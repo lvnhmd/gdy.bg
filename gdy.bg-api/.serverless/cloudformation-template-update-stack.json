@@ -65,7 +65,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/gdybg-api/dev/1481543168050-2016-12-12T11:46:08.050Z/gdybg-api.zip"
+          "S3Key": "serverless/gdybg-api/dev/1481797569133-2016-12-15T10:26:09.133Z/gdybg-api.zip"
         },
         "FunctionName": "gdybg-api-dev-getCompetitions",
         "Handler": "handler.getCompetitions",
@@ -270,7 +270,7 @@
         }
       }
     },
-    "ApiGatewayDeployment1481543168065": {
+    "ApiGatewayDeployment1481797569150": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
