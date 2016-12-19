@@ -66,6 +66,7 @@ functions:
         path: api/v1/competitions
         method: get
         integration: lambda
+        cors: true
   # cron:
   #   handler: handler.run
   #   events:
