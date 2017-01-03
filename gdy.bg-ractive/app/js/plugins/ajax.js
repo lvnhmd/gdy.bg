@@ -24,10 +24,16 @@ function parseJson(res) {
 
 function cacheResponse(shouldCache, ttl, key) {
  return (data) => {
-     if (shouldCache) {
-         console.log('Ajax::cacheResponse# Caching response with key:', key, 'for', ttl, 'minutes.');
-         lscache.set(data.url, data.json, ttl); // Last parameter is TTL in minutes
-     }
+     // if (shouldCache) {
+     //     console.log('Ajax::cacheResponse# Caching response with key:', key, 'for', ttl, 'minutes.');
+     //     lscache.set(data.url, data.json, ttl); // Last parameter is TTL in minutes
+     // }
+     return data.json;
+ }
+}
+
+function toJ() {
+ return (data) => {
      return data.json;
  }
 }
@@ -38,14 +44,16 @@ export function getJson(url, options = {cache: false}) {
     //  return Promise.resolve(data);
     // } else {
         
-        console.log(fetch(url)
-            .then(checkResponseStatus)
-            .then(parseJson));
+        // console.log('FETCH JSON ' + fetch(url)
+        //     .then(checkResponseStatus)
+        //     .then(parseJson));
+
+        console.log('GET ' + url);
 
         return fetch(url)
             .then(checkResponseStatus)
             .then(parseJson)
-    //         .then(cacheResponse(options.cache, options.ttl, url));
+            .then(toJ());
     // }
 }
 
