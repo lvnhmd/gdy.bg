@@ -1,0 +1,90 @@
+<div id="content" class="row">
+    <div id="collectionpage">
+        <div class="collection-description">
+            <h1></h1>
+            <div class="rte"></div>
+        </div>
+        <div class="clear"></div>
+        <!-- <div id="share_0" class="jssocials" style="border:1px solid black;"></div>  -->
+        <div id="product-loop" class="desktop-12 mobile-3">
+            <!-- <div id="share_1" class="jssocials" style="border:1px solid black;"></div>  -->
+            {{#if comps}} {{#each comps:i}}
+            <input type="hidden" id="_count" value="{{comps.length}}">
+            <!-- {{console.log(i)}} -->
+            <div class="product-index desktop-4 tablet-2 mobile-3 {{#if i%3==0 }} first {{ elseif i%3==2 }} last {{/if}}">
+                <div id="item_{{i}}" class="product-index-inner">
+                    <div class="badge">{{daystoenter}}</div>
+                    <!-- when user clicks on a competition, she is taken to the page of the competition
+                                 I want to keep track of what competitions she has entered -->
+                    <input type="hidden" class="comp_url" value="{{url}}">
+                    <a on-click="openurl">
+                        <!-- <a href="#" onclick="window.open('{{url}}', '_blank')" > -->
+                        <!-- <img src="{{img}}" alt="img"> -->
+                        <div class="img-responsive img-thumbnail ratio-4-3" style="background-image:url('{{img}}')"></div>
+                    </a>
+                    <div class="product-info">
+                        <!-- <div class="product-info-inner"> -->
+                            <!-- <div class="price" > -->
+                                <!-- <div class="prod-price" > -->
+                               {{title}}
+                               {{#if title.toLowerCase().length < 44}} 
+                                   <div class="blankrow">&nbsp;</div>
+                               {{/if}}
+                                <!-- </div> -->
+                            <!-- </div> -->
+                        <!-- </div> -->
+                    </div>
+                </div>
+                <!--  jssocials-info is my own class -->
+                <div id="share_{{i}}" class="jssocials-info"></div>
+            </div>
+            {{/each}} {{/if}}
+            <div class="clear"></div>
+            <div id="pagination" class="desktop-12 mobile-3">
+                <span class="count">Showing {{comps.length}} items</span>
+            </div>
+        </div>
+        <!-- End Content -->
+        <div class="clear"></div>
+    </div>
+    {{#if comps}}
+   
+    <script>
+    var count;
+    $(document).ready(function(){
+        count = $('#_count').val();
+    })
+    
+    for(var i=0; i<count; i++) {
+        
+        var imageToShare = $('#item_' + i + ' a img').attr('src');
+        var textToShare  = $('#item_' + i + ' .prod-price').text();  
+        var urlToShare   = $('#item_' + i + ' .comp_url').val();  
+        
+        jsSocials.setDefaults("twitter", {
+            via: "lvnhmd",
+            hashtags: "competition,awesome",
+            
+        });
+        
+        jsSocials.setDefaults("pinterest", {
+            media: imageToShare
+        });
+        
+        $("#share_"+i).jsSocials({
+            shares: ["pinterest", "twitter", "facebook"],
+            showLabel: false,
+            showCount: false,
+            shareIn: "popup",
+            url: urlToShare,
+            text: textToShare,
+            on: {
+                click: function(e) {},
+                mouseenter: function(e) {},
+                mouseleave: function(e) {}
+            }
+        });
+    }
+
+    </script>
+    {{/if}}

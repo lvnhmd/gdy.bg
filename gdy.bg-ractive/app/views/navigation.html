@@ -1,0 +1,14 @@
+<div id="navigation" class="row">
+    <nav class="primary">
+        <ul id="nav" class="desktop-12">
+            {{#if sources}} 
+                {{#each sources:i}}
+                <li>
+                  <a on-click="filterBySource">{{name}}</a>
+                <!-- <span class="arrow-down"></span> -->
+                </li>
+                {{/each}} 
+            {{/if}}
+        <!-- </ul> -->
+    </nav>
+</div>
