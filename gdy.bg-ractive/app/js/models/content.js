@@ -15,7 +15,9 @@ class Content {
     static getCompetitions() {
 
         let allCompetitionsUrl = `${API_BASE_URL}/competitions`;
-
+        console.log('--------------------------allCompetitionsUrl begin---------------------------------');
+        console.log(allCompetitionsUrl);
+        console.log('-----------------------------allCompetitionsUrl end------------------------------');
         let result = new Promise((resolve, reject) => {
                 Promise.all([
                         ajax.getJson(allCompetitionsUrl, { cache: true, ttl: 60 })
