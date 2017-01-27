@@ -1,9 +1,5 @@
 import Ractive from 'ractive';
-import template from '../views/app.html';
-
-// import SearchUserComponent from './components/layout/search-user';
-// import HomePageComponent from './components/layout/home-page';
-// import UserPageComponent from './components/user/user-page'
+import template from '../views/home-page.html';
 
 import HeaderComponent from './components/layout/header';
 import NavigationComponent from './components/layout/navigation';
@@ -19,16 +15,6 @@ let App = new Ractive({
     el: '#app',
     template: template,
 
-    // Header: 'components/header.html',
-    // Navigation: 'components/navigation.html',
-    // Content: 'components/content.html',
-    // Footer: 'components/footer.html'
-
-    // SearchUser: SearchUserComponent,
-    // HomePage: HomePageComponent,
-    // UserPage: UserPageComponent,
-    // Router: RouterComponent
-
     components: {
         Header: HeaderComponent,
         Navigation: NavigationComponent,
@@ -36,10 +22,7 @@ let App = new Ractive({
         Footer: FooterComponent,
         Router: RouterComponent
     },
-    // data: {
-    //     componentName: 'HomePage'
-    // }
-    // ,
+
     oninit() {
         RouterPlugin.init(routesConfiguration, this.onNavigation.bind(this));
         console.log('App::oninit# Application initialized!');

@@ -23,38 +23,25 @@ function parseJson(res) {
 }
 
 function cacheResponse(shouldCache, ttl, key) {
- return (data) => {
-     // if (shouldCache) {
-     //     console.log('Ajax::cacheResponse# Caching response with key:', key, 'for', ttl, 'minutes.');
-     //     lscache.set(data.url, data.json, ttl); // Last parameter is TTL in minutes
-     // }
-     return data.json;
- }
-}
-
-function toJ() {
- return (data) => {
-     return data.json;
- }
+    return (data) => {
+        if (shouldCache) {
+            console.log('Ajax::cacheResponse# Caching response with key:', key, 'for', ttl, 'minutes.');
+            lscache.set(data.url, data.json, ttl); // Last parameter is TTL in minutes
+        }
+        return data.json;
+    }
 }
 
 export function getJson(url, options = {cache: false}) {
-    // let data = lscache.get(url);
-    // if (data) {
-    //  return Promise.resolve(data);
-    // } else {
-        
-        // console.log('FETCH JSON ' + fetch(url)
-        //     .then(checkResponseStatus)
-        //     .then(parseJson));
-
-        console.log('GET ' + url);
-
+    let data = lscache.get(url);
+    if (data) {
+        return Promise.resolve(data);
+    } else {
         return fetch(url)
             .then(checkResponseStatus)
             .then(parseJson)
-            .then(toJ());
-    // }
+            .then(cacheResponse(options.cache, options.ttl, url));
+    }
 }
 
 export function putJson(url, data) {

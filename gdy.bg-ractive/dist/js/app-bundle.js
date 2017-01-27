@@ -54,9 +54,9 @@
 
 	var _ractive2 = _interopRequireDefault(_ractive);
 
-	var _app = __webpack_require__(2);
+	var _homePage = __webpack_require__(23);
 
-	var _app2 = _interopRequireDefault(_app);
+	var _homePage2 = _interopRequireDefault(_homePage);
 
 	var _header = __webpack_require__(3);
 
@@ -70,19 +70,19 @@
 
 	var _content2 = _interopRequireDefault(_content);
 
-	var _footer = __webpack_require__(9);
+	var _footer = __webpack_require__(13);
 
 	var _footer2 = _interopRequireDefault(_footer);
 
-	var _router = __webpack_require__(11);
+	var _router = __webpack_require__(15);
 
 	var _router2 = _interopRequireDefault(_router);
 
-	var _router3 = __webpack_require__(12);
+	var _router3 = __webpack_require__(16);
 
 	var RouterPlugin = _interopRequireWildcard(_router3);
 
-	var _routes = __webpack_require__(17);
+	var _routes = __webpack_require__(21);
 
 	var _routes2 = _interopRequireDefault(_routes);
 
@@ -92,17 +92,7 @@
 
 	var App = new _ractive2.default({
 	    el: '#app',
-	    template: _app2.default,
-
-	    // Header: 'components/header.html',
-	    // Navigation: 'components/navigation.html',
-	    // Content: 'components/content.html',
-	    // Footer: 'components/footer.html'
-
-	    // SearchUser: SearchUserComponent,
-	    // HomePage: HomePageComponent,
-	    // UserPage: UserPageComponent,
-	    // Router: RouterComponent
+	    template: _homePage2.default,
 
 	    components: {
 	        Header: _header2.default,
@@ -111,10 +101,7 @@
 	        Footer: _footer2.default,
 	        Router: _router2.default
 	    },
-	    // data: {
-	    //     componentName: 'HomePage'
-	    // }
-	    // ,
+
 	    oninit: function oninit() {
 	        RouterPlugin.init(_routes2.default, this.onNavigation.bind(this));
 	        console.log('App::oninit# Application initialized!');
@@ -135,10 +122,6 @@
 	        }
 	    }
 	});
-
-	// import SearchUserComponent from './components/layout/search-user';
-	// import HomePageComponent from './components/layout/home-page';
-	// import UserPageComponent from './components/user/user-page'
 
 	exports.default = App;
 
@@ -16768,12 +16751,7 @@
 
 
 /***/ },
-/* 2 */
-/***/ function(module, exports) {
-
-	module.exports = "<!-- <div class=\"main-container\">  \n    <nav class=\"navbar navbar-default\" role=\"navigation\">\n        <div class=\"col-sm-1\">\n            <a href=\"/\">\n                <h3>Notetaker</h3>\n            </a>\n        </div>\n        <div class=\"col-sm-7 col-sm-offset-1\" style=\"margin-top: 15px;\">\n            <SearchUser placeholder=\"Type a GitHub username...\" />\n        </div>\n    </nav>\n    <div class=\"container\">\n        <script type=\"text/javascript\"> console.log('{{componentName}}'); </script>\n        <Router componentName=\"{{componentName}}\"/> -->\n        <!-- <UserPage/> -->\n    <!-- </div>\n</div>  -->  \n<Header />\n<Navigation />\n<Content />\n<Footer />"
-
-/***/ },
+/* 2 */,
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16846,7 +16824,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	    value: true
 	});
 
 	var _ractive = __webpack_require__(1);
@@ -16857,10 +16835,33 @@
 
 	var _content2 = _interopRequireDefault(_content);
 
+	var _content3 = __webpack_require__(9);
+
+	var _content4 = _interopRequireDefault(_content3);
+
+	var _ajax = __webpack_require__(10);
+
+	var ajax = _interopRequireWildcard(_ajax);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var API_BASE_URL = 'https://0lncgbduy9.execute-api.eu-west-1.amazonaws.com/dev/api/v1/';
+
 	var Content = _ractive2.default.components.Content = _ractive2.default.extend({
-		template: _content2.default
+	    template: _content2.default,
+
+	    oninit: function oninit() {
+	        var _this = this;
+
+	        this.observe('req', function (request) {
+	            if (request.body.content && request.body.content.comps) {
+	                _this.set('comps', request.body.content.comps);
+	            }
+	        });
+	    }
+
 	});
 	Content._name = 'Content';
 
@@ -16870,10 +16871,981 @@
 /* 8 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"content\" class=\"row\">\n    <div id=\"collectionpage\">\n        <div class=\"collection-description\">\n            <h1></h1>\n            <div class=\"rte\"></div>\n        </div>\n        <div class=\"clear\"></div>\n        <!-- <div id=\"share_0\" class=\"jssocials\" style=\"border:1px solid black;\"></div>  -->\n        <div id=\"product-loop\" class=\"desktop-12 mobile-3\">\n            <!-- <div id=\"share_1\" class=\"jssocials\" style=\"border:1px solid black;\"></div>  -->\n            {{#if comps}} {{#each comps:i}}\n            <input type=\"hidden\" id=\"_count\" value=\"{{comps.length}}\">\n            <!-- {{console.log(i)}} -->\n            <div class=\"product-index desktop-4 tablet-2 mobile-3 {{#if i%3==0 }} first {{ elseif i%3==2 }} last {{/if}}\">\n                <div id=\"item_{{i}}\" class=\"product-index-inner\">\n                    <div class=\"badge\">{{daystoenter}}</div>\n                    <!-- when user clicks on a competition, she is taken to the page of the competition\n                                 I want to keep track of what competitions she has entered -->\n                    <input type=\"hidden\" class=\"comp_url\" value=\"{{url}}\">\n                    <a on-click=\"openurl\">\n                        <!-- <a href=\"#\" onclick=\"window.open('{{url}}', '_blank')\" > -->\n                        <!-- <img src=\"{{img}}\" alt=\"img\"> -->\n                        <div class=\"img-responsive img-thumbnail ratio-4-3\" style=\"background-image:url('{{img}}')\"></div>\n                    </a>\n                    <div class=\"product-info\">\n                        <!-- <div class=\"product-info-inner\"> -->\n                            <!-- <div class=\"price\" > -->\n                                <!-- <div class=\"prod-price\" > -->\n                               {{title}}\n                               {{#if title.toLowerCase().length < 44}} \n                                   <div class=\"blankrow\">&nbsp;</div>\n                               {{/if}}\n                                <!-- </div> -->\n                            <!-- </div> -->\n                        <!-- </div> -->\n                    </div>\n                </div>\n                <!--  jssocials-info is my own class -->\n                <div id=\"share_{{i}}\" class=\"jssocials-info\"></div>\n            </div>\n            {{/each}} {{/if}}\n            <div class=\"clear\"></div>\n            <div id=\"pagination\" class=\"desktop-12 mobile-3\">\n                <span class=\"count\">Showing {{comps.length}} items</span>\n            </div>\n        </div>\n        <!-- End Content -->\n        <div class=\"clear\"></div>\n    </div>\n    {{#if comps}}\n   \n    <script>\n    var count;\n    $(document).ready(function(){\n        count = $('#_count').val();\n    })\n    \n    for(var i=0; i<count; i++) {\n        \n        var imageToShare = $('#item_' + i + ' a img').attr('src');\n        var textToShare  = $('#item_' + i + ' .prod-price').text();  \n        var urlToShare   = $('#item_' + i + ' .comp_url').val();  \n        \n        jsSocials.setDefaults(\"twitter\", {\n            via: \"lvnhmd\",\n            hashtags: \"competition,awesome\",\n            \n        });\n        \n        jsSocials.setDefaults(\"pinterest\", {\n            media: imageToShare\n        });\n        \n        $(\"#share_\"+i).jsSocials({\n            shares: [\"pinterest\", \"twitter\", \"facebook\"],\n            showLabel: false,\n            showCount: false,\n            shareIn: \"popup\",\n            url: urlToShare,\n            text: textToShare,\n            on: {\n                click: function(e) {},\n                mouseenter: function(e) {},\n                mouseleave: function(e) {}\n            }\n        });\n    }\n\n    </script>\n    {{/if}}"
+	module.exports = "<div id=\"content\" class=\"row\">\n    <div id=\"collectionpage\">\n        <div class=\"collection-description\">\n            <h1></h1>\n            <div class=\"rte\"></div>\n        </div>\n        <div class=\"clear\"></div>\n        <!-- <div id=\"share_0\" class=\"jssocials\" style=\"border:1px solid black;\"></div>  -->\n        <div id=\"product-loop\" class=\"desktop-12 mobile-3\">\n            <!-- <div id=\"share_1\" class=\"jssocials\" style=\"border:1px solid black;\"></div>  -->\n            {{#if comps}} {{#each comps:i}}\n            <input type=\"hidden\" id=\"_count\" value=\"{{comps.length}}\">\n            <!-- {{console.log(i)}} -->\n            <div class=\"product-index desktop-4 tablet-2 mobile-3 {{#if i%3==0 }} first {{ elseif i%3==2 }} last {{/if}}\">\n                <div id=\"item_{{i}}\" class=\"product-index-inner\">\n                    <div class=\"badge\">{{daystoenter}}</div>\n                    <!-- when user clicks on a competition, she is taken to the page of the competition\n                                 I want to keep track of what competitions she has entered -->\n                    <input type=\"hidden\" class=\"comp_url\" value=\"{{url}}\">\n                    <a on-click=\"openurl\">\n                        <!-- <a href=\"#\" onclick=\"window.open('{{url}}', '_blank')\" > -->\n                        <!-- <img src=\"{{img}}\" alt=\"img\"> -->\n                        <div class=\"img-responsive img-thumbnail ratio-4-3\" style=\"background-image:url('{{img}}')\"></div>\n                    </a>\n                    <div class=\"product-info\">\n                        <!-- <div class=\"product-info-inner\"> -->\n                            <!-- <div class=\"price\" > -->\n                                <!-- <div class=\"prod-price\" > -->\n                               {{title}}\n                               {{#if title.toLowerCase().length < 44}} \n                                   <div class=\"blankrow\">&nbsp;</div>\n                               {{/if}}\n                                <!-- </div> -->\n                            <!-- </div> -->\n                        <!-- </div> -->\n                    </div>\n                </div>\n                <!--  jssocials-info is my own class -->\n                <div id=\"share_{{i}}\" class=\"jssocials-info\"></div>\n            </div>\n            {{/each}} {{/if}}\n            <div class=\"clear\"></div>\n            <div id=\"pagination\" class=\"desktop-12 mobile-3\">\n                <span class=\"count\">Showing {{comps.length}} items</span>\n            </div>\n        </div>\n        <!-- End Content -->\n        <div class=\"clear\"></div>\n    </div>\n    <!-- {{#if comps}}\n   \n    <script>\n    var count;\n    $(document).ready(function(){\n        count = $('#_count').val();\n    })\n    \n    for(var i=0; i<count; i++) {\n        \n        var imageToShare = $('#item_' + i + ' a img').attr('src');\n        var textToShare  = $('#item_' + i + ' .prod-price').text();  \n        var urlToShare   = $('#item_' + i + ' .comp_url').val();  \n        \n        jsSocials.setDefaults(\"twitter\", {\n            via: \"lvnhmd\",\n            hashtags: \"competition,awesome\",\n            \n        });\n        \n        jsSocials.setDefaults(\"pinterest\", {\n            media: imageToShare\n        });\n        \n        $(\"#share_\"+i).jsSocials({\n            shares: [\"pinterest\", \"twitter\", \"facebook\"],\n            showLabel: false,\n            showCount: false,\n            shareIn: \"popup\",\n            url: urlToShare,\n            text: textToShare,\n            on: {\n                click: function(e) {},\n                mouseenter: function(e) {},\n                mouseleave: function(e) {}\n            }\n        });\n    }\n\n    </script>\n    {{/if}} -->"
 
 /***/ },
 /* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _ajax = __webpack_require__(10);
+
+	var ajax = _interopRequireWildcard(_ajax);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var API_BASE_URL = 'https://0lncgbduy9.execute-api.eu-west-1.amazonaws.com/dev/api/v1';
+
+	var Content = function () {
+	    function Content(competitions) {
+	        _classCallCheck(this, Content);
+
+	        this.comps = competitions['Items'];
+	    }
+
+	    _createClass(Content, null, [{
+	        key: 'getCompetitions',
+	        value: function getCompetitions() {
+
+	            var allCompetitionsUrl = API_BASE_URL + '/competitions';
+
+	            var result = new Promise(function (resolve, reject) {
+	                Promise.all([ajax.getJson(allCompetitionsUrl, { cache: true, ttl: 60 })]).then(function (values) {
+	                    resolve(new Content(values[0]));
+	                }).catch(reject);
+	            });
+
+	            return result;
+	        }
+	    }]);
+
+	    return Content;
+	}();
+
+	exports.default = Content;
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(fetch) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.getJson = getJson;
+	exports.putJson = putJson;
+
+	var _lscache = __webpack_require__(12);
+
+	var _lscache2 = _interopRequireDefault(_lscache);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function checkResponseStatus(res) {
+	    if (res.status < 400) {
+	        return res;
+	    } else {
+	        var error = new Error(res.statusText);
+	        error.statusCode = res.status;
+	        error.response = res;
+	        throw error;
+	    }
+	}
+
+	function parseJson(res) {
+	    return new Promise(function (resolve) {
+	        res.json().then(function (data) {
+	            resolve({
+	                json: data,
+	                url: res.url
+	            });
+	        });
+	    });
+	}
+
+	function cacheResponse(shouldCache, ttl, key) {
+	    return function (data) {
+	        if (shouldCache) {
+	            console.log('Ajax::cacheResponse# Caching response with key:', key, 'for', ttl, 'minutes.');
+	            _lscache2.default.set(data.url, data.json, ttl); // Last parameter is TTL in minutes
+	        }
+	        return data.json;
+	    };
+	}
+
+	function getJson(url) {
+	    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { cache: false };
+
+	    var data = _lscache2.default.get(url);
+	    if (data) {
+	        return Promise.resolve(data);
+	    } else {
+	        return fetch(url).then(checkResponseStatus).then(parseJson).then(cacheResponse(options.cache, options.ttl, url));
+	    }
+	}
+
+	function putJson(url, data) {
+	    return fetch(url, {
+	        method: 'put',
+	        headers: {
+	            'Accept': 'application/json',
+	            'Content-Type': 'application/json'
+	        },
+	        body: JSON.stringify(data)
+	    }).then(checkResponseStatus);
+	}
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {/*** IMPORTS FROM imports-loader ***/
+	(function() {
+
+	(function(self) {
+	  'use strict';
+
+	  if (self.fetch) {
+	    return
+	  }
+
+	  var support = {
+	    searchParams: 'URLSearchParams' in self,
+	    iterable: 'Symbol' in self && 'iterator' in Symbol,
+	    blob: 'FileReader' in self && 'Blob' in self && (function() {
+	      try {
+	        new Blob()
+	        return true
+	      } catch(e) {
+	        return false
+	      }
+	    })(),
+	    formData: 'FormData' in self,
+	    arrayBuffer: 'ArrayBuffer' in self
+	  }
+
+	  if (support.arrayBuffer) {
+	    var viewClasses = [
+	      '[object Int8Array]',
+	      '[object Uint8Array]',
+	      '[object Uint8ClampedArray]',
+	      '[object Int16Array]',
+	      '[object Uint16Array]',
+	      '[object Int32Array]',
+	      '[object Uint32Array]',
+	      '[object Float32Array]',
+	      '[object Float64Array]'
+	    ]
+
+	    var isDataView = function(obj) {
+	      return obj && DataView.prototype.isPrototypeOf(obj)
+	    }
+
+	    var isArrayBufferView = ArrayBuffer.isView || function(obj) {
+	      return obj && viewClasses.indexOf(Object.prototype.toString.call(obj)) > -1
+	    }
+	  }
+
+	  function normalizeName(name) {
+	    if (typeof name !== 'string') {
+	      name = String(name)
+	    }
+	    if (/[^a-z0-9\-#$%&'*+.\^_`|~]/i.test(name)) {
+	      throw new TypeError('Invalid character in header field name')
+	    }
+	    return name.toLowerCase()
+	  }
+
+	  function normalizeValue(value) {
+	    if (typeof value !== 'string') {
+	      value = String(value)
+	    }
+	    return value
+	  }
+
+	  // Build a destructive iterator for the value list
+	  function iteratorFor(items) {
+	    var iterator = {
+	      next: function() {
+	        var value = items.shift()
+	        return {done: value === undefined, value: value}
+	      }
+	    }
+
+	    if (support.iterable) {
+	      iterator[Symbol.iterator] = function() {
+	        return iterator
+	      }
+	    }
+
+	    return iterator
+	  }
+
+	  function Headers(headers) {
+	    this.map = {}
+
+	    if (headers instanceof Headers) {
+	      headers.forEach(function(value, name) {
+	        this.append(name, value)
+	      }, this)
+
+	    } else if (headers) {
+	      Object.getOwnPropertyNames(headers).forEach(function(name) {
+	        this.append(name, headers[name])
+	      }, this)
+	    }
+	  }
+
+	  Headers.prototype.append = function(name, value) {
+	    name = normalizeName(name)
+	    value = normalizeValue(value)
+	    var oldValue = this.map[name]
+	    this.map[name] = oldValue ? oldValue+','+value : value
+	  }
+
+	  Headers.prototype['delete'] = function(name) {
+	    delete this.map[normalizeName(name)]
+	  }
+
+	  Headers.prototype.get = function(name) {
+	    name = normalizeName(name)
+	    return this.has(name) ? this.map[name] : null
+	  }
+
+	  Headers.prototype.has = function(name) {
+	    return this.map.hasOwnProperty(normalizeName(name))
+	  }
+
+	  Headers.prototype.set = function(name, value) {
+	    this.map[normalizeName(name)] = normalizeValue(value)
+	  }
+
+	  Headers.prototype.forEach = function(callback, thisArg) {
+	    for (var name in this.map) {
+	      if (this.map.hasOwnProperty(name)) {
+	        callback.call(thisArg, this.map[name], name, this)
+	      }
+	    }
+	  }
+
+	  Headers.prototype.keys = function() {
+	    var items = []
+	    this.forEach(function(value, name) { items.push(name) })
+	    return iteratorFor(items)
+	  }
+
+	  Headers.prototype.values = function() {
+	    var items = []
+	    this.forEach(function(value) { items.push(value) })
+	    return iteratorFor(items)
+	  }
+
+	  Headers.prototype.entries = function() {
+	    var items = []
+	    this.forEach(function(value, name) { items.push([name, value]) })
+	    return iteratorFor(items)
+	  }
+
+	  if (support.iterable) {
+	    Headers.prototype[Symbol.iterator] = Headers.prototype.entries
+	  }
+
+	  function consumed(body) {
+	    if (body.bodyUsed) {
+	      return Promise.reject(new TypeError('Already read'))
+	    }
+	    body.bodyUsed = true
+	  }
+
+	  function fileReaderReady(reader) {
+	    return new Promise(function(resolve, reject) {
+	      reader.onload = function() {
+	        resolve(reader.result)
+	      }
+	      reader.onerror = function() {
+	        reject(reader.error)
+	      }
+	    })
+	  }
+
+	  function readBlobAsArrayBuffer(blob) {
+	    var reader = new FileReader()
+	    var promise = fileReaderReady(reader)
+	    reader.readAsArrayBuffer(blob)
+	    return promise
+	  }
+
+	  function readBlobAsText(blob) {
+	    var reader = new FileReader()
+	    var promise = fileReaderReady(reader)
+	    reader.readAsText(blob)
+	    return promise
+	  }
+
+	  function readArrayBufferAsText(buf) {
+	    var view = new Uint8Array(buf)
+	    var chars = new Array(view.length)
+
+	    for (var i = 0; i < view.length; i++) {
+	      chars[i] = String.fromCharCode(view[i])
+	    }
+	    return chars.join('')
+	  }
+
+	  function bufferClone(buf) {
+	    if (buf.slice) {
+	      return buf.slice(0)
+	    } else {
+	      var view = new Uint8Array(buf.byteLength)
+	      view.set(new Uint8Array(buf))
+	      return view.buffer
+	    }
+	  }
+
+	  function Body() {
+	    this.bodyUsed = false
+
+	    this._initBody = function(body) {
+	      this._bodyInit = body
+	      if (!body) {
+	        this._bodyText = ''
+	      } else if (typeof body === 'string') {
+	        this._bodyText = body
+	      } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
+	        this._bodyBlob = body
+	      } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
+	        this._bodyFormData = body
+	      } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+	        this._bodyText = body.toString()
+	      } else if (support.arrayBuffer && support.blob && isDataView(body)) {
+	        this._bodyArrayBuffer = bufferClone(body.buffer)
+	        // IE 10-11 can't handle a DataView body.
+	        this._bodyInit = new Blob([this._bodyArrayBuffer])
+	      } else if (support.arrayBuffer && (ArrayBuffer.prototype.isPrototypeOf(body) || isArrayBufferView(body))) {
+	        this._bodyArrayBuffer = bufferClone(body)
+	      } else {
+	        throw new Error('unsupported BodyInit type')
+	      }
+
+	      if (!this.headers.get('content-type')) {
+	        if (typeof body === 'string') {
+	          this.headers.set('content-type', 'text/plain;charset=UTF-8')
+	        } else if (this._bodyBlob && this._bodyBlob.type) {
+	          this.headers.set('content-type', this._bodyBlob.type)
+	        } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+	          this.headers.set('content-type', 'application/x-www-form-urlencoded;charset=UTF-8')
+	        }
+	      }
+	    }
+
+	    if (support.blob) {
+	      this.blob = function() {
+	        var rejected = consumed(this)
+	        if (rejected) {
+	          return rejected
+	        }
+
+	        if (this._bodyBlob) {
+	          return Promise.resolve(this._bodyBlob)
+	        } else if (this._bodyArrayBuffer) {
+	          return Promise.resolve(new Blob([this._bodyArrayBuffer]))
+	        } else if (this._bodyFormData) {
+	          throw new Error('could not read FormData body as blob')
+	        } else {
+	          return Promise.resolve(new Blob([this._bodyText]))
+	        }
+	      }
+
+	      this.arrayBuffer = function() {
+	        if (this._bodyArrayBuffer) {
+	          return consumed(this) || Promise.resolve(this._bodyArrayBuffer)
+	        } else {
+	          return this.blob().then(readBlobAsArrayBuffer)
+	        }
+	      }
+	    }
+
+	    this.text = function() {
+	      var rejected = consumed(this)
+	      if (rejected) {
+	        return rejected
+	      }
+
+	      if (this._bodyBlob) {
+	        return readBlobAsText(this._bodyBlob)
+	      } else if (this._bodyArrayBuffer) {
+	        return Promise.resolve(readArrayBufferAsText(this._bodyArrayBuffer))
+	      } else if (this._bodyFormData) {
+	        throw new Error('could not read FormData body as text')
+	      } else {
+	        return Promise.resolve(this._bodyText)
+	      }
+	    }
+
+	    if (support.formData) {
+	      this.formData = function() {
+	        return this.text().then(decode)
+	      }
+	    }
+
+	    this.json = function() {
+	      return this.text().then(JSON.parse)
+	    }
+
+	    return this
+	  }
+
+	  // HTTP methods whose capitalization should be normalized
+	  var methods = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT']
+
+	  function normalizeMethod(method) {
+	    var upcased = method.toUpperCase()
+	    return (methods.indexOf(upcased) > -1) ? upcased : method
+	  }
+
+	  function Request(input, options) {
+	    options = options || {}
+	    var body = options.body
+
+	    if (typeof input === 'string') {
+	      this.url = input
+	    } else {
+	      if (input.bodyUsed) {
+	        throw new TypeError('Already read')
+	      }
+	      this.url = input.url
+	      this.credentials = input.credentials
+	      if (!options.headers) {
+	        this.headers = new Headers(input.headers)
+	      }
+	      this.method = input.method
+	      this.mode = input.mode
+	      if (!body && input._bodyInit != null) {
+	        body = input._bodyInit
+	        input.bodyUsed = true
+	      }
+	    }
+
+	    this.credentials = options.credentials || this.credentials || 'omit'
+	    if (options.headers || !this.headers) {
+	      this.headers = new Headers(options.headers)
+	    }
+	    this.method = normalizeMethod(options.method || this.method || 'GET')
+	    this.mode = options.mode || this.mode || null
+	    this.referrer = null
+
+	    if ((this.method === 'GET' || this.method === 'HEAD') && body) {
+	      throw new TypeError('Body not allowed for GET or HEAD requests')
+	    }
+	    this._initBody(body)
+	  }
+
+	  Request.prototype.clone = function() {
+	    return new Request(this, { body: this._bodyInit })
+	  }
+
+	  function decode(body) {
+	    var form = new FormData()
+	    body.trim().split('&').forEach(function(bytes) {
+	      if (bytes) {
+	        var split = bytes.split('=')
+	        var name = split.shift().replace(/\+/g, ' ')
+	        var value = split.join('=').replace(/\+/g, ' ')
+	        form.append(decodeURIComponent(name), decodeURIComponent(value))
+	      }
+	    })
+	    return form
+	  }
+
+	  function parseHeaders(rawHeaders) {
+	    var headers = new Headers()
+	    rawHeaders.split('\r\n').forEach(function(line) {
+	      var parts = line.split(':')
+	      var key = parts.shift().trim()
+	      if (key) {
+	        var value = parts.join(':').trim()
+	        headers.append(key, value)
+	      }
+	    })
+	    return headers
+	  }
+
+	  Body.call(Request.prototype)
+
+	  function Response(bodyInit, options) {
+	    if (!options) {
+	      options = {}
+	    }
+
+	    this.type = 'default'
+	    this.status = 'status' in options ? options.status : 200
+	    this.ok = this.status >= 200 && this.status < 300
+	    this.statusText = 'statusText' in options ? options.statusText : 'OK'
+	    this.headers = new Headers(options.headers)
+	    this.url = options.url || ''
+	    this._initBody(bodyInit)
+	  }
+
+	  Body.call(Response.prototype)
+
+	  Response.prototype.clone = function() {
+	    return new Response(this._bodyInit, {
+	      status: this.status,
+	      statusText: this.statusText,
+	      headers: new Headers(this.headers),
+	      url: this.url
+	    })
+	  }
+
+	  Response.error = function() {
+	    var response = new Response(null, {status: 0, statusText: ''})
+	    response.type = 'error'
+	    return response
+	  }
+
+	  var redirectStatuses = [301, 302, 303, 307, 308]
+
+	  Response.redirect = function(url, status) {
+	    if (redirectStatuses.indexOf(status) === -1) {
+	      throw new RangeError('Invalid status code')
+	    }
+
+	    return new Response(null, {status: status, headers: {location: url}})
+	  }
+
+	  self.Headers = Headers
+	  self.Request = Request
+	  self.Response = Response
+
+	  self.fetch = function(input, init) {
+	    return new Promise(function(resolve, reject) {
+	      var request = new Request(input, init)
+	      var xhr = new XMLHttpRequest()
+
+	      xhr.onload = function() {
+	        var options = {
+	          status: xhr.status,
+	          statusText: xhr.statusText,
+	          headers: parseHeaders(xhr.getAllResponseHeaders() || '')
+	        }
+	        options.url = 'responseURL' in xhr ? xhr.responseURL : options.headers.get('X-Request-URL')
+	        var body = 'response' in xhr ? xhr.response : xhr.responseText
+	        resolve(new Response(body, options))
+	      }
+
+	      xhr.onerror = function() {
+	        reject(new TypeError('Network request failed'))
+	      }
+
+	      xhr.ontimeout = function() {
+	        reject(new TypeError('Network request failed'))
+	      }
+
+	      xhr.open(request.method, request.url, true)
+
+	      if (request.credentials === 'include') {
+	        xhr.withCredentials = true
+	      }
+
+	      if ('responseType' in xhr && support.blob) {
+	        xhr.responseType = 'blob'
+	      }
+
+	      request.headers.forEach(function(value, name) {
+	        xhr.setRequestHeader(name, value)
+	      })
+
+	      xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
+	    })
+	  }
+	  self.fetch.polyfill = true
+	})(typeof self !== 'undefined' ? self : this);
+
+
+	/*** EXPORTS FROM exports-loader ***/
+	module.exports = global.fetch;
+	}.call(global));
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
+	 * lscache library
+	 * Copyright (c) 2011, Pamela Fox
+	 *
+	 * Licensed under the Apache License, Version 2.0 (the "License");
+	 * you may not use this file except in compliance with the License.
+	 * You may obtain a copy of the License at
+	 *
+	 *       http://www.apache.org/licenses/LICENSE-2.0
+	 *
+	 * Unless required by applicable law or agreed to in writing, software
+	 * distributed under the License is distributed on an "AS IS" BASIS,
+	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	 * See the License for the specific language governing permissions and
+	 * limitations under the License.
+	 */
+
+	/* jshint undef:true, browser:true, node:true */
+	/* global define */
+
+	(function (root, factory) {
+	    if (true) {
+	        // AMD. Register as an anonymous module.
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    } else if (typeof module !== "undefined" && module.exports) {
+	        // CommonJS/Node module
+	        module.exports = factory();
+	    } else {
+	        // Browser globals
+	        root.lscache = factory();
+	    }
+	}(this, function () {
+
+	  // Prefix for all lscache keys
+	  var CACHE_PREFIX = 'lscache-';
+
+	  // Suffix for the key name on the expiration items in localStorage
+	  var CACHE_SUFFIX = '-cacheexpiration';
+
+	  // expiration date radix (set to Base-36 for most space savings)
+	  var EXPIRY_RADIX = 10;
+
+	  // time resolution in minutes
+	  var EXPIRY_UNITS = 60 * 1000;
+
+	  // ECMAScript max Date (epoch + 1e8 days)
+	  var MAX_DATE = Math.floor(8.64e15/EXPIRY_UNITS);
+
+	  var cachedStorage;
+	  var cachedJSON;
+	  var cacheBucket = '';
+	  var warnings = false;
+
+	  // Determines if localStorage is supported in the browser;
+	  // result is cached for better performance instead of being run each time.
+	  // Feature detection is based on how Modernizr does it;
+	  // it's not straightforward due to FF4 issues.
+	  // It's not run at parse-time as it takes 200ms in Android.
+	  function supportsStorage() {
+	    var key = '__lscachetest__';
+	    var value = key;
+
+	    if (cachedStorage !== undefined) {
+	      return cachedStorage;
+	    }
+
+	    // some browsers will throw an error if you try to access local storage (e.g. brave browser)
+	    // hence check is inside a try/catch
+	    try {
+	      if (!localStorage) {
+	        return false;
+	      }
+	    } catch (ex) {
+	      return false;
+	    }
+
+	    try {
+	      setItem(key, value);
+	      removeItem(key);
+	      cachedStorage = true;
+	    } catch (e) {
+	        // If we hit the limit, and we don't have an empty localStorage then it means we have support
+	        if (isOutOfSpace(e) && localStorage.length) {
+	            cachedStorage = true; // just maxed it out and even the set test failed.
+	        } else {
+	            cachedStorage = false;
+	        }
+	    }
+	    return cachedStorage;
+	  }
+
+	  // Check to set if the error is us dealing with being out of space
+	  function isOutOfSpace(e) {
+	    if (e && e.name === 'QUOTA_EXCEEDED_ERR' ||
+	            e.name === 'NS_ERROR_DOM_QUOTA_REACHED' ||
+	            e.name === 'QuotaExceededError') {
+	        return true;
+	    }
+	    return false;
+	  }
+
+	  // Determines if native JSON (de-)serialization is supported in the browser.
+	  function supportsJSON() {
+	    /*jshint eqnull:true */
+	    if (cachedJSON === undefined) {
+	      cachedJSON = (window.JSON != null);
+	    }
+	    return cachedJSON;
+	  }
+
+	  /**
+	   * Returns a string where all RegExp special characters are escaped with a \.
+	   * @param {String} text
+	   * @return {string}
+	   */
+	  function escapeRegExpSpecialCharacters(text) {
+	    return text.replace(/[[\]{}()*+?.\\^$|]/g, '\\$&');
+	  }
+
+	  /**
+	   * Returns the full string for the localStorage expiration item.
+	   * @param {String} key
+	   * @return {string}
+	   */
+	  function expirationKey(key) {
+	    return key + CACHE_SUFFIX;
+	  }
+
+	  /**
+	   * Returns the number of minutes since the epoch.
+	   * @return {number}
+	   */
+	  function currentTime() {
+	    return Math.floor((new Date().getTime())/EXPIRY_UNITS);
+	  }
+
+	  /**
+	   * Wrapper functions for localStorage methods
+	   */
+
+	  function getItem(key) {
+	    return localStorage.getItem(CACHE_PREFIX + cacheBucket + key);
+	  }
+
+	  function setItem(key, value) {
+	    // Fix for iPad issue - sometimes throws QUOTA_EXCEEDED_ERR on setItem.
+	    localStorage.removeItem(CACHE_PREFIX + cacheBucket + key);
+	    localStorage.setItem(CACHE_PREFIX + cacheBucket + key, value);
+	  }
+
+	  function removeItem(key) {
+	    localStorage.removeItem(CACHE_PREFIX + cacheBucket + key);
+	  }
+
+	  function eachKey(fn) {
+	    var prefixRegExp = new RegExp('^' + CACHE_PREFIX + escapeRegExpSpecialCharacters(cacheBucket) + '(.*)');
+	    // Loop in reverse as removing items will change indices of tail
+	    for (var i = localStorage.length-1; i >= 0 ; --i) {
+	      var key = localStorage.key(i);
+	      key = key && key.match(prefixRegExp);
+	      key = key && key[1];
+	      if (key && key.indexOf(CACHE_SUFFIX) < 0) {
+	        fn(key, expirationKey(key));
+	      }
+	    }
+	  }
+
+	  function flushItem(key) {
+	    var exprKey = expirationKey(key);
+
+	    removeItem(key);
+	    removeItem(exprKey);
+	  }
+
+	  function flushExpiredItem(key) {
+	    var exprKey = expirationKey(key);
+	    var expr = getItem(exprKey);
+
+	    if (expr) {
+	      var expirationTime = parseInt(expr, EXPIRY_RADIX);
+
+	      // Check if we should actually kick item out of storage
+	      if (currentTime() >= expirationTime) {
+	        removeItem(key);
+	        removeItem(exprKey);
+	        return true;
+	      }
+	    }
+	  }
+
+	  function warn(message, err) {
+	    if (!warnings) return;
+	    if (!('console' in window) || typeof window.console.warn !== 'function') return;
+	    window.console.warn("lscache - " + message);
+	    if (err) window.console.warn("lscache - The error was: " + err.message);
+	  }
+
+	  var lscache = {
+	    /**
+	     * Stores the value in localStorage. Expires after specified number of minutes.
+	     * @param {string} key
+	     * @param {Object|string} value
+	     * @param {number} time
+	     */
+	    set: function(key, value, time) {
+	      if (!supportsStorage()) return;
+
+	      // If we don't get a string value, try to stringify
+	      // In future, localStorage may properly support storing non-strings
+	      // and this can be removed.
+	      if (typeof value !== 'string') {
+	        if (!supportsJSON()) return;
+	        try {
+	          value = JSON.stringify(value);
+	        } catch (e) {
+	          // Sometimes we can't stringify due to circular refs
+	          // in complex objects, so we won't bother storing then.
+	          return;
+	        }
+	      }
+
+	      try {
+	        setItem(key, value);
+	      } catch (e) {
+	        if (isOutOfSpace(e)) {
+	          // If we exceeded the quota, then we will sort
+	          // by the expire time, and then remove the N oldest
+	          var storedKeys = [];
+	          var storedKey;
+	          eachKey(function(key, exprKey) {
+	            var expiration = getItem(exprKey);
+	            if (expiration) {
+	              expiration = parseInt(expiration, EXPIRY_RADIX);
+	            } else {
+	              // TODO: Store date added for non-expiring items for smarter removal
+	              expiration = MAX_DATE;
+	            }
+	            storedKeys.push({
+	              key: key,
+	              size: (getItem(key) || '').length,
+	              expiration: expiration
+	            });
+	          });
+	          // Sorts the keys with oldest expiration time last
+	          storedKeys.sort(function(a, b) { return (b.expiration-a.expiration); });
+
+	          var targetSize = (value||'').length;
+	          while (storedKeys.length && targetSize > 0) {
+	            storedKey = storedKeys.pop();
+	            warn("Cache is full, removing item with key '" + key + "'");
+	            flushItem(storedKey.key);
+	            targetSize -= storedKey.size;
+	          }
+	          try {
+	            setItem(key, value);
+	          } catch (e) {
+	            // value may be larger than total quota
+	            warn("Could not add item with key '" + key + "', perhaps it's too big?", e);
+	            return;
+	          }
+	        } else {
+	          // If it was some other error, just give up.
+	          warn("Could not add item with key '" + key + "'", e);
+	          return;
+	        }
+	      }
+
+	      // If a time is specified, store expiration info in localStorage
+	      if (time) {
+	        setItem(expirationKey(key), (currentTime() + time).toString(EXPIRY_RADIX));
+	      } else {
+	        // In case they previously set a time, remove that info from localStorage.
+	        removeItem(expirationKey(key));
+	      }
+	    },
+
+	    /**
+	     * Retrieves specified value from localStorage, if not expired.
+	     * @param {string} key
+	     * @return {string|Object}
+	     */
+	    get: function(key) {
+	      if (!supportsStorage()) return null;
+
+	      // Return the de-serialized item if not expired
+	      if (flushExpiredItem(key)) { return null; }
+
+	      // Tries to de-serialize stored value if its an object, and returns the normal value otherwise.
+	      var value = getItem(key);
+	      if (!value || !supportsJSON()) {
+	        return value;
+	      }
+
+	      try {
+	        // We can't tell if its JSON or a string, so we try to parse
+	        return JSON.parse(value);
+	      } catch (e) {
+	        // If we can't parse, it's probably because it isn't an object
+	        return value;
+	      }
+	    },
+
+	    /**
+	     * Removes a value from localStorage.
+	     * Equivalent to 'delete' in memcache, but that's a keyword in JS.
+	     * @param {string} key
+	     */
+	    remove: function(key) {
+	      if (!supportsStorage()) return;
+
+	      flushItem(key);
+	    },
+
+	    /**
+	     * Returns whether local storage is supported.
+	     * Currently exposed for testing purposes.
+	     * @return {boolean}
+	     */
+	    supported: function() {
+	      return supportsStorage();
+	    },
+
+	    /**
+	     * Flushes all lscache items and expiry markers without affecting rest of localStorage
+	     */
+	    flush: function() {
+	      if (!supportsStorage()) return;
+
+	      eachKey(function(key) {
+	        flushItem(key);
+	      });
+	    },
+
+	    /**
+	     * Flushes expired lscache items and expiry markers without affecting rest of localStorage
+	     */
+	    flushExpired: function() {
+	      if (!supportsStorage()) return;
+
+	      eachKey(function(key) {
+	        flushExpiredItem(key);
+	      });
+	    },
+
+	    /**
+	     * Appends CACHE_PREFIX so lscache will partition data in to different buckets.
+	     * @param {string} bucket
+	     */
+	    setBucket: function(bucket) {
+	      cacheBucket = bucket;
+	    },
+
+	    /**
+	     * Resets the string being appended to CACHE_PREFIX so lscache will use the default storage behavior.
+	     */
+	    resetBucket: function() {
+	      cacheBucket = '';
+	    },
+
+	    /**
+	     * Sets whether to display warnings when an item is removed from the cache or not.
+	     */
+	    enableWarnings: function(enabled) {
+	      warnings = enabled;
+	    }
+	  };
+
+	  // Return the module
+	  return lscache;
+	}));
+
+
+/***/ },
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16886,7 +17858,7 @@
 
 	var _ractive2 = _interopRequireDefault(_ractive);
 
-	var _footer = __webpack_require__(10);
+	var _footer = __webpack_require__(14);
 
 	var _footer2 = _interopRequireDefault(_footer);
 
@@ -16900,13 +17872,13 @@
 	exports.default = Footer;
 
 /***/ },
-/* 10 */
+/* 14 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- Version: {{version}} -->\n<div id=\"footer\">\n    <div class=\"container\">\n        <div id=\"big-footer\" class=\"row\">\n            <div class=\"\">\n                <!-- <h4>Navigation</h4> -->\n                <ul>\n                    <li><a href=\"#\" title=\"\">something</a></li>\n                    <li><a href=\"#\" title=\"\">or other</a></li>\n                    <li><a href=\"#\" title=\"\">yet another</a></li>\n                </ul>\n            </div>\n            <div class=\"mailing-custom\">\n                <!-- <h4>Join our Mailing List</h4>           -->\n                <div id=\"mc_embed_signup\">\n                    <form action=\"#\" method=\"post\" id=\"mc-embedded-subscribe-form\" name=\"mc-embedded-subscribe-form\" class=\"validate\" target=\"_blank\">\n                        <input value=\"\" name=\"EMAIL\" class=\"email\" id=\"mce-EMAIL\" placeholder=\"dont miss nothing\" required=\"\" type=\"email\">\n                        <input value=\"&gt;\" name=\"subscribe\" id=\"mc-embedded-subscribe\" class=\"button\" type=\"submit\">\n                    </form>\n                </div>\n            </div>\n            <div id=\"social-icons\" class=\"\">\n                <!-- <h4>Connect</h4> -->\n                <a href=\"#\"><i class=\"fa fa-facebook\"></i></a>\n                <a href=\"#\"><i class=\"fa fa-twitter\"></i></a>\n            </div>\n        </div>\n        <div class=\"row\">\n            <div id=\"close\" class=\"desktop-12 mobile-3\">\n                <p>Copyright © 2015 stupid little short circuit</p>\n            </div>\n        </div>\n    </div>\n</div>"
 
 /***/ },
-/* 11 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16947,7 +17919,7 @@
 	exports.default = Router;
 
 /***/ },
-/* 12 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16958,7 +17930,7 @@
 	exports.init = init;
 	exports.navTo = navTo;
 
-	var _page = __webpack_require__(13);
+	var _page = __webpack_require__(17);
 
 	var _page2 = _interopRequireDefault(_page);
 
@@ -16998,7 +17970,7 @@
 	}
 
 /***/ },
-/* 13 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {  /* globals require, module */
@@ -17009,7 +17981,7 @@
 	   * Module dependencies.
 	   */
 
-	  var pathtoRegexp = __webpack_require__(15);
+	  var pathtoRegexp = __webpack_require__(19);
 
 	  /**
 	   * Module exports.
@@ -17624,10 +18596,10 @@
 
 	  page.sameOrigin = sameOrigin;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18)))
 
 /***/ },
-/* 14 */
+/* 18 */
 /***/ function(module, exports) {
 
 	// shim for using process in browser
@@ -17813,10 +18785,10 @@
 
 
 /***/ },
-/* 15 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isarray = __webpack_require__(16)
+	var isarray = __webpack_require__(20)
 
 	/**
 	 * Expose `pathToRegexp`.
@@ -18209,7 +19181,7 @@
 
 
 /***/ },
-/* 16 */
+/* 20 */
 /***/ function(module, exports) {
 
 	module.exports = Array.isArray || function (arr) {
@@ -18218,7 +19190,7 @@
 
 
 /***/ },
-/* 17 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18227,13 +19199,17 @@
 	    value: true
 	});
 
-	var _router = __webpack_require__(12);
+	var _router = __webpack_require__(16);
 
 	var _router2 = _interopRequireDefault(_router);
 
-	var _homePage = __webpack_require__(18);
+	var _homePage = __webpack_require__(22);
 
 	var _homePage2 = _interopRequireDefault(_homePage);
+
+	var _content = __webpack_require__(9);
+
+	var _content2 = _interopRequireDefault(_content);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -18241,12 +19217,19 @@
 
 	routes.set('/', function (context, next) {
 	    next(null, _homePage2.default);
+	    _content2.default.getCompetitions().then(function (content) {
+	        next(null, _homePage2.default, {
+	            content: content
+	        });
+	    }).catch(function (err) {
+	        next(err);
+	    });
 	});
 
 	exports.default = routes;
 
 /***/ },
-/* 18 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18259,7 +19242,7 @@
 
 	var _ractive2 = _interopRequireDefault(_ractive);
 
-	var _homePage = __webpack_require__(19);
+	var _homePage = __webpack_require__(23);
 
 	var _homePage2 = _interopRequireDefault(_homePage);
 
@@ -18273,10 +19256,10 @@
 	exports.default = HomePage;
 
 /***/ },
-/* 19 */
+/* 23 */
 /***/ function(module, exports) {
 
-	module.exports = "<h2 class=\"text-center\">  \n    Search by Github username above\n</h2> \n<p>  \n    Nav to <a href=\"/user/paquitosoft\">User Page</a>\n</p>  "
+	module.exports = "<!-- <div class=\"main-container\">  \n    <nav class=\"navbar navbar-default\" role=\"navigation\">\n        <div class=\"col-sm-1\">\n            <a href=\"/\">\n                <h3>Notetaker</h3>\n            </a>\n        </div>\n        <div class=\"col-sm-7 col-sm-offset-1\" style=\"margin-top: 15px;\">\n            <SearchUser placeholder=\"Type a GitHub username...\" />\n        </div>\n    </nav>\n    <div class=\"container\">\n        <script type=\"text/javascript\"> console.log('{{componentName}}'); </script>\n        <Router componentName=\"{{componentName}}\"/> -->\n        <!-- <UserPage/> -->\n    <!-- </div>\n</div>  -->  \n<Header />\n<Navigation />\n<Content />\n<!-- <Router componentName=\"Content\"/> -->\n\n <Footer />"
 
 /***/ }
 /******/ ]);

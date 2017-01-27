@@ -19,8 +19,10 @@
     "webpack": "^1.14.0"
   },
   "dependencies": {
+    "atomicjs": "^2.1.0",
     "bootstrap": "^3.3.7",
     "es6-promise": "^4.0.5",
+    "jquery": "^3.1.1",
     "lscache": "^1.0.7",
     "page": "^1.7.1",
     "ractive": "0.7.3",
