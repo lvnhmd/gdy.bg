@@ -54,7 +54,7 @@
 
 	var _ractive2 = _interopRequireDefault(_ractive);
 
-	var _homePage = __webpack_require__(23);
+	var _homePage = __webpack_require__(2);
 
 	var _homePage2 = _interopRequireDefault(_homePage);
 
@@ -91,7 +91,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var App = new _ractive2.default({
-	    el: '#app',
+	    el: '#wrapper',
 	    template: _homePage2.default,
 
 	    components: {
@@ -16751,7 +16751,12 @@
 
 
 /***/ },
-/* 2 */,
+/* 2 */
+/***/ function(module, exports) {
+
+	module.exports = "<!-- <div class=\"main-container\">  \n    <nav class=\"navbar navbar-default\" role=\"navigation\">\n        <div class=\"col-sm-1\">\n            <a href=\"/\">\n                <h3>Notetaker</h3>\n            </a>\n        </div>\n        <div class=\"col-sm-7 col-sm-offset-1\" style=\"margin-top: 15px;\">\n            <SearchUser placeholder=\"Type a GitHub username...\" />\n        </div>\n    </nav>\n    <div class=\"container\">\n        <script type=\"text/javascript\"> console.log('{{componentName}}'); </script>\n        <Router componentName=\"{{componentName}}\"/> -->\n        <!-- <UserPage/> -->\n    <!-- </div>\n</div>  -->  \n<Header />\n<Navigation />\n<Content />\n<!-- <Router componentName=\"Content\"/> -->\n\n <Footer />"
+
+/***/ },
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -19242,7 +19247,7 @@
 
 	var _ractive2 = _interopRequireDefault(_ractive);
 
-	var _homePage = __webpack_require__(23);
+	var _homePage = __webpack_require__(2);
 
 	var _homePage2 = _interopRequireDefault(_homePage);
 
@@ -19254,12 +19259,6 @@
 	HomePage._name = 'HomePage';
 
 	exports.default = HomePage;
-
-/***/ },
-/* 23 */
-/***/ function(module, exports) {
-
-	module.exports = "<!-- <div class=\"main-container\">  \n    <nav class=\"navbar navbar-default\" role=\"navigation\">\n        <div class=\"col-sm-1\">\n            <a href=\"/\">\n                <h3>Notetaker</h3>\n            </a>\n        </div>\n        <div class=\"col-sm-7 col-sm-offset-1\" style=\"margin-top: 15px;\">\n            <SearchUser placeholder=\"Type a GitHub username...\" />\n        </div>\n    </nav>\n    <div class=\"container\">\n        <script type=\"text/javascript\"> console.log('{{componentName}}'); </script>\n        <Router componentName=\"{{componentName}}\"/> -->\n        <!-- <UserPage/> -->\n    <!-- </div>\n</div>  -->  \n<Header />\n<Navigation />\n<Content />\n<!-- <Router componentName=\"Content\"/> -->\n\n <Footer />"
 
 /***/ }
 /******/ ]);

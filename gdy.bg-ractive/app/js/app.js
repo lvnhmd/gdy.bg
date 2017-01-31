@@ -12,7 +12,7 @@ import * as RouterPlugin from './plugins/router';
 import routesConfiguration from './config/routes';
 
 let App = new Ractive({
-    el: '#app',
+    el: '#wrapper',
     template: template,
 
     components: {
