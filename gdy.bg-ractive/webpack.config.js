@@ -1,9 +1,10 @@
 var webpack = require('webpack');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: './app/js/app.js',
     output: {
-        filename: './dist/js/app-bundle.js'
+        filename: './build/js/app-bundle.js'
     },
     module: {
         loaders: [{
@@ -25,6 +26,9 @@ module.exports = {
         new webpack.ProvidePlugin({
             fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch',
             'es6-promise': 'es6-promise'
-        })
+        }),
+        new CopyWebpackPlugin(
+            [{ from: 'assets', to: 'build'}]
+        )
     ]
 };
