@@ -1,27 +1,18 @@
 <div id="header" class="row">
-    <div id="logo" class="desktop-6 tablet-4 mobile-3">
-        <a on-click="goto:home"><img src="img/logo.svg" alt="" style="border: 0;"></a>
+    <div id="logo" class="desktop-6 tablet-4 mobile-1">
+        <a on-click="goto:home"><img src="build/img/logo.svg" alt="" style="border: 0;"></a>
     </div>
     <div id="search" class="desktop-3 tablet-1 mobile-6">
         <i class="fa fa-search"></i>
-        <input type="text" name="q" id="q" class="search-field" placeholder="Search" value = {{ searchTerm }}>
+        <input type="text" name="q" id="q" class="search-field" placeholder="Search" value={{ searchTerm }}>
     </div>
-    <ul id="cart" class="desktop-6 tablet-3 mobile-3">
+    <ul id="cart" class="desktop-6 tablet-3 mobile-1">
         <li>
-            {{#if beTokenError && beTokenError != ''}}
-                <div class="error">
-                    {{beTokenError}}
-                </div>
-            {{/if}}
-            
-            {{#if user}}
-                Hi, {{ user.name }} | <a on-click="logout">Logout</a> 
-            {{else}}
-            <!-- <a on-click="goto:profile">My account</a> | -->
-            <a on-click="login">Login</a>| 
-            <a on-click="register">Register</a>
+            {{#if user}} Hi, {{ user.name }} | <a on-click="logout">Logout</a> {{else}}
+            <a on-click="login">Login</a>&nbsp;|
+            <a on-click="register">Register</a> 
             {{/if}}
         </li>
     </ul>
 </div>
-<div class="clear"></div>
+<!-- End Header -->
