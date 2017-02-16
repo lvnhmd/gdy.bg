@@ -1,11 +1,7 @@
 import Ractive from 'ractive';
 import Template from '../../../views/content.html';
 import ContentModel from '../../models/content';
-
 import * as ajax from '../../plugins/ajax';
-
-const API_BASE_URL = 'https://0lncgbduy9.execute-api.eu-west-1.amazonaws.com/dev/api/v1/';
-
 
 var Content = Ractive.components.Content = Ractive.extend({
     template: Template,
