@@ -48,15 +48,10 @@
 </div>
 {{#if comps}}
 <script>
-var count;
 $(document).ready(function() {
-    count = $('#_count').val();
-
-    console.log('will do jsSocials for ' + count + ' items');
+    var count = $('#_count').val();
 
     for (var i = 0; i < count; i++) {
-
-        console.log('doing jsSocials for ' + i  + ' nth item');
 
         var imageToShare = $('#item_' + i + ' a img').attr('src');
         var textToShare = $('#item_' + i + ' .product-info').text();
@@ -66,10 +61,6 @@ $(document).ready(function() {
             via: "gdy.bg",
             hashtags: "gdybg, goodybag, competition, prize, freebie",
 
-        });
-
-        jsSocials.setDefaults("pinterest", {
-            media: imageToShare
         });
 
         $("#share_" + i).jsSocials({
