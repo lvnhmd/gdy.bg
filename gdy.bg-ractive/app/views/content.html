@@ -24,55 +24,56 @@
                     </a>
                     <div class="product-info">
                         <!-- <div class="product-info-inner"> -->
-                            <!-- <div class="price" > -->
-                                <!-- <div class="prod-price" > -->
-                               {{title}}
-                               {{#if title.toLowerCase().length < 44}} 
-                                   <div class="blankrow">&nbsp;</div>
-                               {{/if}}
-                                <!-- </div> -->
-                            <!-- </div> -->
-                        <!-- </div> -->
-                    </div>
+                        <!-- <div class="price" > -->
+                        <!-- <div class="prod-price" > -->
+                        {{title}} {{#if title.toLowerCase().length
+                        < 44}} <div class="blankrow">&nbsp;</div>
+                    {{/if}}
+                    <!-- </div> -->
+                    <!-- </div> -->
+                    <!-- </div> -->
                 </div>
-                <!--  jssocials-info is my own class -->
-                <div id="share_{{i}}" class="jssocials-info"></div>
             </div>
-            {{/each}} {{/if}}
-            <div class="clear"></div>
-            <div id="pagination" class="desktop-12 mobile-3">
-                <span class="count">Showing {{comps.length}} items</span>
-            </div>
+            <!--  jssocials-info is my own class -->
+            <div id="share_{{i}}" class="jssocials-info"></div>
         </div>
-        <!-- End Content -->
+        {{/each}} {{/if}}
         <div class="clear"></div>
+        <div id="pagination" class="desktop-12 mobile-3">
+            <span class="count">Showing {{comps.length}} items</span>
+        </div>
     </div>
-    <!-- {{#if comps}}
-   
-    <script>
-    var count;
-    $(document).ready(function(){
-        count = $('#_count').val();
-    })
-    
-    for(var i=0; i<count; i++) {
-        
+    <!-- End Content -->
+    <div class="clear"></div>
+</div>
+{{#if comps}}
+<script>
+var count;
+$(document).ready(function() {
+    count = $('#_count').val();
+
+    console.log('will do jsSocials for ' + count + ' items');
+
+    for (var i = 0; i < count; i++) {
+
+        console.log('doing jsSocials for ' + i  + ' nth item');
+
         var imageToShare = $('#item_' + i + ' a img').attr('src');
-        var textToShare  = $('#item_' + i + ' .prod-price').text();  
-        var urlToShare   = $('#item_' + i + ' .comp_url').val();  
-        
+        var textToShare = $('#item_' + i + ' .product-info').text();
+        var urlToShare = $('#item_' + i + ' .comp_url').val();
+
         jsSocials.setDefaults("twitter", {
-            via: "lvnhmd",
-            hashtags: "competition,awesome",
-            
+            via: "gdy.bg",
+            hashtags: "gdybg, goodybag, competition, prize, freebie",
+
         });
-        
+
         jsSocials.setDefaults("pinterest", {
             media: imageToShare
         });
-        
-        $("#share_"+i).jsSocials({
-            shares: ["pinterest", "twitter", "facebook"],
+
+        $("#share_" + i).jsSocials({
+            shares: ["twitter", "facebook"],
             showLabel: false,
             showCount: false,
             shareIn: "popup",
@@ -85,6 +86,6 @@
             }
         });
     }
-
-    </script>
-    {{/if}} -->
+});
+</script>
+{{/if}}

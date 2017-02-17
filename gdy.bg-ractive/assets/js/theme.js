@@ -171,7 +171,7 @@ $(document).ready(function() {
     var
     // default settings object.
     defaults = {
-        label: 'Products',
+        label: 'filter by',
         duplicate: true,
         duration: 200,
         easingOpen: 'swing',
