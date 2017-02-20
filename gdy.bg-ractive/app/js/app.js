@@ -14,7 +14,9 @@ import routesConfiguration from './config/routes';
 let App = new Ractive({
     el: '#wrapper',
     template: template,
-
+    data: {
+        searchTerm: ''
+    },
     components: {
         Header: HeaderComponent,
         Navigation: NavigationComponent,

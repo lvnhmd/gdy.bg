@@ -3,10 +3,7 @@ import Template from '../../../views/header.html';
 
 var Header = Ractive.components.Header = Ractive.extend({
     template: Template,
-    data: {
-        searchTerm: ''
-    },
-
+    
     oninit: function() {
 
         this.observe('searchTerm', function(newValue, oldValue, keypath) {
