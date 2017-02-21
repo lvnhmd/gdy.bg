@@ -9,24 +9,24 @@ var routes = new Map();
 
 routes.set('/', (context, next) => {
     next(null, HomePage);
-    ContentModel.getCompetitions()
-        .then((content) => {
-            next(null, HomePage, {
-                content: content
-            });
-        })
-        .catch((err) => {
-            next(err);
-        });
-    NavigationModel.getSources()
-        .then((sources) => {
-            next(null, HomePage, {
-                navigation: sources
-            });
-        })
-        .catch((err) => {
-            next(err);
-        });
+    // ContentModel.getCompetitions()
+    //     .then((content) => {
+    //         next(null, HomePage, {
+    //             content: content
+    //         });
+    //     })
+    //     .catch((err) => {
+    //         next(err);
+    //     });
+    // NavigationModel.getSources()
+    //     .then((sources) => {
+    //         next(null, HomePage, {
+    //             navigation: sources
+    //         });
+    //     })
+    //     .catch((err) => {
+    //         next(err);
+    //     });
 });
 
 
