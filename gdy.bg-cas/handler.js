@@ -30,7 +30,7 @@ module.exports.run = () => {
         // that is because I can add additional sources to sources.json
 
         logger.info(' Sourcemeta TableInfo : ' + tableInfo);
-
+        // do not delete table , empty it 
         if (typeof tableInfo !== 'undefined') {
             sourcemeta.deleteTable(function(err) {
                 if (err) logger.error(err);
