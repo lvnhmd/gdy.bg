@@ -90,6 +90,11 @@ let App = new Ractive({
             this.set('comps', this.filter(searchResult));
         });
 
+        this.observe('filters', function(newValue, oldValue, keypath) {
+            console.log('filter by ' + newValue);
+            
+        });
+
 
         console.log('App::oninit# Application initialized!');
     },

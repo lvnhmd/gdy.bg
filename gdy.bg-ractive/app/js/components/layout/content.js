@@ -1,6 +1,5 @@
 import Ractive from 'ractive';
 import Template from '../../../views/content.html';
-import ContentModel from '../../models/content';
 import * as ajax from '../../plugins/ajax';
 
 var Content = Ractive.components.Content = Ractive.extend({
@@ -17,6 +16,6 @@ var Content = Ractive.components.Content = Ractive.extend({
     }
 
 });
-Content._name = 'Content';
 
+Content._name = 'Content';
 export default Content;
