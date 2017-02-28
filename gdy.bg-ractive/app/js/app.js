@@ -34,19 +34,24 @@ let App = new Ractive({
     filter(competitions) {
 
         var filters = this.get('filters');
-        //console.log('filter by ', JSON.stringify(filters));
 
         if (filters.length) {
-            var filtered = _.filter(competitions, function(comp) {
+            competitions = _.filter(competitions, function(comp) {
                 if (_.indexOf(filters, comp.source) > -1)
                     return comp;
             });
-            return filtered;
-        } else {
-            return competitions;
         }
 
+        var searchTerm = this.get('searchTerm');
+        // make search case in-sensitive
+        competitions = _.filter(competitions, function(comp) {
+            return comp.title.toLowerCase().match(searchTerm.toLowerCase());
+        });
+
+        return competitions;
+
     },
+
     oninit() {
 
         RouterPlugin.init(routesConfiguration, this.onNavigation.bind(this));
@@ -77,22 +82,18 @@ let App = new Ractive({
         });
 
         this.observe('searchTerm', function(newValue, oldValue, keypath) {
+
             console.log('search for ' + oldValue + '->' + newValue);
-            // console.dir(this.find('#q'));        
-            // q.style.background='#E8E316';        
 
-            var searchTerm = new RegExp(_.escapeRegExp(newValue), 'i');
-            var allcomps = this.get('allcomps');
-            var searchResult = _.filter(allcomps, function(comp) {
-                return comp.title.match(searchTerm);
-            });
-
-            this.set('comps', this.filter(searchResult));
+            this.set('comps', this.filter(this.get('allcomps')));
         });
 
         this.observe('filters', function(newValue, oldValue, keypath) {
+
             console.log('filter by ' + newValue);
-            
+
+            this.set('comps', this.filter(this.get('allcomps')));
+
         });
 
 

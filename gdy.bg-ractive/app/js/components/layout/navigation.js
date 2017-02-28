@@ -16,15 +16,12 @@ var Navigation = Ractive.components.Navigation = Ractive.extend({
             if (_.indexOf(filters, source) > -1) {
                 _.pull(filters, source);
                 this.set('filters', filters);
-                //change the class		
-                // event.node.style.background = '';
-                // event.node.style.color = '';
+                event.node.style = '';
             }
             //if the source is NOT in the array, ADD it the user have clicked on it for the first time		
             else {
                 filters.push(source);
-                // event.node.style.background = '#E0479E';
-                // event.node.style.color = '#000';
+                event.node.style = 'color:#000;background:#E0479E';
             }
 
             // this.set('filters', filters);

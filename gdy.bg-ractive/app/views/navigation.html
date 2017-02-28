@@ -2,9 +2,11 @@
     <nav class="primary">
         <ul id="nav" class="desktop-12">
             {{#if sources}} {{#each sources:i}}
-                {{#if filters}} {{#each filters:j}}
+
+
+                <!-- {{#if filters}} {{#each filters:j}}
                 <li>{{.}}</li>
-                {{/each}} {{/if}}
+                {{/each}} {{/if}} -->
             <li>
                 <a on-click="addToFilters">{{name}}</a>
             </li>
