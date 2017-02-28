@@ -21,6 +21,7 @@
   "dependencies": {
     "atomicjs": "^2.1.0",
     "bootstrap": "^3.3.7",
+    "copy-webpack-plugin": "^4.0.1",
     "es6-promise": "^4.0.5",
     "jquery": "^3.1.1",
     "lscache": "^1.0.7",

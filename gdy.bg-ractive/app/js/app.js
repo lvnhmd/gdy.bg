@@ -34,7 +34,7 @@ let App = new Ractive({
     filter(competitions) {
 
         var filters = this.get('filters');
-        console.log('filter by ', JSON.stringify(filters));
+        //console.log('filter by ', JSON.stringify(filters));
 
         if (filters.length) {
             var filtered = _.filter(competitions, function(comp) {
