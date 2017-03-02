@@ -14,6 +14,18 @@ import routesConfiguration from './config/routes';
 import * as ajax from './plugins/ajax';
 const API_BASE_URL = 'https://0lncgbduy9.execute-api.eu-west-1.amazonaws.com/dev/api/v1';
 
+var slicknavDecorator = function () {
+  
+  $('ul#nav').slicknav({});
+
+  return {
+    teardown: function () {
+      $('ul#nav').slicknav('destroy');
+    }
+  };
+};
+Ractive.decorators.slicknavDecorator = slicknavDecorator;
+
 let App = new Ractive({
     el: '#wrapper',
     template: template,

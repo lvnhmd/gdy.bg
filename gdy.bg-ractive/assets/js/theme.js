@@ -261,7 +261,14 @@ $(document).ready(function() {
                 item.children('a').attr('role', 'menuitem').click(function() {
                     //Emulate menu close if set
                     if (settings.closeOnClick) $(btn).click();
+                     alert(JSON.stringify(item));
                 });
+
+                // item.children('a').attr('on-click', 'addToFilters').click(function() {
+                //     //Emulate menu close if set
+                //     // if (settings.closeOnClick) $(btn).click();
+                //     alert('HELOO');
+                // });
             });
 
             // structure is in place, now hide appropriate items
