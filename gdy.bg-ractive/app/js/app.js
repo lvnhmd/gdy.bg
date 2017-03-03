@@ -14,11 +14,17 @@ import routesConfiguration from './config/routes';
 import * as ajax from './plugins/ajax';
 const API_BASE_URL = 'https://0lncgbduy9.execute-api.eu-west-1.amazonaws.com/dev/api/v1';
 
-var slicknavDecorator = function () {
+var slicknavDecorator = function (node, params) {
+  alert('Init ' + JSON.stringify(node));
+  alert('Init ' + JSON.stringify(params));
   
-  $('ul#nav').slicknav({});
+  $('ul#nav').slicknav();
 
   return {
+    update: function (params) {
+      alert('Update ' + JSON.stringify(params));
+      $('ul#nav').slicknav();
+    },
     teardown: function () {
       $('ul#nav').slicknav('destroy');
     }

@@ -1,12 +1,12 @@
 <div id="navigation" class="row">
     <nav class="primary">
-        <ul id="nav" class="desktop-12" decorator="slicknavDecorator">
+        <ul id="nav" class="desktop-12" decorator="slicknavDecorator:{{navsources}}">
         <!-- <ul id="nav" class="desktop-12" > -->
-            <!-- {{#if sources}} {{#each sources:i}} -->
-            <!-- <li>
-                <a on-click="addToFilters" >{{name}}</a>
-            </li> -->
+            {{#each navsources:i}}
             <li>
+                <a on-click="addToFilters" >{{.}}</a>
+            </li>
+            <!-- <li>
                 <a on-click="addToFilters" >one</a>
             </li>
             <li>
@@ -14,9 +14,9 @@
             </li>
             <li>
                 <a on-click="addToFilters" >three</a>
-            </li>
+            </li> -->
 
-            <!-- {{/each}} {{/if}} -->
+            {{/each}}
         </ul>
     </nav>
 </div>
