@@ -14,21 +14,54 @@ import routesConfiguration from './config/routes';
 import * as ajax from './plugins/ajax';
 const API_BASE_URL = 'https://0lncgbduy9.execute-api.eu-west-1.amazonaws.com/dev/api/v1';
 
-var slicknavDecorator = function (node, params) {
-  alert('Init ' + JSON.stringify(node));
-  alert('Init ' + JSON.stringify(params));
-  
-  $('ul#nav').slicknav();
+var slicknavDecorator = function (node, content) {
+    var ractive = this;
+    var click = function(event) {
+        alert(event);
+    };
+    return {
+        update: function (content) {
+            var innerHTML = '';
+            for (var i in content) {
+                innerHTML += ('<li><a>' + content[i] + '</a></li>');
+            }
+            node.innerHTML = innerHTML;
+            $(node).slicknav();
+            alert(node.innerHTML);
 
-  return {
-    update: function (params) {
-      alert('Update ' + JSON.stringify(params));
-      $('ul#nav').slicknav();
-    },
-    teardown: function () {
-      $('ul#nav').slicknav('destroy');
-    }
-  };
+
+    //         for (var i in node.children) {
+    //             if (undefined != node.children[i].nodeName &&
+    //                 'LI' == node.children[i].nodeName) {
+    //                 // alert(node.children[i].nodeName);
+                    
+    //                 node.children[i].addEventListener("click", function() {
+    //     alert('hello');
+    // }, false);
+                    
+    //                 // click(function (event) {
+    //                 //     //Emulate menu close if set
+    //                 //     alert(event);
+    //                 // });
+    //             }
+    //         }
+            
+            // http://jsfiddle.net/7krog4tc/1/
+            // https://github.com/ractivejs/ractive/issues/1179
+
+            var items = $(node).find('li');
+            alert(JSON.stringify(items));
+            $(items).each(item, function() {
+                alert(JSON.stringify(item));
+                item.children('a').attr('role', 'menuitem').click(function () {
+                    alert('hello');
+                });
+            });
+        },
+        teardown: function () {
+            node.innerHTML = '';
+        }
+    };
 };
 Ractive.decorators.slicknavDecorator = slicknavDecorator;
 
@@ -54,7 +87,7 @@ let App = new Ractive({
         var filters = this.get('filters');
 
         if (filters.length) {
-            competitions = _.filter(competitions, function(comp) {
+            competitions = _.filter(competitions, function (comp) {
                 if (_.indexOf(filters, comp.source) > -1)
                     return comp;
             });
@@ -62,7 +95,7 @@ let App = new Ractive({
 
         var searchTerm = this.get('searchTerm');
         // make search case in-sensitive
-        competitions = _.filter(competitions, function(comp) {
+        competitions = _.filter(competitions, function (comp) {
             return comp.title.toLowerCase().match(searchTerm.toLowerCase());
         });
 
@@ -78,8 +111,8 @@ let App = new Ractive({
 
         let result = new Promise((resolve, reject) => {
             Promise.all([
-                    ajax.getJson(allCompetitionsUrl, { cache: true, ttl: 60 })
-                ])
+                ajax.getJson(allCompetitionsUrl, { cache: true, ttl: 60 })
+            ])
                 .then(values => {
                     resolve(this.set('comps', values[0]['Items']),
                         this.set('allcomps', values[0]['Items']));
@@ -91,24 +124,26 @@ let App = new Ractive({
 
         result = new Promise((resolve, reject) => {
             Promise.all([
-                    ajax.getJson(allSourcesUrl, { cache: true, ttl: 60 })
-                ])
+                ajax.getJson(allSourcesUrl, { cache: true, ttl: 60 })
+            ])
                 .then(values => {
-                    resolve(this.set('sources', values[0]['Items']));
+                    resolve(this.set('sources', _.map(values[0]['Items'], 'name')));
                 })
                 .catch(reject);
         });
 
-        this.observe('searchTerm', function(newValue, oldValue, keypath) {
+        this.observe('searchTerm', function (newValue, oldValue, keypath) {
 
             console.log('search for ' + oldValue + '->' + newValue);
 
             this.set('comps', this.filter(this.get('allcomps')));
         });
 
-        this.observe('filters', function(newValue, oldValue, keypath) {
+        this.observe('filters', function (newValue, oldValue, keypath) {
 
-            console.log('filter by ' + newValue);
+            console.log('newValue ' + newValue);
+            console.log('oldValue ' + oldValue);
+            console.log('keypath ' + keypath);
 
             this.set('comps', this.filter(this.get('allcomps')));
 

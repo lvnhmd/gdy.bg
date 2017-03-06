@@ -9,9 +9,11 @@ var Navigation = Ractive.components.Navigation = Ractive.extend({
 
         this.on('addToFilters', function(event) {
 
+            console.log('addToFilters ' +JSON.stringify(event));
+
             var filters = this.get('filters');
 
-            var source = event.context.name;
+            var source = event.context;
             //if the source is already in the array, remove it the user have clicked on it before and have clicked the second time		
             if (_.indexOf(filters, source) > -1) {
                 _.pull(filters, source);

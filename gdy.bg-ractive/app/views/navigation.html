@@ -1,27 +1,11 @@
 <div id="navigation" class="row">
     <nav class="primary">
-        <ul id="nav" class="desktop-12" decorator="slicknavDecorator:{{navsources}}">
-        <!-- <ul id="nav" class="desktop-12" > -->
-            {{#each navsources:i}}
+        <ul id="nav" class="desktop-12" decorator="slicknavDecorator:{{sources}}">
+            <!--{{#sources}}
             <li>
-                <a on-click="addToFilters" >{{.}}</a>
+                <a on-click="addToFilters">{{.}}</a>
             </li>
-            <!-- <li>
-                <a on-click="addToFilters" >one</a>
-            </li>
-            <li>
-                <a on-click="addToFilters" >two</a>
-            </li>
-            <li>
-                <a on-click="addToFilters" >three</a>
-            </li> -->
-
-            {{/each}}
+            {{/sources}}-->
         </ul>
     </nav>
 </div>
-<!-- <script>
-$(function() {
-    $('ul#nav').slicknav();
-});
-</script> -->
