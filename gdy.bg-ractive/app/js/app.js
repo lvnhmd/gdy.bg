@@ -16,47 +16,32 @@ const API_BASE_URL = 'https://0lncgbduy9.execute-api.eu-west-1.amazonaws.com/dev
 
 var slicknavDecorator = function (node, content) {
     var ractive = this;
-    var click = function(event) {
-        alert(event);
-    };
     return {
         update: function (content) {
+            
             var innerHTML = '';
             for (var i in content) {
-                innerHTML += ('<li><a>' + content[i] + '</a></li>');
+                innerHTML += ('<li><a id=\"' + content[i] + '\" >' + content[i] + '</a></li>');
             }
-            node.innerHTML = innerHTML;
-            $(node).slicknav();
-            alert(node.innerHTML);
-
-
-    //         for (var i in node.children) {
-    //             if (undefined != node.children[i].nodeName &&
-    //                 'LI' == node.children[i].nodeName) {
-    //                 // alert(node.children[i].nodeName);
-                    
-    //                 node.children[i].addEventListener("click", function() {
-    //     alert('hello');
-    // }, false);
-                    
-    //                 // click(function (event) {
-    //                 //     //Emulate menu close if set
-    //                 //     alert(event);
-    //                 // });
-    //             }
-    //         }
             
-            // http://jsfiddle.net/7krog4tc/1/
-            // https://github.com/ractivejs/ractive/issues/1179
-
-            var items = $(node).find('li');
-            alert(JSON.stringify(items));
-            $(items).each(item, function() {
-                alert(JSON.stringify(item));
-                item.children('a').attr('role', 'menuitem').click(function () {
-                    alert('hello');
-                });
+            $(node).html(innerHTML);
+            $(node).on("click", function(){
+                alert("element clicked");
             });
+            $(node).slicknav();
+            alert('AFTER : ' + $(node).html());
+            $(node).on("click", function(){
+                alert("element clicked");
+            });
+
+            // node.addEventListener("click", function (e) {
+            //     // e.target is our targetted element.
+            //     // try doing console.log(e.target.nodeName), it will result LI
+            //     alert(e.target.id + " was NOT clicked");
+            //     if (e.target && e.target.nodeName == "LI") {
+            //         alert(e.target.id + " was clicked");
+            //     }
+            // });
         },
         teardown: function () {
             node.innerHTML = '';
