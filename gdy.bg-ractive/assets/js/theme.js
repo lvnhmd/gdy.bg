@@ -244,7 +244,7 @@ $(document).ready(function() {
                     });
 
                     // wrap item text with tag and add classes
-                    var wrap = $(nodes).wrapAll('<' + settings.parentTag + ' role="menuitem" aria-haspopup="true" tabindex="-1" class="' + prefix + '_item"/>').parent();
+                    var wrap = $(nodes).wrapAll('<' + settings.parentTag + ' role="menuitem" aria-haspopup="true" tabindex="-1" class="' + prefix + '_item" />').parent();
 
                     item.addClass(prefix + '_collapsed');
                     item.addClass(prefix + '_parent');
@@ -261,8 +261,9 @@ $(document).ready(function() {
                 item.children('a').attr('role', 'menuitem').click(function() {
                     //Emulate menu close if set
                     if (settings.closeOnClick) $(btn).click();
+                    settings.onClicked(item);
                 });
-                
+
             });
 
             // structure is in place, now hide appropriate items

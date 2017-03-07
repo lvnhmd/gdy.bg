@@ -16,32 +16,37 @@ const API_BASE_URL = 'https://0lncgbduy9.execute-api.eu-west-1.amazonaws.com/dev
 
 var slicknavDecorator = function (node, content) {
     var ractive = this;
+    var addToFilters = function (item) {
+        var source =  item.text();
+        var filters = ractive.get('filters');
+
+        //if the source is already in the array, remove it the user have clicked on it before and have clicked the second time		
+        if (_.indexOf(filters, source) > -1) {
+            _.pull(filters, source);
+            ractive.set('filters', filters);
+            item.css({ 'color': '', 'background': ''}); 
+        }
+        //if the source is NOT in the array, ADD it the user have clicked on it for the first time		
+        else {
+            filters.push(source);
+            item.css({ 'color': '#000', 'background': '#E0479E'}); 
+        }
+    };
+    
     return {
+        
         update: function (content) {
-            
+
             var innerHTML = '';
             for (var i in content) {
-                innerHTML += ('<li><a id=\"' + content[i] + '\" >' + content[i] + '</a></li>');
+                innerHTML += ('<li><a>' + content[i] + '</a></li>');
             }
-            
             $(node).html(innerHTML);
-            $(node).on("click", function(){
-                alert("element clicked");
-            });
-            $(node).slicknav();
-            alert('AFTER : ' + $(node).html());
-            $(node).on("click", function(){
-                alert("element clicked");
+
+            $(node).slicknav({
+                onClicked : addToFilters
             });
 
-            // node.addEventListener("click", function (e) {
-            //     // e.target is our targetted element.
-            //     // try doing console.log(e.target.nodeName), it will result LI
-            //     alert(e.target.id + " was NOT clicked");
-            //     if (e.target && e.target.nodeName == "LI") {
-            //         alert(e.target.id + " was clicked");
-            //     }
-            // });
         },
         teardown: function () {
             node.innerHTML = '';
@@ -126,9 +131,7 @@ let App = new Ractive({
 
         this.observe('filters', function (newValue, oldValue, keypath) {
 
-            console.log('newValue ' + newValue);
-            console.log('oldValue ' + oldValue);
-            console.log('keypath ' + keypath);
+            console.log('in filters' + JSON.stringify(this.get('filters')));
 
             this.set('comps', this.filter(this.get('allcomps')));
 

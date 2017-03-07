@@ -62,14 +62,14 @@
 
 
   /* #menu is the original menu */
-  ul#nav {
+  /*ul#nav {
     display: none;
-  }
+  }*/
     
-  .slicknav_menu {
+  /*.slicknav_menu {
     display:block;
     margin-top: -15px; 
-  }  
+  }  */
   
   nav {
     box-shadow: none;
