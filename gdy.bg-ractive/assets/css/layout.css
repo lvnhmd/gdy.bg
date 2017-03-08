@@ -70,7 +70,15 @@
     display:block;
     margin-top: -15px; 
   }  */
-  
+
+ul#nav li a { 
+  color: #000; 
+}
+ul#nav li:hover a,
+ul#nav li a:hover { 
+  color: #fff; 
+}
+
   nav {
     box-shadow: none;
     -moz-box-shadow: none;
