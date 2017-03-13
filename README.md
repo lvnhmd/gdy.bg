@@ -14,7 +14,7 @@ APIDomainName
 	
 LambdaBucketKey
 
- 	gdy.bg-api.zip
+ 	gdybg-api.zip
 
 LambdaBucketName
 	
@@ -24,3 +24,5 @@ LambdaBucketName
 StageName
 
 	dev
+
+

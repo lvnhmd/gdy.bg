@@ -3,7 +3,7 @@
 const api = require('./api.js');
 
 function cbw(cb) {
-    return function(err, res) {
+    return function (err, res) {
         if (err) {
             cb(err);
         } else {
