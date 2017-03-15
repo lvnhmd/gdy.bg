@@ -173,7 +173,7 @@
             "IamRoleLambdaExecution"
          ]
       },
-      "GetCompetitionsLambdaVersionCPRlBr7rrv17DDjx9fnGYCxzqXO6heMFBFwrp4m450": {
+      "GetCompetitionsLambdaVersionis4nSkMCY7ur6MVQ0bkDnjej2Vjd2lh2H2O9yFro": {
          "Type": "AWS::Lambda::Version",
          "DeletionPolicy": "Retain",
          "Properties": {
@@ -221,7 +221,7 @@
             "IamRoleLambdaExecution"
          ]
       },
-      "GetSourcesLambdaVersionCPRlBr7rrv17DDjx9fnGYCxzqXO6heMFBFwrp4m450": {
+      "GetSourcesLambdaVersionis4nSkMCY7ur6MVQ0bkDnjej2Vjd2lh2H2O9yFro": {
          "Type": "AWS::Lambda::Version",
          "DeletionPolicy": "Retain",
          "Properties": {
@@ -741,7 +741,7 @@
             ]
          }
       },
-      "ApiGatewayDeployment1489416235180": {
+      "ApiGatewayDeployment1489507241413": {
          "Type": "AWS::ApiGateway::Deployment",
          "Properties": {
             "RestApiId": {
@@ -874,7 +874,7 @@
             "CacheClusterEnabled": true,
             "CacheClusterSize": "0.5",
             "DeploymentId": {
-               "Ref": "ApiGatewayDeployment1489416235180"
+               "Ref": "ApiGatewayDeployment1489507241413"
             },
             "MethodSettings": [
                {
@@ -897,13 +897,13 @@
       "GetCompetitionsLambdaFunctionQualifiedArn": {
          "Description": "Current Lambda function version",
          "Value": {
-            "Ref": "GetCompetitionsLambdaVersionCPRlBr7rrv17DDjx9fnGYCxzqXO6heMFBFwrp4m450"
+            "Ref": "GetCompetitionsLambdaVersionis4nSkMCY7ur6MVQ0bkDnjej2Vjd2lh2H2O9yFro"
          }
       },
       "GetSourcesLambdaFunctionQualifiedArn": {
          "Description": "Current Lambda function version",
          "Value": {
-            "Ref": "GetSourcesLambdaVersionCPRlBr7rrv17DDjx9fnGYCxzqXO6heMFBFwrp4m450"
+            "Ref": "GetSourcesLambdaVersionis4nSkMCY7ur6MVQ0bkDnjej2Vjd2lh2H2O9yFro"
          }
       },
       "ServiceEndpoint": {

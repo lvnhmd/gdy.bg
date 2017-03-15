@@ -7,7 +7,7 @@ AWS.config.update({ region: 'eu-west-1' });
 var dynamodb = new AWS.DynamoDB();
 Vogels.dynamoDriver(dynamodb);
 
-module.exports = vogels.define('competition', {
+module.exports = Vogels.define('competition', {
   hashKey: 'uri',
 
   // add the timestamp attributes (updatedAt, createdAt) 
