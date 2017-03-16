@@ -173,7 +173,7 @@
             "IamRoleLambdaExecution"
          ]
       },
-      "GetCompetitionsLambdaVersion7aGZ6boz8gG9KJOe979u958WosJzqWr4UmtF7BapOA": {
+      "GetCompetitionsLambdaVersion0CvNe1j1OjBOrmaMUl2rVN9M4p1AkfODLMnSJBqKM": {
          "Type": "AWS::Lambda::Version",
          "DeletionPolicy": "Retain",
          "Properties": {
@@ -221,7 +221,7 @@
             "IamRoleLambdaExecution"
          ]
       },
-      "GetSourcesLambdaVersion7aGZ6boz8gG9KJOe979u958WosJzqWr4UmtF7BapOA": {
+      "GetSourcesLambdaVersion0CvNe1j1OjBOrmaMUl2rVN9M4p1AkfODLMnSJBqKM": {
          "Type": "AWS::Lambda::Version",
          "DeletionPolicy": "Retain",
          "Properties": {
@@ -741,7 +741,7 @@
             ]
          }
       },
-      "ApiGatewayDeployment1489700343025": {
+      "ApiGatewayDeployment1489701023639": {
          "Type": "AWS::ApiGateway::Deployment",
          "Properties": {
             "RestApiId": {
@@ -820,29 +820,6 @@
             }
          }
       },
-      "SourceTable": {
-         "Type": "AWS::DynamoDB::Table",
-         "DeletionPolicy": "Retain",
-         "Properties": {
-            "AttributeDefinitions": [
-               {
-                  "AttributeName": "name",
-                  "AttributeType": "S"
-               }
-            ],
-            "KeySchema": [
-               {
-                  "AttributeName": "name",
-                  "KeyType": "HASH"
-               }
-            ],
-            "ProvisionedThroughput": {
-               "ReadCapacityUnits": 1,
-               "WriteCapacityUnits": 1
-            },
-            "TableName": "sources"
-         }
-      },
       "LambdaExecutionRole": {
          "Type": "AWS::IAM::Role",
          "Properties": {
@@ -897,7 +874,7 @@
             "CacheClusterEnabled": true,
             "CacheClusterSize": "0.5",
             "DeploymentId": {
-               "Ref": "ApiGatewayDeployment1489700343025"
+               "Ref": "ApiGatewayDeployment1489701023639"
             },
             "MethodSettings": [
                {
@@ -920,13 +897,13 @@
       "GetCompetitionsLambdaFunctionQualifiedArn": {
          "Description": "Current Lambda function version",
          "Value": {
-            "Ref": "GetCompetitionsLambdaVersion7aGZ6boz8gG9KJOe979u958WosJzqWr4UmtF7BapOA"
+            "Ref": "GetCompetitionsLambdaVersion0CvNe1j1OjBOrmaMUl2rVN9M4p1AkfODLMnSJBqKM"
          }
       },
       "GetSourcesLambdaFunctionQualifiedArn": {
          "Description": "Current Lambda function version",
          "Value": {
-            "Ref": "GetSourcesLambdaVersion7aGZ6boz8gG9KJOe979u958WosJzqWr4UmtF7BapOA"
+            "Ref": "GetSourcesLambdaVersion0CvNe1j1OjBOrmaMUl2rVN9M4p1AkfODLMnSJBqKM"
          }
       },
       "ServiceEndpoint": {

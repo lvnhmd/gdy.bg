@@ -135,9 +135,9 @@ functions:
 # }
 
 # TODO - do not let vogels mess with the tables   
-
-resources:
-  Resources:
+# run this only the first time - when the tables do not exist    
+# resources:
+#   Resources:
     # CompetitionsTable:
     #   Type: "AWS::DynamoDB::Table"
     #   DeletionPolicy: Retain
@@ -152,19 +152,19 @@ resources:
     #       ReadCapacityUnits: 1
     #       WriteCapacityUnits: 1
     #     TableName: "competitions"
-    SourceTable:
-      Type: "AWS::DynamoDB::Table"
-      DeletionPolicy: Retain
-      Properties:
-        AttributeDefinitions:
-          - AttributeName: name
-            AttributeType: S
-        KeySchema:
-          - AttributeName: name
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: "sources"
+    # SourceTable:
+    #   Type: "AWS::DynamoDB::Table"
+    #   DeletionPolicy: Retain
+    #   Properties:
+    #     AttributeDefinitions:
+    #       - AttributeName: name
+    #         AttributeType: S
+    #     KeySchema:
+    #       - AttributeName: name
+    #         KeyType: HASH
+    #     ProvisionedThroughput:
+    #       ReadCapacityUnits: 1
+    #       WriteCapacityUnits: 1
+    #     TableName: "sources"
 
       
