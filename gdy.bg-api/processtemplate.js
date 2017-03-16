@@ -111,7 +111,7 @@ function thenReplace() {
         // TODO Use as per env - do not use on local
         // newJson['Resources']['ApiGatewayBasePathMapping'] = {
         //     "Type": "AWS::ApiGateway::BasePathMapping",
-        //     "DependsOn": ["ApiGatewayRestApi", ApiGatewayDeploymentName],
+        //     "DependsOn": ["ApiStage", "ApiGatewayRestApi", ApiGatewayDeploymentName],
         //     "Properties": {
         //         "BasePath": { "Ref": "APIBasePath" },
         //         "DomainName": { "Ref": "APIDomainName" },

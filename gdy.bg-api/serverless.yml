@@ -134,37 +134,37 @@ functions:
 #   }
 # }
 
-# vogels should create my tables 
+# TODO - do not let vogels mess with the tables   
 
-# resources:
-#   Resources:
-#     # CompetitionsTable:
-#     #   Type: "AWS::DynamoDB::Table"
-#     #   # DeletionPolicy: Retain
-#     #   Properties:
-#     #     AttributeDefinitions:
-#     #       - AttributeName: uri
-#     #         AttributeType: S
-#     #     KeySchema:
-#     #       - AttributeName: uri
-#     #         KeyType: HASH
-#     #     ProvisionedThroughput:
-#     #       ReadCapacityUnits: 1
-#     #       WriteCapacityUnits: 1
-#     #     TableName: "competitions"
-#     SourcemetasTable:
-#       Type: "AWS::DynamoDB::Table"
-#       # DeletionPolicy: Retain
-#       Properties:
-#         AttributeDefinitions:
-#           - AttributeName: name
-#             AttributeType: S
-#         KeySchema:
-#           - AttributeName: name
-#             KeyType: HASH
-#         ProvisionedThroughput:
-#           ReadCapacityUnits: 1
-#           WriteCapacityUnits: 1
-#         TableName: "sourcemetas"
+resources:
+  Resources:
+    # CompetitionsTable:
+    #   Type: "AWS::DynamoDB::Table"
+    #   DeletionPolicy: Retain
+    #   Properties:
+    #     AttributeDefinitions:
+    #       - AttributeName: uri
+    #         AttributeType: S
+    #     KeySchema:
+    #       - AttributeName: uri
+    #         KeyType: HASH
+    #     ProvisionedThroughput:
+    #       ReadCapacityUnits: 1
+    #       WriteCapacityUnits: 1
+    #     TableName: "competitions"
+    SourceTable:
+      Type: "AWS::DynamoDB::Table"
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: name
+            AttributeType: S
+        KeySchema:
+          - AttributeName: name
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: "sources"
 
       

@@ -122,7 +122,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/gdybg-api/dev/1489507241215-2017-03-14T16:00:41.215Z/gdybg-api.zip"
+          "S3Key": "serverless/gdybg-api/dev/1489700342297-2017-03-16T21:39:02.297Z/gdybg-api.zip"
         },
         "FunctionName": "gdybg-api-dev-getCompetitions",
         "Handler": "handler.getCompetitions",
@@ -141,14 +141,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "GetCompetitionsLambdaVersionis4nSkMCY7ur6MVQ0bkDnjej2Vjd2lh2H2O9yFro": {
+    "GetCompetitionsLambdaVersion7aGZ6boz8gG9KJOe979u958WosJzqWr4UmtF7BapOA": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetCompetitionsLambdaFunction"
         },
-        "CodeSha256": "is4nSkMCY7ur6MVQ0b/k/Dnjej2/Vjd2lh2H2O9yFro="
+        "CodeSha256": "7aGZ6boz8gG9KJOe9+79u958WosJzqWr4UmtF7BapOA="
       }
     },
     "GetSourcesLambdaFunction": {
@@ -158,7 +158,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/gdybg-api/dev/1489507241215-2017-03-14T16:00:41.215Z/gdybg-api.zip"
+          "S3Key": "serverless/gdybg-api/dev/1489700342297-2017-03-16T21:39:02.297Z/gdybg-api.zip"
         },
         "FunctionName": "gdybg-api-dev-getSources",
         "Handler": "handler.getSources",
@@ -177,14 +177,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "GetSourcesLambdaVersionis4nSkMCY7ur6MVQ0bkDnjej2Vjd2lh2H2O9yFro": {
+    "GetSourcesLambdaVersion7aGZ6boz8gG9KJOe979u958WosJzqWr4UmtF7BapOA": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetSourcesLambdaFunction"
         },
-        "CodeSha256": "is4nSkMCY7ur6MVQ0b/k/Dnjej2/Vjd2lh2H2O9yFro="
+        "CodeSha256": "7aGZ6boz8gG9KJOe9+79u958WosJzqWr4UmtF7BapOA="
       }
     },
     "ApiGatewayRestApi": {
@@ -698,7 +698,7 @@
         ]
       }
     },
-    "ApiGatewayDeployment1489507241413": {
+    "ApiGatewayDeployment1489700343025": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -776,6 +776,29 @@
           ]
         }
       }
+    },
+    "SourceTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "name",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "name",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 1,
+          "WriteCapacityUnits": 1
+        },
+        "TableName": "sources"
+      }
     }
   },
   "Outputs": {
@@ -787,13 +810,13 @@
     "GetCompetitionsLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetCompetitionsLambdaVersionis4nSkMCY7ur6MVQ0bkDnjej2Vjd2lh2H2O9yFro"
+        "Ref": "GetCompetitionsLambdaVersion7aGZ6boz8gG9KJOe979u958WosJzqWr4UmtF7BapOA"
       }
     },
     "GetSourcesLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetSourcesLambdaVersionis4nSkMCY7ur6MVQ0bkDnjej2Vjd2lh2H2O9yFro"
+        "Ref": "GetSourcesLambdaVersion7aGZ6boz8gG9KJOe979u958WosJzqWr4UmtF7BapOA"
       }
     },
     "ServiceEndpoint": {
