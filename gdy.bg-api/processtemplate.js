@@ -10,21 +10,21 @@ var _ = require('lodash');
 var mkdirp = require('mkdirp');
 var path = require('path');
 
-function copy(cb) {
+// function copy(cb) {
 
-    jsonfile.readFile('.serverless/cloudformation-template-update-stack.json', function (err, obj) {
-        jsonfile.writeFile('.serverless/gdybg-cloudformation-template.json', obj, { spaces: 2 }, function (err) {
-            if (err) console.error(err);
-            console.log('1. Copy cloudformation-template-update-stack.json to gdybg-cloudformation-template.json');
-            cb();
-        });
-    });
+//     jsonfile.readFile('.serverless/cloudformation-template-update-stack.json', function (err, obj) {
+//         jsonfile.writeFile('.serverless/gdybg-cloudformation-template.json', obj, { spaces: 2 }, function (err) {
+//             if (err) console.error(err);
+//             console.log('1. Copy cloudformation-template-update-stack.json to gdybg-cloudformation-template.json');
+//             cb();
+//         });
+//     });
 
-}
+// }
 
 function thenReplace() {
 
-    jsonfile.readFile('.serverless/gdybg-cloudformation-template.json', function (err, json) {
+    jsonfile.readFile('.serverless/cloudformation-template-update-stack.json', function (err, json) {
         if (err) console.error(err);
 
         console.log("2. Process " + json['Description']);
@@ -220,4 +220,5 @@ function firstN(obj, n) {
 };
 
 
-copy(thenReplace);
+// copy(thenReplace);
+thenReplace();

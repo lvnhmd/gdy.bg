@@ -89,6 +89,20 @@
                               [
                                  {
                                     "Fn::GetAtt": [
+                                       "ScrapeLogGroup",
+                                       "Arn"
+                                    ]
+                                 },
+                                 "*"
+                              ]
+                           ]
+                        },
+                        {
+                           "Fn::Join": [
+                              ":",
+                              [
+                                 {
+                                    "Fn::GetAtt": [
                                        "GetCompetitionsLogGroup",
                                        "Arn"
                                     ]
@@ -122,6 +136,12 @@
             ]
          }
       },
+      "ScrapeLogGroup": {
+         "Type": "AWS::Logs::LogGroup",
+         "Properties": {
+            "LogGroupName": "/aws/lambda/gdybg-api-dev-scrape"
+         }
+      },
       "GetCompetitionsLogGroup": {
          "Type": "AWS::Logs::LogGroup",
          "Properties": {
@@ -132,6 +152,54 @@
          "Type": "AWS::Logs::LogGroup",
          "Properties": {
             "LogGroupName": "/aws/lambda/gdybg-api-dev-getSources"
+         }
+      },
+      "ScrapeLambdaFunction": {
+         "Type": "AWS::Lambda::Function",
+         "Properties": {
+            "Code": {
+               "S3Bucket": {
+                  "Ref": "LambdaBucketName"
+               },
+               "S3Key": {
+                  "Ref": "LambdaBucketKey"
+               }
+            },
+            "FunctionName": {
+               "Fn::Join": [
+                  "-",
+                  [
+                     "gdybg",
+                     {
+                        "Ref": "StageName"
+                     },
+                     "scrape"
+                  ]
+               ]
+            },
+            "Handler": "handler.scrape",
+            "MemorySize": 512,
+            "Role": {
+               "Fn::GetAtt": [
+                  "LambdaExecutionRole",
+                  "Arn"
+               ]
+            },
+            "Runtime": "nodejs4.3",
+            "Timeout": 300
+         },
+         "DependsOn": [
+            "IamPolicyLambdaExecution",
+            "IamRoleLambdaExecution"
+         ]
+      },
+      "ScrapeLambdaVersion9blVZ8Po95aHKqgSnZfz6op0IQ9h4rqJKAn0oTAUw": {
+         "Type": "AWS::Lambda::Version",
+         "DeletionPolicy": "Retain",
+         "Properties": {
+            "FunctionName": {
+               "Ref": "ScrapeLambdaFunction"
+            }
          }
       },
       "GetCompetitionsLambdaFunction": {
@@ -158,7 +226,7 @@
                ]
             },
             "Handler": "handler.getCompetitions",
-            "MemorySize": 1024,
+            "MemorySize": 128,
             "Role": {
                "Fn::GetAtt": [
                   "LambdaExecutionRole",
@@ -166,14 +234,14 @@
                ]
             },
             "Runtime": "nodejs4.3",
-            "Timeout": 6
+            "Timeout": 30
          },
          "DependsOn": [
             "IamPolicyLambdaExecution",
             "IamRoleLambdaExecution"
          ]
       },
-      "GetCompetitionsLambdaVersion0CvNe1j1OjBOrmaMUl2rVN9M4p1AkfODLMnSJBqKM": {
+      "GetCompetitionsLambdaVersion9blVZ8Po95aHKqgSnZfz6op0IQ9h4rqJKAn0oTAUw": {
          "Type": "AWS::Lambda::Version",
          "DeletionPolicy": "Retain",
          "Properties": {
@@ -206,7 +274,7 @@
                ]
             },
             "Handler": "handler.getSources",
-            "MemorySize": 1024,
+            "MemorySize": 128,
             "Role": {
                "Fn::GetAtt": [
                   "LambdaExecutionRole",
@@ -214,19 +282,56 @@
                ]
             },
             "Runtime": "nodejs4.3",
-            "Timeout": 6
+            "Timeout": 30
          },
          "DependsOn": [
             "IamPolicyLambdaExecution",
             "IamRoleLambdaExecution"
          ]
       },
-      "GetSourcesLambdaVersion0CvNe1j1OjBOrmaMUl2rVN9M4p1AkfODLMnSJBqKM": {
+      "GetSourcesLambdaVersion9blVZ8Po95aHKqgSnZfz6op0IQ9h4rqJKAn0oTAUw": {
          "Type": "AWS::Lambda::Version",
          "DeletionPolicy": "Retain",
          "Properties": {
             "FunctionName": {
                "Ref": "GetSourcesLambdaFunction"
+            }
+         }
+      },
+      "ScrapeEventsRuleSchedule1": {
+         "Type": "AWS::Events::Rule",
+         "Properties": {
+            "ScheduleExpression": "rate(2 hours)",
+            "State": "ENABLED",
+            "Targets": [
+               {
+                  "Arn": {
+                     "Fn::GetAtt": [
+                        "ScrapeLambdaFunction",
+                        "Arn"
+                     ]
+                  },
+                  "Id": "scrapeSchedule"
+               }
+            ]
+         }
+      },
+      "ScrapeLambdaPermissionEventsRuleSchedule1": {
+         "Type": "AWS::Lambda::Permission",
+         "Properties": {
+            "FunctionName": {
+               "Fn::GetAtt": [
+                  "ScrapeLambdaFunction",
+                  "Arn"
+               ]
+            },
+            "Action": "lambda:InvokeFunction",
+            "Principal": "events.amazonaws.com",
+            "SourceArn": {
+               "Fn::GetAtt": [
+                  "ScrapeEventsRuleSchedule1",
+                  "Arn"
+               ]
             }
          }
       },
@@ -741,7 +846,7 @@
             ]
          }
       },
-      "ApiGatewayDeployment1489701023639": {
+      "ApiGatewayDeployment1490035196233": {
          "Type": "AWS::ApiGateway::Deployment",
          "Properties": {
             "RestApiId": {
@@ -874,7 +979,7 @@
             "CacheClusterEnabled": true,
             "CacheClusterSize": "0.5",
             "DeploymentId": {
-               "Ref": "ApiGatewayDeployment1489701023639"
+               "Ref": "ApiGatewayDeployment1490035196233"
             },
             "MethodSettings": [
                {
@@ -894,16 +999,22 @@
       }
    },
    "Outputs": {
+      "ScrapeLambdaFunctionQualifiedArn": {
+         "Description": "Current Lambda function version",
+         "Value": {
+            "Ref": "ScrapeLambdaVersion9blVZ8Po95aHKqgSnZfz6op0IQ9h4rqJKAn0oTAUw"
+         }
+      },
       "GetCompetitionsLambdaFunctionQualifiedArn": {
          "Description": "Current Lambda function version",
          "Value": {
-            "Ref": "GetCompetitionsLambdaVersion0CvNe1j1OjBOrmaMUl2rVN9M4p1AkfODLMnSJBqKM"
+            "Ref": "GetCompetitionsLambdaVersion9blVZ8Po95aHKqgSnZfz6op0IQ9h4rqJKAn0oTAUw"
          }
       },
       "GetSourcesLambdaFunctionQualifiedArn": {
          "Description": "Current Lambda function version",
          "Value": {
-            "Ref": "GetSourcesLambdaVersion0CvNe1j1OjBOrmaMUl2rVN9M4p1AkfODLMnSJBqKM"
+            "Ref": "GetSourcesLambdaVersion9blVZ8Po95aHKqgSnZfz6op0IQ9h4rqJKAn0oTAUw"
          }
       },
       "ServiceEndpoint": {

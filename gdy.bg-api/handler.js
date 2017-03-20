@@ -1,6 +1,7 @@
 'use strict';
 
-const api = require('./api.js');
+const api = require('./src/api.js');
+const scraper = require('./src/scraper.js');
 
 function cbw(cb) {
     return function (err, res) {
@@ -17,13 +18,8 @@ function cbw(cb) {
 }
 
 
-// module.exports.getSources = (event, context, cb) => api.getSources({
-//     parameters: {
-//         limit: event.query.limit,
-//         next: event.query.next
-//     }
-// }, cbw(cb));
-
 module.exports.getSources = (event, context, cb) => api.getSources(event, cbw(cb));
 
 module.exports.getCompetitions = (event, context, cb) => api.getCompetitions(event, cbw(cb));
+
+module.exports.scrape = (event, context, cb) => scraper.scrape();
