@@ -10,7 +10,7 @@ APIBasePath
  
 APIDomainName
 
-	gdy.bg
+	dev.gdy.bg
 	
 LambdaBucketKey
 
@@ -19,7 +19,6 @@ LambdaBucketKey
 LambdaBucketName
 	
 	gdy.bg-source
-	
  
 StageName
 

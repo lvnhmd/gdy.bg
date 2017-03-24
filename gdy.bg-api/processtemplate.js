@@ -108,17 +108,16 @@ function thenReplace() {
             }
         };
 
-        // TODO Use as per env - do not use on local
-        // newJson['Resources']['ApiGatewayBasePathMapping'] = {
-        //     "Type": "AWS::ApiGateway::BasePathMapping",
-        //     "DependsOn": ["ApiStage", "ApiGatewayRestApi", ApiGatewayDeploymentName],
-        //     "Properties": {
-        //         "BasePath": { "Ref": "APIBasePath" },
-        //         "DomainName": { "Ref": "APIDomainName" },
-        //         "RestApiId": { "Ref": "ApiGatewayRestApi" },
-        //         "Stage": { "Ref": "StageName" }
-        //     }
-        // };
+        newJson['Resources']['ApiGatewayBasePathMapping'] = {
+            "Type": "AWS::ApiGateway::BasePathMapping",
+            "DependsOn": ["ApiStage", "ApiGatewayRestApi", ApiGatewayDeploymentName],
+            "Properties": {
+                "BasePath": { "Ref": "APIBasePath" },
+                "DomainName": { "Ref": "APIDomainName" },
+                "RestApiId": { "Ref": "ApiGatewayRestApi" },
+                "Stage": { "Ref": "StageName" }
+            }
+        };
 
         newJson['Resources']['ApiStage'] = {
             "Type": "AWS::ApiGateway::Stage",

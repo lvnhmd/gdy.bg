@@ -142,7 +142,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/gdybg-api/dev/1490035195951-2017-03-20T18:39:55.951Z/gdybg-api.zip"
+          "S3Key": "serverless/gdybg-api/dev/1490374437122-2017-03-24T16:53:57.122Z/gdybg-api.zip"
         },
         "FunctionName": "gdybg-api-dev-scrape",
         "Handler": "handler.scrape",
@@ -161,14 +161,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "ScrapeLambdaVersion9blVZ8Po95aHKqgSnZfz6op0IQ9h4rqJKAn0oTAUw": {
+    "ScrapeLambdaVersion2QJdXvmx9ssmTILpljN4yqrfEjvwUxR4uvPGPYws": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ScrapeLambdaFunction"
         },
-        "CodeSha256": "9blVZ8Po95aH+KqgSnZfz6op0IQ9h4rqJKAn0oTA/Uw="
+        "CodeSha256": "2+QJdXvmx/9ssmTILpljN+4yqrfEjvwUxR4uvPGPYws="
       }
     },
     "GetCompetitionsLambdaFunction": {
@@ -178,7 +178,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/gdybg-api/dev/1490035195951-2017-03-20T18:39:55.951Z/gdybg-api.zip"
+          "S3Key": "serverless/gdybg-api/dev/1490374437122-2017-03-24T16:53:57.122Z/gdybg-api.zip"
         },
         "FunctionName": "gdybg-api-dev-getCompetitions",
         "Handler": "handler.getCompetitions",
@@ -197,14 +197,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "GetCompetitionsLambdaVersion9blVZ8Po95aHKqgSnZfz6op0IQ9h4rqJKAn0oTAUw": {
+    "GetCompetitionsLambdaVersion2QJdXvmx9ssmTILpljN4yqrfEjvwUxR4uvPGPYws": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetCompetitionsLambdaFunction"
         },
-        "CodeSha256": "9blVZ8Po95aH+KqgSnZfz6op0IQ9h4rqJKAn0oTA/Uw="
+        "CodeSha256": "2+QJdXvmx/9ssmTILpljN+4yqrfEjvwUxR4uvPGPYws="
       }
     },
     "GetSourcesLambdaFunction": {
@@ -214,7 +214,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/gdybg-api/dev/1490035195951-2017-03-20T18:39:55.951Z/gdybg-api.zip"
+          "S3Key": "serverless/gdybg-api/dev/1490374437122-2017-03-24T16:53:57.122Z/gdybg-api.zip"
         },
         "FunctionName": "gdybg-api-dev-getSources",
         "Handler": "handler.getSources",
@@ -233,14 +233,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "GetSourcesLambdaVersion9blVZ8Po95aHKqgSnZfz6op0IQ9h4rqJKAn0oTAUw": {
+    "GetSourcesLambdaVersion2QJdXvmx9ssmTILpljN4yqrfEjvwUxR4uvPGPYws": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetSourcesLambdaFunction"
         },
-        "CodeSha256": "9blVZ8Po95aH+KqgSnZfz6op0IQ9h4rqJKAn0oTA/Uw="
+        "CodeSha256": "2+QJdXvmx/9ssmTILpljN+4yqrfEjvwUxR4uvPGPYws="
       }
     },
     "ScrapeEventsRuleSchedule1": {
@@ -791,7 +791,7 @@
         ]
       }
     },
-    "ApiGatewayDeployment1490035196233": {
+    "ApiGatewayDeployment1490374437391": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -880,19 +880,19 @@
     "ScrapeLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ScrapeLambdaVersion9blVZ8Po95aHKqgSnZfz6op0IQ9h4rqJKAn0oTAUw"
+        "Ref": "ScrapeLambdaVersion2QJdXvmx9ssmTILpljN4yqrfEjvwUxR4uvPGPYws"
       }
     },
     "GetCompetitionsLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetCompetitionsLambdaVersion9blVZ8Po95aHKqgSnZfz6op0IQ9h4rqJKAn0oTAUw"
+        "Ref": "GetCompetitionsLambdaVersion2QJdXvmx9ssmTILpljN4yqrfEjvwUxR4uvPGPYws"
       }
     },
     "GetSourcesLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetSourcesLambdaVersion9blVZ8Po95aHKqgSnZfz6op0IQ9h4rqJKAn0oTAUw"
+        "Ref": "GetSourcesLambdaVersion2QJdXvmx9ssmTILpljN4yqrfEjvwUxR4uvPGPYws"
       }
     },
     "ServiceEndpoint": {
