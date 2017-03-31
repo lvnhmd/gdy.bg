@@ -12,48 +12,48 @@ import * as RouterPlugin from './plugins/router';
 import routesConfiguration from './config/routes';
 
 import * as ajax from './plugins/ajax';
-const API_BASE_URL = 'https://0lncgbduy9.execute-api.eu-west-1.amazonaws.com/dev/api/v1';
+const API_BASE_URL = 'https://dev.gdy.bg/api/v1';
 
-var slicknavDecorator = function (node, content) {
-    var ractive = this;
-    var addToFilters = function (item) {
-        var source =  item.text();
-        var filters = ractive.get('filters');
+// var slicknavDecorator = function (node, content) {
+//     var ractive = this;
+//     var addToFilters = function (item) {
+//         var source =  item.text();
+//         var filters = ractive.get('filters');
 
-        //if the source is already in the array, remove it the user have clicked on it before and have clicked the second time		
-        if (_.indexOf(filters, source) > -1) {
-            _.pull(filters, source);
-            ractive.set('filters', filters);
-            item.css({ 'color': '', 'background': ''}); 
-        }
-        //if the source is NOT in the array, ADD it the user have clicked on it for the first time		
-        else {
-            filters.push(source);
-            item.css({ 'color': '#000', 'background': '#E0479E'}); 
-        }
-    };
-    
-    return {
-        
-        update: function (content) {
+//         //if the source is already in the array, remove it the user have clicked on it before and have clicked the second time		
+//         if (_.indexOf(filters, source) > -1) {
+//             _.pull(filters, source);
+//             ractive.set('filters', filters);
+//             item.css({ 'color': '', 'background': ''}); 
+//         }
+//         //if the source is NOT in the array, ADD it the user have clicked on it for the first time		
+//         else {
+//             filters.push(source);
+//             item.css({ 'color': '#000', 'background': '#E0479E'}); 
+//         }
+//     };
 
-            var innerHTML = '';
-            for (var i in content) {
-                innerHTML += ('<li><a>' + content[i] + '</a></li>');
-            }
-            $(node).html(innerHTML);
+//     return {
 
-            $(node).slicknav({
-                onClicked : addToFilters
-            });
+//         update: function (content) {
 
-        },
-        teardown: function () {
-            node.innerHTML = '';
-        }
-    };
-};
-Ractive.decorators.slicknavDecorator = slicknavDecorator;
+//             var innerHTML = '';
+//             for (var i in content) {
+//                 innerHTML += ('<li><a>' + content[i] + '</a></li>');
+//             }
+//             $(node).html(innerHTML);
+
+//             $(node).slicknav({
+//                 onClicked : addToFilters
+//             });
+
+//         },
+//         teardown: function () {
+//             node.innerHTML = '';
+//         }
+//     };
+// };
+// Ractive.decorators.slicknavDecorator = slicknavDecorator;
 
 let App = new Ractive({
     el: '#wrapper',
@@ -65,6 +65,7 @@ let App = new Ractive({
         sources: [],
         filters: []
     },
+
     components: {
         Header: HeaderComponent,
         Navigation: NavigationComponent,
@@ -72,6 +73,7 @@ let App = new Ractive({
         Footer: FooterComponent,
         Router: RouterComponent
     },
+
     filter(competitions) {
 
         var filters = this.get('filters');

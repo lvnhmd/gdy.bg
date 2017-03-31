@@ -119,18 +119,28 @@ function thenReplace() {
             }
         };
 
+        // newJson['Resources']['ApiStage'] = {
+        //     "Type": "AWS::ApiGateway::Stage",
+        //     "Properties": {
+        //         "CacheClusterEnabled": true,
+        //         "CacheClusterSize": "0.5",
+        //         "DeploymentId": { "Ref": ApiGatewayDeploymentName },
+        //         "MethodSettings": [{
+        //             "ResourcePath": "/*/",
+        //             "HttpMethod": "GET",
+        //             "CachingEnabled": true,
+        //             "CacheTtlInSeconds": 3600
+        //         }],
+        //         "RestApiId": { "Ref": "ApiGatewayRestApi" },
+        //         "StageName": { "Ref": "StageName" }
+        //     }
+        // };
+        
+        // remove cache, its expensive
         newJson['Resources']['ApiStage'] = {
             "Type": "AWS::ApiGateway::Stage",
             "Properties": {
-                "CacheClusterEnabled": true,
-                "CacheClusterSize": "0.5",
                 "DeploymentId": { "Ref": ApiGatewayDeploymentName },
-                "MethodSettings": [{
-                    "ResourcePath": "/*/",
-                    "HttpMethod": "GET",
-                    "CachingEnabled": true,
-                    "CacheTtlInSeconds": 3600
-                }],
                 "RestApiId": { "Ref": "ApiGatewayRestApi" },
                 "StageName": { "Ref": "StageName" }
             }
