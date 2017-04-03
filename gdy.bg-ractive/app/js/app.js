@@ -1,5 +1,5 @@
 import Ractive from 'ractive';
-import template from '../views/home-page.html';
+import template from '../views/app.html';
 
 import HeaderComponent from './components/layout/header';
 import NavigationComponent from './components/layout/navigation';
@@ -14,64 +14,34 @@ import routesConfiguration from './config/routes';
 import * as ajax from './plugins/ajax';
 const API_BASE_URL = 'https://dev.gdy.bg/api/v1';
 
-// var slicknavDecorator = function (node, content) {
-//     var ractive = this;
-//     var addToFilters = function (item) {
-//         var source =  item.text();
-//         var filters = ractive.get('filters');
-
-//         //if the source is already in the array, remove it the user have clicked on it before and have clicked the second time		
-//         if (_.indexOf(filters, source) > -1) {
-//             _.pull(filters, source);
-//             ractive.set('filters', filters);
-//             item.css({ 'color': '', 'background': ''}); 
-//         }
-//         //if the source is NOT in the array, ADD it the user have clicked on it for the first time		
-//         else {
-//             filters.push(source);
-//             item.css({ 'color': '#000', 'background': '#E0479E'}); 
-//         }
-//     };
-
-//     return {
-
-//         update: function (content) {
-
-//             var innerHTML = '';
-//             for (var i in content) {
-//                 innerHTML += ('<li><a>' + content[i] + '</a></li>');
-//             }
-//             $(node).html(innerHTML);
-
-//             $(node).slicknav({
-//                 onClicked : addToFilters
-//             });
-
-//         },
-//         teardown: function () {
-//             node.innerHTML = '';
-//         }
-//     };
-// };
-// Ractive.decorators.slicknavDecorator = slicknavDecorator;
+import LoginComponent from './components/layout/login';
 
 let App = new Ractive({
-    el: '#wrapper',
+    el: '#app',
     template: template,
     data: {
         searchTerm: '',
         allcomps: [],
         comps: [],
         sources: [],
-        filters: []
+        filters: [],
+        componentName: 'EmptyPage'
     },
-
+	oncomplete() {
+		// Wait for the app to be rendered so we properly handle transition
+		// from EmptyPage to the one the URL dictates
+		RouterPlugin.init(routesConfiguration, this.onNavigation.bind(this));
+		console.log('App::oninit# Application initialized!');
+	},
     components: {
         Header: HeaderComponent,
         Navigation: NavigationComponent,
         Content: ContentComponent,
         Footer: FooterComponent,
-        Router: RouterComponent
+        Router: RouterComponent,
+        Login: LoginComponent
+        ,
+        EmptyPage: Ractive.extend({ template: '' })
     },
 
     filter(competitions) {
@@ -97,7 +67,7 @@ let App = new Ractive({
 
     oninit() {
 
-        RouterPlugin.init(routesConfiguration, this.onNavigation.bind(this));
+        // RouterPlugin.init(routesConfiguration, this.onNavigation.bind(this));
 
         let allCompetitionsUrl = `${API_BASE_URL}/competitions`;
 
@@ -139,11 +109,11 @@ let App = new Ractive({
 
         });
 
-
         console.log('App::oninit# Application initialized!');
     },
-
+    
     onNavigation(error, navigationContext) {
+        
         console.log('APP::onNavigation# Navigating to:', navigationContext.pageName, 'with context:', navigationContext);
 
         if (error) {
