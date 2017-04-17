@@ -39,8 +39,7 @@ let App = new Ractive({
         Content: ContentComponent,
         Footer: FooterComponent,
         Router: RouterComponent,
-        Login: LoginComponent
-        ,
+        Login: LoginComponent,
         EmptyPage: Ractive.extend({ template: '' })
     },
 

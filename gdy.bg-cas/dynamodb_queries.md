@@ -52,3 +52,27 @@ dynamodb.listTables(params, function(err, data) {
     else
         console.log(JSON.stringify(data, null, 2));
 });
+
+<!--Create table on the shell-->
+var params = { 
+    TableName: "productinformation",
+    AttributeDefinitions:[{
+        AttributeName:"productInfoId",
+        AttributeType:"S"
+    }],
+    KeySchema: [{
+        AttributeName:"productInfoId",
+        KeyType:"HASH"
+    }],
+    ProvisionedThroughput:{
+        ReadCapacityUnits:150,
+        WriteCapacityUnits:150
+    }
+};
+
+dynamodb.createTable(params, function(err, data) {
+    if (err)
+        console.log(JSON.stringify(err, null, 2));
+    else
+        console.log(JSON.stringify(data, null, 2));
+});
