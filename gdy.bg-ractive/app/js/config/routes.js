@@ -8,11 +8,14 @@ var routes = new Map();
 
 routes.set('/', (context, next) => {
     console.log('SET ROUTE /');
-    next(null, ContentPage);
+    console.log('CONTEXT ' + JSON.stringify(context));
+    next(null, ContentPage, context);
 });
 
 routes.set('/login', (context, next) => {
     console.log('SET ROUTE LOGIN');
+    // next (error, )
+    // context.params.name = 'Elvin';
     next(null, LoginPage);
 });
 

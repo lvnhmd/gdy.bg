@@ -25,14 +25,9 @@ let App = new Ractive({
         comps: [],
         sources: [],
         filters: [],
-        componentName: 'EmptyPage'
+        componentName: 'EmptyPage',
+        userName: ''
     },
-	oncomplete() {
-		// Wait for the app to be rendered so we properly handle transition
-		// from EmptyPage to the one the URL dictates
-		RouterPlugin.init(routesConfiguration, this.onNavigation.bind(this));
-		console.log('App::oninit# Application initialized!');
-	},
     components: {
         Header: HeaderComponent,
         Navigation: NavigationComponent,
@@ -110,11 +105,18 @@ let App = new Ractive({
 
         console.log('App::oninit# Application initialized!');
     },
-    
-    onNavigation(error, navigationContext) {
-        
-        console.log('APP::onNavigation# Navigating to:', navigationContext.pageName, 'with context:', navigationContext);
 
+    oncomplete() {
+        // Wait for the app to be rendered so we properly handle transition
+        // from EmptyPage to the one the URL dictates
+        RouterPlugin.init(routesConfiguration, this.onNavigation.bind(this));
+        console.log('App::oninit# Application initialized!');
+    },
+
+    onNavigation(error, navigationContext) {
+
+        console.log('APP::onNavigation# Navigating to:', navigationContext.pageName, 'with context:', navigationContext);
+        console.log('navigationContext.state : ',  navigationContext.state);
         if (error) {
             console.warn('App::onNavigation# Error navigating:', error);
         } else {

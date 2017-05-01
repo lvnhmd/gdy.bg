@@ -1,5 +1,6 @@
 import page from 'page';  
 import Ractive from 'ractive';
+import routesConfiguration from '../config/routes';
 
 function navigationHandler(routeHandler, onNavigation) {  
     return function(context/*, next*/) {
@@ -12,7 +13,7 @@ function navigationHandler(routeHandler, onNavigation) {
 }
 
 export function init(routes, onNavigation) {
-    console.log('routes ' + JSON.stringify(routes));
+    
     routes.forEach((routeHandler, path) => {
         page(path, navigationHandler(routeHandler, onNavigation));
     });
@@ -22,7 +23,8 @@ export function init(routes, onNavigation) {
     });
 }
 
-export function navTo(url) {  
+export function navTo(url, param) {  
     console.log('navTo ' + url);
-    page.show(url);
+    console.log('param ' + JSON.stringify(param));
+    page.show(url, param);
 }

@@ -10,28 +10,12 @@ var Login = Ractive.components.Login = Ractive.extend({
 			rEvent.original.preventDefault();
 			router.navTo(`/login`);
 		});
-
-		this.on('testAPI', (rEvent) => {
-			alert('HELO HOLA');
-			// rEvent.original.preventDefault();
-			// router.navTo(`/`);
-		});
-
 	},
 
 	oncomplete() {
 
-		this.on('checkLoginState', function () {
-			FB.getLoginStatus(function (response) {
-				statusChangeCallback(response);
-			});
-		});
-
-
 		// This is called with the results from from FB.getLoginStatus().
-		function statusChangeCallback(response) {
-			alert('statusChangeCallback');
-			console.log('statusChangeCallback');
+		var statusChangeCallback = function (response) {
 			console.log(response);
 			// The response object is returned with a status field that lets the
 			// app know the current login status of the person.
@@ -50,7 +34,7 @@ var Login = Ractive.components.Login = Ractive.extend({
 		// This function is called when someone finishes with the Login
 		// Button.  See the onlogin handler attached to it in the sample
 		// code below.
-		function checkLoginState() {
+		window.checkLoginState = function () {
 			FB.getLoginStatus(function (response) {
 				statusChangeCallback(response);
 			});
@@ -79,30 +63,48 @@ var Login = Ractive.components.Login = Ractive.extend({
 			// These three cases are handled in the callback function.
 
 			FB.getLoginStatus(function (response) {
-				alert('getLoginStatus');
 				statusChangeCallback(response);
 			});
-
 		};
 		// Here we run a very simple test of the Graph API after login is
 		// successful.  See statusChangeCallback() for when this call is made.
-		function testAPI() {
+		// var testAPI = (function (ractive) {
+		// 	console.log('Welcome!  Fetching your information.... ');
+
+		// 	FB.api('/me', function (response) {
+		// 		console.log('Successful login for: ' + JSON.stringify(response));
+		// 		//here I want to navigate back to index.html and display name in the header  
+		// 		document.getElementById('status').innerHTML =
+		// 			'Thanks for logging in, ' + response.name + '!';
+
+
+
+		// 		ractive.set('userName', response.name);
+		// 		router.navTo(`/`);
+
+		// 	});
+
+		// })(this);
+
+		var testAPI = function () {
 			console.log('Welcome!  Fetching your information.... ');
+
 			FB.api('/me', function (response) {
 				console.log('Successful login for: ' + JSON.stringify(response));
 				//here I want to navigate back to index.html and display name in the header  
-				document.getElementById('status').innerHTML =
-					'Thanks for logging in, ' + response.name + '!';
-				//go back to homepage 
-				//set user in response     
-				//can I invoke a ractive function ? 
-				$('#testAPI').trigger('click');
-				//    alert($('#testAPI'));
-				alert(document.getElementById('testAPI'));
-				alert('HMM');
+				// document.getElementById('status').innerHTML =
+				// 	'Thanks for logging in, ' + response.name + '!';
+
+
+
+				// ractive.set('userName', response.name);
+				// router.setParamsAndNavTo(`/`, { userName: response.name });
+				router.navTo(`/`,{ userName: response.name });
 
 			});
-		}
+
+		};
+
 
 	}
 
