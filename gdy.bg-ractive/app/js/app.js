@@ -26,7 +26,8 @@ let App = new Ractive({
         sources: [],
         filters: [],
         componentName: 'EmptyPage',
-        userName: ''
+        userName: 'shmiglt',
+        elvin : "elvin"
     },
     components: {
         Header: HeaderComponent,
@@ -100,6 +101,12 @@ let App = new Ractive({
             console.log('in filters' + JSON.stringify(this.get('filters')));
 
             this.set('comps', this.filter(this.get('allcomps')));
+
+        });
+
+        this.observe('userName', function (newValue, oldValue, keypath) {
+
+            console.log('in app userName has changed : ' + oldValue + ' => ' + newValue);
 
         });
 
