@@ -26,8 +26,7 @@ let App = new Ractive({
         sources: [],
         filters: [],
         componentName: 'EmptyPage',
-        userName: 'shmiglt',
-        elvin : "elvin"
+        userName: ''
     },
     components: {
         Header: HeaderComponent,
@@ -91,24 +90,24 @@ let App = new Ractive({
 
         this.observe('searchTerm', function (newValue, oldValue, keypath) {
 
-            console.log('search for ' + oldValue + '->' + newValue);
+            console.log('search for ' + oldValue + ' => ' + newValue);
 
             this.set('comps', this.filter(this.get('allcomps')));
         });
 
         this.observe('filters', function (newValue, oldValue, keypath) {
 
-            console.log('in filters' + JSON.stringify(this.get('filters')));
+            console.log('filters' + JSON.stringify(this.get('filters')));
 
             this.set('comps', this.filter(this.get('allcomps')));
 
         });
 
-        this.observe('userName', function (newValue, oldValue, keypath) {
+        // this.observe('userName', function (newValue, oldValue, keypath) {
 
-            console.log('in app userName has changed : ' + oldValue + ' => ' + newValue);
+        //     console.log('in app userName has changed : ' + oldValue + ' => ' + newValue);
 
-        });
+        // });
 
         console.log('App::oninit# Application initialized!');
     },
@@ -123,7 +122,7 @@ let App = new Ractive({
     onNavigation(error, navigationContext) {
 
         console.log('APP::onNavigation# Navigating to:', navigationContext.pageName, 'with context:', navigationContext);
-        console.log('navigationContext.state : ',  navigationContext.state);
+        
         if (error) {
             console.warn('App::onNavigation# Error navigating:', error);
         } else {

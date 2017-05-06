@@ -8,19 +8,10 @@ var Content = Ractive.components.Content = Ractive.extend({
     oninit: function () {
 
         this.observe('req', (request) => {
-            console.log('On init content ' + JSON.stringify(request.body));
-            if (request.body.content && request.body.content.comps) {
-                this.set('comps', request.body.content.comps);
-                this.set('userName','piglet');
-            }
             if (request.body.userName) {
-                console.log('set userName to ' + request.body.userName);
+                // hmm - before being able to set the userName, I have to get it
+                this.get('userName');
                 this.set('userName', request.body.userName);
-                // this.update('userName');
-                // console.log('this is ' + this);
-                // alert('HELLOOOOOO ');
-                // alert('userName is ' + this.get('userName'));
-                // this.updateModel('userName');
             }
         });
     }

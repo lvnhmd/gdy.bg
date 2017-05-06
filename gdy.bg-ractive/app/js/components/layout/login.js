@@ -16,7 +16,6 @@ var Login = Ractive.components.Login = Ractive.extend({
 
 		// This is called with the results from from FB.getLoginStatus().
 		var statusChangeCallback = function (response) {
-			console.log(response);
 			// The response object is returned with a status field that lets the
 			// app know the current login status of the person.
 			// Full docs on the response object can be found in the documentation
@@ -41,7 +40,7 @@ var Login = Ractive.components.Login = Ractive.extend({
 		}
 
 		window.fbAsyncInit = function () {
-			alert('window.fbAsyncInit');
+			
 			FB.init({
 				appId: '809916329143027',
 				cookie: false,  // enable cookies to allow the server to access 
@@ -68,38 +67,16 @@ var Login = Ractive.components.Login = Ractive.extend({
 		};
 		// Here we run a very simple test of the Graph API after login is
 		// successful.  See statusChangeCallback() for when this call is made.
-		// var testAPI = (function (ractive) {
-		// 	console.log('Welcome!  Fetching your information.... ');
-
-		// 	FB.api('/me', function (response) {
-		// 		console.log('Successful login for: ' + JSON.stringify(response));
-		// 		//here I want to navigate back to index.html and display name in the header  
-		// 		document.getElementById('status').innerHTML =
-		// 			'Thanks for logging in, ' + response.name + '!';
-
-
-
-		// 		ractive.set('userName', response.name);
-		// 		router.navTo(`/`);
-
-		// 	});
-
-		// })(this);
 
 		var testAPI = function () {
 			console.log('Welcome!  Fetching your information.... ');
 
 			FB.api('/me', function (response) {
 				console.log('Successful login for: ' + JSON.stringify(response));
+				
 				//here I want to navigate back to index.html and display name in the header  
-				// document.getElementById('status').innerHTML =
-				// 	'Thanks for logging in, ' + response.name + '!';
-
-
-
-				// ractive.set('userName', response.name);
-				// router.setParamsAndNavTo(`/`, { userName: response.name });
-				router.navTo(`/`,{ userName: response.name });
+				
+				router.navTo(`/`, { userName: response.name });
 
 			});
 

@@ -8,12 +8,9 @@
     </div>
     <ul id="cart" class="desktop-6 tablet-3 mobile-1">
         <li>
-            <!--{{#if userName}} Hi, {{ userName }} | <a on-click="logout">Logout</a> {{else}}-->
-            <a on-click="#">{{ elvin }}</a>
-            <a on-click="#">{{ userName }}</a>
-            <a on-click="login">Login</a>&nbsp;|
-            <a on-click="register">Register</a> 
-            <!--{{/if}}-->
+            {{#if userName}} Hi, {{ userName }} | <a on-click="logout">Logout</a> {{else}}
+                <a on-click="login">Login</a> 
+            {{/if}}
         </li>
     </ul>
 </div>

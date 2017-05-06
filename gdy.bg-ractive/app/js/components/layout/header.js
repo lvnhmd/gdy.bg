@@ -11,9 +11,9 @@ var Header = Ractive.components.Header = Ractive.extend({
 			router.navTo(`/login`);
 		});
 
-		this.observe('userName', function (newValue, oldValue, keypath) {
-			alert(keypath + ' changed to ' + newValue);
-		});
+		// this.observe('userName', function (newValue, oldValue, keypath) {
+		// 	alert(keypath + ' changed to ' + newValue);
+		// });
 	}
 });
 
