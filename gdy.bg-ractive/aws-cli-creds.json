@@ -1,0 +1,7 @@
+// user : s3-folder-upload
+{    
+    "acessKeyId": "AKIAJGJMYLEQ7YZGZXGA",
+    "secretAccessKey": "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",
+    "region": "eu-west-1",
+    "bucket": "gdy.bg"
+}

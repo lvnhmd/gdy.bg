@@ -42,7 +42,7 @@ var Login = Ractive.components.Login = Ractive.extend({
 		window.fbAsyncInit = function () {
 			
 			FB.init({
-				appId: '809916329143027',
+				appId: '1847976505469649', //swagbag.club 1847976505469649 //enadev 809916329143027
 				cookie: false,  // enable cookies to allow the server to access 
 				// the session
 				xfbml: true,  // parse social plugins on this page
