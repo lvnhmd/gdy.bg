@@ -8,6 +8,10 @@ class App extends Component {
     constructor(props) {
         super(props);
 
+
+
+
+
         this.state = {
             competitions: [{
                 closes: "2017-05-28T00:00:00.000Z",
@@ -16,9 +20,21 @@ class App extends Component {
                 source: "shortlist",
                 updatedAt: "2017-06-04T17:10:28.912Z",
                 title: "Win ВЈ500 worth of festival clothing from Pretty Green"
-            }
-            ]
+            }]
         };
+
+        const url = 'https://dev.gdy.bg/api/v1/competitions';
+        fetch(url)
+            .then((resp) => resp.json())
+            .then((data) => {
+                // console.log(data.Items);
+                this.setState({
+                    competitions: data.Items
+                });
+            })
+            .catch((error) => {
+                console.log(JSON.stringify(error));
+            });
 
         // this.getCompetitions();
 
