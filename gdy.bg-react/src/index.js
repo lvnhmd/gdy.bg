@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import SearchField from './components/search_field';
 import CompetitionList from './components/competition_list';
 
 class App extends Component {
@@ -9,15 +10,14 @@ class App extends Component {
         super(props);
 
         this.state = {
-            competitions: [{
-                closes: "2017-05-28T00:00:00.000Z",
-                img: "http://6.darkroom.shortlist.com/710/1dc5aac31a2a5ae0908f7231be1a4e1f:46a3c8ce45cdfc38979a283dc050b93c/prettygreen-festival0134-web-1.jpg",
-                uri: "http://www.shortlist.com/win/win-500-to-spend-at-pretty-green",
-                source: "shortlist",
-                updatedAt: "2017-06-04T17:10:28.912Z",
-                title: "Win ВЈ500 worth of festival clothing from Pretty Green"
-            }]
+            competitions: []
         };
+
+        this.getCompetitions();
+
+    }
+
+    getCompetitions() {
 
         const url = 'https://dev.gdy.bg/api/v1/competitions';
         fetch(url)
@@ -31,39 +31,48 @@ class App extends Component {
             .catch((error) => {
                 console.log(JSON.stringify(error));
             });
-
-        // this.getCompetitions();
-
     }
 
-    getCompetitions() {
-        // YTSearch({ key: API_KEY, term: term }, (videos) => {
-        //     this.setState({
-        //         videos: videos,
-        //         selectedVideo: videos[0]
-        //     });
-        // });
+    filterCompetitions(term) {
 
-        const url = 'https://dev.gdy.bg/api/v1/competitions';
-        fetch(url)
-            .then((resp) => resp.json())
-            .then(function (data) {
-                // console.log(data.Items);
-                this.setState({
-                    competitions: data.Items
-                });
-            })
-            .catch(function (error) {
-                console.log(JSON.stringify(error));
-            });
+        //    var filters = this.get('filters');
+
+        //     if (filters.length) {
+        //         competitions = _.filter(competitions, function (comp) {
+        //             if (_.indexOf(filters, comp.source) > -1)
+        //                 return comp;
+        //         });
+        //     }
+
+        var filtered = _.filter(this.state.competitions, function (c) {
+            return c.title.toLowerCase().match(term.toLowerCase());
+        });
+
+        this.setState({
+            competitions: filtered
+        });
+
+
     }
 
     render() {
 
-        return (<div>
-            <CompetitionList competitions={this.state.competitions} />
-        </div>);
-    }
+        const filterCompetitions = (term) => { this.filterCompetitions(term) };
+
+        return (
+            <div>
+                <div id="header" className="row">
+                    <div id="logo" className="desktop-6 tablet-4 mobile-1">
+                        <a on-click="goto:home"><img src="img/logo.svg" alt="" style={{ border: 0 }} /></a>
+                    </div>
+                    <SearchField onSearchTermChange={filterCompetitions} />
+                </div>
+
+                <CompetitionList competitions={this.state.competitions} />
+
+            </div>
+        );
+    };
 }
 
 ReactDOM.render(<App />, document.querySelector('.container'));
