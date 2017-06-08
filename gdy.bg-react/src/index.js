@@ -8,10 +8,6 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-
-
-
-
         this.state = {
             competitions: [{
                 closes: "2017-05-28T00:00:00.000Z",

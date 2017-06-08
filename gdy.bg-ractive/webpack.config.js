@@ -28,7 +28,7 @@ module.exports = {
             'es6-promise': 'es6-promise'
         }),
         new CopyWebpackPlugin(
-            [{ from: 'assets', to: 'build'}]
+            [{ from: 'assets', to: 'build' }]
         )
     ]
 };
