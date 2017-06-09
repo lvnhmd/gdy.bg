@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import SearchField from './components/search_field';
+// import SearchField from './components/search_field';
 import CompetitionList from './components/competition_list';
+import Header from './components/header';
 
 class App extends Component {
 
@@ -10,7 +11,8 @@ class App extends Component {
         super(props);
 
         this.state = {
-            competitions: []
+            competitions: [],
+            allCompetitions: []
         };
 
         this.getCompetitions();
@@ -25,7 +27,8 @@ class App extends Component {
             .then((data) => {
                 // console.log(data.Items);
                 this.setState({
-                    competitions: data.Items
+                    competitions: data.Items,
+                    allCompetitions: data.Items
                 });
             })
             .catch((error) => {
@@ -44,7 +47,7 @@ class App extends Component {
         //         });
         //     }
 
-        var filtered = _.filter(this.state.competitions, function (c) {
+        var filtered = _.filter(this.state.allCompetitions, function (c) {
             return c.title.toLowerCase().match(term.toLowerCase());
         });
 
@@ -61,13 +64,7 @@ class App extends Component {
 
         return (
             <div>
-                <div id="header" className="row">
-                    <div id="logo" className="desktop-6 tablet-4 mobile-1">
-                        <a on-click="goto:home"><img src="img/logo.svg" alt="" style={{ border: 0 }} /></a>
-                    </div>
-                    <SearchField onSearchTermChange={filterCompetitions} />
-                </div>
-
+                <Header onSearchTermChange={filterCompetitions} />
                 <CompetitionList competitions={this.state.competitions} />
 
             </div>
