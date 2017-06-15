@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import SearchField from './search_field';
-import SourcesNavbar from './sources_navbar';
 
 const Header = (props) => {
 
