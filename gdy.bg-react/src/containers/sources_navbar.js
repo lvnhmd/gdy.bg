@@ -8,8 +8,10 @@ class SourcesNavbar extends Component {
     renderList() {
         return this.props.sources.map((source) => {
             return (
-                <li onClick={() => this.props.selectSource(source)}>
-                    {source.name}
+                <li key={source.name} >
+                    <a onClick={() => this.props.selectSource(source)}>
+                        {source.name}
+                    </a>
                 </li>
             );
         });

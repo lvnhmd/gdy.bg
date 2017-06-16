@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import SourcesReducer from './reducer_sources';
-import ActiveCompetition from './reducer_active_competition';
-import ActiveSource from './reducer_active_source';
+import SourcesReducer from './reducers_sources';
+import ActiveCompetition from './reducers_active_competition';
+import ActiveSource from './reducers_active_source';
 
 const rootReducer = combineReducers({
-  books: SourcesReducer,
+  sources: SourcesReducer,
   activeCompetition: ActiveCompetition,
   activeSource: ActiveSource
 });
