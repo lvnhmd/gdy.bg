@@ -1,30 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
 import CompetitionListItem from './competition_list_item';
+import { connect } from 'react-redux';
+import { fetchCompetitions } from '../actions/index';
 
+class CompetitionList extends Component {
 
-const CompetitionList = (props) => {
-    console.log(props.competitions);
+    constructor(props) {
+        super(props);
+    }
 
-    const competitionItems = props.competitions.map((competition) => {
-        return <CompetitionListItem key={competition.uri} competition={competition} />
-    });
+    componentDidMount() {
+        this.props.fetchCompetitions();
+    }
 
-    return (
-        <div className="container">
-            <div id="content" className="row">
-                <div id="collectionpage">
-                    <div className="collection-description">
-                        <h1></h1>
-                        <div className="rte"></div>
-                    </div>
-                    <div className="clear"></div>
-                    <div id="product-loop" className="desktop-12 mobile-3">
-                        {competitionItems}
+    render() {
+
+        return (
+            <div className="container">
+                <div id="content" className="row">
+                    <div id="collectionpage">
+                        <div className="collection-description">
+                            <h1></h1>
+                            <div className="rte"></div>
+                        </div>
+                        <div className="clear"></div>
+                        <div id="product-loop" className="desktop-12 mobile-3">
+                            hello
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+
+    }
 };
 
-export default CompetitionList;
+export default connect((state) => state, { fetchCompetitions })(CompetitionList);
+
