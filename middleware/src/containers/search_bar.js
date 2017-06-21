@@ -9,7 +9,7 @@ class SearchBar extends Component {
         super(props);
 
         this.state = { term: '' };
-        
+
         this.onInputChange = this.onInputChange.bind(this);
         this.onFormSubmit = this.onFormSubmit.bind(this);
 
@@ -23,26 +23,27 @@ class SearchBar extends Component {
         // but instead we will bind the context
         // this.onInputChange = this.onInputChange.bind(this); - in constructor
         this.setState({
-                term: event.target.value
-            }
+            term: event.target.value
+        }
         );
     }
 
     onFormSubmit(event) {
         // prevent default submit
         event.preventDefault();
-        
+
         // we need to go fetch weather data
         this.props.fetchWeather(this.state.term);
+        // clear the input
         this.setState({
-            term:''
-        })
+            term: ''
+        });
     }
 
     render() {
         return (
-            <form className='input-group' 
-                  onSubmit= {this.onFormSubmit} >
+            <form className='input-group'
+                onSubmit={this.onFormSubmit} >
                 <input
                     placeholder="get a five day forecast in your fav cities"
                     className="form-control"
@@ -60,7 +61,7 @@ class SearchBar extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators( {fetchWeather} , dispatch);
+    return bindActionCreators({ fetchWeather }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(SearchBar);

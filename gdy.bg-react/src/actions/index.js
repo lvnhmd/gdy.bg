@@ -1,7 +1,7 @@
 // Action creator
 import axios from 'axios';
 
-const ROOT_URL = `https://dev.gdy.bg/api/v1/competitions`;
+const ROOT_URL = `https://dev.gdy.bg/api/v1`;
 
 export const SRC_SELECTED = 'SRC_SELECTED';
 export const FETCH_COMPETITIONS = 'FETCH_COMPETITIONS';
@@ -16,10 +16,10 @@ export function selectSource(source) {
 
 export function fetchCompetitions() {
 
-    const url = `${ROOT_URL}`;
+    const url = `${ROOT_URL}/competitions`;
     const request = axios.get(url);
 
-    console.log('Request', request);
+    console.log('fetchCompetitions Request', request);
 
     return {
         type: FETCH_COMPETITIONS,

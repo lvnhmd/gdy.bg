@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import CompetitionListItem from './competition_list_item';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { fetchCompetitions } from '../actions/index';
 
 class CompetitionList extends Component {
-
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
         this.props.fetchCompetitions();
@@ -35,5 +31,15 @@ class CompetitionList extends Component {
     }
 };
 
-export default connect((state) => state, { fetchCompetitions })(CompetitionList);
+// export default connect((state) => state, { fetchCompetitions })(CompetitionList);
+function mapStateToProps({ competitions }) {
+    console.log('competitions ', competitions);
+    return { competitions };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ fetchCompetitions }, dispatch);
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(CompetitionList);
 
