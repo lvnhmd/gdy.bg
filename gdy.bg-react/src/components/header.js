@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SearchField from './search_field';
+import SearchField from '../containers/search_field';
 
 const Header = (props) => {
 

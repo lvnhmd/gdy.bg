@@ -1,22 +1,10 @@
 import { FETCH_COMPETITIONS } from '../actions/index';
 
-export default function (state = [], action) {
-    console.log('action.type ', action.type);
+export default function (state = { competitions: [] }, action) {
     switch (action.type) {
-
-        case FETCH_COMPETITIONS: {
-            console.log('case FETCH_COMPETITIONS');
-            // why don't I want to do push - lecture 60
-            // return state.push([ action.payload.data ]);
-
-            // return state.concat([ action.payload.data ]);
-            console.log('action.payload.data ', action.payload.data);
-            return [action.payload.data, ...state];
-        }
-        default: {
-            console.log('defaulting to ', state);
-            return state;
-        }
+        case FETCH_COMPETITIONS:
+            return { ...state, competitions: action.payload.data.Items };
     }
-    // return state;
+    return state;
 }
+

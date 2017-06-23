@@ -9,8 +9,19 @@ class CompetitionList extends Component {
         this.props.fetchCompetitions();
     }
 
-    render() {
+    renderCompetition(competition) {
+        return (
+            <div className="product-index desktop-4 tablet-2 mobile-3" key={competition.uri}>
+                <div className="product-index-inner">
+                    <div className="badge">{competition.daystoenter}</div>
+                    <a><div className="img-responsive img-thumbnail ratio-4-3" style={{ backgroundImage: "url('" + competition.img + "')" }} ></div></a>
+                    <div className="product-info">{competition.title}</div>
+                </div>
+            </div>
+        );
+    }
 
+    render() {
         return (
             <div className="container">
                 <div id="content" className="row">
@@ -21,7 +32,7 @@ class CompetitionList extends Component {
                         </div>
                         <div className="clear"></div>
                         <div id="product-loop" className="desktop-12 mobile-3">
-                            hello
+                            {this.props.competitions.map(this.renderCompetition)}
                         </div>
                     </div>
                 </div>
@@ -31,15 +42,13 @@ class CompetitionList extends Component {
     }
 };
 
-// export default connect((state) => state, { fetchCompetitions })(CompetitionList);
-function mapStateToProps({ competitions }) {
-    console.log('competitions ', competitions);
-    return { competitions };
+function mapStateToProps(state) {
+    return { competitions: state.competitions.competitions };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ fetchCompetitions }, dispatch);
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(CompetitionList);
+export default connect(mapStateToProps, mapDispatchToProps)(CompetitionList);
 

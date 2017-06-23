@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { selectSource } from '../actions/index';
 import { bindActionCreators } from 'redux';
+import { fetchSources, selectSource } from '../actions/index';
 
 class SourcesNavbar extends Component {
+
+    componentDidMount() {
+        this.props.fetchSources();
+    }
 
     renderList() {
         return this.props.sources.map((source) => {
@@ -32,18 +36,12 @@ class SourcesNavbar extends Component {
 }
 
 function mapStateToProps(state) {
-    return {
-        sources: state.sources
-    };
-
+    return { sources: state.sources.sources };
 }
 
-//anything returned from this function, will end up as props on the SourcesNavbar container
 function mapDispatchToProps(dispatch) {
-    //when selectBook is called, the result should be passed to all reducers
-    return bindActionCreators({ selectSource: selectSource }, dispatch);
+    return bindActionCreators({ fetchSources, selectSource }, dispatch);
 }
 
-// promote BookList from a component to a container
 export default connect(mapStateToProps, mapDispatchToProps)(SourcesNavbar);
 
