@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchCompetitions } from '../actions/index';
+import { fetchCompetitions, selectSource } from '../actions/index';
+import _ from 'lodash';
 
 class CompetitionList extends Component {
 
@@ -42,12 +43,25 @@ class CompetitionList extends Component {
     }
 };
 
+const applyFilters = (competitions, filters) => {
+    console.log('applyFilters',filters);
+    if (filters.length) {
+        return _.filter(competitions, function (c) {
+            if (_.indexOf(_.map(filters, 'name'), c.source) > -1)
+                return c;
+        });
+    }
+    return competitions;
+}
+
 function mapStateToProps(state) {
-    return { competitions: state.competitions.competitions };
+    return {
+        competitions: applyFilters(state.competitions.competitions, state.filters)
+    };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ fetchCompetitions }, dispatch);
+    return bindActionCreators({ fetchCompetitions, selectSource }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompetitionList);
