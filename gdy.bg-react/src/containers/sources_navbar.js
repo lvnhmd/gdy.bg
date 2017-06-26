@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchSources, selectSource } from '../actions/index';
+import { fetchSources, sourceSelected } from '../actions/index';
 import ListItem from '../components/list_item'
 
 class SourcesNavbar extends Component {
@@ -14,7 +14,7 @@ class SourcesNavbar extends Component {
         return this.props.sources.map((source) => {
             return (
                 <ListItem key={source.name} value={
-                    <a onClick={() => this.props.selectSource(source)}> {source.name}</a>} />
+                    <a onClick={() => this.props.sourceSelected(source)}> {source.name}</a>} />
             );
         });
     }
@@ -34,11 +34,11 @@ class SourcesNavbar extends Component {
 }
 
 function mapStateToProps(state) {
-    return { sources: state.sources.sources };
+    return { sources: state.sources };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ fetchSources, selectSource }, dispatch);
+    return bindActionCreators({ fetchSources, sourceSelected }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SourcesNavbar);

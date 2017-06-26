@@ -4,16 +4,25 @@ import axios from 'axios';
 const ROOT_URL = `https://dev.gdy.bg/api/v1`;
 
 export const SRC_SELECTED = 'SRC_SELECTED';
+export const SRCH_CHANGED = 'SRCH_CHANGED';
 export const FETCH_COMPETITIONS = 'FETCH_COMPETITIONS';
 export const FETCH_SOURCES = 'FETCH_SOURCES';
 
-export function selectSource(source) {
-    console.log('A source has been selected: ', source);
+export function sourceSelected(source) {
     return {
         type: SRC_SELECTED,
         payload: source
     };
 }
+
+export function searchTermChanged(term) {
+    console.log(term);
+    return {
+        type: SRCH_CHANGED,
+        payload: term
+    };
+}
+
 
 export function fetchCompetitions() {
 

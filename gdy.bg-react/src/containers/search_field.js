@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { searchTermChanged } from '../actions/index';
 
 class SearchField extends Component {
     constructor(props) {
@@ -20,8 +23,12 @@ class SearchField extends Component {
 
     onInputChange(term) {
         this.setState({ term });
-        this.props.onSearchTermChange(term);
+        this.props.searchTermChanged(term);
     }
 }
 
-export default SearchField;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ searchTermChanged }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(SearchField);

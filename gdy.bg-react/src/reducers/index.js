@@ -1,14 +1,16 @@
 import { combineReducers } from 'redux';
 import SourcesReducer from './reducers_sources';
-import ActiveCompetition from './reducers_active_competition';
-import Filters from './reducers_filters';
+import ActiveCompetitionReducer from './reducers_active_competition';
+import FiltersReducer from './reducers_filters';
 import CompetitionsReducer from './reducers_competitions';
+import SearchTermReducer from './reducers_search_term';
 
 const rootReducer = combineReducers({
   sources: SourcesReducer,
-  activeCompetition: ActiveCompetition,
-  filters: Filters,
-  competitions: CompetitionsReducer
+  activeCompetition: ActiveCompetitionReducer,
+  filters: FiltersReducer,
+  competitions: CompetitionsReducer,
+  searchTerm: SearchTermReducer
 });
 
 export default rootReducer;
