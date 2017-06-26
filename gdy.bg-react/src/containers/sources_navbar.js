@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchSources, selectSource } from '../actions/index';
+import ListItem from '../components/list_item'
 
 class SourcesNavbar extends Component {
 
@@ -12,11 +13,8 @@ class SourcesNavbar extends Component {
     renderList() {
         return this.props.sources.map((source) => {
             return (
-                <li key={source.name} >
-                    <a onClick={() => this.props.selectSource(source)}>
-                        {source.name}
-                    </a>
-                </li>
+                <ListItem key={source.name} value={
+                    <a onClick={() => this.props.selectSource(source)}> {source.name}</a>} />
             );
         });
     }

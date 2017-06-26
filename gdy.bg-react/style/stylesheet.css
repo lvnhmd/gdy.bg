@@ -536,6 +536,7 @@ ul#cart li:before { content: 0;}
 ul#nav { margin-bottom: 0; list-style: none; min-height: 30px; text-align: center;}
 ul#nav li { display: inline-block; position: relative;  }
 /*ul#nav li:hover { background: #E0479E; color: #000; }*/
+.selectedListItem { background: #E0479E; }
 ul#nav li a { 
   font-family: 'FuturaBold', sans-serif;
   /*font-size: 16px;*/
@@ -552,11 +553,11 @@ ul#nav li a {
   -o-transition: color 0s;
   transition: color 0s;
 }
-ul#nav li:hover a,
+/*ul#nav li:hover a,
 ul#nav li a:hover { 
   color: #000; 
   text-decoration: none;
-}
+}*/
 
 ul#nav li:hover .arrow-down:before {
   color: #000;
