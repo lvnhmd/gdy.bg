@@ -54,9 +54,10 @@ const applyFilters = (competitions, filters, term) => {
         });
     }
 
+    term = term.toLowerCase().trim();
     if (term.length) {
         comps = _.filter(comps, function (c) {
-            return c.title.toLowerCase().match(term.toLowerCase());
+            return c.title.toLowerCase().match(term);
         });
     }
 
