@@ -6,7 +6,7 @@ import {
     generateShareIcon,
 } from 'react-share';
 
-import exampleImage from 'react-share-pin-example.png';
+import exampleImage from './react-share-pin-example.png';
 
 const {
   FacebookShareButton,
