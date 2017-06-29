@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchCompetitions, sourceSelected, searchTermChanged } from '../actions/index';
 import _ from 'lodash';
+import SocialShare from '../components/social_share'
 
 class CompetitionList extends Component {
 
@@ -17,6 +18,7 @@ class CompetitionList extends Component {
                     <div className="badge">{competition.daystoenter}</div>
                     <a><div className="img-responsive img-thumbnail ratio-4-3" style={{ backgroundImage: "url('" + competition.img + "')" }} ></div></a>
                     <div className="product-info">{competition.title}</div>
+                    <SocialShare />
                 </div>
             </div>
         );
