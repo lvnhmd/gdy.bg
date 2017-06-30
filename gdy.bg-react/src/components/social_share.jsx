@@ -31,7 +31,8 @@ class SocialShare extends Component {
         const title = 'GitHub';
 
         return (
-            <div className="Demo__container">
+            <div className="jssocials-info Demo__container">
+
                 <div className="Demo__some-network">
                     <FacebookShareButton
                         url={shareUrl}
@@ -62,7 +63,7 @@ class SocialShare extends Component {
 
                     <div className="Demo__some-network__share-count">
                         &nbsp;
-          </div>
+                    </div>
                 </div>
 
 
@@ -77,7 +78,7 @@ class SocialShare extends Component {
 
                     <div className="Demo__some-network__share-count">
                         &nbsp;
-          </div>
+                    </div>
                 </div>
 
 
