@@ -26,3 +26,4 @@ Facebook share fails if no image
 move stuff to config - e.g competition_list_item.js <SocialShare shareUrl="https://swagbag.club” 
 			          the site is using FB swagbag.club-localhost 1819960984999515 right now, let it use swagbag.club 1847976505469649
 
+https://www.npmjs.com/package/react-facebook-login
