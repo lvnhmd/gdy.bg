@@ -6,8 +6,6 @@ import {
     generateShareIcon,
 } from 'react-share';
 
-import exampleImage from './react-share-pin-example.png';
-
 const {
   FacebookShareButton,
     TwitterShareButton,
@@ -27,17 +25,14 @@ const WhatsappIcon = generateShareIcon('whatsapp');
 
 class SocialShare extends Component {
     render() {
-        const shareUrl = 'http://github.com';
-        const title = 'GitHub';
-
         return (
             <div className="jssocials-info Demo__container">
 
                 <div className="Demo__some-network">
                     <FacebookShareButton
-                        url={shareUrl}
-                        title={title}
-                        picture={`${String(window.location)}/${exampleImage}`}
+                        url={this.props.shareUrl}
+                        title={this.props.title}
+                        picture={this.props.img}
                         className="Demo__some-network__share-button">
                         <FacebookIcon
                             size={32}
@@ -45,7 +40,7 @@ class SocialShare extends Component {
                     </FacebookShareButton>
 
                     <FacebookShareCount
-                        url={shareUrl}
+                        url={this.props.shareUrl}
                         className="Demo__some-network__share-count">
                         {count => count}
                     </FacebookShareCount>
@@ -53,8 +48,9 @@ class SocialShare extends Component {
 
                 <div className="Demo__some-network">
                     <TwitterShareButton
-                        url={shareUrl}
-                        title={title}
+                        url={this.props.shareUrl}
+                        title={this.props.title}
+                        hashtags={this.props.hashtags}
                         className="Demo__some-network__share-button">
                         <TwitterIcon
                             size={32}
@@ -69,8 +65,8 @@ class SocialShare extends Component {
 
                 <div className="Demo__some-network">
                     <WhatsappShareButton
-                        url={shareUrl}
-                        title={title}
+                        url={this.props.shareUrl}
+                        title={this.props.title}
                         separator=":: "
                         className="Demo__some-network__share-button">
                         <WhatsappIcon size={32} round />
@@ -84,15 +80,15 @@ class SocialShare extends Component {
 
                 <div className="Demo__some-network">
                     <PinterestShareButton
-                        url={String(window.location)}
-                        media={`${String(window.location)}/${exampleImage}`}
+                        url={this.props.shareUrl}
+                        media={this.props.img}
                         windowWidth={1000}
                         windowHeight={730}
                         className="Demo__some-network__share-button">
                         <PinterestIcon size={32} round />
                     </PinterestShareButton>
 
-                    <PinterestShareCount url={shareUrl}
+                    <PinterestShareCount url={this.props.shareUrl}
                         className="Demo__some-network__share-count" />
                 </div>
 

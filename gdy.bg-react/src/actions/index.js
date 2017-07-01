@@ -16,7 +16,6 @@ export function sourceSelected(source) {
 }
 
 export function searchTermChanged(term) {
-    console.log(term);
     return {
         type: SRCH_CHANGED,
         payload: term
@@ -25,7 +24,6 @@ export function searchTermChanged(term) {
 
 
 export function fetchCompetitions() {
-
     const url = `${ROOT_URL}/competitions`;
     const request = axios.get(url);
 
@@ -37,11 +35,8 @@ export function fetchCompetitions() {
 }
 
 export function fetchSources() {
-
     const url = `${ROOT_URL}/sources`;
     const request = axios.get(url);
-
-    console.log('fetchSources Request', request);
 
     return {
         type: FETCH_SOURCES,

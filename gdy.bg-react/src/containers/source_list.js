@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchSources, sourceSelected } from '../actions/index';
-import ListItem from '../components/list_item'
+import SourceListItem from '../components/source_list_item';
 
-class SourcesNavbar extends Component {
+class SourceList extends Component {
 
     componentDidMount() {
         this.props.fetchSources();
@@ -13,7 +13,7 @@ class SourcesNavbar extends Component {
     renderList() {
         return this.props.sources.map((source) => {
             return (
-                <ListItem key={source.name} value={
+                <SourceListItem key={source.name} value={
                     <a onClick={() => this.props.sourceSelected(source)}> {source.name}</a>} />
             );
         });
@@ -41,5 +41,5 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({ fetchSources, sourceSelected }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SourcesNavbar);
+export default connect(mapStateToProps, mapDispatchToProps)(SourceList);
 

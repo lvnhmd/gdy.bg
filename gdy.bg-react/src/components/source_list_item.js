@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default class ListItem extends React.Component {
+export default class SourceListItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = { active: false };
