@@ -1,9 +1,6 @@
 TODO
 
-add G+
-
 shortlist and mr hyde may duplicate each other 
-
 
 function to expire competitions 
 
