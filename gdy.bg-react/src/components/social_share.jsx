@@ -7,7 +7,8 @@ import {
 } from 'react-share';
 
 const {
-  FacebookShareButton,
+    FacebookShareButton,
+    GooglePlusShareButton,
     TwitterShareButton,
     PinterestShareButton,
     WhatsappShareButton
@@ -15,11 +16,13 @@ const {
 
 const {
   FacebookShareCount,
+  GooglePlusShareCount,
     PinterestShareCount
 } = ShareCounts;
 
 const FacebookIcon = generateShareIcon('facebook');
 const TwitterIcon = generateShareIcon('twitter');
+const GooglePlusIcon = generateShareIcon('google');
 const PinterestIcon = generateShareIcon('pinterest');
 const WhatsappIcon = generateShareIcon('whatsapp');
 
@@ -62,6 +65,21 @@ class SocialShare extends Component {
                     </div>
                 </div>
 
+                <div className="Demo__some-network">
+                    <GooglePlusShareButton
+                        url={this.props.shareUrl}
+                        className="Demo__some-network__share-button">
+                        <GooglePlusIcon
+                            size={32}
+                            round />
+                    </GooglePlusShareButton>
+
+                    <GooglePlusShareCount
+                        url={this.props.shareUrl}
+                        className="Demo__some-network__share-count">
+                        {count => count}
+                    </GooglePlusShareCount>
+                </div>
 
                 <div className="Demo__some-network">
                     <WhatsappShareButton
