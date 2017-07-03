@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import FacebookLogin from 'react-facebook-login';
-import GoogleLogin from 'react-google-login';
+import SocialLogin from 'react-social-login';
 
 const responseFacebook = (response) => {
     console.log('Facebook response ', response);
@@ -21,19 +20,20 @@ export default class Login extends Component {
                         <div id="template" className="desktop-5 mobile-3">
                             <div className="clear"></div>
                             <div id="customer" className="desktop-12 mobile-3">
-                                <FacebookLogin
-                                    appId="1819960984999515"
-                                    autoLoad={true}
-                                    fields="name,email,picture"
-                                    callback={responseFacebook} />
+                                <SocialLogin provider='facebook'
+                                    appId='1819960984999515'
+                                    callback={responseFacebook}>
+                                    <button>Login with FB</button>
+                                </SocialLogin>
                             </div>
                             <div className="clear"></div>
-                            <GoogleLogin
-                                clientId="1005848941427-jrp5rmrl2e3qpr5t9noa2hguhpagdklr.apps.googleusercontent.com"
-                                buttonText="Login"
-                                onSuccess={responseGoogle}
-                                onFailure={responseGoogle}
-                            />
+                            <div id="customer" className="desktop-12 mobile-3">
+                                <SocialLogin provider='google'
+                                    appId='1005848941427-jrp5rmrl2e3qpr5t9noa2hguhpagdklr.apps.googleusercontent.com'
+                                    callback={responseGoogle}>
+                                    <button>Login with Google</button>
+                                </SocialLogin>
+                            </div>
                         </div>
                     </div>
                 </div>
