@@ -7,6 +7,7 @@ export const SRC_SELECTED = 'SRC_SELECTED';
 export const SRCH_CHANGED = 'SRCH_CHANGED';
 export const FETCH_COMPETITIONS = 'FETCH_COMPETITIONS';
 export const FETCH_SOURCES = 'FETCH_SOURCES';
+export const LOGIN = 'LOGIN';
 
 export function sourceSelected(source) {
     return {
@@ -43,4 +44,11 @@ export function fetchSources() {
         payload: request
     }
 
+}
+
+export function login(user) {
+    return {
+        type: LOGIN,
+        payload: user
+    };
 }

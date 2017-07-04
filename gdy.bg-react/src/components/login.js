@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import SocialLogin from 'react-social-login';
 
 const responseFacebook = (response) => {
-    console.log('Facebook response ', response);
+    ('Facebook response ', response);
+    
 }
 
 const responseGoogle = (response) => {

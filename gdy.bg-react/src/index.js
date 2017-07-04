@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxPromise from 'redux-promise';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import reducers from './reducers';
 import Header from './components/header';
@@ -12,15 +12,17 @@ import CompetitionList from './containers/competition_list';
 import Login from './components/login';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
-
+// put the most specific routes on top 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
       <div>
         <Header />
         <SourceList />
-        <Route path="/" component={CompetitionList} />
-        <Route path="/login" component={Login} />
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/" component={CompetitionList} />
+        </Switch>
       </div>
     </BrowserRouter>
   </Provider>

@@ -10,7 +10,6 @@ export default function (state = [], action) {
             //else remove filter , toggle source
             return state.filter(src => src.name !== action.payload.name);
         }
-        default: state;
     }
 
     return state;

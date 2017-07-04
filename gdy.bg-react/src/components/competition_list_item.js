@@ -1,11 +1,22 @@
 import React from 'react';
 import SocialShare from '../components/social_share';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { login } from '../actions/index';
 
+class CompetitionListItem extends React.Component {
 
-export default class CompetitionListItem extends React.Component {
-   
+    constructor(props) {
+        super(props);
+        this.isAuthorised = false;
+    }
+
     click() {
         console.log('clicked ', this.props.value.uri);
+        this.props.login();
+        if(this.isAuthorised) {
+             console.log('THIS ', this);
+        }
     }
 
     render() {
@@ -23,3 +34,16 @@ export default class CompetitionListItem extends React.Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    console.log('CLI ', state);
+    return {
+        isAuthorised: state.user != null ? true : false
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ login }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CompetitionListItem);
