@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchCompetitions, sourceSelected, searchTermChanged } from '../actions/index';
+import { fetchCompetitions, sourceSelected, searchTermChanged, competitionClicked, login } from '../actions/index';
 import _ from 'lodash';
 import CompetitionListItem from '../components/competition_list_item';
 
@@ -63,13 +63,26 @@ const applyFilters = (competitions, filters, term) => {
 
 function mapStateToProps(state) {
     return {
-        competitions: applyFilters(state.competitions, state.filters, state.searchTerm)
+        competitions: applyFilters(state.competitions, state.filters, state.searchTerm),
+        isAuthorised: state.user != null ? true : false
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ fetchCompetitions, sourceSelected, searchTermChanged }, dispatch);
+    return bindActionCreators({ fetchCompetitions, sourceSelected, searchTermChanged, competitionClicked, login }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompetitionList);
 
+
+//  this.props.searchTermChanged(term);
+//         console.log('clicked ', this.props.value.uri);
+//         if (this.state.isAuthorised) {
+//             console.log('THIS ', this);
+//         }
+//         else {
+//             console.log("THIS PROPS ", this.props);
+//             console.log("THIS CONTEXT ", this.context);
+//             this.props.history.push('/login');
+//             // this.context.router.history.push('/login');
+//         }

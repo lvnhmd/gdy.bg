@@ -8,6 +8,7 @@ export const SRCH_CHANGED = 'SRCH_CHANGED';
 export const FETCH_COMPETITIONS = 'FETCH_COMPETITIONS';
 export const FETCH_SOURCES = 'FETCH_SOURCES';
 export const LOGIN = 'LOGIN';
+export const COMP_CLICKED = 'COMP_CLICKED';
 
 export function sourceSelected(source) {
     return {
@@ -46,9 +47,20 @@ export function fetchSources() {
 
 }
 
-export function login(user) {
+export function login(user, callback) {
+    console.log('ACTION LOGIN ', user);
+    // lecture 142
+    callback();
     return {
         type: LOGIN,
         payload: user
+    };
+}
+
+export function competitionClicked(competition) {
+    console.log('competitionClicked ', competition);
+    return {
+        type: COMP_CLICKED,
+        payload: competition
     };
 }

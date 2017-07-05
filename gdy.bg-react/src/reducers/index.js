@@ -3,14 +3,16 @@ import SourcesReducer from './reducers_sources';
 import FiltersReducer from './reducers_filters';
 import CompetitionsReducer from './reducers_competitions';
 import SearchTermReducer from './reducers_search_term';
-import LoginReducer from './reducers_login'
+import LoginReducer from './reducers_login';
+import ActiveCompetitionReducer from './reducers_active_competition';
 
 const rootReducer = combineReducers({
   sources: SourcesReducer,
   filters: FiltersReducer,
   competitions: CompetitionsReducer,
   searchTerm: SearchTermReducer,
-  user: LoginReducer
+  user: LoginReducer,
+  competition: ActiveCompetitionReducer
 });
 
 export default rootReducer;

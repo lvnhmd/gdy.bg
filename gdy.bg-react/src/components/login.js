@@ -1,16 +1,30 @@
 import React, { Component } from 'react';
 import SocialLogin from 'react-social-login';
+import { login } from '../actions/index';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-const responseFacebook = (response) => {
-    ('Facebook response ', response);
-    
-}
+class Login extends Component {
 
-const responseGoogle = (response) => {
-    console.log('Google response ', response);
-}
+    responseFacebook = (user, err) => {
+        if (err)
+            console.log('An error occured on FB login');
+        else
+            this.props.login(user._profile, () => {
+                console.log('Facebook response ', user);
+                this.props.history.push('/');
+            });
+    }
 
-export default class Login extends Component {
+    responseGoogle = (user, err) => {
+        if (err)
+            console.log('An error occured on Google login');
+        else
+            this.props.login(user._profile, () => {
+                console.log('Google response ', user);
+                this.props.history.push('/');
+            });
+    }
 
     render() {
         return (
@@ -23,7 +37,7 @@ export default class Login extends Component {
                             <div id="customer" className="desktop-12 mobile-3">
                                 <SocialLogin provider='facebook'
                                     appId='1819960984999515'
-                                    callback={responseFacebook}>
+                                    callback={this.responseFacebook.bind(this)}>
                                     <button>Login with FB</button>
                                 </SocialLogin>
                             </div>
@@ -31,7 +45,7 @@ export default class Login extends Component {
                             <div id="customer" className="desktop-12 mobile-3">
                                 <SocialLogin provider='google'
                                     appId='1005848941427-jrp5rmrl2e3qpr5t9noa2hguhpagdklr.apps.googleusercontent.com'
-                                    callback={responseGoogle}>
+                                    callback={this.responseGoogle.bind(this)}>
                                     <button>Login with Google</button>
                                 </SocialLogin>
                             </div>
@@ -42,3 +56,9 @@ export default class Login extends Component {
         );
     }
 }
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ login }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(Login);
