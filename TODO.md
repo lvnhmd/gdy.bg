@@ -13,6 +13,7 @@ order by days to enter
 order by new 
 
 >>> social login
+// https://stackoverflow.com/questions/39281303/how-to-change-index-route-depending-on-state
 
 logo at the top to be swag bag
 

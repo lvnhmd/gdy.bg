@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   competitions: CompetitionsReducer,
   searchTerm: SearchTermReducer,
   user: LoginReducer,
-  competition: ActiveCompetitionReducer
+  activeCompetition: ActiveCompetitionReducer
 });
 
 export default rootReducer;

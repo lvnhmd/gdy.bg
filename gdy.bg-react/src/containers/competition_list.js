@@ -62,9 +62,11 @@ const applyFilters = (competitions, filters, term) => {
 }
 
 function mapStateToProps(state) {
+    console.log('STATE IN LIST ', state);
     return {
         competitions: applyFilters(state.competitions, state.filters, state.searchTerm),
-        isAuthorised: state.user != null ? true : false
+        isAuthorised: state.user != null ? true : false,
+        activeCompetition: state.activeCompetition
     };
 }
 
