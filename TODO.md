@@ -13,7 +13,11 @@ order by days to enter
 order by new 
 
 >>> social login
-// https://stackoverflow.com/questions/39281303/how-to-change-index-route-depending-on-state
+https://stackoverflow.com/questions/39281303/how-to-change-index-route-depending-on-state
+
+http://knowbody.github.io/react-router-docs/guides/NavigateOutsideComponents.html
+
+https://www.thunderclap.it/
 
 logo at the top to be swag bag
 

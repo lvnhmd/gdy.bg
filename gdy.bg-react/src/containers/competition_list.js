@@ -7,6 +7,13 @@ import CompetitionListItem from '../components/competition_list_item';
 
 class CompetitionList extends Component {
 
+    constructor(props) {
+        super(props);
+
+        
+
+    }
+    
     componentDidMount() {
         this.props.fetchCompetitions();
     }
@@ -62,7 +69,7 @@ const applyFilters = (competitions, filters, term) => {
 }
 
 function mapStateToProps(state) {
-    console.log('STATE IN LIST ', state);
+    console.log('COMPETITION LIST STATE ', state);
     return {
         competitions: applyFilters(state.competitions, state.filters, state.searchTerm),
         isAuthorised: state.user != null ? true : false,

@@ -6,11 +6,6 @@ import { competitionClicked } from '../actions/index';
 
 class CompetitionListItem extends React.Component {
 
-    constructor(props) {
-        super(props);
-
-    }
-
     click() {
         this.props.competitionClicked(this.props.value);
     }
