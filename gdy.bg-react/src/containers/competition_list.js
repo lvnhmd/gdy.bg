@@ -7,15 +7,16 @@ import CompetitionListItem from '../components/competition_list_item';
 
 class CompetitionList extends Component {
 
-    constructor(props) {
-        super(props);
-
-        
-
-    }
-    
     componentDidMount() {
         this.props.fetchCompetitions();
+    }
+
+    componentDidUpdate() {
+
+        if (this.props.activeCompetition && !this.props.isAuthorised)
+            this.props.history.push('/login');
+        else if (this.props.activeCompetition) //open this.props.activeCompetition.uri in new tab 
+            window.open(this.props.activeCompetition.uri, '_blank');
     }
 
     renderList() {
