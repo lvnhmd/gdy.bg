@@ -204,11 +204,11 @@ function thenReplace() {
         //     console.log('3. Write gdybg-cloudformation-template.json');
         // });
 
-        mkdirp(path.dirname('build/gdybg-cloudformation-template.json'), function (err) {
+        mkdirp(path.dirname('build/cloudformation-template-update-stack-param.json'), function (err) {
             if (err) console.log(err);
-            jsonfile.writeFile('build/gdybg-cloudformation-template.json', newJson, { spaces: 3 }, function (err) {
+            jsonfile.writeFile('build/cloudformation-template-update-stack-param.json', newJson, { spaces: 3 }, function (err) {
                 if (err) console.error(err);
-                console.log('3. Write gdybg-cloudformation-template.json');
+                console.log('3. Write cloudformation-template-update-stack-param.json');
             });
         });
 

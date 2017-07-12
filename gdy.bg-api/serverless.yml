@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: gdybg-api
+service: swagbag-club
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -51,6 +51,10 @@ iamRoleStatements:
       - dynamodb:PutItem
       - dynamodb:UpdateItem
       - dynamodb:DeleteItem
+      - dynamodb:DescribeStream
+      - dynamodb:GetRecords
+      - dynamodb:GetShardIterator
+      - dynamodb:ListStreams
     Resource: "arn:aws:dynamodb:eu-west-1:*:*"
 # you can add packaging information here
 package:
@@ -153,21 +157,23 @@ functions:
 # TODO - do not let vogels mess with the tables   
 # run this only the first time - when the tables do not exist    
 # resources:
-#   Resources:
-    # CompetitionsTable:
-    #   Type: "AWS::DynamoDB::Table"
-    #   DeletionPolicy: Retain
-    #   Properties:
-    #     AttributeDefinitions:
-    #       - AttributeName: uri
-    #         AttributeType: S
-    #     KeySchema:
-    #       - AttributeName: uri
-    #         KeyType: HASH
-    #     ProvisionedThroughput:
-    #       ReadCapacityUnits: 1
-    #       WriteCapacityUnits: 1
-    #     TableName: "competitions"
+  Resources:
+    CompetitionsTable:
+      Type: "AWS::DynamoDB::Table"
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: uri
+            AttributeType: S
+        KeySchema:
+          - AttributeName: uri
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: "competitions"
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
     # SourceTable:
     #   Type: "AWS::DynamoDB::Table"
     #   DeletionPolicy: Retain
