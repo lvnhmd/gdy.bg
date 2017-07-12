@@ -11,3 +11,4 @@ aws cloudformation list-stacks --region eu-west-1 --output table --query 'StackS
     
 doc:
 http://forum.serverless.com/t/dynamodb-streams-creation/792/2
+change the base path mapping
