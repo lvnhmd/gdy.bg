@@ -1,14 +1,5 @@
-[{
-  "name": "stylist"
-}, {
-  "name": "shortlist"
-},
-{
-  "name": "glamour"
-},
-{
-  "name": "elle"
-},
-{
-  "name": "mrhyde"
-}]
+[
+  {
+    "name": "stylist"
+  }
+]

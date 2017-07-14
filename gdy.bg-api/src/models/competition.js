@@ -19,7 +19,8 @@ module.exports = Vogels.define('competition', {
     title: Joi.string(),
     source: Joi.string(),
     closes: Joi.string(),
-    show: Joi.boolean().default(false)
+    show: Joi.boolean().default(false),
+    ttl: Joi.number()
   },
   tableName: 'competitions'
 });

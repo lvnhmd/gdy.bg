@@ -16,7 +16,7 @@
     },
     {
         "ParameterKey": "APIDomainName",
-        "ParameterValue": "dev.gdy.bg",
+        "ParameterValue": "api.swagbag.club",
         "UsePreviousValue": true
     },
     {

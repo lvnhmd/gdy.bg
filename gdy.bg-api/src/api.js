@@ -7,7 +7,7 @@ exports.getCompetitions = function (event, cb) {
     Competition.scan().exec(function (err, data) {
         if (err) cb(err);
         var result = {
-            body: data
+            body: data.Items
         };
         return cb(null, result);
     });
@@ -19,7 +19,7 @@ exports.getSources = function (event, cb) {
     Source.scan().exec(function (err, data) {
         if (err) cb(err);
         var result = {
-            body: data
+            body: data.Item
         };
         return cb(null, result);
     });

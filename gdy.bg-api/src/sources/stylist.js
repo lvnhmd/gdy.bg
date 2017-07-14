@@ -40,7 +40,14 @@ module.exports = {
                 if (em) {
                     var i = helper.containsRegex(em, date_regex);
                     if (i > -1) {
+                        // closesInDays
+                        // ttl 
+                        
+                        // if closes not defined, set default closesInDays 7
+                        // I have chosen 7 days arbitrarily 
+
                         var closes = em[i].match(date_regex)[0];
+                        console.log('CLOSES ' , closes);
                         // some of the competitions have 4 YYYY digits in closes by date
                         if (closes.search(/\d{4}/) > -1) {
                             closes = closes.substring(0, closes.length - 4) + closes.substring(

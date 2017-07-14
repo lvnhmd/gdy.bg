@@ -41,21 +41,21 @@ provider:
 #          - ""
 #          - - "arn:aws:s3:::"
 #            - "Ref" : "ServerlessDeploymentBucket"
-iamRoleStatements:
-  - Effect: Allow
-    Action:
-      - dynamodb:DescribeTable
-      - dynamodb:Query
-      - dynamodb:Scan
-      - dynamodb:GetItem
-      - dynamodb:PutItem
-      - dynamodb:UpdateItem
-      - dynamodb:DeleteItem
-      - dynamodb:DescribeStream
-      - dynamodb:GetRecords
-      - dynamodb:GetShardIterator
-      - dynamodb:ListStreams
-    Resource: "arn:aws:dynamodb:eu-west-1:*:*"
+# iamRoleStatements:
+#   - Effect: Allow
+#     Action:
+#       - dynamodb:DescribeTable
+#       - dynamodb:Query
+#       - dynamodb:Scan
+#       - dynamodb:GetItem
+#       - dynamodb:PutItem
+#       - dynamodb:UpdateItem
+#       - dynamodb:DeleteItem
+#       - dynamodb:DescribeStream
+#       - dynamodb:GetRecords
+#       - dynamodb:GetShardIterator
+#       - dynamodb:ListStreams
+#     Resource: "arn:aws:dynamodb:eu-west-1:*:*"
 # you can add packaging information here
 package:
  exclude:
@@ -75,6 +75,12 @@ functions:
     events:
       - schedule: rate(2 hours)
       - timeout:  5 min
+      - cloudwatchLog: '/aws/lambda/scrape'
+  fetchImage:
+    handler: handler.fetchImage
+    events:
+      - stream: arn:aws:dynamodb:eu-west-1:730710483519:table/competitions/stream/2017-07-13T18:21:20.883
+      - cloudwatchLog: '/aws/lambda/fetchImage'
   getCompetitions:
     handler: handler.getCompetitions
     timeout: 30
@@ -85,6 +91,7 @@ functions:
         method: get
         integration: lambda
         cors: true
+    - cloudwatchLog: '/aws/lambda/getCompetitions'
   getSources:
     handler: handler.getSources
     timeout: 30
@@ -95,6 +102,7 @@ functions:
         method: get
         integration: lambda
         cors: true
+    - cloudwatchLog: '/aws/lambda/getSources'
   # cron:
   #   handler: handler.run
   #   events:
@@ -157,23 +165,26 @@ functions:
 # TODO - do not let vogels mess with the tables   
 # run this only the first time - when the tables do not exist    
 # resources:
-  Resources:
-    CompetitionsTable:
-      Type: "AWS::DynamoDB::Table"
-      DeletionPolicy: Retain
-      Properties:
-        AttributeDefinitions:
-          - AttributeName: uri
-            AttributeType: S
-        KeySchema:
-          - AttributeName: uri
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: "competitions"
-        StreamSpecification:
-          StreamViewType: NEW_AND_OLD_IMAGES
+#   Resources:
+#     CompetitionsTable:
+#       Type: "AWS::DynamoDB::Table"
+#       DeletionPolicy: Retain
+#       Properties:
+#         AttributeDefinitions:
+#           - AttributeName: uri
+#             AttributeType: S
+#         KeySchema:
+#           - AttributeName: uri
+#             KeyType: HASH
+#         ProvisionedThroughput:
+#           ReadCapacityUnits: 1
+#           WriteCapacityUnits: 1
+#         TableName: "competitions"
+#         StreamSpecification:
+#           StreamViewType: NEW_AND_OLD_IMAGES
+#         TimeToLiveSpecification: 
+#           AttributeName: ttl
+#           Enabled: true  
     # SourceTable:
     #   Type: "AWS::DynamoDB::Table"
     #   DeletionPolicy: Retain

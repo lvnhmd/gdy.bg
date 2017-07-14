@@ -10,18 +10,6 @@ var _ = require('lodash');
 var mkdirp = require('mkdirp');
 var path = require('path');
 
-// function copy(cb) {
-
-//     jsonfile.readFile('.serverless/cloudformation-template-update-stack.json', function (err, obj) {
-//         jsonfile.writeFile('.serverless/gdybg-cloudformation-template.json', obj, { spaces: 2 }, function (err) {
-//             if (err) console.error(err);
-//             console.log('1. Copy cloudformation-template-update-stack.json to gdybg-cloudformation-template.json');
-//             cb();
-//         });
-//     });
-
-// }
-
 function thenReplace() {
 
     jsonfile.readFile('.serverless/cloudformation-template-update-stack.json', function (err, json) {
@@ -98,8 +86,11 @@ function thenReplace() {
                                 "dynamodb:GetItem",
                                 "dynamodb:PutItem",
                                 "dynamodb:UpdateItem",
-                                "dynamodb:DeleteItem"
-                            ],
+                                "dynamodb:DeleteItem",
+                                "dynamodb:DescribeStream",
+                                "dynamodb:GetRecords",
+                                "dynamodb:GetShardIterator",
+                                "dynamodb:ListStreams"],
                             "Effect": "Allow",
                             "Resource": "*"
                         }]
@@ -108,16 +99,16 @@ function thenReplace() {
             }
         };
 
-        newJson['Resources']['ApiGatewayBasePathMapping'] = {
-            "Type": "AWS::ApiGateway::BasePathMapping",
-            "DependsOn": ["ApiStage", "ApiGatewayRestApi", ApiGatewayDeploymentName],
-            "Properties": {
-                "BasePath": { "Ref": "APIBasePath" },
-                "DomainName": { "Ref": "APIDomainName" },
-                "RestApiId": { "Ref": "ApiGatewayRestApi" },
-                "Stage": { "Ref": "StageName" }
-            }
-        };
+        // newJson['Resources']['ApiGatewayBasePathMapping'] = {
+        //     "Type": "AWS::ApiGateway::BasePathMapping",
+        //     "DependsOn": ["ApiStage", "ApiGatewayRestApi", ApiGatewayDeploymentName],
+        //     "Properties": {
+        //         "BasePath": { "Ref": "APIBasePath" },
+        //         "DomainName": { "Ref": "APIDomainName" },
+        //         "RestApiId": { "Ref": "ApiGatewayRestApi" },
+        //         "Stage": { "Ref": "StageName" }
+        //     }
+        // };
 
         // newJson['Resources']['ApiStage'] = {
         //     "Type": "AWS::ApiGateway::Stage",
@@ -182,7 +173,7 @@ function thenReplace() {
                 }
                 if (typeof node['Type'] !== 'undefined' && node['Type'] === "AWS::Lambda::Function" && typeof node['Properties']['FunctionName'] !== 'undefined') {
                     var splits = node['Properties']['FunctionName'].split("-");
-                    node['Properties']['FunctionName'] = { "Fn::Join": ["-", ["gdybg", { "Ref": "StageName" }, splits[splits.length - 1]]] };
+                    node['Properties']['FunctionName'] = { "Fn::Join": ["-", ["swagbagclub", { "Ref": "StageName" }, splits[splits.length - 1]]] };
                 }
                 if (typeof node['Type'] !== 'undefined' && node['Type'] === "AWS::ApiGateway::Deployment") {
                     node['Properties']['StageName'] = "Default";
@@ -198,11 +189,6 @@ function thenReplace() {
 
             }
         });
-
-        // jsonfile.writeFile('./build/gdybg-cloudformation-template.json', newJson, { spaces: 3 }, function (err) {
-        //     if (err) console.error(err);
-        //     console.log('3. Write gdybg-cloudformation-template.json');
-        // });
 
         mkdirp(path.dirname('build/cloudformation-template-update-stack-param.json'), function (err) {
             if (err) console.log(err);
