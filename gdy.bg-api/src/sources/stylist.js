@@ -40,23 +40,18 @@ module.exports = {
                 if (em) {
                     var i = helper.containsRegex(em, date_regex);
                     if (i > -1) {
-                        // closesInDays
-                        // ttl 
-                        
-                        // if closes not defined, set default closesInDays 7
-                        // I have chosen 7 days arbitrarily 
-
-                        var closes = em[i].match(date_regex)[0];
-                        console.log('CLOSES ' , closes);
+                        var date = em[i].match(date_regex)[0];
+                        var format = 'DD/MM/YY';
                         // some of the competitions have 4 YYYY digits in closes by date
-                        if (closes.search(/\d{4}/) > -1) {
-                            closes = closes.substring(0, closes.length - 4) + closes.substring(
-                                closes.length - 2, closes.length);
+                        if (date.search(/\d{4}/) > -1) {
+                            format = 'DD/MM/YYYY';
                         }
-                        // moment loses a day, add it back
-                        // comp.closes = (moment(closes, 'DD/MM/YY').add(1, 'days')).toISOString();
-                        comp.closes = moment(closes, 'DD/MM/YY').toISOString();
-                        // logger.info(' comp.closes ' + comp.closes);
+
+                        var closesByDate = moment(date, format).add(1, 'days').toDate();
+                        // moment loses a day, add it back 
+                        comp.closesByDate = closesByDate;
+
+                        comp.ttl = +closesByDate;
                     }
                 }
                 done(null, comp);

@@ -50,7 +50,7 @@ module.exports = {
 								closes.length - 2, closes.length);
 						}
 						// moment loses a day, add it back
-						comp.closes = moment(closes, 'DD/MM/YY').toISOString();
+						comp.closesByDate = moment(closes, 'DD/MM/YY').toISOString();
 						// logger.info(' comp.closes ' + comp.closes);
 					}
 				}

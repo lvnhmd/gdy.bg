@@ -92,7 +92,7 @@ module.exports = {
                     img: comps[i].img,
                     title: comps[i].title,
                     source: comps[i].source,
-                    closes: comps[i].closes
+                    closesByDate: comps[i].closesByDate
                 });
 
                 // newComp.id = newComp._id;

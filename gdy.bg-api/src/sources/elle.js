@@ -43,7 +43,7 @@ module.exports = {
 					// var year = date[2];
 
 					// comp.closes = moment(day + '/' + month + '/' + year, 'DD/MM/YYYY').add(1, 'days');
-					comp.closes = copy;
+					comp.closesByDate = copy;
 
 				}
 				done(null, comp);

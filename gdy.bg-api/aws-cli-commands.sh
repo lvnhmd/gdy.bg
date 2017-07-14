@@ -10,10 +10,19 @@ aws apigateway create-base-path-mapping --domain-name api.swagbag.club
 
 2. aws s3 cp build s3://swagbag.club-source/ --recursive --exclude ".DS_Store" --exclude "parameters.json"
 
-3. aws cloudformation create-stack  --stack-name swagbag-club --template-url https://s3-eu-west-1.amazonaws.com/swagbag.club-source/cloudformation-template-update-stack-param.json --parameters file:///Users/elvin/gdy.bg/gdy.bg-api/build/parameters.json --capabilities CAPABILITY_NAMED_IAM
+3. 
+@home
+aws cloudformation create-stack  --stack-name swagbag-club --template-url https://s3-eu-west-1.amazonaws.com/swagbag.club-source/cloudformation-template-update-stack-param.json --parameters file:///Users/elvin/gdy.bg/gdy.bg-api/build/parameters.json --capabilities CAPABILITY_NAMED_IAM
     
+@work
+aws cloudformation create-stack  --stack-name swagbag-club --template-url https://s3-eu-west-1.amazonaws.com/swagbag.club-source/cloudformation-template-update-stack-param.json --parameters file:///Users/alie/elvin-workspace/gdy.bg/gdy.bg-api/build/parameters.json --capabilities CAPABILITY_NAMED_IAM
+
 doc:
 http://forum.serverless.com/t/dynamodb-streams-creation/792/2
+
+aws configure 
+
+AKIAJHWFOJEOMDBQUB3A
 
 1.Create custom domain name in API Gateway - takes 40 min to propagate 
 2.Create a record set type A Alias Yes with the Distribution Domain Name (cloudfront) in Route 53

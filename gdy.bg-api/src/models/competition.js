@@ -18,7 +18,7 @@ module.exports = Vogels.define('competition', {
     img: Joi.string(),
     title: Joi.string(),
     source: Joi.string(),
-    closes: Joi.string(),
+    closesByDate: Joi.string(),
     show: Joi.boolean().default(false),
     ttl: Joi.number()
   },

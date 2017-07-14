@@ -90,7 +90,8 @@ function thenReplace() {
                                 "dynamodb:DescribeStream",
                                 "dynamodb:GetRecords",
                                 "dynamodb:GetShardIterator",
-                                "dynamodb:ListStreams"],
+                                "dynamodb:ListStreams",
+                                "s3:PutObject"],
                             "Effect": "Allow",
                             "Resource": "*"
                         }]

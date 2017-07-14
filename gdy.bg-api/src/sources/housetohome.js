@@ -36,7 +36,7 @@ module.exports = {
 				if (err) console.log(err);
 
 				if (days) {
-					comp.closes = moment().add(days, 'days');
+					comp.closesByDate = moment().add(days, 'days');
 				}
 				done(null, comp);
 			});

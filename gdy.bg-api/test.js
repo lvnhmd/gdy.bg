@@ -1,9 +1,7 @@
 var moment = require('moment');
 
-var date = '13/07/17';
+var date = '21/08/18';
 
-
-// closesInDays 
 // ttl
 
 var format = 'DD/MM/YY';
@@ -12,6 +10,11 @@ if (date.search(/\d{4}/) > -1) {
     format = 'DD/MM/YYYY';
 }
 
-var closesBy = moment(date,format);
+// moment loses a day, add it back 
+var closesByDate = moment(date,format).add(1, 'days').toDate();
 
-console.log(closesBy);
+// calculate ttl
+var ttl = +closesByDate;
+
+console.log(closesByDate);
+console.log(ttl);

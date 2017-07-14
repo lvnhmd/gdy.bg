@@ -44,7 +44,7 @@ module.exports = {
                             .indexOf(date[1]) / 10 + 1;
                     var year = date[2];
 
-                    comp.closes = moment(day + '/' + month + '/' + year, 'DD/MM/YYYY').add(
+                    comp.closesByDate = moment(day + '/' + month + '/' + year, 'DD/MM/YYYY').add(
                         1, 'days');
 
                 }
