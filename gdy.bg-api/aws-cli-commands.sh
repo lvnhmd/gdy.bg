@@ -12,8 +12,12 @@ aws apigateway create-base-path-mapping --domain-name api.swagbag.club
 
 3. 
 @home
+-pink one
 aws cloudformation create-stack  --stack-name swagbag-club --template-url https://s3-eu-west-1.amazonaws.com/swagbag.club-source/cloudformation-template-update-stack-param.json --parameters file:///Users/elvin/gdy.bg/gdy.bg-api/build/parameters.json --capabilities CAPABILITY_NAMED_IAM
-    
+-big one 
+aws cloudformation create-stack  --stack-name swagbag-club --template-url https://s3-eu-west-1.amazonaws.com/swagbag.club-source/cloudformation-template-update-stack-param.json --parameters file:///Users/elvinali/gdy.bg/gdy.bg-api/build/parameters.json --capabilities CAPABILITY_NAMED_IAM
+
+
 @work
 aws cloudformation create-stack  --stack-name swagbag-club --template-url https://s3-eu-west-1.amazonaws.com/swagbag.club-source/cloudformation-template-update-stack-param.json --parameters file:///Users/alie/elvin-workspace/gdy.bg/gdy.bg-api/build/parameters.json --capabilities CAPABILITY_NAMED_IAM
 
@@ -30,4 +34,7 @@ AKIAJHWFOJEOMDBQUB3A
   Note: as it takes too long to delete the stack when AWS::ApiGateway::BasePathMapping is present, do not iclude it when testing
 
 to test locally:
+  cd /usr/local/bin/dynamodb_local_2016-05-17/
+  java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
   export NODE_ENV=dev && node test.js
+  http://localhost:8000/shell/

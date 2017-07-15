@@ -84,20 +84,6 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "FetchImageLogGroup",
-                          "Arn"
-                        ]
-                      },
-                      "*"
-                    ]
-                  ]
-                },
-                {
-                  "Fn::Join": [
-                    ":",
-                    [
-                      {
-                        "Fn::GetAtt": [
                           "GetCompetitionsLogGroup",
                           "Arn"
                         ]
@@ -121,18 +107,6 @@
                   ]
                 }
               ]
-            },
-            {
-              "Effect": "Allow",
-              "Action": [
-                "dynamodb:GetRecords",
-                "dynamodb:GetShardIterator",
-                "dynamodb:DescribeStream",
-                "dynamodb:ListStreams"
-              ],
-              "Resource": [
-                "arn:aws:dynamodb:eu-west-1:730710483519:table/competitions/stream/2017-07-13T18:21:20.883"
-              ]
             }
           ]
         },
@@ -147,12 +121,6 @@
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
         "LogGroupName": "/aws/lambda/swagbag-club-dev-scrape"
-      }
-    },
-    "FetchImageLogGroup": {
-      "Type": "AWS::Logs::LogGroup",
-      "Properties": {
-        "LogGroupName": "/aws/lambda/swagbag-club-dev-fetchImage"
       }
     },
     "GetCompetitionsLogGroup": {
@@ -174,7 +142,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/swagbag-club/dev/1499973041898-2017-07-13T19:10:41.898Z/swagbag-club.zip"
+          "S3Key": "serverless/swagbag-club/dev/1500138921995-2017-07-15T17:15:21.995Z/swagbag-club.zip"
         },
         "FunctionName": "swagbag-club-dev-scrape",
         "Handler": "handler.scrape",
@@ -193,50 +161,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "ScrapeLambdaVersionKES39sjBSm6suo2ubOAUkqPKdinFVMYN8cEYOHgzSkM": {
+    "ScrapeLambdaVersion4eBKoYDbEZT23z6m0iYqzBVaaEjbwk1MjEORZJ9sc": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ScrapeLambdaFunction"
         },
-        "CodeSha256": "KES39sjBSm6suo2ubOAUkqPKdinFVMYN8cEYOHgzSkM="
-      }
-    },
-    "FetchImageLambdaFunction": {
-      "Type": "AWS::Lambda::Function",
-      "Properties": {
-        "Code": {
-          "S3Bucket": {
-            "Ref": "ServerlessDeploymentBucket"
-          },
-          "S3Key": "serverless/swagbag-club/dev/1499973041898-2017-07-13T19:10:41.898Z/swagbag-club.zip"
-        },
-        "FunctionName": "swagbag-club-dev-fetchImage",
-        "Handler": "handler.fetchImage",
-        "MemorySize": 1024,
-        "Role": {
-          "Fn::GetAtt": [
-            "IamRoleLambdaExecution",
-            "Arn"
-          ]
-        },
-        "Runtime": "nodejs4.3",
-        "Timeout": 6
-      },
-      "DependsOn": [
-        "IamPolicyLambdaExecution",
-        "IamRoleLambdaExecution"
-      ]
-    },
-    "FetchImageLambdaVersionKES39sjBSm6suo2ubOAUkqPKdinFVMYN8cEYOHgzSkM": {
-      "Type": "AWS::Lambda::Version",
-      "DeletionPolicy": "Retain",
-      "Properties": {
-        "FunctionName": {
-          "Ref": "FetchImageLambdaFunction"
-        },
-        "CodeSha256": "KES39sjBSm6suo2ubOAUkqPKdinFVMYN8cEYOHgzSkM="
+        "CodeSha256": "4eBKoY+DbEZT23z6m0iYqzBVaaEjbw/k1MjEORZJ9sc="
       }
     },
     "GetCompetitionsLambdaFunction": {
@@ -246,7 +178,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/swagbag-club/dev/1499973041898-2017-07-13T19:10:41.898Z/swagbag-club.zip"
+          "S3Key": "serverless/swagbag-club/dev/1500138921995-2017-07-15T17:15:21.995Z/swagbag-club.zip"
         },
         "FunctionName": "swagbag-club-dev-getCompetitions",
         "Handler": "handler.getCompetitions",
@@ -265,14 +197,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "GetCompetitionsLambdaVersionKES39sjBSm6suo2ubOAUkqPKdinFVMYN8cEYOHgzSkM": {
+    "GetCompetitionsLambdaVersion4eBKoYDbEZT23z6m0iYqzBVaaEjbwk1MjEORZJ9sc": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetCompetitionsLambdaFunction"
         },
-        "CodeSha256": "KES39sjBSm6suo2ubOAUkqPKdinFVMYN8cEYOHgzSkM="
+        "CodeSha256": "4eBKoY+DbEZT23z6m0iYqzBVaaEjbw/k1MjEORZJ9sc="
       }
     },
     "GetSourcesLambdaFunction": {
@@ -282,7 +214,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/swagbag-club/dev/1499973041898-2017-07-13T19:10:41.898Z/swagbag-club.zip"
+          "S3Key": "serverless/swagbag-club/dev/1500138921995-2017-07-15T17:15:21.995Z/swagbag-club.zip"
         },
         "FunctionName": "swagbag-club-dev-getSources",
         "Handler": "handler.getSources",
@@ -301,14 +233,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "GetSourcesLambdaVersionKES39sjBSm6suo2ubOAUkqPKdinFVMYN8cEYOHgzSkM": {
+    "GetSourcesLambdaVersion4eBKoYDbEZT23z6m0iYqzBVaaEjbwk1MjEORZJ9sc": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetSourcesLambdaFunction"
         },
-        "CodeSha256": "KES39sjBSm6suo2ubOAUkqPKdinFVMYN8cEYOHgzSkM="
+        "CodeSha256": "4eBKoY+DbEZT23z6m0iYqzBVaaEjbw/k1MjEORZJ9sc="
       }
     },
     "ScrapeEventsRuleSchedule1": {
@@ -859,7 +791,7 @@
         ]
       }
     },
-    "ApiGatewayDeployment1499973042277": {
+    "ApiGatewayDeployment1500138922240": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -938,20 +870,31 @@
         }
       }
     },
-    "FetchImageEventSourceMappingDynamodbCompetitions": {
-      "Type": "AWS::Lambda::EventSourceMapping",
-      "DependsOn": "IamPolicyLambdaExecution",
+    "CompetitionsTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "DeletionPolicy": "Retain",
       "Properties": {
-        "BatchSize": 10,
-        "EventSourceArn": "arn:aws:dynamodb:eu-west-1:730710483519:table/competitions/stream/2017-07-13T18:21:20.883",
-        "FunctionName": {
-          "Fn::GetAtt": [
-            "FetchImageLambdaFunction",
-            "Arn"
-          ]
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "uri",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "uri",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 1,
+          "WriteCapacityUnits": 1
         },
-        "StartingPosition": "TRIM_HORIZON",
-        "Enabled": "True"
+        "TableName": "competitions",
+        "TimeToLiveSpecification": {
+          "AttributeName": "ttl",
+          "Enabled": true
+        }
       }
     }
   },
@@ -964,25 +907,19 @@
     "ScrapeLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ScrapeLambdaVersionKES39sjBSm6suo2ubOAUkqPKdinFVMYN8cEYOHgzSkM"
-      }
-    },
-    "FetchImageLambdaFunctionQualifiedArn": {
-      "Description": "Current Lambda function version",
-      "Value": {
-        "Ref": "FetchImageLambdaVersionKES39sjBSm6suo2ubOAUkqPKdinFVMYN8cEYOHgzSkM"
+        "Ref": "ScrapeLambdaVersion4eBKoYDbEZT23z6m0iYqzBVaaEjbwk1MjEORZJ9sc"
       }
     },
     "GetCompetitionsLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetCompetitionsLambdaVersionKES39sjBSm6suo2ubOAUkqPKdinFVMYN8cEYOHgzSkM"
+        "Ref": "GetCompetitionsLambdaVersion4eBKoYDbEZT23z6m0iYqzBVaaEjbwk1MjEORZJ9sc"
       }
     },
     "GetSourcesLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetSourcesLambdaVersionKES39sjBSm6suo2ubOAUkqPKdinFVMYN8cEYOHgzSkM"
+        "Ref": "GetSourcesLambdaVersion4eBKoYDbEZT23z6m0iYqzBVaaEjbwk1MjEORZJ9sc"
       }
     },
     "ServiceEndpoint": {

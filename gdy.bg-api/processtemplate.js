@@ -131,7 +131,7 @@ function thenReplace() {
         //         "StageName": { "Ref": "StageName" }
         //     }
         // };
-        
+
         // remove cache, its expensive
         newJson['Resources']['ApiStage'] = {
             "Type": "AWS::ApiGateway::Stage",
@@ -149,10 +149,9 @@ function thenReplace() {
             delete newJson['Outputs']['ServerlessDeploymentBucketName'];
         }
 
-        // var dependsOnArray = newJson['Resources'][ApiGatewayDeploymentName]['DependsOn'];
-        // delete newJson['Resources'][ApiGatewayDeploymentName]['DependsOn'];
+        delete newJson['Resources']['IamPolicyLambdaExecution'];
+        newJson = pruneEmpty(newJson);
 
-        // var deploymentDependsOn = [];
         traverse(newJson['Resources']).forEach(function (node) {
 
             if (node !== null && typeof node !== 'undefined' && typeof node['Properties'] !== 'undefined') {
@@ -166,10 +165,6 @@ function thenReplace() {
                 if (typeof node['Properties']['StageName'] !== 'undefined') {
                     node['Properties']['StageName'] = { "Ref": "StageName" };
                 }
-                // if (typeof node['Properties']['Environment'] !== 'undefined' &&
-                //     typeof node['Properties']['Environment']['Variables'] !== 'undefined') {
-                //     node['Properties']['Environment']['Variables'] = env_var;
-                // }
                 if (typeof node['Properties']['Role'] !== 'undefined') {
                     node['Properties']['Role'] = { "Fn::GetAtt": ["LambdaExecutionRole", "Arn"] };
                 }
@@ -184,15 +179,18 @@ function thenReplace() {
                     node['Properties']['StageName'] = "Default";
                 }
 
-                // if (typeof node['Type'] !== 'undefined' && (node['Type'] === "AWS::ApiGateway::Method" || node['Type'] === "AWS::ApiGateway::Resource")) {
-                //     var nodeName = this.path[0];
-                //     console.log('remove ' + JSON.stringify(nodeName));
-                //     // delete node;    
-                //     delete newJson['Resources'][nodeName];
-                //     // delete dependsOnArray[dependsOnArray.indexOf(nodeName)];
-                // }
-
             }
+            if (typeof node['Type'] !== 'undefined' && node['Type'] === "AWS::Logs::LogGroup") {
+                console.log('this ', this.path[0]);
+                delete newJson['Resources'][this.path[0]];
+            }
+            if (node !== null && typeof node !== 'undefined' && typeof node['DependsOn'] !== 'undefined') {
+                node['DependsOn'] !== _.remove(node['DependsOn'], function (item) {
+                    return item === "IamPolicyLambdaExecution";
+
+                });
+            }
+
         });
 
         mkdirp(path.dirname('build/cloudformation-template-update-stack-param.json'), function (err) {
@@ -220,5 +218,22 @@ function firstN(obj, n) {
 };
 
 
-// copy(thenReplace);
+function pruneEmpty(obj) {
+    return function prune(current) {
+        _.forOwn(current, function (value, key) {
+            if (_.isUndefined(value) || _.isNull(value) || _.isNaN(value) ||
+                (_.isObject(value) && _.isEmpty(prune(value)))) {
+
+                delete current[key];
+            }
+        });
+        // remove any leftover undefined values from the delete 
+        // operation on an array
+        if (_.isArray(current)) _.pull(current, undefined);
+
+        return current;
+
+    }(_.cloneDeep(obj));  // Do not modify the original object, create a clone instead
+}
+
 thenReplace();

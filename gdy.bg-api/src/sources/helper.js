@@ -9,21 +9,27 @@ var _ = require('lodash');
 
 var logger = require('../logger');
 
+var AWS = require('aws-sdk');
+// assume available role 
+AWS.config.update({ region: 'eu-west-1' });
+var s3 = new AWS.S3();
+const uuidv5 = require('uuid/v5');
+
 module.exports = {
 
-    get: function(_host, _path, callback) {
+    get: function (_host, _path, callback) {
 
         return http.get({
             host: _host,
             path: _path
-        }, function(response) {
+        }, function (response) {
 
             // Continuously update stream with data
             var body = '';
-            response.on('data', function(chunk) {
+            response.on('data', function (chunk) {
                 body += chunk;
             });
-            response.on('end', function() {
+            response.on('end', function () {
 
                 // Data reception is done, do whatever with it!
                 var parsed = {};
@@ -39,16 +45,16 @@ module.exports = {
 
     },
 
-    persistSource: function(source, xOptions) {
+    persistSource: function (source, xOptions) {
 
         x(xOptions.url, xOptions.scope, [
             xOptions.selector
-        ])(function(err, links) {
+        ])(function (err, links) {
 
             // <link rel="shortcut icon" href="/assets/img/stylist/meta/6b25e2b7f02f0dd5a43a88c3cb929267/favicon.ico">
             if (err) logger.error(err);
 
-            var filtered = _.filter(links, function(link) {
+            var filtered = _.filter(links, function (link) {
                 return link.match('favicon');
             });
 
@@ -57,7 +63,7 @@ module.exports = {
                 favicon: (filtered[0]) ? filtered[0] : ''
             });
 
-            meta.save(function(err, doc) {
+            meta.save(function (err, doc) {
                 if (err) logger.error(err);
             });
 
@@ -65,87 +71,63 @@ module.exports = {
 
     },
 
-    // TODO: change this to send me an email only when there are new competitions
-    // else I ll end up getting email every time scraper scrapes
-
-    persistCompetitions: function(comps, done) {
-
-        var validation = [];
+    persistCompetitions: function (comps, done) {
 
         for (var index in comps) {
 
-            (function(i) {
-
-                // Competition.findOne({
-                // 	url: comps[i].url
-                // }, function(err, result) {
-                // 	if (err) console.logger(err);
-                // var ipp = +i + 1;
-                // if (result) {
-                // 	if (ipp == comps.length) {
-                // 		done(null, 'save competitions done', validation);
-                // 	}
-                // } else {
+            (function (i) {
 
                 var comp = new Competition({
                     uri: comps[i].url,
-                    img: comps[i].img,
                     title: comps[i].title,
                     source: comps[i].source,
                     closesByDate: comps[i].closesByDate,
                     ttl: comps[i].ttl
                 });
 
-                // newComp.id = newComp._id;
+                var img = comps[i].img;
+                var splits = img.split("/");
+                var key = uuidv5(img, uuidv5.URL) + splits[splits.length - 1];
 
-                // logger.info('add new competition ' + newComp.url);
+                http.get(img, function (res) {
+                    var body = '';
+                    res.on('data', function (chunk) {
+                        // Agregates chunks
+                        body += chunk;
+                    });
+                    res.on('end', function () {
+                        // Once you received all chunks, send to S3
+                        var params = {
+                            Bucket: 'swagbag.club-images',
+                            Key: key,
+                            Body: body
+                        };
+                        s3.putObject(params, function (err, data) {
+                            if (err) {
+                                console.error(err, err.stack);
+                            } else {
+                                console.log(data);
+                                // update record 
+                                comp.img = "https://s3-eu-west-1.amazonaws.com/swagbag.club-images/" + key;
 
-                // if (!newComp.url || !newComp.img || !newComp.title || !newComp.source || !newComp.closes) {
-                // 	validation.push(newComp);
-                // 	newComp.show = false;
-                // }
+                                comp.update(function (err, doc) {
+                                    if (err) logger.error(err);
 
-                comp.update(function(err, doc) {
-                    if (err) logger.error(err);
-
-                    // convert i to number
-                    var ipp = +i + 1;
-                    if (ipp == comps.length) {
-                        // done(null, comps[0].source + ' competitions persisted', validation);
-                        done(null, comps[0].source + ' competitions persisted');
-                    }
+                                    // convert i to number
+                                    var ipp = +i + 1;
+                                    if (ipp == comps.length) {
+                                        done(null, comps[0].source + ' competitions persisted');
+                                    }
+                                });
+                            }
+                        });
+                    });
                 });
-                // }
-                // });
             })(index);
         }
     },
-
-    // persistValidation: function(validation, done) {
-
-    // 	var casted = validation.map(function(comp) {
-    // 		var vComp = new Validation();
-    // 		vComp.comp = comp._id;
-    // 		return vComp;
-    // 	});
-
-    // 	for (var index in casted) {
-    // 		(function(i) {
-    // 			var vComp = casted[i];
-    // 			vComp.save(function(err) {
-    // 				if (err) console.logger(err);
-
-    // 				var ipp = +i + 1;
-    // 				if (ipp == casted.length) {
-    // 					done(null);
-    // 				}
-    // 			});
-    // 		})(index);
-    // 	}
-
-    // },
-
-    containsRegex: function(a, regex) {
+    
+    containsRegex: function (a, regex) {
         for (var i = 0; i < a.length; i++) {
             if (a[i].search(regex) > -1) {
                 return i;
