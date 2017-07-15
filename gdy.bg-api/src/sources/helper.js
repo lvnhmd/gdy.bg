@@ -90,6 +90,7 @@ module.exports = {
                 var key = uuidv5(img, uuidv5.URL) + splits[splits.length - 1];
 
                 http.get(img, function (res) {
+                    res.setEncoding('binary');
                     var body = '';
                     res.on('data', function (chunk) {
                         // Agregates chunks
@@ -100,19 +101,19 @@ module.exports = {
                         var params = {
                             Bucket: 'swagbag.club-images',
                             Key: key,
-                            Body: body
+                            Body: new Buffer(body, 'binary'),
+                            ACL: 'public-read'
                         };
                         s3.putObject(params, function (err, data) {
                             if (err) {
                                 console.error(err, err.stack);
                             } else {
-                                console.log(data);
                                 // update record 
-                                comp.img = "https://s3-eu-west-1.amazonaws.com/swagbag.club-images/" + key;
+                                comp.attrs.img = "https://s3-eu-west-1.amazonaws.com/swagbag.club-images/" + key;
 
                                 comp.update(function (err, doc) {
                                     if (err) logger.error(err);
-
+                                    console.log('Persisted : ', doc.attrs);
                                     // convert i to number
                                     var ipp = +i + 1;
                                     if (ipp == comps.length) {
@@ -126,7 +127,7 @@ module.exports = {
             })(index);
         }
     },
-    
+
     containsRegex: function (a, regex) {
         for (var i = 0; i < a.length; i++) {
             if (a[i].search(regex) > -1) {
