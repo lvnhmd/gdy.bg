@@ -28,3 +28,6 @@ AKIAJHWFOJEOMDBQUB3A
 2.Create a record set type A Alias Yes with the Distribution Domain Name (cloudfront) in Route 53
 3.Base path mapping will be created by my template, but before deleting the stack I have to remove it manually  
   Note: as it takes too long to delete the stack when AWS::ApiGateway::BasePathMapping is present, do not iclude it when testing
+
+to test locally:
+  export NODE_ENV=dev && node test.js

@@ -21,7 +21,7 @@ module.exports.scrape = function () {
     // insert all sources into sources
     var sources = JSON.parse(require('fs').readFileSync(__dirname + '/sources/sources.json', 'utf8'));
 
-    logger.info(' Sources : ' + JSON.stringify(sources));
+    logger.info('Sources : ' + JSON.stringify(sources));
 
     sources.forEach(function (s) {
 
@@ -43,7 +43,6 @@ module.exports.scrape = function () {
                 },
                 function (arg1, arg2, callback) {
                     logger.info(' ADD TASK ' + result.attrs.name + '.persistCompetitions');
-                    // arg1 now equals 'one' and arg2 now equals 'two'
                     helper.persistCompetitions(arg1, function (err, msg) {
                         callback(null, arg2 + ',' + result.attrs.name + '.persistCompetitions'
                         );

@@ -80,7 +80,6 @@ functions:
     handler: handler.fetchImage
     events:
       - stream: arn:aws:dynamodb:eu-west-1:730710483519:table/competitions/stream/2017-07-13T18:21:20.883
-      - cloudwatchLog: '/aws/lambda/fetchImage'
   getCompetitions:
     handler: handler.getCompetitions
     timeout: 30
@@ -102,7 +101,6 @@ functions:
         method: get
         integration: lambda
         cors: true
-    - cloudwatchLog: '/aws/lambda/getSources'
   # cron:
   #   handler: handler.run
   #   events:

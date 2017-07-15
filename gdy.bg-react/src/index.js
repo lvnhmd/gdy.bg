@@ -9,6 +9,7 @@ import reducers from './reducers';
 import Header from './components/header';
 import SourceList from './containers/source_list';
 import CompetitionList from './containers/competition_list';
+import CompetitionListItem from './components/competition_list_item';
 import Login from './components/login';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
@@ -22,6 +23,7 @@ ReactDOM.render(
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/" component={CompetitionList} />
+          <Route component={CompetitionListItem} />
         </Switch>
       </div>
     </BrowserRouter>

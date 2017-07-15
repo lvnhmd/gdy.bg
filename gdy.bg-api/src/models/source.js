@@ -4,6 +4,8 @@ var AWS = require('aws-sdk'),
 
 // assume available role 
 AWS.config.update({ region: 'eu-west-1' });
+if (process.env.NODE_ENV === 'dev')
+  AWS.config.loadFromPath(__dirname + '/credentials_local.json');
 var dynamodb = new AWS.DynamoDB();
 Vogels.dynamoDriver(dynamodb);
 

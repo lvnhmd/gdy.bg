@@ -91,7 +91,11 @@ function thenReplace() {
                                 "dynamodb:GetRecords",
                                 "dynamodb:GetShardIterator",
                                 "dynamodb:ListStreams",
-                                "s3:PutObject"],
+                                "s3:PutObject",
+                                "logs:CreateLogGroup",
+                                "logs:CreateLogStream",
+                                "logs:PutLogEvents",
+                                "logs:DescribeLogStreams"],
                             "Effect": "Allow",
                             "Resource": "*"
                         }]
