@@ -82,8 +82,12 @@ module.exports = {
                     title: comps[i].title,
                     source: comps[i].source,
                     closesByDate: comps[i].closesByDate,
-                    ttl: comps[i].ttl
+                    ttl: comps[i].ttl,
+                    daysToEnter: comps[i].daysToEnter,
+                    date: comps[i].date
                 });
+
+                console.log('will persist ', comp);
 
                 var img = comps[i].img;
                 var splits = img.split("/");

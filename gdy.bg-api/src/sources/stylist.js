@@ -34,26 +34,25 @@ module.exports = {
         };
 
         function getCompetitionClosingDate(comp, done) {
+
             x(comp.url, ['em'])(function (err, em) {
                 if (err) logger.error(err);
 
-                if (em) {
-                    var i = helper.containsRegex(em, date_regex);
-                    if (i > -1) {
-                        var date = em[i].match(date_regex)[0];
-                        var format = 'DD/MM/YY';
-                        // some of the competitions have 4 YYYY digits in closes by date
-                        if (date.search(/\d{4}/) > -1) {
-                            format = 'DD/MM/YYYY';
-                        }
-
-                        var closesByDate = moment(date, format).add(1, 'days').toDate();
-                        // moment loses a day, add it back 
-                        comp.closesByDate = closesByDate;
-
-                        comp.ttl = +closesByDate;
-                    }
+                var date = new Date().toString();
+                var format = 'YYYY-MM-DDT00:00:00.000Z';
+                var i = helper.containsRegex(em, date_regex);
+                if (em && i > -1) {
+                    date = em[i].match(date_regex)[0];
+                    format = date.search(/\d{4}/) > -1 ? 'DD/MM/YYYY' : 'DD/MM/YY';
                 }
+
+                comp.date = date;
+                // moment loses a day, add it back 
+                var closesByDate = moment(date, format).add(1, 'days').toDate();
+                comp.closesByDate = closesByDate;
+                comp.ttl = +closesByDate;
+                // calculate days between now and closesByDate
+                comp.daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days');
                 done(null, comp);
             });
         };

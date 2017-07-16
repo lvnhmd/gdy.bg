@@ -1,7 +1,7 @@
 // Action creator
 import axios from 'axios';
 
-const ROOT_URL = `https://dev.gdy.bg/api/v1`;
+const ROOT_URL = `https://api.swagbag.club/api/v1`;
 
 export const SRC_SELECTED = 'SRC_SELECTED';
 export const SRCH_CHANGED = 'SRCH_CHANGED';

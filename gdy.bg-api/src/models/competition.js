@@ -21,8 +21,9 @@ module.exports = Vogels.define('competition', {
     title: Joi.string(),
     source: Joi.string(),
     closesByDate: Joi.date(),
-    show: Joi.boolean().default(false),
-    ttl: Joi.number()
+    ttl: Joi.number(),
+    daysToEnter: Joi.number(),
+    date: Joi.string()
   },
   tableName: 'competitions'
 });

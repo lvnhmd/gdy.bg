@@ -19,7 +19,7 @@ exports.getSources = function (event, cb) {
     Source.scan().exec(function (err, data) {
         if (err) cb(err);
         var result = {
-            body: data.Item
+            body: data.Items
         };
         return cb(null, result);
     });

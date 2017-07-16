@@ -32,7 +32,7 @@ AKIAJHWFOJEOMDBQUB3A
 2.Create a record set type A Alias Yes with the Distribution Domain Name (cloudfront) in Route 53
 3.Base path mapping will be created by my template, but before deleting the stack I have to remove it manually  
   Note: as it takes too long to delete the stack when AWS::ApiGateway::BasePathMapping is present, do not iclude it when testing
-
+  Note: currently, I configured base path mapping for custom domain name api.swagbag.club manually 
 to test locally:
   cd /usr/local/bin/dynamodb_local_2016-05-17/
   java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb

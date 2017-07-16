@@ -83,16 +83,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompetitionList);
-
-
-//  this.props.searchTermChanged(term);
-//         console.log('clicked ', this.props.value.uri);
-//         if (this.state.isAuthorised) {
-//             console.log('THIS ', this);
-//         }
-//         else {
-//             console.log("THIS PROPS ", this.props);
-//             console.log("THIS CONTEXT ", this.context);
-//             this.props.history.push('/login');
-//             // this.context.router.history.push('/login');
-//         }
