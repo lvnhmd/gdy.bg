@@ -25,5 +25,10 @@ module.exports = Vogels.define('competition', {
     daysToEnter: Joi.number(),
     date: Joi.string()
   },
+
+  indexes: [{
+    hashKey: 'uri', rangeKey: 'daysToEnter', type: 'local', name: 'DaysToEnterIndex'
+  }],
+
   tableName: 'competitions'
 });
