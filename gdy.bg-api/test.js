@@ -1,32 +1,28 @@
 var moment = require('moment');
+var d = new Date();
+
+var day   = d.getDate() + '';
+var month = d.getMonth() + 1 + '';
+var date  = (day.length > 1 ? day : '0' + day) + "/" + (month.length > 1 ? month : '0' + month) + "/" + d.getFullYear();
+
+var format = 'YYYY-MM-DDT00:00:00.000Z';
 
 
-var date;
-var format = 'DD/MM/YY';
-// some of the competitions have 4 YYYY digits in closes by date
-if (date === null || typeof date === 'undefined') {
-    console.log('NULL');
-    date =new Date();
-    format = 'YYYY-MM-DDT00:00:00.000Z';
-}
-else if (date !== null && typeof date !== 'undefined') {
-    if (date.search(/\d{4}/) > -1) format = 'DD/MM/YYYY';
-    // moment loses a day, add it back 
-    
-}
+var compDate = date;
 
-closesByDate = moment(date, format).add(1, 'days').toDate();
-console.log(closesByDate);
-console.log('ttl', +closesByDate);
+// moment loses a day, add it back 
+var closesByDate = moment(date, format).add(1, 'days').toDate();
+
+console.log(' comp.date ',compDate);
+console.log(' closesByDate ', closesByDate);
+console.log(' ttl ', +closesByDate);
 
 // calculate days between now and closesByDate
-var daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days') + 1;
-console.log(daysToEnter);
-
+console.log(' daysToEnter ', moment(closesByDate).diff(moment(new Date()), 'days'));
+ 
 
 
 // change to current working dir
 // process.chdir(__dirname);
 // require('./src/scraper').scrape();
 
-console.log('DATE ' , new Date());

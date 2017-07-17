@@ -38,8 +38,12 @@ module.exports = {
             x(comp.url, ['em'])(function (err, em) {
                 if (err) logger.error(err);
 
-                var date = new Date().toString();
-                var format = 'YYYY-MM-DDT00:00:00.000Z';
+                var d = new Date();
+                var day = d.getDate() + '';
+                var month = d.getMonth() + 1 + '';
+                var date = (day.length > 1 ? day : '0' + day) + "/" + (month.length > 1 ? month : '0' + month) + "/" + d.getFullYear();
+
+                var format = 'DD/MM/YYYY';
                 var i = helper.containsRegex(em, date_regex);
                 if (em && i > -1) {
                     date = em[i].match(date_regex)[0];
@@ -47,12 +51,12 @@ module.exports = {
                 }
 
                 comp.date = date;
-                // moment loses a day, add it back 
-                var closesByDate = moment(date, format).add(1, 'days').toDate();
+                var closesByDate = moment(date, format).toDate();
                 comp.closesByDate = closesByDate;
-                comp.ttl = +closesByDate;
+                comp.ttl = (+closesByDate) / 1000;
                 // calculate days between now and closesByDate
-                comp.daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days');
+                // count the current day, +1
+                comp.daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days') + 1;
                 done(null, comp);
             });
         };

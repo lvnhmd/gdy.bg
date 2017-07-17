@@ -142,7 +142,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/swagbag-club/dev/1500231415854-2017-07-16T18:56:55.854Z/swagbag-club.zip"
+          "S3Key": "serverless/swagbag-club/dev/1500292767474-2017-07-17T11:59:27.474Z/swagbag-club.zip"
         },
         "FunctionName": "swagbag-club-dev-scrape",
         "Handler": "handler.scrape",
@@ -161,14 +161,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "ScrapeLambdaVersionN98P1yTt9S9LF2a0fLr8Xoer9bct4GskMKLet3SDo": {
+    "ScrapeLambdaVersionYoWiq44SzAECFAaKJoCDGosEuyDyyAIUVCjaamK640": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ScrapeLambdaFunction"
         },
-        "CodeSha256": "N/98P1yTt9S9LF2a0fLr8Xoe+r9bct4GskMKLet3SDo="
+        "CodeSha256": "YoWiq44SzAECF+AaKJoCDGosEuyDyyAIUVCjaamK640="
       }
     },
     "GetCompetitionsLambdaFunction": {
@@ -178,7 +178,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/swagbag-club/dev/1500231415854-2017-07-16T18:56:55.854Z/swagbag-club.zip"
+          "S3Key": "serverless/swagbag-club/dev/1500292767474-2017-07-17T11:59:27.474Z/swagbag-club.zip"
         },
         "FunctionName": "swagbag-club-dev-getCompetitions",
         "Handler": "handler.getCompetitions",
@@ -197,14 +197,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "GetCompetitionsLambdaVersionN98P1yTt9S9LF2a0fLr8Xoer9bct4GskMKLet3SDo": {
+    "GetCompetitionsLambdaVersionYoWiq44SzAECFAaKJoCDGosEuyDyyAIUVCjaamK640": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetCompetitionsLambdaFunction"
         },
-        "CodeSha256": "N/98P1yTt9S9LF2a0fLr8Xoe+r9bct4GskMKLet3SDo="
+        "CodeSha256": "YoWiq44SzAECF+AaKJoCDGosEuyDyyAIUVCjaamK640="
       }
     },
     "GetSourcesLambdaFunction": {
@@ -214,7 +214,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/swagbag-club/dev/1500231415854-2017-07-16T18:56:55.854Z/swagbag-club.zip"
+          "S3Key": "serverless/swagbag-club/dev/1500292767474-2017-07-17T11:59:27.474Z/swagbag-club.zip"
         },
         "FunctionName": "swagbag-club-dev-getSources",
         "Handler": "handler.getSources",
@@ -233,14 +233,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "GetSourcesLambdaVersionN98P1yTt9S9LF2a0fLr8Xoer9bct4GskMKLet3SDo": {
+    "GetSourcesLambdaVersionYoWiq44SzAECFAaKJoCDGosEuyDyyAIUVCjaamK640": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetSourcesLambdaFunction"
         },
-        "CodeSha256": "N/98P1yTt9S9LF2a0fLr8Xoe+r9bct4GskMKLet3SDo="
+        "CodeSha256": "YoWiq44SzAECF+AaKJoCDGosEuyDyyAIUVCjaamK640="
       }
     },
     "ScrapeEventsRuleSchedule1": {
@@ -791,7 +791,7 @@
         ]
       }
     },
-    "ApiGatewayDeployment1500231416120": {
+    "ApiGatewayDeployment1500292767745": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -880,19 +880,19 @@
     "ScrapeLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ScrapeLambdaVersionN98P1yTt9S9LF2a0fLr8Xoer9bct4GskMKLet3SDo"
+        "Ref": "ScrapeLambdaVersionYoWiq44SzAECFAaKJoCDGosEuyDyyAIUVCjaamK640"
       }
     },
     "GetCompetitionsLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetCompetitionsLambdaVersionN98P1yTt9S9LF2a0fLr8Xoer9bct4GskMKLet3SDo"
+        "Ref": "GetCompetitionsLambdaVersionYoWiq44SzAECFAaKJoCDGosEuyDyyAIUVCjaamK640"
       }
     },
     "GetSourcesLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetSourcesLambdaVersionN98P1yTt9S9LF2a0fLr8Xoer9bct4GskMKLet3SDo"
+        "Ref": "GetSourcesLambdaVersionYoWiq44SzAECFAaKJoCDGosEuyDyyAIUVCjaamK640"
       }
     },
     "ServiceEndpoint": {
