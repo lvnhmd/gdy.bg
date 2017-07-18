@@ -38,3 +38,6 @@ to test locally:
   java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
   export NODE_ENV=dev && node test.js
   http://localhost:8000/shell/
+4.DaysToEnterIndex - currently not used
+5.RemoveImagesOfExpiredCompetitions - seems like it is not currently possible to configure an expiration rule per object, 
+therefore I configured a rule to clean up after 3 months -> maybe it is worthwhile making this 6 months

@@ -142,7 +142,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/swagbag-club/dev/1500317739212-2017-07-17T18:55:39.212Z/swagbag-club.zip"
+          "S3Key": "serverless/swagbag-club/dev/1500388339883-2017-07-18T14:32:19.883Z/swagbag-club.zip"
         },
         "FunctionName": "swagbag-club-dev-scrape",
         "Handler": "handler.scrape",
@@ -161,14 +161,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "ScrapeLambdaVersionPaAG4iNKz31bsVBuLRnS0Hbpjq2SJyQS30tVgF0Y6E": {
+    "ScrapeLambdaVersionP0Pj8LBRudhAAg719PzwBoYNys8Hj4tYnLk1oHRbPUg": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ScrapeLambdaFunction"
         },
-        "CodeSha256": "PaAG4iNKz31bsVBu+LRnS0Hbpjq2SJyQS30tVgF0Y6E="
+        "CodeSha256": "P0Pj8LBRudhAAg719PzwBoYNys8Hj4tYnLk1oHRbPUg="
       }
     },
     "GetCompetitionsLambdaFunction": {
@@ -178,7 +178,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/swagbag-club/dev/1500317739212-2017-07-17T18:55:39.212Z/swagbag-club.zip"
+          "S3Key": "serverless/swagbag-club/dev/1500388339883-2017-07-18T14:32:19.883Z/swagbag-club.zip"
         },
         "FunctionName": "swagbag-club-dev-getCompetitions",
         "Handler": "handler.getCompetitions",
@@ -197,14 +197,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "GetCompetitionsLambdaVersionPaAG4iNKz31bsVBuLRnS0Hbpjq2SJyQS30tVgF0Y6E": {
+    "GetCompetitionsLambdaVersionP0Pj8LBRudhAAg719PzwBoYNys8Hj4tYnLk1oHRbPUg": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetCompetitionsLambdaFunction"
         },
-        "CodeSha256": "PaAG4iNKz31bsVBu+LRnS0Hbpjq2SJyQS30tVgF0Y6E="
+        "CodeSha256": "P0Pj8LBRudhAAg719PzwBoYNys8Hj4tYnLk1oHRbPUg="
       }
     },
     "GetSourcesLambdaFunction": {
@@ -214,7 +214,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/swagbag-club/dev/1500317739212-2017-07-17T18:55:39.212Z/swagbag-club.zip"
+          "S3Key": "serverless/swagbag-club/dev/1500388339883-2017-07-18T14:32:19.883Z/swagbag-club.zip"
         },
         "FunctionName": "swagbag-club-dev-getSources",
         "Handler": "handler.getSources",
@@ -233,14 +233,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "GetSourcesLambdaVersionPaAG4iNKz31bsVBuLRnS0Hbpjq2SJyQS30tVgF0Y6E": {
+    "GetSourcesLambdaVersionP0Pj8LBRudhAAg719PzwBoYNys8Hj4tYnLk1oHRbPUg": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GetSourcesLambdaFunction"
         },
-        "CodeSha256": "PaAG4iNKz31bsVBu+LRnS0Hbpjq2SJyQS30tVgF0Y6E="
+        "CodeSha256": "P0Pj8LBRudhAAg719PzwBoYNys8Hj4tYnLk1oHRbPUg="
       }
     },
     "ScrapeEventsRuleSchedule1": {
@@ -791,7 +791,7 @@
         ]
       }
     },
-    "ApiGatewayDeployment1500317739496": {
+    "ApiGatewayDeployment1500388340157": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -869,64 +869,6 @@
           ]
         }
       }
-    },
-    "CompetitionsTable": {
-      "Type": "AWS::DynamoDB::Table",
-      "DeletionPolicy": "Retain",
-      "Properties": {
-        "AttributeDefinitions": [
-          {
-            "AttributeName": "uri",
-            "AttributeType": "S"
-          },
-          {
-            "AttributeName": "daysToEnter",
-            "AttributeType": "N"
-          }
-        ],
-        "KeySchema": [
-          {
-            "AttributeName": "uri",
-            "KeyType": "HASH"
-          },
-          {
-            "AttributeName": "daysToEnter",
-            "KeyType": "RANGE"
-          }
-        ],
-        "ProvisionedThroughput": {
-          "ReadCapacityUnits": 1,
-          "WriteCapacityUnits": 1
-        },
-        "LocalSecondaryIndexes": [
-          {
-            "IndexName": "DaysToEnterIndex",
-            "KeySchema": [
-              {
-                "AttributeName": "uri",
-                "KeyType": "HASH"
-              },
-              {
-                "AttributeName": "daysToEnter",
-                "KeyType": "RANGE"
-              }
-            ],
-            "Projection": {
-              "NonKeyAttributes": [
-                "img",
-                "title",
-                "source"
-              ],
-              "ProjectionType": "INCLUDE"
-            }
-          }
-        ],
-        "TableName": "competitions",
-        "TimeToLiveSpecification": {
-          "AttributeName": "ttl",
-          "Enabled": true
-        }
-      }
     }
   },
   "Outputs": {
@@ -938,19 +880,19 @@
     "ScrapeLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ScrapeLambdaVersionPaAG4iNKz31bsVBuLRnS0Hbpjq2SJyQS30tVgF0Y6E"
+        "Ref": "ScrapeLambdaVersionP0Pj8LBRudhAAg719PzwBoYNys8Hj4tYnLk1oHRbPUg"
       }
     },
     "GetCompetitionsLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetCompetitionsLambdaVersionPaAG4iNKz31bsVBuLRnS0Hbpjq2SJyQS30tVgF0Y6E"
+        "Ref": "GetCompetitionsLambdaVersionP0Pj8LBRudhAAg719PzwBoYNys8Hj4tYnLk1oHRbPUg"
       }
     },
     "GetSourcesLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetSourcesLambdaVersionPaAG4iNKz31bsVBuLRnS0Hbpjq2SJyQS30tVgF0Y6E"
+        "Ref": "GetSourcesLambdaVersionP0Pj8LBRudhAAg719PzwBoYNys8Hj4tYnLk1oHRbPUg"
       }
     },
     "ServiceEndpoint": {

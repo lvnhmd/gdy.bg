@@ -51,11 +51,12 @@ module.exports = {
                 }
 
                 comp.date = date;
-                var closesByDate = moment(date, format).toDate();
+                // count the current day, add(1,'days')
+                var closesByDate = moment(date, format).add(1,'days').toDate();
                 comp.closesByDate = closesByDate;
                 comp.ttl = (+closesByDate) / 1000;
                 // calculate days between now and closesByDate
-                // count the current day, +1
+                // moment loses a day, add it back 
                 comp.daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days') + 1;
                 done(null, comp);
             });
@@ -135,7 +136,7 @@ module.exports = {
 
                     var tasks = [];
                     for (var i in result) {
-                        logger.info(' ' + result[i].url);
+                        
                         if (result[i]) {
                             (function (comp) {
                                 tasks.push(function (done) {
@@ -147,8 +148,12 @@ module.exports = {
 
                     async.series(tasks, function (err, result) {
                         if (err) logger.info(err);
-                        //remove any duplicates
+                        // remove any duplicates
                         result = _.uniqBy(result, 'url');
+                        // remove any with daysToEnter < 0
+                        _.remove(result, function(c){
+                            return c.daysToEnter < 0;
+                        });
                         end(null, result);
                     });
                 });

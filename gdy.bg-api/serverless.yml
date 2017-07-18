@@ -165,29 +165,29 @@ functions:
 #         AttributeDefinitions:
 #           - AttributeName: uri
 #             AttributeType: S
-#           - AttributeName: daysToEnter
-#             AttributeType: N
+#           # - AttributeName: daysToEnter
+#           #   AttributeType: N
 #         KeySchema:
 #           - AttributeName: uri
 #             KeyType: HASH
-#           - AttributeName: daysToEnter
-#             KeyType: RANGE  
+#           # - AttributeName: daysToEnter
+#           #   KeyType: RANGE  
 #         ProvisionedThroughput:
 #           ReadCapacityUnits: 1
 #           WriteCapacityUnits: 1
-#         LocalSecondaryIndexes:
-#           - IndexName: DaysToEnterIndex
-#             KeySchema:
-#               - AttributeName: uri
-#                 KeyType: HASH
-#               - AttributeName: daysToEnter
-#                 KeyType: RANGE
-#             Projection:
-#               NonKeyAttributes:
-#                 - img
-#                 - title
-#                 - source
-#               ProjectionType: INCLUDE
+#         # LocalSecondaryIndexes:
+#         #   - IndexName: DaysToEnterIndex
+#         #     KeySchema:
+#         #       - AttributeName: uri
+#         #         KeyType: HASH
+#         #       - AttributeName: daysToEnter
+#         #         KeyType: RANGE
+#         #     Projection:
+#         #       NonKeyAttributes:
+#         #         - img
+#         #         - title
+#         #         - source
+#         #       ProjectionType: INCLUDE
 #         TableName: "competitions"
 #         TimeToLiveSpecification: 
 #           AttributeName: ttl

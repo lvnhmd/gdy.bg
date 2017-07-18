@@ -77,21 +77,9 @@ module.exports = {
 
             (function (i) {
 
-                var comp = new Competition({
-                    uri: comps[i].url,
-                    title: comps[i].title,
-                    source: comps[i].source,
-                    closesByDate: comps[i].closesByDate,
-                    ttl: comps[i].ttl,
-                    daysToEnter: comps[i].daysToEnter,
-                    date: comps[i].date
-                });
-
-                console.log('will persist ', comp);
-
                 var img = comps[i].img;
                 var splits = img.split("/");
-                var key = uuidv5(img, uuidv5.URL) + splits[splits.length - 1];
+                var key = uuidv5(img, uuidv5.URL) + '-' + splits[splits.length - 1];
 
                 http.get(img, function (res) {
                     res.setEncoding('binary');
@@ -112,18 +100,26 @@ module.exports = {
                             if (err) {
                                 console.error(err, err.stack);
                             } else {
-                                // update record 
-                                comp.attrs.img = "https://s3-eu-west-1.amazonaws.com/swagbag.club-images/" + key;
-
-                                comp.update(function (err, doc) {
-                                    if (err) logger.error(err);
-                                    console.log('Persisted : ', doc.attrs);
-                                    // convert i to number
-                                    var ipp = +i + 1;
-                                    if (ipp == comps.length) {
-                                        done(null, comps[0].source + ' competitions persisted');
-                                    }
-                                });
+                                Competition.create({
+                                    uri: comps[i].url,
+                                    title: comps[i].title,
+                                    source: comps[i].source,
+                                    closesByDate: comps[i].closesByDate,
+                                    ttl: comps[i].ttl,
+                                    daysToEnter: comps[i].daysToEnter,
+                                    date: comps[i].date,
+                                    img: "https://s3-eu-west-1.amazonaws.com/swagbag.club-images/" + key
+                                },
+                                    { overwrite: false }, // only insert competition if not there already  
+                                    function (err, doc) {
+                                        if (err) logger.error(err);
+                                        if(typeof doc !== 'undefined') console.log('Persisted : ', doc);
+                                        // convert i to number
+                                        var ipp = +i + 1;
+                                        if (ipp == comps.length) {
+                                            done(null, comps[0].source + ' competitions persisted');
+                                        }
+                                    });
                             }
                         });
                     });
