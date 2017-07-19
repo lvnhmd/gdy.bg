@@ -1,6 +1,5 @@
 var Competition = require('./models/competition');
 var Source = require('./models/source');
-var _ = require('lodash');
 
 exports.getCompetitions = function (event, cb) {
     console.log("getCompetitions", JSON.stringify(event));
@@ -12,7 +11,7 @@ exports.getCompetitions = function (event, cb) {
         .exec(function (err, data) {
             if (err) cb(err);
             var result = {
-                body: _.orderBy(data.Items, function (c) { return c.daysToEnter }, ['asc'])
+                body: data.Items
             };
             return cb(null, result);
         });

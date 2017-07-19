@@ -66,13 +66,13 @@ const applyFilters = (competitions, filters, term) => {
         });
     }
 
-    return comps;
+    return  comps;
 }
 
 function mapStateToProps(state) {
     console.log('COMPETITION LIST STATE ', state);
     return {
-        competitions: applyFilters(state.competitions, state.filters, state.searchTerm),
+        competitions: _.orderBy(applyFilters(state.competitions, state.filters, state.searchTerm),'daysToEnter'),
         isAuthorised: state.user != null ? true : false,
         activeCompetition: state.activeCompetition
     };
