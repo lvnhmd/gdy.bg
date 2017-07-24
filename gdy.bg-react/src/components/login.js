@@ -6,22 +6,12 @@ import { bindActionCreators } from 'redux';
 
 class Login extends Component {
 
-    responseFacebook = (user, err) => {
+    responseSocialLogin = (user, err) => {
         if (err)
             console.log('An error occured on FB login');
         else
-            this.props.login(user._profile, () => {
-                console.log('Facebook response ', user);
-                this.props.history.push('/');
-            });
-    }
-
-    responseGoogle = (user, err) => {
-        if (err)
-            console.log('An error occured on Google login');
-        else
-            this.props.login(user._profile, () => {
-                console.log('Google response ', user);
+            this.props.login(user, () => {
+                console.log('CALLBACK Social login response ', user);
                 this.props.history.push('/');
             });
     }
@@ -37,7 +27,7 @@ class Login extends Component {
                             <div id="customer" className="desktop-12 mobile-3">
                                 <SocialLogin provider='facebook'
                                     appId='1819960984999515'
-                                    callback={this.responseFacebook.bind(this)}>
+                                    callback={this.responseSocialLogin.bind(this)}>
                                     <button>Login with FB</button>
                                 </SocialLogin>
                             </div>
@@ -45,7 +35,7 @@ class Login extends Component {
                             <div id="customer" className="desktop-12 mobile-3">
                                 <SocialLogin provider='google'
                                     appId='1005848941427-jrp5rmrl2e3qpr5t9noa2hguhpagdklr.apps.googleusercontent.com'
-                                    callback={this.responseGoogle.bind(this)}>
+                                    callback={this.responseSocialLogin.bind(this)}>
                                     <button>Login with Google</button>
                                 </SocialLogin>
                             </div>
