@@ -29,3 +29,9 @@ exports.getSources = function (event, cb) {
             return cb(null, result);
         });
 };
+
+exports.postUser = function (event, cb) {
+    console.log("postUser", JSON.stringify(event));
+
+    
+};

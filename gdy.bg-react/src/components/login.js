@@ -12,6 +12,8 @@ class Login extends Component {
         else
             this.props.login(user, () => {
                 console.log('CALLBACK Social login response ', user);
+                //save the user
+                //call the api to save the user
                 this.props.history.push('/');
             });
     }
