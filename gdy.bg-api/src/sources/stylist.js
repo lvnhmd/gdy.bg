@@ -52,7 +52,7 @@ module.exports = {
 
                 comp.date = date;
                 // count the current day, add(1,'days')
-                var closesByDate = moment(date, format).add(1,'days').toDate();
+                var closesByDate = moment(date, format).add(1, 'days').toDate();
                 comp.closesByDate = closesByDate;
                 comp.ttl = (+closesByDate) / 1000;
                 // calculate days between now and closesByDate
@@ -136,7 +136,7 @@ module.exports = {
 
                     var tasks = [];
                     for (var i in result) {
-                        
+
                         if (result[i]) {
                             (function (comp) {
                                 tasks.push(function (done) {
@@ -151,7 +151,7 @@ module.exports = {
                         // remove any duplicates
                         result = _.uniqBy(result, 'url');
                         // remove any with daysToEnter < 0
-                        _.remove(result, function(c){
+                        _.remove(result, function (c) {
                             return c.daysToEnter < 0;
                         });
                         end(null, result);

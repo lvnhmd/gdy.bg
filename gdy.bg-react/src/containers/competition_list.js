@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchCompetitions, sourceSelected, searchTermChanged, competitionClicked, login } from '../actions/index';
+import { fetchCompetitions, sourceSelected, searchTermChanged, competitionClicked, login, trackEntry } from '../actions/index';
 import _ from 'lodash';
 import CompetitionListItem from '../components/competition_list_item';
 
@@ -10,18 +10,17 @@ class CompetitionList extends Component {
     componentDidMount() {
         console.log('CompetitionList componentDidMount');
         this.props.fetchCompetitions();
-        // if (this.props.activeCompetition && !this.props.isAuthorised)
-        //     this.props.history.push('/login');
-        // else if (this.props.activeCompetition && this.props.isAuthorised) //open this.props.activeCompetition.uri in new tab 
-        //     window.open(this.props.activeCompetition.uri, '_blank');
     }
 
     componentDidUpdate() {
         console.log('CompetitionList componentDidUpdate');
-        if (this.props.activeCompetition && !this.props.isAuthorised)
+        if (!this.props.isAuthorised && typeof this.props.entry !== 'undefined')
             this.props.history.push('/login');
-        else if (this.props.activeCompetition && this.props.isAuthorised) //open this.props.activeCompetition.uri in new tab 
-            window.open(this.props.activeCompetition.uri, '_blank');
+        else if (this.props.isAuthorised && typeof this.props.entry !== 'undefined') {
+            //open competition uri in new tab 
+            window.open(this.props.entry.uri, '_blank');
+            this.props.trackEntry(this.props.entry);
+        }
     }
 
     renderList() {
@@ -49,7 +48,6 @@ class CompetitionList extends Component {
                 </div>
             </div>
         );
-
     }
 };
 
@@ -76,17 +74,31 @@ const applyFilters = (competitions, filters, term) => {
 
 function mapStateToProps(state) {
     console.log('COMPETITION LIST STATE B4 ', state);
+
     var s = {
         competitions: _.orderBy(applyFilters(state.competitions, state.filters, state.searchTerm), ['daysToEnter', 'createdAt'], ['asc', 'desc']),
-        isAuthorised: state.user != null ? true : false,
-        activeCompetition: state.activeCompetition
+        isAuthorised: false
     };
+
+    var userId = '';
+
+    if (state.user != null) {
+        s.isAuthorised = true;
+        userId = state.user._provider + '_' + state.user._profile.id;
+    }
+
+    if (state.activeCompetition != null) {
+        s.entry = {
+            'userId': userId,
+            'uri': state.activeCompetition.uri
+        }
+    }
     console.log('COMPETITION LIST STATE AFTER', s);
     return s;
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ fetchCompetitions, sourceSelected, searchTermChanged, competitionClicked, login }, dispatch);
+    return bindActionCreators({ fetchCompetitions, sourceSelected, searchTermChanged, competitionClicked, login, trackEntry }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompetitionList);

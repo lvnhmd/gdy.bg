@@ -2,9 +2,9 @@ var _ = require('lodash');
 var moment = require('moment');
 var d = new Date();
 
-var day   = d.getDate() + '';
+var day = d.getDate() + '';
 var month = d.getMonth() + 1 + '';
-var date  = (day.length > 1 ? day : '0' + day) + "/" + (month.length > 1 ? month : '0' + month) + "/" + d.getFullYear();
+var date = (day.length > 1 ? day : '0' + day) + "/" + (month.length > 1 ? month : '0' + month) + "/" + d.getFullYear();
 
 var format = 'YYYY-MM-DDT00:00:00.000Z';
 
@@ -14,13 +14,13 @@ var compDate = date;
 // moment loses a day, add it back 
 var closesByDate = moment(date, format).add(1, 'days').toDate();
 
-console.log(' comp.date ',compDate);
+console.log(' comp.date ', compDate);
 console.log(' closesByDate ', closesByDate);
 console.log(' ttl ', +closesByDate);
 
 // calculate days between now and closesByDate
 console.log(' daysToEnter ', moment(closesByDate).diff(moment(new Date()), 'days'));
- 
+
 
 
 // change to current working dir
@@ -206,4 +206,12 @@ var items = [
   }
 ];
 
-console.log( _.orderBy(items, function (c) { return c.daysToEnter }, ['asc']));
+// console.log( _.orderBy(items, function (c) { return c.daysToEnter }, ['asc']));
+
+var ttl = 4765;
+
+ttl = +(moment(new Date()).add(+ttl, 'seconds').toDate()) / 1000;
+
+// convert ttl to unix time stamp
+
+console.log(ttl);

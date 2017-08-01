@@ -25,3 +25,5 @@ module.exports.getCompetitions = (event, context, cb) => api.getCompetitions(eve
 module.exports.scrape = (event, context, cb) => scraper.scrape();
 
 module.exports.postUser = (event, context, cb) => api.postUser(event, cbw(cb));
+
+module.exports.trackEntry = (event, context, cb) => api.trackEntry(event, cbw(cb));

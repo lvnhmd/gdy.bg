@@ -95,6 +95,26 @@ functions:
         method: get
         integration: lambda
         cors: true
+  postUser:
+    handler: handler.postUser
+    timeout: 30
+    memorySize: 128
+    events:
+    - http:
+        path: api/v1/user
+        method: post
+        integration: lambda
+        cors: true
+  trackEntry:
+    handler: handler.trackEntry
+    timeout: 30
+    memorySize: 128
+    events:
+    - http:
+        path: api/v1/track
+        method: post
+        integration: lambda
+        cors: true            
   # cron:
   #   handler: handler.run
   #   events:
@@ -206,5 +226,33 @@ functions:
     #       ReadCapacityUnits: 1
     #       WriteCapacityUnits: 1
     #     TableName: "sources"
+    # UserTable:
+    #   Type: "AWS::DynamoDB::Table"
+    #   DeletionPolicy: Retain
+    #   Properties:
+    #     AttributeDefinitions:
+    #       - AttributeName: userId
+    #         AttributeType: S
+    #     KeySchema:
+    #       - AttributeName: userId
+    #         KeyType: HASH
+    #     ProvisionedThroughput:
+    #       ReadCapacityUnits: 1
+    #       WriteCapacityUnits: 1
+    #     TableName: "user"
+    # EntryTable:
+    #   Type: "AWS::DynamoDB::Table"
+    #   DeletionPolicy: Retain
+    #   Properties:
+    #     AttributeDefinitions:
+    #       - AttributeName: uri
+    #         AttributeType: S
+    #     KeySchema:
+    #       - AttributeName: uri
+    #         KeyType: HASH
+    #     ProvisionedThroughput:
+    #       ReadCapacityUnits: 1
+    #       WriteCapacityUnits: 1
+    #     TableName: "entry"
 
       

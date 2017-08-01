@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SocialLogin from 'react-social-login';
 import { login } from '../actions/index';
+import { createUser } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -12,9 +13,9 @@ class Login extends Component {
         else
             this.props.login(user, () => {
                 console.log('CALLBACK Social login response ', user);
-                //save the user
-                //call the api to save the user
+                
                 this.props.history.push('/');
+                this.props.createUser(user);
             });
     }
 
@@ -50,7 +51,7 @@ class Login extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ login }, dispatch);
+    return bindActionCreators({ login, createUser }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(Login);

@@ -1,7 +1,8 @@
 // Action creator
 import axios from 'axios';
 
-const ROOT_URL = `https://api.swagbag.club/api/v1`;
+const ROOT_URL = `https://h5ixs3u9pi.execute-api.eu-west-1.amazonaws.com/dev`;
+const ROOT_URL_PATH = `/api/v1`;
 
 export const SRC_SELECTED = 'SRC_SELECTED';
 export const SRCH_CHANGED = 'SRCH_CHANGED';
@@ -9,6 +10,8 @@ export const FETCH_COMPETITIONS = 'FETCH_COMPETITIONS';
 export const FETCH_SOURCES = 'FETCH_SOURCES';
 export const LOGIN = 'LOGIN';
 export const COMP_CLICKED = 'COMP_CLICKED';
+export const CREATE_USER = 'CREATE_USER';
+export const TRACK_ENTRY = 'TRACK_ENTRY';
 
 export function sourceSelected(source) {
     return {
@@ -26,7 +29,7 @@ export function searchTermChanged(term) {
 
 
 export function fetchCompetitions() {
-    const url = `${ROOT_URL}/competitions`;
+    const url = `${ROOT_URL}${ROOT_URL_PATH}/competitions`;
     const request = axios.get(url);
 
     return {
@@ -37,7 +40,7 @@ export function fetchCompetitions() {
 }
 
 export function fetchSources() {
-    const url = `${ROOT_URL}/sources`;
+    const url = `${ROOT_URL}${ROOT_URL_PATH}/sources`;
     const request = axios.get(url);
 
     return {
@@ -57,10 +60,37 @@ export function login(user, callback) {
     };
 }
 
-export function competitionClicked(competition) {
-    console.log('competitionClicked ', competition);
+export function competitionClicked(comp) {
+    console.log('competitionClicked ', comp);
     return {
         type: COMP_CLICKED,
-        payload: competition
+        payload: comp
     };
+}
+
+// actually I do not need to return anything in the next two methods,
+// what do I use 
+export function createUser(user) {
+    console.log('createUser ', user);
+
+    const url = `${ROOT_URL}${ROOT_URL_PATH}/user`;
+    const request = axios.post(url, user);
+
+    return {
+        type: CREATE_USER,
+        payload: request
+    }
+
+}
+
+export function trackEntry(entry) {
+    console.log('trackEntry ', entry);
+    
+    const url = `${ROOT_URL}${ROOT_URL_PATH}/track`;
+    const request = axios.post(url, entry);
+    
+    return {
+        type: TRACK_ENTRY,
+        payload: request
+    }
 }
