@@ -4,13 +4,13 @@ import { signin } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-class Login extends Component {
+class Signin extends Component {
 
     responseSocialLogin = (user, err) => {
         if (err)
             console.log('An error occured on FB signin');
         else
-            this.props.signin(user);
+            this.props.signin(user, this.props.entry);
     }
 
     render() {
@@ -44,8 +44,13 @@ class Login extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    console.log('SIGNIN ', state);
+    return state;
+}
+
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ signin }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Signin);

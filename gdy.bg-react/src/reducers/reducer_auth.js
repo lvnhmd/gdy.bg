@@ -18,8 +18,12 @@ export default function (state = {}, action) {
         name: user._profile.name
       };
     }
-    case DEAUTH_USER:
-      return { ...state, isAuthenticated: false };
+    case DEAUTH_USER: {
+      return {
+        ...state,
+        isAuthenticated: false
+      };
+    }
     // case AUTH_ERROR:
     //   return { ...state, error: action.payload };
     // case FETCH_MESSAGE:

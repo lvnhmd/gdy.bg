@@ -8,9 +8,9 @@ class CompetitionListItem extends React.Component {
 
     click() {
         this.props.trackEntry({
-            'userId': this.props.userId,
-            'uri': this.props.value.uri
-        });
+            userId: this.props.userId,
+            uri: this.props.value.uri
+        }, this.props.isAuthenticated);
     }
 
     render() {
@@ -31,7 +31,8 @@ class CompetitionListItem extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        'userId': state.user.id
+        userId: state.user.id,
+        isAuthenticated: state.user.isAuthenticated
     };
 }
 

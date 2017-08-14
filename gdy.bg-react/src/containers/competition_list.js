@@ -1,27 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchCompetitions, sourceSelected, searchTermChanged, trackEntry } from '../actions/index';
+import { fetchCompetitions, sourceSelected, searchTermChanged } from '../actions/index';
 import _ from 'lodash';
 import CompetitionListItem from '../components/competition_list_item';
 
 class CompetitionList extends Component {
 
     componentDidMount() {
-        console.log('CompetitionList componentDidMount');
         this.props.fetchCompetitions();
     }
-
-    // componentDidUpdate() {
-    //     console.log('CompetitionList componentDidUpdate');
-    //     if (!this.props.isAuthenticated && typeof this.props.entry !== 'undefined')
-    //         this.props.history.push('/signin');
-    //     else if (this.props.isAuthenticated && typeof this.props.entry !== 'undefined') {
-    //         //open competition uri in new tab 
-    //         window.open(this.props.entry.uri, '_blank');
-    //         this.props.trackEntry(this.props.entry);
-    //     }
-    // }
 
     renderList() {
         return this.props.competitions.map((competition) => {
@@ -83,7 +71,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ fetchCompetitions, sourceSelected, searchTermChanged, trackEntry }, dispatch);
+    return bindActionCreators({ fetchCompetitions, sourceSelected, searchTermChanged }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompetitionList);

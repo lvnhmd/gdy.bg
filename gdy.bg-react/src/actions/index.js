@@ -29,7 +29,6 @@ export function searchTermChanged(term) {
     };
 }
 
-
 export function fetchCompetitions() {
     const url = `${ROOT_URL}${ROOT_URL_PATH}/competitions`;
     const request = axios.get(url);
@@ -59,7 +58,7 @@ export function authError(error) {
     };
 }
 
-export function signin(user, callback) {
+export function signin(user, entry) {
     return function (dispatch) {
         axios.post(`${ROOT_URL}${ROOT_URL_PATH}/user`, user)
             .then(response => {
@@ -67,6 +66,22 @@ export function signin(user, callback) {
                 dispatch({ type: AUTH_USER, payload: JSON.stringify(user) });
                 localStorage.setItem('user', JSON.stringify(user));
                 browserHistory.push('/');
+
+                if (entry) {
+                    entry.userId = user._provider + '_' + user._profile.id;
+                    dispatch({ type: TRACK_ENTRY, payload: entry });
+                    
+                    window.open(entry.uri, '_blank');
+
+                    axios.post(`${ROOT_URL}${ROOT_URL_PATH}/track`, entry)
+                        .then(response => {
+                            console.log('track entry success');
+                        })
+                        .catch(response => {
+                            console.log('track entry : an error occured');
+                            dispatch(error(response.data.error))
+                        });
+                }
             })
             .catch(response => {
                 console.log('signin user : an error occured');
@@ -86,16 +101,28 @@ export function gotoSignin() {
     }
 }
 
-export function trackEntry(entry) {
+export function trackEntry(entry, isAuthenticated) {
     return function (dispatch) {
         console.log('track entry ', entry);
-        axios.post(`${ROOT_URL}${ROOT_URL_PATH}/track`, entry)
-            .then(response => {
-                console.log('track entry success');
-            })
-            .catch(response => {
-                console.log('track entry : an error occured');
-                dispatch(error(response.data.error))
-            });
+
+        if (isAuthenticated) {
+            // only track entry and open external page if the user is auth
+            // else forward to login page
+            window.open(entry.uri, '_blank');
+
+            axios.post(`${ROOT_URL}${ROOT_URL_PATH}/track`, entry)
+                .then(response => {
+                    console.log('track entry success');
+                })
+                .catch(response => {
+                    console.log('track entry : an error occured');
+                    dispatch(error(response.data.error))
+                });
+        }
+        else {
+            entry.userId = null;
+            dispatch({ type: TRACK_ENTRY, payload: entry });
+            browserHistory.push('/signin');
+        }
     }
 }
