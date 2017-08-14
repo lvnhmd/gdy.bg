@@ -1,0 +1,7 @@
+export const SRC_SELECTED = 'SRC_SELECTED';
+export const SRCH_CHANGED = 'SRCH_CHANGED';
+export const FETCH_COMPETITIONS = 'FETCH_COMPETITIONS';
+export const FETCH_SOURCES = 'FETCH_SOURCES';
+export const AUTH_USER = 'AUTH_USER';
+export const DEAUTH_USER = 'DEAUTH_USER';
+export const TRACK_ENTRY = 'TRACK_ENTRY';

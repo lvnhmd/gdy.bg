@@ -40,6 +40,7 @@
     "react-share": "^1.15.0",
     "react-social-login": "^2.0.1",
     "redux": "^3.0.4",
-    "redux-promise": "^0.5.3"
+    "redux-promise": "^0.5.3",
+    "redux-thunk": "^2.2.0"
   }
 }

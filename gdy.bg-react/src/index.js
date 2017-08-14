@@ -3,29 +3,35 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxPromise from 'redux-promise';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import ReduxThunk from 'redux-thunk';
 
 import reducers from './reducers';
-import Header from './components/header';
-import SourceList from './containers/source_list';
-import CompetitionList from './containers/competition_list';
-import CompetitionListItem from './components/competition_list_item';
-import Login from './components/login';
+import App from './components/app';
+import Home from './components/home';
+import Signin from './components/signin';
+import { AUTH_USER } from './actions/types';
 
-const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
+const createStoreWithMiddleware = applyMiddleware(ReduxPromise, ReduxThunk)(createStore);
+const store = createStoreWithMiddleware(reducers);
+
+const user = localStorage.getItem('user');
+
+if (user) {
+  //  update application state
+  store.dispatch({ type: AUTH_USER, payload: user });
+}
+
 // put the most specific routes on top 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
-    <BrowserRouter>
+  <Provider store={store}>
+    <Router history={browserHistory}>
       <div>
-        <Header />
-        <SourceList />
-        <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/" component={CompetitionList} />
-          <Route component={CompetitionListItem} />
-        </Switch>
+        <Route path="/" component={App} >
+          <IndexRoute component={Home} />
+          <Route path="signin" component={Signin} />
+        </Route>
       </div>
-    </BrowserRouter>
+    </Router>
   </Provider>
   , document.querySelector('.container'));

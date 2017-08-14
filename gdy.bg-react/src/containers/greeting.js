@@ -1,53 +1,38 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { login } from '../actions/index';
+import { gotoSignin, signout } from '../actions/index';
 
-function UserGreeting(props) {
-    return (
-        <ul id="cart" className="desktop-6 tablet-3 mobile-1">
-            <li>
-                Hi, {props.name} | <a>Logout</a>
-            </li>
-        </ul>
-    );
-}
+class Greeting extends Component {
 
-function GuestGreeting(props) {
-    return (
-        <ul id="cart" className="desktop-6 tablet-3 mobile-1">
-            <li>
-                Hi, stranger <a>Login</a>
-            </li>
-        </ul>
-    );
-}
-
-function Greeting(props) {
-    const isAuthorised = props.isAuthorised;
-    if (isAuthorised) {
-        return <UserGreeting name={props.name} />;
+    render() {
+        if (this.props.isAuthenticated) {
+            return (<ul id="cart" className="desktop-6 tablet-3 mobile-1">
+                <li>
+                    Hi, {this.props.name} <a onClick={() => this.props.signout()}> sign out</a>
+                </li>
+            </ul>)
+        }
+        else {
+            return (<ul id="cart" className="desktop-6 tablet-3 mobile-1">
+                <li>
+                    Hi, stranger <a onClick={() => this.props.gotoSignin()}> sign in</a>
+                </li>
+            </ul>
+            )
+        }
     }
-    return <GuestGreeting />;
 }
 
 function mapStateToProps(state) {
-    console.log('Greeting ', state);
-    var s = {
-        isAuthorised: false,
-        name: ''
-    }
-
-    if (state.user != null) {
-        s.isAuthorised = true;
-        s.name = state.user._profile.name;
-    }
-
-    return s;
+    return {
+        isAuthenticated: state.user.isAuthenticated,
+        name: state.user.name
+    };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ login }, dispatch);
+    return bindActionCreators({ gotoSignin, signout }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Greeting);

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { SRC_SELECTED } from '../actions/index';
+import { SRC_SELECTED } from '../actions/types';
 
 export default function (state = [], action) {
     switch (action.type) {

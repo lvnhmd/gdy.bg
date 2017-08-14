@@ -1,11 +1,9 @@
-import { FETCH_COMPETITIONS } from '../actions/index';
+import { FETCH_SOURCES } from '../actions/types';
 
 export default function (state = [], action) {
     switch (action.type) {
-        case FETCH_COMPETITIONS:
+        case FETCH_SOURCES:
             return action.payload.data;
-
     }
     return state;
 }
-

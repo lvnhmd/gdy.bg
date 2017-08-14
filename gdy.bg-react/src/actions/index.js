@@ -1,17 +1,19 @@
 // Action creator
 import axios from 'axios';
+import { browserHistory } from 'react-router';
+
+import {
+    SRC_SELECTED,
+    SRCH_CHANGED,
+    FETCH_COMPETITIONS,
+    FETCH_SOURCES,
+    AUTH_USER,
+    DEAUTH_USER,
+    TRACK_ENTRY
+} from './types';
 
 const ROOT_URL = `https://h5ixs3u9pi.execute-api.eu-west-1.amazonaws.com/dev`;
 const ROOT_URL_PATH = `/api/v1`;
-
-export const SRC_SELECTED = 'SRC_SELECTED';
-export const SRCH_CHANGED = 'SRCH_CHANGED';
-export const FETCH_COMPETITIONS = 'FETCH_COMPETITIONS';
-export const FETCH_SOURCES = 'FETCH_SOURCES';
-export const LOGIN = 'LOGIN';
-export const COMP_CLICKED = 'COMP_CLICKED';
-export const CREATE_USER = 'CREATE_USER';
-export const TRACK_ENTRY = 'TRACK_ENTRY';
 
 export function sourceSelected(source) {
     return {
@@ -50,47 +52,50 @@ export function fetchSources() {
 
 }
 
-export function login(user, callback) {
-    console.log('ACTION LOGIN ', user);
-    // lecture 142
-    callback();
+export function authError(error) {
     return {
-        type: LOGIN,
-        payload: user
+        type: AUTH_ERROR,
+        payload: error
     };
 }
 
-export function competitionClicked(comp) {
-    console.log('competitionClicked ', comp);
-    return {
-        type: COMP_CLICKED,
-        payload: comp
-    };
-}
-
-// actually I do not need to return anything in the next two methods,
-// what do I use 
-export function createUser(user) {
-    console.log('createUser ', user);
-
-    const url = `${ROOT_URL}${ROOT_URL_PATH}/user`;
-    const request = axios.post(url, user);
-
-    return {
-        type: CREATE_USER,
-        payload: request
+export function signin(user, callback) {
+    return function (dispatch) {
+        axios.post(`${ROOT_URL}${ROOT_URL_PATH}/user`, user)
+            .then(response => {
+                console.log('signin user');
+                dispatch({ type: AUTH_USER, payload: JSON.stringify(user) });
+                localStorage.setItem('user', JSON.stringify(user));
+                browserHistory.push('/');
+            })
+            .catch(response => {
+                console.log('signin user : an error occured');
+                dispatch(authError(response.data.error))
+            });
     }
+}
 
+export function signout() {
+    localStorage.removeItem('user');
+    return { type: DEAUTH_USER };
+}
+
+export function gotoSignin() {
+    return function (dispatch) {
+        browserHistory.push('/signin');
+    }
 }
 
 export function trackEntry(entry) {
-    console.log('trackEntry ', entry);
-    
-    const url = `${ROOT_URL}${ROOT_URL_PATH}/track`;
-    const request = axios.post(url, entry);
-    
-    return {
-        type: TRACK_ENTRY,
-        payload: request
+    return function (dispatch) {
+        console.log('track entry ', entry);
+        axios.post(`${ROOT_URL}${ROOT_URL_PATH}/track`, entry)
+            .then(response => {
+                console.log('track entry success');
+            })
+            .catch(response => {
+                console.log('track entry : an error occured');
+                dispatch(error(response.data.error))
+            });
     }
 }

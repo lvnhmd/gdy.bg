@@ -1,8 +1,8 @@
-import { COMP_CLICKED } from '../actions/index';
+import { TRACK_ENTRY } from '../actions/types';
 
 export default function (state = null, action) {
     switch (action.type) {
-        case COMP_CLICKED:
+        case TRACK_ENTRY:
             return action.payload;
     }
     return state;

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import SocialLogin from 'react-social-login';
-import { login } from '../actions/index';
-import { createUser } from '../actions/index';
+import { signin } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -9,14 +8,9 @@ class Login extends Component {
 
     responseSocialLogin = (user, err) => {
         if (err)
-            console.log('An error occured on FB login');
+            console.log('An error occured on FB signin');
         else
-            this.props.login(user, () => {
-                console.log('CALLBACK Social login response ', user);
-                
-                this.props.history.push('/');
-                this.props.createUser(user);
-            });
+            this.props.signin(user);
     }
 
     render() {
@@ -31,7 +25,7 @@ class Login extends Component {
                                 <SocialLogin provider='facebook'
                                     appId='1819960984999515'
                                     callback={this.responseSocialLogin.bind(this)}>
-                                    <button>Login with FB</button>
+                                    <button>Sign-in with FB</button>
                                 </SocialLogin>
                             </div>
                             <div className="clear"></div>
@@ -39,7 +33,7 @@ class Login extends Component {
                                 <SocialLogin provider='google'
                                     appId='1005848941427-jrp5rmrl2e3qpr5t9noa2hguhpagdklr.apps.googleusercontent.com'
                                     callback={this.responseSocialLogin.bind(this)}>
-                                    <button>Login with Google</button>
+                                    <button>Sign-in with Google</button>
                                 </SocialLogin>
                             </div>
                         </div>
@@ -51,7 +45,7 @@ class Login extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ login, createUser }, dispatch);
+    return bindActionCreators({ signin }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(Login);
