@@ -12,7 +12,7 @@ import {
     TRACK_ENTRY
 } from './types';
 
-const ROOT_URL = `https://h5ixs3u9pi.execute-api.eu-west-1.amazonaws.com/dev`;
+const ROOT_URL = `https://dmfile44dk.execute-api.eu-west-1.amazonaws.com/dev`;
 const ROOT_URL_PATH = `/api/v1`;
 
 export function sourceSelected(source) {

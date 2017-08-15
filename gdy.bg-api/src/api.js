@@ -36,18 +36,24 @@ exports.getSources = function (event, cb) {
 exports.postUser = function (event, cb) {
     console.log("postUser ", JSON.stringify(event));
 
+    var postUpdate = function (err, data) {
+        if (err) console.log("error occured", err);
+        var result = {
+            body: data
+        };
+    };
+
     var user = {};
     user.userId = event.body._provider + '_' + event.body._profile.id;
     user.provider = event.body._provider;
     user.name = event.body._profile.name;
-    user.email = event.body._profile.email;
+    user.email = event.body._profile.email ? event.body._profile.email : '';
     user.profilePicURL = event.body._profile.profilePicURL;
-    user.accessToken = event.body._profile.accessToken;
-
+    user.accessToken = event.body._token.accessToken;
     // normalise expiresAt 
     // coming back from Facebook : How to interpret the the oauth expires=4 digit code upon receiving access token
     // It is the no of seconds before expiry time. 
-    var expiresAt = event.body._profile.expiresAt;
+    var expiresAt = event.body._token.expiresAt;
     if ('facebook' === user.provider) {
         expiresAt = +(moment(new Date()).add(+expiresAt, 'seconds').toDate()) / 1000;
     }
@@ -57,15 +63,17 @@ exports.postUser = function (event, cb) {
 
     user.expiresAt = expiresAt;
 
-    User.create(user, { overwrite: false },
-        function (err, data) {
-            if (err) cb(err);
-            console.log("data ", data);
-            var result = {
-                body: data
-            };
-
-        });
+    User.get(user.userId, function (err, data) {
+        if (err) {
+            console.log('error occured ', err);
+        } else if (data) {
+            console.log('update user ', data.get().userId);
+            User.update(user, postUpdate);
+        } else {
+            console.log('create user ', user.userId);
+            User.create(user, postUpdate);
+        }
+    });
 };
 
 exports.trackEntry = function (event, cb) {
@@ -76,7 +84,7 @@ exports.trackEntry = function (event, cb) {
     Entry.create(entry, { overwrite: true },
         function (err, data) {
             if (err) cb(err);
-            
+
             var result = {
                 body: data
             };

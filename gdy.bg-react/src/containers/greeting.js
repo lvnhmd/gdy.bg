@@ -16,7 +16,7 @@ class Greeting extends Component {
         else {
             return (<ul id="cart" className="desktop-6 tablet-3 mobile-1">
                 <li>
-                    Hi, stranger <a onClick={() => this.props.gotoSignin()}> sign in</a>
+                    Hi, stranger <a onClick={() => this.props.gotoSignin()}> sign in/sign up</a>
                 </li>
             </ul>
             )

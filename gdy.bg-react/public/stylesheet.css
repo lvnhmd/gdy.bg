@@ -438,7 +438,7 @@ img {
 ================================================== */
 
 body {
-  background: #f3f2f2 url(../img/bg-body.png);
+  background: #f3f2f2 url(./img/bg-body.png);
   font-family: 'FuturaBold', sans-serif;
   font-size: 15px;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
@@ -588,7 +588,7 @@ ul {
   padding: 0;
   margin: 0 0 20px 0;
   list-style: disc inside;
-  list-style-image: url('../img/dot.svg');
+  list-style-image: url('./img/dot.svg');
 }
 
 li {}
@@ -2004,7 +2004,7 @@ ul#posts li {
 /* =============== */
 
 #footer {
-  background: rgba(224, 71, 158, 1) url(../img/bg-body.png);
+  background: rgba(224, 71, 158, 1) url(./img/bg-body.png);
   padding-bottom: 20px;
   text-align: center;
 }
@@ -2754,7 +2754,7 @@ div.errors li {
 
 .menu {
   /*display: none;*/
-  background: url(../img/bg-body.png) #E0479E;
+  background: url(./img/bg-body.png) #E0479E;
   padding-top: 0;
   max-height: 0;
   width: 100%;
@@ -2935,7 +2935,7 @@ div.errors li {
 }
 
 .menu-bar.detached {
-  background: url(../img/grid.png) #E0479E;
+  background: url(./img/grid.png) #E0479E;
 }
 
 .menu-open .menu-bar, .menu-bar.detached {
@@ -3095,7 +3095,7 @@ div.errors li {
   right: 10px;
   width: 20px;
   height: 20px;
-  background-image: url(../img/close_thin_small.png);
+  background-image: url(/close_thin_small.png);
 }
 
 

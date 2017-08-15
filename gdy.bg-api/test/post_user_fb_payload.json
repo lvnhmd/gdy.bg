@@ -1,0 +1,14 @@
+{
+  "_provider": "facebook",
+  "_profile": {
+    "id": "10213148518654673",
+    "name": "Elvin Ali",
+    "firstName": "Elvin",
+    "lastName": "Ali",
+    "profilePicURL": "https://scontent.xx.fbcdn.net/v/t1.0-1/c51.73.577.577/s50x50/14054920_10210533229354075_5241987025513448347_n.jpg?oh=e9fdbaa292c4dd8abee28d69a8adcf13&oe=5A1F4EB2"
+  },
+  "_token": {
+    "accessToken": "EAAZA3PrAEFlsBAOm8prNYEckSZAtgNolcP5MqIf1nur3I4MekTGwlMlxLZA0V0Q4kgitjkUgpXtbeLGi591yo818ZB68sBFV0at974QnQHK4WalYbtP85ZCmbICoORTrwJ7iUu6kYOPSkZBZCaLO6gjloJMQ5XKkwXGy03cB7My8JZCtf66BPZAcprzS2Ys6aHSjhZCpZAwvAD5YQZDZD",
+    "expiresAt": 5264
+  }
+}
