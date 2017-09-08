@@ -25,7 +25,6 @@ class CompetitionList extends Component {
                 <div id="content" className="row">
                     <div id="collectionpage">
                         <div className="collection-description">
-                            <h1></h1>
                             <div className="rte"></div>
                         </div>
                         <div className="clear"></div>

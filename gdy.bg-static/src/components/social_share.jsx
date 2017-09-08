@@ -31,7 +31,7 @@ class SocialShare extends Component {
     
 
     render() {
-        console.log('SocialShare props ', this.props);
+        // console.log('SocialShare props ', this.props);
         return (
             <div className="jssocials-info Demo__container">
 
@@ -49,8 +49,8 @@ class SocialShare extends Component {
                     
                     <FacebookShareButton
                         url={this.props.shareUrl}
-                        title={this.props.title}
-                        picture={this.props.img}
+                        quote={this.props.title}
+                        href={this.props.img}
                         className="Demo__some-network__share-button">
                         <FacebookIcon
                             size={32}

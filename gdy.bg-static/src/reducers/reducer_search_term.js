@@ -5,6 +5,7 @@ export default function (state = '', action) {
         case SRCH_CHANGED: {
             return action.payload;
         }
+        // no default
     }
 
     return state;
