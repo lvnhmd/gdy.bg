@@ -14,8 +14,7 @@ import {
     ERROR
 } from './types';
 
-const ROOT_URL = `https://dmfile44dk.execute-api.eu-west-1.amazonaws.com/dev`;
-const ROOT_URL_PATH = `/api/v1`;
+const ROOT_URL = process.env.REACT_APP_API_URL;
 
 export function sourceSelected(source) {
     return {
@@ -32,7 +31,7 @@ export function searchTermChanged(term) {
 }
 
 export function fetchCompetitions() {
-    const url = `${ROOT_URL}${ROOT_URL_PATH}/competitions`;
+    const url = `${ROOT_URL}/competitions`;
     const request = axios.get(url);
 
     return {
@@ -43,7 +42,7 @@ export function fetchCompetitions() {
 }
 
 export function fetchSources() {
-    const url = `${ROOT_URL}${ROOT_URL_PATH}/sources`;
+    const url = `${ROOT_URL}/sources`;
     const request = axios.get(url);
 
     return {
@@ -62,7 +61,7 @@ export function authError(error) {
 
 export function signin(user, entry) {
     return function (dispatch) {
-        axios.post(`${ROOT_URL}${ROOT_URL_PATH}/user`, user)
+        axios.post(`${ROOT_URL}/user`, user)
             .then(response => {
                 console.log('signin user');
                 dispatch({ type: AUTH_USER, payload: JSON.stringify(user) });
@@ -75,7 +74,7 @@ export function signin(user, entry) {
                     
                     window.open(entry.uri, '_blank');
 
-                    axios.post(`${ROOT_URL}${ROOT_URL_PATH}/track`, entry)
+                    axios.post(`${ROOT_URL}/track`, entry)
                         .then(response => {
                             console.log('track entry success');
                         })
@@ -112,7 +111,7 @@ export function trackEntry(entry, isAuthenticated) {
             // else forward to login page
             window.open(entry.uri, '_blank');
 
-            axios.post(`${ROOT_URL}${ROOT_URL_PATH}/track`, entry)
+            axios.post(`${ROOT_URL}/track`, entry)
                 .then(response => {
                     console.log('track entry success');
                 })

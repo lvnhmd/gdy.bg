@@ -1313,6 +1313,7 @@ ul#sortme p {
 .product-index .product-info {
   padding: 20px 18px;
   background-color: #fff;
+  min-height: 88px;
 }
 
 .blankrow {
