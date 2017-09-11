@@ -78,6 +78,21 @@ module.exports = {
                     var imgs = _.split(data[i].img, ' ');
                     data[i].img = imgs[imgs.length - 2];
                     data[i].source = 'stylist';
+
+                    var words = _.split(data[i].title, ' ');
+                    var title = '';
+                    for (var j in words) {
+                        var word = words[j];
+
+                        if (/^[A-Z]/.test(word)) {
+                            word = word.charAt(0) + word.substr(1, word.length).toLowerCase();
+                        }
+
+                        title += word+' ';
+                    }
+
+                    data[i].title = title;
+
                 }
 
                 done(null, data);

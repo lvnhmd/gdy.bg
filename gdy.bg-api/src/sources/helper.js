@@ -98,6 +98,7 @@ module.exports = {
                         };
                         s3.putObject(params, function (err, data) {
                             if (err) {
+                                console.log('s3.putObject errored');
                                 console.error(err, err.stack);
                             } else {
                                 Competition.create({
@@ -112,8 +113,11 @@ module.exports = {
                                 },
                                     { overwrite: false }, // only insert competition if not there already  
                                     function (err, doc) {
-                                        if (err) logger.error(err);
-                                        if(typeof doc !== 'undefined') console.log('Persisted : ', doc);
+                                        if (err) {
+                                            console.log('Competition.create errored');
+                                            logger.error(err);
+                                        }
+                                        if (typeof doc !== 'undefined') console.log('Persisted : ', doc);
                                         // convert i to number
                                         var ipp = +i + 1;
                                         if (ipp == comps.length) {
