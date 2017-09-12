@@ -101,7 +101,8 @@ module.exports = {
                                 console.log('s3.putObject errored');
                                 console.error(err, err.stack);
                             } else {
-                                Competition.create({
+
+                                var comp = {
                                     uri: comps[i].url,
                                     title: comps[i].title,
                                     source: comps[i].source,
@@ -110,14 +111,21 @@ module.exports = {
                                     daysToEnter: comps[i].daysToEnter,
                                     date: comps[i].date,
                                     img: "https://s3-eu-west-1.amazonaws.com/swagbag.club-images/" + key
-                                },
+                                };
+
+                                Competition.create(comp,
                                     { overwrite: false }, // only insert competition if not there already  
                                     function (err, doc) {
                                         if (err) {
-                                            console.log('Competition.create errored');
+                                            // competition exists, update 
+                                            Competition.update(comp, function (err, c) {
+                                                logger.info('Updated : ', c.attrs);
+                                            });
+
                                             logger.error(err);
+
                                         }
-                                        if (typeof doc !== 'undefined') console.log('Persisted : ', doc);
+                                        else logger.info('Persisted : ', doc.attrs);
                                         // convert i to number
                                         var ipp = +i + 1;
                                         if (ipp == comps.length) {
