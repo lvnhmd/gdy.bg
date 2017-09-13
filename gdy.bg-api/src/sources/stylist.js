@@ -35,20 +35,25 @@ module.exports = {
 
         function getCompetitionClosingDate(comp, done) {
 
-            x(comp.url, ['em'])(function (err, em) {
-                if (err) logger.error(err);
-
+            var setDefaultClosingDate = function (comp) {
                 var d = new Date();
                 var day = d.getDate() + '';
                 var month = d.getMonth() + 1 + '';
                 var date = (day.length > 1 ? day : '0' + day) + "/" + (month.length > 1 ? month : '0' + month) + "/" + d.getFullYear();
 
-                var format = 'DD/MM/YYYY';
-                var i = helper.containsRegex(em, date_regex);
-                if (em && i > -1) {
-                    date = em[i].match(date_regex)[0];
-                    format = date.search(/\d{4}/) > -1 ? 'DD/MM/YYYY' : 'DD/MM/YY';
-                }
+                comp.date = date;
+                // count the current day, add(1,'days')
+                var closesByDate = moment(date, 'DD/MM/YYYY').add(1, 'days').toDate();
+                comp.closesByDate = closesByDate;
+                comp.ttl = (+closesByDate) / 1000;
+                // calculate days between now and closesByDate
+                // moment loses a day, add it back 
+                comp.daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days') + 1;
+            };
+
+            var setClosingDate = function (comp, dateStr) {
+                var date = dateStr.match(date_regex)[0];
+                var format = date.search(/\d{4}/) > -1 ? 'DD/MM/YYYY' : 'DD/MM/YY';
 
                 comp.date = date;
                 // count the current day, add(1,'days')
@@ -58,7 +63,82 @@ module.exports = {
                 // calculate days between now and closesByDate
                 // moment loses a day, add it back 
                 comp.daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days') + 1;
-                done(null, comp);
+            };
+
+            x(comp.url, ['em'])(function (err, em) {
+                if (err) logger.error(err);
+
+                var i = helper.containsRegex(em, date_regex);
+                if (em && i > -1) {
+                    setClosingDate(comp, em[i]);
+                    done(null, comp);
+                }
+                else {
+                    x(comp.url, 'div.widget script@src')(function (err, embedURL) {
+                        if (err) logger.error(err);
+
+                        logger.info(comp.url);
+
+                        if (typeof embedURL !== 'undefined') {
+                            logger.info(' >>> FOLLOW embedURL ', embedURL);
+                            helper.getAsString(embedURL,
+                                function (err, embedURLContent) {
+                                    if (err) logger.error(err);
+
+                                    var regexp = /remotePage = \'(.*?)\';/g;
+                                    var match = regexp.exec(embedURLContent);
+                                    var remotePage;
+
+                                    if (null != match) {
+                                        remotePage = match[1];
+                                    }
+
+                                    if (typeof remotePage !== 'undefined') {
+                                        logger.info(' >>> FOLLOW remotePage ', remotePage);
+                                        x(remotePage, 'label a@href')(function (err, tcURL) {
+                                            if (err) logger.error(err);
+
+                                            if (typeof tcURL !== 'undefined') {
+                                                logger.info(' >>> FOLLOW tcURL ', tcURL);
+                                                 
+                                                helper.getAsString(tcURL, function (err, tcURLContent) {
+
+                                                    var match = date_regex.exec(tcURLContent);
+
+                                                    if (null != match) {
+
+                                                        logger.info(' >>> EXTRACT CLOSING DATE ', match[0]);
+
+                                                        setClosingDate(comp, match[0]);
+                                                        done(null, comp);
+                                                    }
+                                                    else {
+                                                        setDefaultClosingDate(comp);
+                                                        done(null, comp);
+                                                    }
+                                                });
+                                            }
+                                            else {
+                                                setDefaultClosingDate(comp);
+                                                done(null, comp);
+
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        setDefaultClosingDate(comp);
+                                        done(null, comp);
+                                    }
+
+                                }
+                            );
+                        }
+                        else {
+                            setDefaultClosingDate(comp);
+                            done(null, comp);
+                        }
+                    });
+                }
             });
         };
 
@@ -88,7 +168,7 @@ module.exports = {
                             word = word.charAt(0) + word.substr(1, word.length).toLowerCase();
                         }
 
-                        title += word+' ';
+                        title += word + ' ';
                     }
 
                     data[i].title = title;

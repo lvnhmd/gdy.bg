@@ -1,6 +1,7 @@
 /*jslint node: true */
 'use strict';
 var http = require('http');
+var https = require('https');
 var Competition = require('../models/competition');
 var Source = require('../models/source');
 var Xray = require('x-ray');
@@ -42,6 +43,37 @@ module.exports = {
                 return callback(null, parsed);
             });
         });
+
+    },
+
+    getAsString: function (url, callback) {
+
+        var responseFunction = function (response) {
+
+            // Continuously update stream with data
+            var body = '';
+            response.on('data', function (chunk) {
+                body += chunk;
+            });
+            response.on('end', function () {
+
+                // var parsed = {};
+                // try {
+                //     parsed = JSON.parse(body);
+                // } catch (e) {
+                //     return callback('can not get ' + _host + _path, null);
+                // }
+
+                return callback(null, body);
+            });
+        };
+
+        if (url.startsWith('https')) {
+            return https.get(url, responseFunction);
+        }
+        else {
+            return http.get(url, responseFunction);
+        }
 
     },
 
@@ -98,9 +130,11 @@ module.exports = {
                         };
                         s3.putObject(params, function (err, data) {
                             if (err) {
-                                console.log('s3.putObject errored');
-                                console.error(err, err.stack);
+                                logger.info('s3.putObject errored');
+                                logger.error(err, err.stack);
                             } else {
+
+                                logger.info(comps[i].url + ' : ' + comps[i].closesByDate);
 
                                 var comp = {
                                     uri: comps[i].url,
@@ -122,7 +156,7 @@ module.exports = {
                                                 logger.info('Updated : ', c.attrs);
                                             });
 
-                                            logger.error(err);
+                                            // logger.error(err);
 
                                         }
                                         else logger.info('Persisted : ', doc.attrs);
