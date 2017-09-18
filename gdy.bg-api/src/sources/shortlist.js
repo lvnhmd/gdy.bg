@@ -3,12 +3,10 @@
 
 var Xray = require('x-ray');
 var _ = require('lodash');
-var utf8 = require('utf8');
 var helper = require('./helper');
 var async = require("async");
 var moment = require('moment');
 var logger = require('../logger');
-
 
 module.exports = {
 
@@ -31,129 +29,181 @@ module.exports = {
 		var date_regex = /\d{2}\/\d{2}\/(?:\d{4}|\d{2})/;
 
 		var done = function (err, result) {
-			if (err) logger.error(err)
+			if (err) logger.error(err);
 			logger.info(result);
 		};
 
 		function getCompetitionClosingDate(comp, done) {
 
-			x(comp.url, ['em'])(function (err, em) {
-				if (err) logger.error(err)
+			var setDefaultClosingDate = function (comp) {
+				var d = new Date();
+				var day = d.getDate() + '';
+				var month = d.getMonth() + 1 + '';
+				var date = (day.length > 1 ? day : '0' + day) + "/" + (month.length > 1 ? month : '0' + month) + "/" + d.getFullYear();
 
-				if (em) {
-					var i = helper.containsRegex(em, date_regex);
-					if (i > -1) {
-						var closes = em[i].match(date_regex)[0];
-						// some of the competitions have 4 YYYY digits in closes by date
-						if (closes.search(/\d{4}/) > -1) {
-							closes = closes.substring(0, closes.length - 4) + closes.substring(
-								closes.length - 2, closes.length);
-						}
-						// moment loses a day, add it back
-						comp.closesByDate = moment(closes, 'DD/MM/YY').toISOString();
-						// logger.info(' comp.closes ' + comp.closes);
-					}
+				comp.date = date;
+				// count the current day, add(1,'days')
+				var closesByDate = moment(date, 'DD/MM/YYYY').add(1, 'days').toDate();
+				comp.closesByDate = closesByDate;
+				comp.ttl = (+closesByDate) / 1000;
+				// calculate days between now and closesByDate
+				// moment loses a day, add it back 
+				comp.daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days') + 1;
+			};
+
+			var setClosingDate = function (comp, dateStr) {
+				var date = dateStr.match(date_regex)[0];
+				var format = date.search(/\d{4}/) > -1 ? 'DD/MM/YYYY' : 'DD/MM/YY';
+
+				comp.date = date;
+				// count the current day, add(1,'days')
+				var closesByDate = moment(date, format).add(1, 'days').toDate();
+				comp.closesByDate = closesByDate;
+				comp.ttl = (+closesByDate) / 1000;
+				// calculate days between now and closesByDate
+				// moment loses a day, add it back 
+				comp.daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days') + 1;
+			};
+
+			x(comp.url, ['em'])(function (err, em) {
+				if (err) logger.error(err);
+
+				var i = helper.containsRegex(em, date_regex);
+				if (em && i > -1) {
+					setClosingDate(comp, em[i]);
+					done(null, comp);
 				}
-				done(null, comp);
+				else {
+
+					x(comp.url, ['i'])(function (err, it) {
+						if (err) logger.error(err);
+
+						var i = helper.containsRegex(it, date_regex);
+						if (it && i > -1) {
+							setClosingDate(comp, it[i]);
+							done(null, comp);
+						}
+
+						else {
+
+							logger.info(' >>> FOLLOW comp.url ', comp.url);
+
+							helper.getAsString(comp.url, function (err, compURLContent) {
+
+								// logger.info(' >>> ', compURLContent);
+
+								// 25\/09\/17
+								var dr = /\d{2}\\\/\d{2}\\\/(?:\d{4}|\d{2})/;
+
+								var match = dr.exec(compURLContent);
+
+								if (null != match) {
+
+									var d = match[0].replace(/\\\//g, "/");
+
+									logger.info(' >>> EXTRACT CLOSING DATE ', d);
+
+									setClosingDate(comp, d);
+									done(null, comp);
+								}
+								else {
+									setDefaultClosingDate(comp);
+									done(null, comp);
+								}
+							});
+						}
+					});
+
+				}
 			});
 		};
 
-		function getCompetitions(json, done) {
-			x(json, 'article', [{
+		function getCompetitions(done) {
+			x('http://www.shortlist.com/win', 'article', [{
 				url: 'a@href',
-				img: 'img@srcset',
-				title: 'h2'
+				img: 'img@src',
+				title: 'a@aria-label'
 			}])(function (err, data) {
-				if (err) logger.error(err)
+				if (err) logger.error(err);
+
+				// logger.info('shortlist getCompetitions ', data);
 
 				for (var i in data) {
 
-					//prepend the url with the domain
-					data[i].url = 'http://www.shortlist.com' + data[i].url;
-					//get the image one before last
-					var imgs = _.split(data[i].img, ' ');
-					data[i].img = imgs[imgs.length - 2];
+					data[i].img = data[i].img;
 					data[i].source = 'shortlist';
+
+					var words = _.split(data[i].title, ' ');
+					var title = '';
+					for (var j in words) {
+						var word = words[j];
+
+						if (/^[A-Z]/.test(word)) {
+							word = word.charAt(0) + word.substr(1, word.length).toLowerCase();
+						}
+
+						title += word + ' ';
+					}
+
+					data[i].title = title.trim();
+
 				}
 
 				done(null, data);
+				// logger.info('processed data ', data);
 
 			});
 		};
 
-		function getWidgetJson(id, done) {
-			helper.get('www.shortlist.com',
-				'/api/widgets/win?ids=' + id,
-				function (err, json) {
-					if (err) logger.error(err)
-					done(null, json);
-				}
-			);
-		};
+		var tasks = [];
 
+		tasks.push(function (done) {
+			getCompetitions(done);
+		});
 
-		x('http://www.shortlist.com/win', 'div.widget__wrapper', [
-			'@data-widget-id'
-		])(function getWidgetIds(err, ids) {
-			if (err) logger.error(err)
+		// logger.info('in tasks ', tasks);
 
-			//call the api endpoints one by one and collect the result
-			// apiCalls = ids.length;
+		async.series(tasks, function (err, result) {
+			if (err) logger.error(err);
+			result = _.flattenDeep(result);
+
 			var tasks = [];
-			for (var i in ids) {
+			for (var i in result) {
 
-				(function (id) {
-					tasks.push(function (done) {
-						getWidgetJson(id, done);
-					});
-				})(ids[i]);
+				if (result[i]) {
+					(function (comp) {
+						tasks.push(function (done) {
+							getCompetitionClosingDate(comp, done);
+						});
+					})(result[i]);
+				}
 			}
 
-			async.series(tasks, function (err, results) {
+			async.series(tasks, function (err, result) {
 				if (err) logger.error(err);
-				// results is array of arrays, flatten it
-				results = _.flattenDeep(results);
-				// console.log('shortlist done', results);
-
-				var tasks = [];
-				for (var i in results) {
-
-					if (results[i]) {
-						(function (json) {
-							tasks.push(function (done) {
-								getCompetitions(json, done);
-							});
-						})(results[i].rendered);
-					}
-				}
-
-				async.series(tasks, function (err, results) {
-					if (err) logger.error(err);
-					results = _.flattenDeep(results);
-
-					var tasks = [];
-					for (var i in results) {
-						logger.info(' ' + results[i].url);
-						if (results[i]) {
-							(function (comp) {
-								tasks.push(function (done) {
-
-									getCompetitionClosingDate(comp, done);
-								});
-							})(results[i]);
-						}
-					}
-
-					async.series(tasks, function (err, results) {
-						if (err) logger.error(err);
-
-						//remove any duplicates
-						results = _.uniqBy(results, 'url');
-
-						end(null, results);
-					});
+				// remove any duplicates
+				result = _.uniqBy(result, 'url');
+				// remove any with daysToEnter < 0
+				_.remove(result, function (c) {
+					return c.daysToEnter < 0;
 				});
+				end(null, result);
 			});
 		});
+
+		// 		async.series(tasks, function (err, result) {
+		// 			if (err) logger.info(err);
+		// 			// remove any duplicates
+		// 			result = _.uniqBy(result, 'url');
+		// 			// remove any with daysToEnter < 0
+		// 			_.remove(result, function (c) {
+		// 				return c.daysToEnter < 0;
+		// 			});
+		// 			end(null, result);
+		// 		});
+		// 	});
+		// });
+		// } // getWidgetIds ends
+		// );
 	}
 }

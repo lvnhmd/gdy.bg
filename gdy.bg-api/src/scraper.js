@@ -5,9 +5,11 @@ var async = require("async");
 var helper = require('./sources/helper');
 var Source = require('./models/source');
 
+logger.info('node env ', process.env.NODE_ENV);
+
 module.exports.scrape = function () {
     const time = new Date();
-    logger.info('gdy.bg-cron ran at ' + time);
+    logger.info('scraper ran on ' + time);
 
     // insert all sources into sources
     var sources = JSON.parse(require('fs').readFileSync(__dirname + '/sources/sources.json', 'utf8'));
@@ -16,7 +18,12 @@ module.exports.scrape = function () {
 
     sources.forEach(function (s) {
 
-        new Source({ name: s.name }).save(function (err, result) {
+        // logger.info("Will try to insert source ", s);
+
+        new Source({ name: s.name,
+                     favicon: s.favicon }).save(function (err, result) {
+
+            // logger.info("Inserted source ", result.attrs);
 
             var source = new require('./sources/' + result.attrs.name);
 

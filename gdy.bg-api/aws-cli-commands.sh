@@ -41,3 +41,8 @@ to test locally:
 4.DaysToEnterIndex - currently not used
 5.RemoveImagesOfExpiredCompetitions - seems like it is not currently possible to configure an expiration rule per object, 
 therefore I configured a rule to clean up after 3 months -> maybe it is worthwhile making this 6 months
+
+
+To test scraping locally but with my aws account's dynamo
+
+export NODE_ENV=prod && node scrape.js

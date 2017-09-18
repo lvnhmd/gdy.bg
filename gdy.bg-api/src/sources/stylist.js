@@ -209,7 +209,7 @@ module.exports = {
             }
 
             async.series(tasks, function (err, result) {
-                if (err) logger.info(error);
+                if (err) logger.error(err);
                 // result is array of arrays, flatten it
                 result = _.flattenDeep(result);
 
@@ -226,7 +226,7 @@ module.exports = {
                 }
 
                 async.series(tasks, function (err, result) {
-                    if (err) logger.info(error);
+                    if (err) logger.error(err);
                     result = _.flattenDeep(result);
 
                     var tasks = [];
@@ -242,7 +242,7 @@ module.exports = {
                     }
 
                     async.series(tasks, function (err, result) {
-                        if (err) logger.info(err);
+                        if (err) logger.error(err);
                         // remove any duplicates
                         result = _.uniqBy(result, 'url');
                         // remove any with daysToEnter < 0

@@ -82,8 +82,9 @@ module.exports = {
         x(xOptions.url, xOptions.scope, [
             xOptions.selector
         ])(function (err, links) {
+            links = _.compact(links);
+            // logger.info('links', links);
 
-            // <link rel="shortcut icon" href="/assets/img/stylist/meta/6b25e2b7f02f0dd5a43a88c3cb929267/favicon.ico">
             if (err) logger.error(err);
 
             var filtered = _.filter(links, function (link) {
@@ -110,10 +111,20 @@ module.exports = {
             (function (i) {
 
                 var img = comps[i].img;
-                var splits = img.split("/");
-                var key = uuidv5(img, uuidv5.URL) + '-' + splits[splits.length - 1];
+                
+                var regexp = /([A-Z0-9_-]{1,}\.(?:png|jpg|gif|jpeg))/i;
+                var match = regexp.exec(img);
+                var iName;
 
-                http.get(img, function (res) {
+                if (null != match) {
+                    iName = match[1];
+                }
+                
+                var key = uuidv5(img, uuidv5.URL) + '-' + iName;
+                // TODO : extract img name with regexp
+                logger.info('will write [', img, '] to s3 as [', key, ']');
+
+                var andUploadToS3 = function (res) {
                     res.setEncoding('binary');
                     var body = '';
                     res.on('data', function (chunk) {
@@ -129,9 +140,12 @@ module.exports = {
                             ACL: 'public-read'
                         };
                         s3.putObject(params, function (err, data) {
+
+                            // logger.info('s3.putObject ', params);
+
                             if (err) {
                                 logger.info('s3.putObject errored');
-                                logger.error(err, err.stack);
+                                logger.error(err);
                             } else {
 
                                 logger.info(comps[i].url + ' : ' + comps[i].closesByDate);
@@ -169,7 +183,11 @@ module.exports = {
                             }
                         });
                     });
-                });
+                }
+
+                if (img.startsWith('https'))
+                    https.get(img, andUploadToS3);
+                else http.get(img, andUploadToS3);
             })(index);
         }
     },
