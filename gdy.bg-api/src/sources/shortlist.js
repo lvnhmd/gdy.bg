@@ -90,8 +90,6 @@ module.exports = {
 
 							helper.getAsString(comp.url, function (err, compURLContent) {
 
-								// logger.info(' >>> ', compURLContent);
-
 								// 25\/09\/17
 								var dr = /\d{2}\\\/\d{2}\\\/(?:\d{4}|\d{2})/;
 
@@ -126,8 +124,6 @@ module.exports = {
 			}])(function (err, data) {
 				if (err) logger.error(err);
 
-				// logger.info('shortlist getCompetitions ', data);
-
 				for (var i in data) {
 
 					data[i].img = data[i].img;
@@ -150,7 +146,6 @@ module.exports = {
 				}
 
 				done(null, data);
-				// logger.info('processed data ', data);
 
 			});
 		};
@@ -160,8 +155,6 @@ module.exports = {
 		tasks.push(function (done) {
 			getCompetitions(done);
 		});
-
-		// logger.info('in tasks ', tasks);
 
 		async.series(tasks, function (err, result) {
 			if (err) logger.error(err);
@@ -191,19 +184,5 @@ module.exports = {
 			});
 		});
 
-		// 		async.series(tasks, function (err, result) {
-		// 			if (err) logger.info(err);
-		// 			// remove any duplicates
-		// 			result = _.uniqBy(result, 'url');
-		// 			// remove any with daysToEnter < 0
-		// 			_.remove(result, function (c) {
-		// 				return c.daysToEnter < 0;
-		// 			});
-		// 			end(null, result);
-		// 		});
-		// 	});
-		// });
-		// } // getWidgetIds ends
-		// );
 	}
 }

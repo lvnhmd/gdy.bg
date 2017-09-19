@@ -121,8 +121,7 @@ module.exports = {
                 }
                 
                 var key = uuidv5(img, uuidv5.URL) + '-' + iName;
-                // TODO : extract img name with regexp
-                logger.info('will write [', img, '] to s3 as [', key, ']');
+                // logger.info('will write [', img, '] to s3 as [', key, ']');
 
                 var andUploadToS3 = function (res) {
                     res.setEncoding('binary');
@@ -148,7 +147,7 @@ module.exports = {
                                 logger.error(err);
                             } else {
 
-                                logger.info(comps[i].url + ' : ' + comps[i].closesByDate);
+                                // logger.info('closesByDate : ', comps[i].url + ' : ' + comps[i].closesByDate);
 
                                 var comp = {
                                     uri: comps[i].url,
