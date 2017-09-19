@@ -80,7 +80,7 @@ module.exports = {
                         logger.info(comp.url);
 
                         if (typeof embedURL !== 'undefined') {
-                            logger.info(' >>> FOLLOW embedURL ', embedURL);
+                            // logger.info(' >>> FOLLOW embedURL ', embedURL);
                             helper.getAsString(embedURL,
                                 function (err, embedURLContent) {
                                     if (err) logger.error(err);
@@ -94,12 +94,12 @@ module.exports = {
                                     }
 
                                     if (typeof remotePage !== 'undefined') {
-                                        logger.info(' >>> FOLLOW remotePage ', remotePage);
+                                        // logger.info(' >>> FOLLOW remotePage ', remotePage);
                                         x(remotePage, 'label a@href')(function (err, tcURL) {
                                             if (err) logger.error(err);
 
                                             if (typeof tcURL !== 'undefined') {
-                                                logger.info(' >>> FOLLOW tcURL ', tcURL);
+                                                // logger.info(' >>> FOLLOW tcURL ', tcURL);
                                                  
                                                 helper.getAsString(tcURL, function (err, tcURLContent) {
 

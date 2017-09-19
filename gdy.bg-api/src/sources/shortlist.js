@@ -86,7 +86,7 @@ module.exports = {
 
 						else {
 
-							logger.info(' >>> FOLLOW comp.url ', comp.url);
+							// logger.info(' >>> FOLLOW comp.url ', comp.url);
 
 							helper.getAsString(comp.url, function (err, compURLContent) {
 
