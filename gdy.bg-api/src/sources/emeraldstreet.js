@@ -62,15 +62,6 @@ module.exports = {
 				comp.daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days') + 1;
 			};
 
-			function getMonthFromString(str) {
-
-				var d = Date.parse(str + "1, 2012");
-				if (!isNaN(d)) {
-					return new Date(d).getMonth() + 1;
-				}
-				return -1;
-			};
-
 			x(comp.url, ['i'])(function (err, it) {
 				if (err) logger.error(err);
 
@@ -82,7 +73,7 @@ module.exports = {
 					// logger.info('Date ', match[0]);
 					var splits = _.split(match[0], ' ');
 
-					var cd = splits[0].replace(/\D/g, '') + '/' + getMonthFromString(splits[1]) + '/' + splits[2];
+					var cd = splits[0].replace(/\D/g, '') + '/' + helper.getMonthFromString(splits[1]) + '/' + splits[2];
 					// logger.info('Closing date ', cd);
 					setClosingDate(comp, cd);
 					done(null, comp);

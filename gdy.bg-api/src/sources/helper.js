@@ -111,7 +111,7 @@ module.exports = {
             (function (i) {
 
                 var img = comps[i].img;
-                
+
                 var regexp = /([A-Z0-9_-]{1,}\.(?:png|jpg|gif|jpeg))/i;
                 var match = regexp.exec(img);
                 var iName;
@@ -119,7 +119,7 @@ module.exports = {
                 if (null != match) {
                     iName = match[1];
                 }
-                
+
                 var key = uuidv5(img, uuidv5.URL) + '-' + iName;
                 // logger.info('will write [', img, '] to s3 as [', key, ']');
 
@@ -196,6 +196,15 @@ module.exports = {
             if (a[i].search(regex) > -1) {
                 return i;
             }
+        }
+        return -1;
+    },
+
+    getMonthFromString: function (str) {
+
+        var d = Date.parse(str + "1, 2012");
+        if (!isNaN(d)) {
+            return new Date(d).getMonth() + 1;
         }
         return -1;
     }

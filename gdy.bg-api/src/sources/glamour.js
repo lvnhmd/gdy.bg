@@ -23,6 +23,8 @@ module.exports = {
     xray: function (end) {
 
         var x = Xray();
+        var find_date_regex = /(?:\d{1}|\d{2})([A-Za-z]*[ ]+)*\d{4}/;
+        var date_regex = /(?:\d{1}|\d{2})\/(?:\d{1}|\d{2})\/(?:\d{4}|\d{2})/;
 
         var done = function (err, result) {
             if (err) logger.error(err);
@@ -30,48 +32,101 @@ module.exports = {
         };
 
         function getCompetitionClosingDate(comp, done) {
-            x(comp.url, 'div.copy')(function (err, copy) {
+
+            var setDefaultClosingDate = function (comp) {
+                var d = new Date();
+                var day = d.getDate() + '';
+                var month = d.getMonth() + 1 + '';
+                var date = (day.length > 1 ? day : '0' + day) + "/" + (month.length > 1 ? month : '0' + month) + "/" + d.getFullYear();
+
+                comp.date = date;
+                // count the current day, add(1,'days')
+                var closesByDate = moment(date, 'DD/MM/YYYY').add(1, 'days').toDate();
+                comp.closesByDate = closesByDate;
+                comp.ttl = (+closesByDate) / 1000;
+                // calculate days between now and closesByDate
+                // moment loses a day, add it back 
+                comp.daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days') + 1;
+            };
+
+            var setClosingDate = function (comp, dateStr) {
+                var date = dateStr.match(date_regex)[0];
+                var format = date.search(/\d{4}/) > -1 ? 'DD/MM/YYYY' : 'DD/MM/YY';
+
+                comp.date = date;
+                // count the current day, add(1,'days')
+                var closesByDate = moment(date, format).add(1, 'days').toDate();
+                comp.closesByDate = closesByDate;
+                comp.ttl = (+closesByDate) / 1000;
+                // calculate days between now and closesByDate
+                // moment loses a day, add it back 
+                comp.daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days') + 1;
+            };
+
+            logger.info('SCRAPE ', comp.url, 'FOR iframe');
+
+            x(comp.url, 'iframe@src')(function (err, iSrc) {
                 if (err) logger.error(err);
 
-                if (copy) {
-                    var startI = copy.indexOf('closes on') + 'closes on '.length;
-                    var endI = copy.indexOf('. For full terms');
+                logger.info('IFRAME ', iSrc);
 
-                    var date = copy.substring(startI, endI).split(' ');
-                    var day = date[0];
-                    var month =
-                        'January___February__March_____April_____May_______June______July______August____September_October___November__D‌​ecember__'
-                            .indexOf(date[1]) / 10 + 1;
-                    var year = date[2];
+                if (typeof iSrc !== 'undefined') {
 
-                    comp.closesByDate = moment(day + '/' + month + '/' + year, 'DD/MM/YYYY').add(
-                        1, 'days');
+                    helper.getAsString(iSrc, function (err, iframeContent) {
+
+                        var match = find_date_regex.exec(iframeContent);
+
+                        if (null != match) {
+
+                            logger.info(' >>> EXTRACT CLOSING DATE ', match[0]);
+
+                            setDefaultClosingDate(comp);
+                            // setClosingDate(comp, match[0]);
+                            done(null, comp);
+                        }
+                        else {
+                            setDefaultClosingDate(comp);
+                            done(null, comp);
+                        }
+                    });
 
                 }
-                done(null, comp);
+                else {
+                    setDefaultClosingDate(comp);
+                    done(null, comp);
+                }
             });
         };
 
         function getCompetitions(done) {
-            x('http://www.glamourmagazine.co.uk/competitions', 'article.c-card c-card--light c-card--landscape', [{
+            x('http://www.glamourmagazine.co.uk/topic/competitions/', '.c-card-list__item', [{
                 url: 'a@href',
-                img: 'img@src',
+                img: 'img@data-src',
                 title: 'h3.c-card__title'
-            }])
-                .paginate('li.next a@href')
-                .limit(10)(function (err, data) {
-                    if (err) logger.error(err);
-                    for (var i in data) {
-                        // substring(0, closes.length - 4) + closes.substring(closes.length - 2, closes.length);
-                        data[i].title = data[i].title.substring(0, data[i].title.indexOf(' on GLAMOUR.com (UK)'));
-                        data[i].source = 'glamour';
-                    }
+            }])(function (err, data) {
+                if (err) logger.error(err);
 
-                    done(null, data);
-
+                data = _.filter(data, function(c) {
+                    return c.title.toLowerCase().indexOf('win') > -1;
                 });
-        };
+                
 
+                for (var i in data) {
+
+                    data[i].url = data[i].url;
+                    data[i].img = data[i].img;
+                    data[i].source = 'glamour';
+                    data[i].title = _.trim(data[i].title);
+
+                }
+
+                data = _.uniqBy(data, 'url');
+                logger.info('DATA ', data);
+
+                done(null, data);
+
+            });
+        };
 
         var tasks = [];
 

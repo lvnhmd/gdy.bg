@@ -26,7 +26,8 @@ http://forum.serverless.com/t/dynamodb-streams-creation/792/2
 
 aws configure 
 
-AKIAJHWFOJEOMDBQUB3A
+AKIAI6VZGC3ZIG56P6OQ
+x1+mdzDInSShVrgRYUoBbXBQoJXnZkDpv6leDnBu
 
 1.Create custom domain name in API Gateway - takes 40 min to propagate 
 2.Create a record set type A Alias Yes with the Distribution Domain Name (cloudfront) in Route 53
