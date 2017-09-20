@@ -68,8 +68,6 @@ module.exports = {
             x(comp.url, 'iframe@src')(function (err, iSrc) {
                 if (err) logger.error(err);
 
-                logger.info('IFRAME ', iSrc);
-
                 if (typeof iSrc !== 'undefined') {
 
                     helper.getAsString(iSrc, function (err, iframeContent) {
@@ -80,8 +78,12 @@ module.exports = {
 
                             logger.info(' >>> EXTRACT CLOSING DATE ', match[0]);
 
-                            setDefaultClosingDate(comp);
-                            // setClosingDate(comp, match[0]);
+                            var splits = _.split(match[0], ' ');
+
+                            var cd = splits[0].replace(/\D/g, '') + '/' + helper.getMonthFromString(splits[1]) + '/' + splits[2];
+                            // logger.info('Closing date ', cd);
+                            setClosingDate(comp, cd);
+
                             done(null, comp);
                         }
                         else {
@@ -101,27 +103,26 @@ module.exports = {
         function getCompetitions(done) {
             x('http://www.glamourmagazine.co.uk/topic/competitions/', '.c-card-list__item', [{
                 url: 'a@href',
-                img: 'img@data-src',
+                img: 'img@data-srcset',
                 title: 'h3.c-card__title'
             }])(function (err, data) {
                 if (err) logger.error(err);
 
-                data = _.filter(data, function(c) {
-                    return c.title.toLowerCase().indexOf('win') > -1;
+                data = _.filter(data, function (c) {
+                    return new RegExp("\\bwin\\b").test(c.title.toLowerCase());
                 });
-                
 
                 for (var i in data) {
-
                     data[i].url = data[i].url;
-                    data[i].img = data[i].img;
+
+                    var splits = _.split(data[i].img, ',');
+                    data[i].img = _.split(splits[2].trim(), ' ')[0];
                     data[i].source = 'glamour';
                     data[i].title = _.trim(data[i].title);
-
                 }
 
                 data = _.uniqBy(data, 'url');
-                logger.info('DATA ', data);
+                // logger.info('DATA ', data);
 
                 done(null, data);
 
