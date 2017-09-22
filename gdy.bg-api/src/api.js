@@ -8,6 +8,7 @@ exports.getCompetitions = function (event, cb) {
     console.log("getCompetitions", JSON.stringify(event));
 
     Competition.scan()
+        .where('show').equals(true)
         // can not use index with scan 
         // .usingIndex('daysToEnterIndex')
         // .ascending()

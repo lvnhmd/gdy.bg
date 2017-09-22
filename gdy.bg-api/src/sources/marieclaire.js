@@ -65,17 +65,17 @@ module.exports = {
 			};
 
 			var i = helper.containsRegex(comp.ends, find_date_regex);
-			logger.info('helper.containsRegex ', i);
+			// logger.info('helper.containsRegex ', i);
 
 			// if (helper.containsRegex(comp.ends+'', find_date_regex) > -1) {
 
-			logger.info('comp.ends [', comp.ends, '] contains [', find_date_regex, ']');
+			// logger.info('comp.ends [', comp.ends, '] contains [', find_date_regex, ']');
 			var match = find_date_regex.exec(comp.ends);
-			logger.info('Date ', match[0]);
+			// logger.info('Date ', match[0]);
 			var splits = _.split(match[0], '-');
 
 			var cd = splits[0].replace(/\D/g, '') + '/' + helper.getMonthFromString(splits[1]) + '/' + splits[2];
-			logger.info('Closing date ', cd);
+			// logger.info('Closing date ', cd);
 			setClosingDate(comp, cd);
 			done(null, comp);
 			// }
@@ -100,7 +100,7 @@ module.exports = {
 				(function (err, data) {
 					if (err) logger.error(err);
 
-					logger.info('>DATA ', data);
+					// logger.info('>DATA ', data);
 
 					for (var i in data) {
 
@@ -112,7 +112,7 @@ module.exports = {
 					}
 
 					data = _.uniqBy(data, 'url');
-					logger.info('data ', data);
+					// logger.info('data ', data);
 
 					done(null, data);
 
@@ -126,12 +126,12 @@ module.exports = {
 			if (err) console.log(err);
 			//the last character of lastPageURL will be the limit for pagination 
 			//http://stackoverflow.com/questions/3884632/how-to-get-the-last-character-of-a-string
-			logger.info('>lastPageURL ', lastPageURL);
+			// logger.info('>lastPageURL ', lastPageURL);
 			var limit = 1;
 			if (lastPageURL)
 				limit = lastPageURL.substr(lastPageURL.length - 5, 1);
 
-			logger.info('>PAGINATE ', +limit);
+			// logger.info('>PAGINATE ', +limit);
 			var tasks = [];
 
 			tasks.push(function (done) {

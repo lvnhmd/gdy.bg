@@ -99,7 +99,7 @@ module.exports = {
 
 									var d = match[0].replace(/\\\//g, "/");
 
-									logger.info(' >>> EXTRACT CLOSING DATE ', d);
+									// logger.info(' >>> EXTRACT CLOSING DATE ', d);
 
 									setClosingDate(comp, d);
 									done(null, comp);

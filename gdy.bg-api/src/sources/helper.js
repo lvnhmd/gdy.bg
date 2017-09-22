@@ -155,7 +155,7 @@ module.exports = {
 
                                 var comp = {
                                     uri: comps[i].url,
-                                    title: _.trim(comps[i].title).replace(/\r?\n|\r/g,'').substr(0,95),
+                                    title: _.trim(comps[i].title).replace(/\r?\n|\r/g, '').substr(0, 95),
                                     source: comps[i].source,
                                     closesByDate: comps[i].closesByDate,
                                     ttl: comps[i].ttl,
@@ -164,25 +164,28 @@ module.exports = {
                                     img: "https://s3-eu-west-1.amazonaws.com/swagbag.club-images/" + key
                                 };
 
-                                Competition.create(comp,
-                                    { overwrite: false }, // only insert competition if not there already  
-                                    function (err, doc) {
-                                        if (err) {
-                                            // competition exists, update 
-                                            Competition.update(comp, function (err, c) {
-                                                logger.info('Updated : ', c.attrs);
+                                Competition.get(comp.uri, function (err, existingComp) {
+                                    if (err) logger.error(err);
+                                    else if (existingComp) {
+                                        // logger.info('EXISTING ', existingComp);
+                                        comp.show = existingComp.attrs.show;
+                                        Competition.update(comp, function (err, c) {
+                                            if (err) logger.error(err);
+                                            logger.info('Updated : ', c.attrs);
+                                        });
+                                    } else {
+                                        Competition.create(comp,
+                                            function (err, c) {
+                                                if (err) logger.error(err);
+                                                logger.info('Persisted : ', c.attrs);
                                             });
-
-                                            // logger.error(err);
-
-                                        }
-                                        else logger.info('Persisted : ', doc.attrs);
-                                        // convert i to number
-                                        var ipp = +i + 1;
-                                        if (ipp == comps.length) {
-                                            done(null, comps[0].source + ' competitions persisted');
-                                        }
-                                    });
+                                    }
+                                    // convert i to number
+                                    var ipp = +i + 1;
+                                    if (ipp == comps.length) {
+                                        done(null, comps[0].source + ' competitions persisted');
+                                    }
+                                });
                             }
                         });
                     });
@@ -198,7 +201,7 @@ module.exports = {
     containsRegex: function (a, regex) {
         for (var i = 0; i < a.length; i++) {
             if (a[i].search(regex) > -1) {
-                logger.info('>HELPER ', a, ' contains ', regex);
+                // logger.info('>HELPER ', a, ' contains ', regex);
                 return i;
             }
         }

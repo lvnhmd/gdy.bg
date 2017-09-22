@@ -77,8 +77,6 @@ module.exports = {
                     x(comp.url, 'div.widget script@src')(function (err, embedURL) {
                         if (err) logger.error(err);
 
-                        logger.info(comp.url);
-
                         if (typeof embedURL !== 'undefined') {
                             // logger.info(' >>> FOLLOW embedURL ', embedURL);
                             helper.getAsString(embedURL,
@@ -107,7 +105,7 @@ module.exports = {
 
                                                     if (null != match) {
 
-                                                        logger.info(' >>> EXTRACT CLOSING DATE ', match[0]);
+                                                        // logger.info(' >>> EXTRACT CLOSING DATE ', match[0]);
 
                                                         setClosingDate(comp, match[0]);
                                                         done(null, comp);

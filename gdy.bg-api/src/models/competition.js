@@ -23,7 +23,8 @@ module.exports = Vogels.define('competition', {
     closesByDate: Joi.date(),
     ttl: Joi.number(),
     daysToEnter: Joi.number(),
-    date: Joi.string()
+    date: Joi.string(),
+    show: Joi.boolean().default(true)
   },
 
   // indexes: [{

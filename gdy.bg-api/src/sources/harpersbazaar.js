@@ -73,7 +73,7 @@ module.exports = {
 
 						if (iframeContent.indexOf(expired) > -1) {
 
-							logger.info('COMP EXPIRED ');
+							// logger.info('COMP EXPIRED ');
 							// if competition expired set the date to yesterday
 							var date = new Date();
 							date.setDate(date.getDate() - 1);
@@ -83,7 +83,7 @@ module.exports = {
 
 							var d = (day.length > 1 ? day : '0' + day) + "/" + (month.length > 1 ? month : '0' + month) + "/" + date.getFullYear();
 
-							logger.info('COMP DATE ', d);
+							// logger.info('COMP DATE ', d);
 
 							setClosingDate(comp, d);
 							done(null, comp);
@@ -124,7 +124,7 @@ module.exports = {
 					}
 
 					data = _.uniqBy(data, 'url');
-					logger.info('data ', data);
+					// logger.info('data ', data);
 
 					done(null, data);
 

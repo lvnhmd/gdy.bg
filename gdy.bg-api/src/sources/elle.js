@@ -69,7 +69,7 @@ module.exports = {
 		});
 
 		async.series(tasks, function(err, result) {
-			if (err) logger.info(error);
+			if (err) logger.error(err);
 			// console.dir(result);
 			result = _.flattenDeep(result);
 			result = _.uniqBy(result, 'url');

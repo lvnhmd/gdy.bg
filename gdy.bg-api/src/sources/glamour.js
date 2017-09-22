@@ -63,7 +63,7 @@ module.exports = {
                 comp.daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days') + 1;
             };
 
-            logger.info('SCRAPE ', comp.url, 'FOR iframe');
+            // logger.info('SCRAPE ', comp.url, 'FOR iframe');
 
             x(comp.url, 'iframe@src')(function (err, iSrc) {
                 if (err) logger.error(err);
@@ -76,7 +76,7 @@ module.exports = {
 
                         if (null != match) {
 
-                            logger.info(' >>> EXTRACT CLOSING DATE ', match[0]);
+                            // logger.info(' >>> EXTRACT CLOSING DATE ', match[0]);
 
                             var splits = _.split(match[0], ' ');
 
@@ -136,7 +136,7 @@ module.exports = {
         });
 
         async.series(tasks, function (err, result) {
-            if (err) logger.info(err);
+            if (err) logger.error(err);
 
             result = _.flattenDeep(result);
 
@@ -152,7 +152,7 @@ module.exports = {
             }
 
             async.series(tasks, function (err, result) {
-                if (err) logger.info(err);
+                if (err) logger.error(err);
 
                 // remove any duplicates
                 result = _.uniqBy(result, 'url');
