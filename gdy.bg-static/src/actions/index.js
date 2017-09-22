@@ -34,10 +34,12 @@ export function fetchCompetitions() {
     const url = `${ROOT_URL}/competitions`;
     const request = axios.get(url);
 
-    return {
+    var returnObj = {
         type: FETCH_COMPETITIONS,
         payload: request
-    }
+    };
+
+    return returnObj;
 
 }
 
@@ -71,7 +73,7 @@ export function signin(user, entry) {
                 if (entry) {
                     entry.userId = user._provider + '_' + user._profile.id;
                     dispatch({ type: TRACK_ENTRY, payload: entry });
-                    
+
                     window.open(entry.uri, '_blank');
 
                     axios.post(`${ROOT_URL}/track`, entry)

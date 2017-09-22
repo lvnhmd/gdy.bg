@@ -61,12 +61,14 @@ const applyFilters = (competitions, filters, term) => {
 
 function mapStateToProps(state) {
 
-    state.competitions =
+    var comps =
         _.orderBy(applyFilters(state.competitions, state.filters, state.searchTerm),
             ['daysToEnter', 'createdAt'],
             ['asc', 'desc']);
 
-    return state;
+    return {
+        competitions: comps
+    };
 }
 
 function mapDispatchToProps(dispatch) {
