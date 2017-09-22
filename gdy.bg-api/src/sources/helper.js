@@ -82,6 +82,9 @@ module.exports = {
         x(xOptions.url, xOptions.scope, [
             xOptions.selector
         ])(function (err, links) {
+
+            // logger.info('>LINKS ' , links);
+
             links = _.compact(links);
             // logger.info('links', links);
 
@@ -93,11 +96,12 @@ module.exports = {
 
             var meta = new Source({
                 name: source,
-                favicon: (filtered[0]) ? filtered[0] : ''
+                favicon: (filtered[0]) ? filtered[0] : 'favicon'
             });
 
             meta.save(function (err, doc) {
                 if (err) logger.error(err);
+                logger.info('PERSIST SOURCE ', doc.attrs);
             });
 
         });
@@ -151,7 +155,7 @@ module.exports = {
 
                                 var comp = {
                                     uri: comps[i].url,
-                                    title: comps[i].title,
+                                    title: _.trim(comps[i].title).replace(/\r?\n|\r/g,'').substr(0,95),
                                     source: comps[i].source,
                                     closesByDate: comps[i].closesByDate,
                                     ttl: comps[i].ttl,
@@ -194,6 +198,7 @@ module.exports = {
     containsRegex: function (a, regex) {
         for (var i = 0; i < a.length; i++) {
             if (a[i].search(regex) > -1) {
+                logger.info('>HELPER ', a, ' contains ', regex);
                 return i;
             }
         }

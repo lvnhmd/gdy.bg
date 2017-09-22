@@ -1,6 +1,26 @@
 [
-  
+  {
+    "name": "stylist"
+  },
+  {
+    "name": "shortlist"
+  },
+  {
+    "name": "elle"
+  },
+  {
+    "name": "emeraldstreet"
+  },
   {
     "name": "glamour"
+  },
+  {
+    "name": "harpersbazaar"
+  },
+  {
+    "name": "idealhome"
+  },
+  {
+    "name": "marieclaire"
   }
 ]

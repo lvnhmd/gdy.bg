@@ -34,15 +34,7 @@ module.exports = {
 				if (err) logger.error(err);
 
 				if (copy) {
-					// var startI = copy.indexOf('closes on') + 'closes on '.length;
-					// var endI = copy.indexOf('. For full terms');
-
-					// var date = copy.substring(startI, endI).split(' ');
-					// var day = date[0];
-					// var month = 'January___February__March_____April_____May_______June______July______August____September_October___November__D‌​ecember__'.indexOf(date[1]) / 10 + 1;
-					// var year = date[2];
-
-					// comp.closes = moment(day + '/' + month + '/' + year, 'DD/MM/YYYY').add(1, 'days');
+					
 					comp.closesByDate = copy;
 
 				}
@@ -60,8 +52,6 @@ module.exports = {
 				.limit(10)(function(err, data) {
 					if (err) logger.error(err);
 					for (var i in data) {
-						// substring(0, closes.length - 4) + closes.substring(closes.length - 2, closes.length);
-						// data[i].title = data[i].title.substring(0, data[i].title.indexOf(' on GLAMOUR.com (UK)'));
 						data[i].source = 'elle';
 					}
 
