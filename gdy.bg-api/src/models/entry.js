@@ -15,7 +15,8 @@ module.exports = Vogels.define('entry', {
 
     schema: {
         uri: Joi.string(),
-        userId: Joi.string()
+        userId: Joi.string(),
+        userName: Joi.string()
     },
 
     tableName: 'entry'

@@ -2,6 +2,7 @@
 
 const api = require('./src/api.js');
 const scraper = require('./src/scraper.js');
+const utils = require('./src/utils.js');
 
 function cbw(cb) {
     return function (err, res) {
@@ -27,3 +28,5 @@ module.exports.scrape = (event, context, cb) => scraper.scrape();
 module.exports.postUser = (event, context, cb) => api.postUser(event, cbw(cb));
 
 module.exports.trackEntry = (event, context, cb) => api.trackEntry(event, cbw(cb));
+
+module.exports.updateClosesByDate = (event, context, cb) => utils.updateClosesByDate(event);

@@ -3,9 +3,10 @@ var Source = require('./models/source');
 var User = require('./models/user');
 var Entry = require('./models/entry');
 var moment = require('moment');
+var logger = require('./logger');
 
 exports.getCompetitions = function (event, cb) {
-    console.log("getCompetitions", JSON.stringify(event));
+    logger.info("getCompetitions %j", event);
 
     Competition.scan()
         .where('show').equals(true)
@@ -22,7 +23,7 @@ exports.getCompetitions = function (event, cb) {
 };
 
 exports.getSources = function (event, cb) {
-    console.log("getSources", JSON.stringify(event));
+    logger.info("getSources %j", event);
 
     Source.scan()
         .exec(function (err, data) {
@@ -35,10 +36,10 @@ exports.getSources = function (event, cb) {
 };
 
 exports.postUser = function (event, cb) {
-    console.log("postUser ", JSON.stringify(event));
+    logger.info("postUser %j", event);
 
     var postUpdate = function (err, data) {
-        if (err) console.log("error occured", err);
+        if (err) logger.error(err);
         var result = {
             body: data
         };
@@ -66,19 +67,19 @@ exports.postUser = function (event, cb) {
 
     User.get(user.userId, function (err, data) {
         if (err) {
-            console.log('error occured ', err);
+            logger.error(err);
         } else if (data) {
-            console.log('update user ', data.get().userId);
+            logger.info('update user ', data.get().userId);
             User.update(user, postUpdate);
         } else {
-            console.log('create user ', user.userId);
+            logger.info('create user ', user.userId);
             User.create(user, postUpdate);
         }
     });
 };
 
 exports.trackEntry = function (event, cb) {
-    console.log("trackEntry ", JSON.stringify(event));
+    logger.info("trackEntry  %j", event);
 
     var entry = event.body;
 

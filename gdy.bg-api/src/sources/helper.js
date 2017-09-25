@@ -7,8 +7,8 @@ var Source = require('../models/source');
 var Xray = require('x-ray');
 var x = Xray();
 var _ = require('lodash');
-
 var logger = require('../logger');
+var moment = require('moment');
 
 var AWS = require('aws-sdk');
 // assume available role 
@@ -167,12 +167,15 @@ module.exports = {
                                 Competition.get(comp.uri, function (err, existingComp) {
                                     if (err) logger.error(err);
                                     else if (existingComp) {
-                                        // logger.info('EXISTING ', existingComp);
-                                        comp.show = existingComp.attrs.show;
-                                        Competition.update(comp, function (err, c) {
-                                            if (err) logger.error(err);
-                                            logger.info('Updated : ', c.attrs);
-                                        });
+                                         logger.info('Comp exist ', existingComp.attrs.uri);
+                                        // I do not think there is value in updating existing competitions
+                                        // overwrites my changes 
+                                        // comp.show = existingComp.attrs.show;
+                                        // Competition.update(comp, function (err, c) {
+                                        //     if (err) logger.error(err);
+                                        //     logger.info('Updated : ', c.attrs);
+                                        // });
+
                                     } else {
                                         Competition.create(comp,
                                             function (err, c) {
@@ -215,6 +218,20 @@ module.exports = {
             return new Date(d).getMonth() + 1;
         }
         return -1;
+    },
+
+    setClosingDate: function (date_regex, comp, dateStr) {
+        var date = dateStr.match(date_regex)[0];
+        var format = date.search(/\d{4}/) > -1 ? 'DD/MM/YYYY' : 'DD/MM/YY';
+
+        comp.date = date;
+        // count the current day, add(1,'days')
+        var closesByDate = moment(date, format).add(1, 'days').toDate();
+        comp.closesByDate = closesByDate;
+        comp.ttl = (+closesByDate) / 1000;
+        // calculate days between now and closesByDate
+        // moment loses a day, add it back 
+        comp.daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days') + 1;
     }
 
 };

@@ -9,13 +9,14 @@ var traverse = require('traverse');
 var _ = require('lodash');
 var mkdirp = require('mkdirp');
 var path = require('path');
+var logger = require('./src/logger');
 
 function thenReplace() {
 
     jsonfile.readFile('.serverless/cloudformation-template-update-stack.json', function (err, json) {
-        if (err) console.error(err);
+        if (err) logger.error(err);
 
-        console.log("2. Process " + json['Description']);
+        logger.info("2. Process " + json['Description']);
 
         var parameters = {
 
@@ -44,7 +45,7 @@ function thenReplace() {
 
         var cft = JSON.stringify(json);
         var ApiGatewayDeploymentName = cft.substring(cft.indexOf('ApiGatewayDeployment'), cft.indexOf('"', cft.indexOf('ApiGatewayDeployment')));
-        console.log('ApiGatewayDeploymentName : ' + ApiGatewayDeploymentName);
+        logger.info('ApiGatewayDeploymentName : ' + ApiGatewayDeploymentName);
 
         var newJson = {};
         newJson['AWSTemplateFormatVersion'] = json['AWSTemplateFormatVersion'];
@@ -151,6 +152,7 @@ function thenReplace() {
         }
 
         delete newJson['Resources']['IamPolicyLambdaExecution'];
+        delete newJson['Resources']['UpdateClosesByDateEventSourceMappingDynamodbCompetitions']['DependsOn'];
         newJson = pruneEmpty(newJson);
 
         traverse(newJson['Resources']).forEach(function (node) {
@@ -182,7 +184,7 @@ function thenReplace() {
 
             }
             if (typeof node['Type'] !== 'undefined' && node['Type'] === "AWS::Logs::LogGroup") {
-                console.log('this ', this.path[0]);
+                logger.info('this ', this.path[0]);
                 delete newJson['Resources'][this.path[0]];
             }
             if (node !== null && typeof node !== 'undefined' && typeof node['DependsOn'] !== 'undefined') {
@@ -195,10 +197,10 @@ function thenReplace() {
         });
 
         mkdirp(path.dirname('build/cloudformation-template-update-stack-param.json'), function (err) {
-            if (err) console.log(err);
+            if (err) logger.error(err);
             jsonfile.writeFile('build/cloudformation-template-update-stack-param.json', newJson, { spaces: 3 }, function (err) {
                 if (err) console.error(err);
-                console.log('3. Write cloudformation-template-update-stack-param.json');
+                logger.info('3. Write cloudformation-template-update-stack-param.json');
             });
         });
 

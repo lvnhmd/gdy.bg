@@ -72,6 +72,8 @@ export function signin(user, entry) {
 
                 if (entry) {
                     entry.userId = user._provider + '_' + user._profile.id;
+                    entry.userName = user.name;
+                    
                     dispatch({ type: TRACK_ENTRY, payload: entry });
 
                     window.open(entry.uri, '_blank');
@@ -124,6 +126,7 @@ export function trackEntry(entry, isAuthenticated) {
         }
         else {
             entry.userId = null;
+            entry.userName = null;
             dispatch({ type: TRACK_ENTRY, payload: entry });
             browserHistory.push('/signin');
         }

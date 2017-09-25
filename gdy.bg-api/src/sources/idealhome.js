@@ -123,7 +123,7 @@ module.exports = {
 		x('https://comps.idealhome.co.uk/', 'li.last',
 			'a@href'
 		)(function (err, lastPageURL) {
-			if (err) console.log(err);
+			if (err) logger.error(err);
 			//the last character of lastPageURL will be the limit for pagination 
 			//http://stackoverflow.com/questions/3884632/how-to-get-the-last-character-of-a-string
 			// logger.info('>lastPageURL ', lastPageURL);

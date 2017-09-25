@@ -114,7 +114,11 @@ functions:
         path: api/v1/track
         method: post
         integration: lambda
-        cors: true            
+        cors: true      
+  updateClosesByDate:
+    handler: handler.updateClosesByDate
+    events:
+    - stream: arn:aws:dynamodb:eu-west-1:730710483519:table/competitions/stream/2017-09-25T10:29:40.362
   # cron:
   #   handler: handler.run
   #   events:
@@ -212,6 +216,8 @@ functions:
 #         TimeToLiveSpecification: 
 #           AttributeName: ttl
 #           Enabled: true  
+#         StreamSpecification:
+#           StreamViewType: NEW_AND_OLD_IMAGES
     # SourceTable:
     #   Type: "AWS::DynamoDB::Table"
     #   DeletionPolicy: Retain
