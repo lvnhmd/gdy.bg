@@ -23,7 +23,7 @@ module.exports = {
 
 		var x = Xray();
 		var find_date_regex = /\d{2}([A-Za-z]*[ ]+)*\d{4}/;
-		var date_regex = /\d{2}\/(?:\d{1}|\d{2})\/(?:\d{4}|\d{2})/;
+		var date_regex = /(?:\d{1}|\d{2})\/(?:\d{1}|\d{2})\/(?:\d{4}|\d{2})/;
 		
 		var done = function (err, result) {
 			if (err) logger.error(err);
