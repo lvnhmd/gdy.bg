@@ -94,6 +94,7 @@ module.exports = {
                 return link.match('favicon');
             });
 
+            //TODO regex to extract icon in img format , not only icon (e.g idealhome)
             var meta = new Source({
                 name: source,
                 favicon: (filtered[0]) ? filtered[0] : 'favicon'
