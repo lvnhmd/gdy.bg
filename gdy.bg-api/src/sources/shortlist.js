@@ -26,7 +26,7 @@ module.exports = {
 	xray: function (end) {
 
 		var x = Xray();
-		var date_regex = /\d{2}\/\d{2}\/(?:\d{4}|\d{2})/;
+		var date_regex = /(?:\d{1}|\d{2})\/(?:\d{1}|\d{2})\/(?:\d{4}|\d{2})/;
 
 		var done = function (err, result) {
 			if (err) logger.error(err);
@@ -51,26 +51,12 @@ module.exports = {
 				comp.daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days') + 1;
 			};
 
-			var setClosingDate = function (comp, dateStr) {
-				var date = dateStr.match(date_regex)[0];
-				var format = date.search(/\d{4}/) > -1 ? 'DD/MM/YYYY' : 'DD/MM/YY';
-
-				comp.date = date;
-				// count the current day, add(1,'days')
-				var closesByDate = moment(date, format).add(1, 'days').toDate();
-				comp.closesByDate = closesByDate;
-				comp.ttl = (+closesByDate) / 1000;
-				// calculate days between now and closesByDate
-				// moment loses a day, add it back 
-				comp.daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days') + 1;
-			};
-
 			x(comp.url, ['em'])(function (err, em) {
 				if (err) logger.error(err);
 
 				var i = helper.containsRegex(em, date_regex);
 				if (em && i > -1) {
-					setClosingDate(comp, em[i]);
+					helper.setClosingDate(date_regex, comp, em[i]);
 					done(null, comp);
 				}
 				else {
@@ -80,13 +66,11 @@ module.exports = {
 
 						var i = helper.containsRegex(it, date_regex);
 						if (it && i > -1) {
-							setClosingDate(comp, it[i]);
+							helper.setClosingDate(date_regex, comp, it[i]);
 							done(null, comp);
 						}
 
 						else {
-
-							// logger.info(' >>> FOLLOW comp.url ', comp.url);
 
 							helper.getAsString(comp.url, function (err, compURLContent) {
 
@@ -99,9 +83,7 @@ module.exports = {
 
 									var d = match[0].replace(/\\\//g, "/");
 
-									// logger.info(' >>> EXTRACT CLOSING DATE ', d);
-
-									setClosingDate(comp, d);
+									helper.setClosingDate(date_regex, comp, d);
 									done(null, comp);
 								}
 								else {

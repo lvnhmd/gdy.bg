@@ -48,20 +48,6 @@ module.exports = {
 				comp.daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days') + 1;
 			};
 
-			var setClosingDate = function (comp, dateStr) {
-				var date = dateStr.match(date_regex)[0];
-				var format = date.search(/\d{4}/) > -1 ? 'DD/MM/YYYY' : 'DD/MM/YY';
-
-				comp.date = date;
-				// count the current day, add(1,'days')
-				var closesByDate = moment(date, format).add(1, 'days').toDate();
-				comp.closesByDate = closesByDate;
-				comp.ttl = (+closesByDate) / 1000;
-				// calculate days between now and closesByDate
-				// moment loses a day, add it back 
-				comp.daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days') + 1;
-			};
-
 			x(comp.url, ['i'])(function (err, it) {
 				if (err) logger.error(err);
 
@@ -75,7 +61,7 @@ module.exports = {
 
 					var cd = splits[0].replace(/\D/g, '') + '/' + helper.getMonthFromString(splits[1]) + '/' + splits[2];
 					// logger.info('Closing date ', cd);
-					setClosingDate(comp, cd);
+					helper.setClosingDate(date_regex, comp, cd);
 					done(null, comp);
 				}
 
