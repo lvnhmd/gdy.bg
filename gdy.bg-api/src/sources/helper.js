@@ -196,7 +196,10 @@ module.exports = {
 
                 if (img.startsWith('https'))
                     https.get(img, andUploadToS3);
-                else http.get(img, andUploadToS3);
+                else {
+                    // logger.info('>>> ' ,img);
+                    http.get(img, andUploadToS3);
+                }
             })(index);
         }
     },

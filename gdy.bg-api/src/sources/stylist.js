@@ -16,7 +16,6 @@ module.exports = {
             url: 'http://www.stylist.co.uk',
             scope: 'link',
             selector: '@href'
-
         };
 
         helper.persistSource('stylist', xOptions);
