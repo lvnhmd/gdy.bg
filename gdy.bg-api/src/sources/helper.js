@@ -167,7 +167,7 @@ module.exports = {
                                 Competition.get(comp.uri, function (err, existingComp) {
                                     if (err) logger.error(err);
                                     else if (existingComp) {
-                                         logger.info('Comp exist ', existingComp.attrs.uri);
+                                        logger.info('Comp exist ', existingComp.attrs.uri);
                                         // I do not think there is value in updating existing competitions
                                         // overwrites my changes 
                                         // comp.show = existingComp.attrs.show;
@@ -227,6 +227,22 @@ module.exports = {
         comp.date = date;
         // count the current day, add(1,'days')
         var closesByDate = moment(date, format).add(1, 'days').toDate();
+        comp.closesByDate = closesByDate;
+        comp.ttl = (+closesByDate) / 1000;
+        // calculate days between now and closesByDate
+        // moment loses a day, add it back 
+        comp.daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days') + 1;
+    },
+
+    setDefaultClosingDate: function (comp) {
+        var d = new Date();
+        var day = d.getDate() + '';
+        var month = d.getMonth() + 1 + '';
+        var date = (day.length > 1 ? day : '0' + day) + "/" + (month.length > 1 ? month : '0' + month) + "/" + d.getFullYear();
+
+        comp.date = date;
+        // count the current day, add(1,'days')
+        var closesByDate = moment(date, 'DD/MM/YYYY').add(1, 'days').toDate();
         comp.closesByDate = closesByDate;
         comp.ttl = (+closesByDate) / 1000;
         // calculate days between now and closesByDate

@@ -34,23 +34,7 @@ module.exports = {
         };
 
         function getCompetitionClosingDate(comp, done) {
-
-            var setDefaultClosingDate = function (comp) {
-                var d = new Date();
-                var day = d.getDate() + '';
-                var month = d.getMonth() + 1 + '';
-                var date = (day.length > 1 ? day : '0' + day) + "/" + (month.length > 1 ? month : '0' + month) + "/" + d.getFullYear();
-
-                comp.date = date;
-                // count the current day, add(1,'days')
-                var closesByDate = moment(date, 'DD/MM/YYYY').add(1, 'days').toDate();
-                comp.closesByDate = closesByDate;
-                comp.ttl = (+closesByDate) / 1000;
-                // calculate days between now and closesByDate
-                // moment loses a day, add it back 
-                comp.daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days') + 1;
-            };
-
+            
             x(comp.url, ['em'])(function (err, em) {
                 if (err) logger.error(err);
 
@@ -84,7 +68,7 @@ module.exports = {
 
                                             if (typeof tcURL !== 'undefined') {
                                                 // logger.info(' >>> FOLLOW tcURL ', tcURL);
-                                                 
+
                                                 helper.getAsString(tcURL, function (err, tcURLContent) {
 
                                                     var match = date_regex.exec(tcURLContent);
@@ -97,20 +81,20 @@ module.exports = {
                                                         done(null, comp);
                                                     }
                                                     else {
-                                                        setDefaultClosingDate(comp);
+                                                        helper.setDefaultClosingDate(comp);
                                                         done(null, comp);
                                                     }
                                                 });
                                             }
                                             else {
-                                                setDefaultClosingDate(comp);
+                                                helper.setDefaultClosingDate(comp);
                                                 done(null, comp);
 
                                             }
                                         });
                                     }
                                     else {
-                                        setDefaultClosingDate(comp);
+                                        helper.setDefaultClosingDate(comp);
                                         done(null, comp);
                                     }
 
@@ -118,7 +102,7 @@ module.exports = {
                             );
                         }
                         else {
-                            setDefaultClosingDate(comp);
+                            helper.setDefaultClosingDate(comp);
                             done(null, comp);
                         }
                     });
