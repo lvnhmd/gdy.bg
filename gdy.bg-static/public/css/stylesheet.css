@@ -968,7 +968,7 @@ ul#nav li a {
   /*font-size: 16px;*/
   color: #fff;
   line-height: 30px;
-  display: inline-block;
+  display: block;
   padding: 0 20px;
   /*text-transform: uppercase; */
   text-decoration: none;
@@ -979,6 +979,9 @@ ul#nav li a {
   transition: color 0s;
 }
 
+ul#nav li a:hover, ul li a:focus {
+  background: #E0479E;
+}
 
 /*ul#nav li:hover a,
 ul#nav li a:hover { 
