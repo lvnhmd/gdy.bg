@@ -17,6 +17,32 @@ import {
 const ROOT_URL = process.env.REACT_APP_API_URL;
 
 export function sourceSelected(source) {
+
+    var filters = localStorage.getItem('filters');
+
+    if (filters && filters.length > 0) {
+
+        filters = JSON.parse(filters);
+
+        // only push source if not there already
+        if ((filters.filter(f => (f.name === source.name))).length === 0) {
+            filters.push(source);
+        }
+        else {
+            filters = filters.filter(f => (f.name !== source.name));
+        }
+    }
+    else {
+        filters = [source];
+    }
+
+    if (filters && filters.length > 0) {
+        localStorage.setItem('filters', JSON.stringify(filters));
+    }
+    else {
+        localStorage.removeItem('filters');
+    }
+
     return {
         type: SRC_SELECTED,
         payload: source
@@ -73,7 +99,7 @@ export function signin(user, entry) {
                 if (entry) {
                     entry.userId = user._provider + '_' + user._profile.id;
                     entry.userName = user.name;
-                    
+
                     dispatch({ type: TRACK_ENTRY, payload: entry });
 
                     window.open(entry.uri, '_blank');
