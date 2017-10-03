@@ -49,8 +49,6 @@ class SocialShare extends Component {
                     
                     <FacebookShareButton
                         url={this.props.shareUrl}
-                        quote={this.props.title}
-                        href={this.props.img}
                         className="Demo__some-network__share-button">
                         <FacebookIcon
                             size={32}
