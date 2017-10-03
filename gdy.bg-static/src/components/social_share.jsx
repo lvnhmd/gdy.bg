@@ -49,6 +49,7 @@ class SocialShare extends Component {
                     
                     <FacebookShareButton
                         url={this.props.shareUrl}
+                        quote={this.props.title}
                         className="Demo__some-network__share-button">
                         <FacebookIcon
                             size={32}
@@ -61,11 +62,14 @@ class SocialShare extends Component {
                         {count => count}
                     </FacebookShareCount>
                 </div>
-
+                {/* Win one of five £100 vouchers to spend at The White Company 
+                http://www.stylist.co.uk/win/win-one-of-five-100-vouchers-to-spend-at-the-white-company 
+                via @StylistMagazine */}
                 <div className="Demo__some-network">
                     <TwitterShareButton
                         url={this.props.shareUrl}
                         title={this.props.title}
+                        via='ClubSwagbag'
                         hashtags={this.props.hashtags}
                         className="Demo__some-network__share-button">
                         <TwitterIcon
