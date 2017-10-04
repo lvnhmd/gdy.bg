@@ -16,7 +16,7 @@ const {
 
 const {
   FacebookShareCount,
-  GooglePlusShareCount,
+    GooglePlusShareCount,
     PinterestShareCount
 } = ShareCounts;
 
@@ -28,15 +28,13 @@ const WhatsappIcon = generateShareIcon('whatsapp');
 
 class SocialShare extends Component {
 
-    
-
     render() {
-        // console.log('SocialShare props ', this.props);
+        console.log('SocialShare props ', this.props);
         return (
             <div className="jssocials-info Demo__container">
 
                 <div className="Demo__some-network">
-                    
+
                     {/*<FacebookShareButton
             url={shareUrl}
             title={title}
@@ -46,7 +44,7 @@ class SocialShare extends Component {
               size={32}
               round />
           </FacebookShareButton>*/}
-                    
+
                     <FacebookShareButton
                         url={this.props.shareUrl}
                         quote={this.props.title}
