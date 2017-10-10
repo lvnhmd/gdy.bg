@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 class SourceListItem extends React.Component {
 
@@ -16,21 +17,14 @@ class SourceListItem extends React.Component {
 
 function mapStateToProps(state, ownProps) {
 
-    var sourceName = ownProps.value.props.children[1];
+    var name = ownProps.value.props.children[1];
 
-    // console.log('VS result : ' , state.filters.filter(function (f) {
+    return {
+        active: _.result(_.find(state.filters, function (f) {
+            return f.name === name;
+        }), 'active')
+    };
 
-    //     console.log(f.name, ' : vs : ', sourceName);
-
-    //     return f.name === sourceName
-    // }
-    // ));
-
-    if ((state.filters.filter(f => (f.name === sourceName))).length > 0) {
-        return { active: true };
-    }
-
-    else
-        return { active: false };
 }
+
 export default connect(mapStateToProps, null)(SourceListItem);

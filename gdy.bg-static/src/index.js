@@ -10,7 +10,7 @@ import reducers from './reducers';
 import App from './components/app';
 import Home from './components/home';
 import Signin from './components/signin';
-import { AUTH_USER, SRC_SELECTED } from './actions/types';
+import { AUTH_USER, APPLY_FILTERS } from './actions/types';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise, ReduxThunk)(createStore);
 const store = createStoreWithMiddleware(reducers);
@@ -22,10 +22,10 @@ if (user) {
   store.dispatch({ type: AUTH_USER, payload: user });
 }
 
-const filters = localStorage.getItem('filters');
+let filters = localStorage.getItem('filters');
 
 if (filters) {
-  store.dispatch({ type: SRC_SELECTED, payload: JSON.parse(filters)[0] });
+  store.dispatch({ type: APPLY_FILTERS, payload: JSON.parse(filters) });
 }
 
 // put the most specific routes on top 

@@ -17,8 +17,7 @@ module.exports = Vogels.define('source', {
 
   schema: {
     name: Joi.string(),
-    favicon: Joi.string(),
-    filterBy: Joi.boolean().default(false)
+    favicon: Joi.string()
   },
   tableName: 'sources'
 });

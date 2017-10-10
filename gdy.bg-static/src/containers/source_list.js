@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchSources, sourceSelected } from '../actions/index';
+import { fetchSources, toggleSource } from '../actions/index';
 import SourceListItem from '../components/source_list_item';
 
 class SourceList extends Component {
@@ -14,7 +14,7 @@ class SourceList extends Component {
         return this.props.sources.map((source) => {
             return (
                 <SourceListItem key={source.name} value={
-                    <a onClick={() => this.props.sourceSelected(source)}> {source.name}</a>} />
+                    <a onClick={() => this.props.toggleSource(source)}> {source.name}</a>} />
             );
         });
     }
@@ -38,7 +38,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ fetchSources, sourceSelected }, dispatch);
+    return bindActionCreators({ fetchSources, toggleSource }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SourceList);

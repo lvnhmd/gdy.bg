@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchCompetitions, sourceSelected, searchTermChanged } from '../actions/index';
+import { fetchCompetitions, toggleSource, searchTermChanged } from '../actions/index';
 import _ from 'lodash';
 import CompetitionListItem from '../components/competition_list_item';
 
@@ -43,10 +43,19 @@ const applyFilters = (competitions, filters, term) => {
     var comps = competitions;
 
     if (filters.length) {
-        comps = _.filter(competitions, function (c) {
-            if (_.indexOf(_.map(filters, 'name'), c.source) > -1)
-                return c;
+
+        var activeFilters = _.filter(filters, function (f) {
+            if (f.active) {
+                return f;
+            }
         });
+
+        if (activeFilters.length) {
+            comps = _.filter(competitions, function (c) {
+                if (_.indexOf(_.map(activeFilters, 'name'), c.source) > -1)
+                    return c;
+            });
+        }
     }
 
     term = term.toLowerCase().trim();
@@ -72,7 +81,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ fetchCompetitions, sourceSelected, searchTermChanged }, dispatch);
+    return bindActionCreators({ fetchCompetitions, toggleSource, searchTermChanged }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompetitionList);

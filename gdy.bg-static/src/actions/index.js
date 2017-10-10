@@ -1,9 +1,9 @@
 // Action creator
 import axios from 'axios';
 import { browserHistory } from 'react-router';
+import _ from 'lodash';
 
 import {
-    SRC_SELECTED,
     SRCH_CHANGED,
     FETCH_COMPETITIONS,
     FETCH_SOURCES,
@@ -11,42 +11,40 @@ import {
     AUTH_ERROR,
     DEAUTH_USER,
     TRACK_ENTRY,
-    ERROR
+    ERROR,
+    APPLY_FILTERS
 } from './types';
 
 const ROOT_URL = process.env.REACT_APP_API_URL;
 
-export function sourceSelected(source) {
+export function toggleSource(source) {
+
+    source.active ? source.active = false : source.active = true;
 
     var filters = localStorage.getItem('filters');
 
-    if (filters && filters.length > 0) {
+    if (filters) {
 
         filters = JSON.parse(filters);
 
-        // only push source if not there already
-        if ((filters.filter(f => (f.name === source.name))).length === 0) {
-            filters.push(source);
-        }
-        else {
-            filters = filters.filter(f => (f.name !== source.name));
-        }
-    }
-    else {
-        filters = [source];
-    }
+        var index = _.indexOf(filters, _.find(filters, function (f) {
+            return f.name === source.name;
+        }));
 
-    if (filters && filters.length > 0) {
+        filters.splice(index, 1, source);
+
         localStorage.setItem('filters', JSON.stringify(filters));
-    }
-    else {
-        localStorage.removeItem('filters');
-    }
 
-    return {
-        type: SRC_SELECTED,
-        payload: source
-    };
+        return {
+            type: APPLY_FILTERS,
+            payload: filters
+        };
+    }
+    else
+        return {
+            type: APPLY_FILTERS,
+            payload: []
+        };
 }
 
 export function searchTermChanged(term) {
@@ -60,23 +58,49 @@ export function fetchCompetitions() {
     const url = `${ROOT_URL}/competitions`;
     const request = axios.get(url);
 
-    var returnObj = {
+    return {
         type: FETCH_COMPETITIONS,
         payload: request
     };
 
-    return returnObj;
-
 }
 
 export function fetchSources() {
-    const url = `${ROOT_URL}/sources`;
-    const request = axios.get(url);
 
-    return {
-        type: FETCH_SOURCES,
-        payload: request
+    return function (dispatch) {
+
+        const url = `${ROOT_URL}/sources`;
+        axios.get(url)
+            .then(response => {
+
+                var fetchedSources = response.data;
+                var sources = [];
+                var filters = localStorage.getItem('filters');
+
+                if (filters && filters.length > 0) {
+                    sources = JSON.parse(filters);
+                }
+
+                fetchedSources.forEach(function (fetchedSource) {
+
+                    fetchedSource.active = false;
+                    // only push source if not there already
+                    if ((sources.filter(s => (s.name === fetchedSource.name))).length === 0) {
+                        sources.push(fetchedSource);
+                    }
+                });
+
+                localStorage.setItem('filters', JSON.stringify(sources));
+
+                dispatch({ type: FETCH_SOURCES, payload: { 'data': sources } });
+
+            })
+            .catch(response => {
+                console.log('fetchSources : an error occured');
+                dispatch(error(response.data.error))
+            });
     }
+
 
 }
 
