@@ -29,7 +29,7 @@ const WhatsappIcon = generateShareIcon('whatsapp');
 class SocialShare extends Component {
 
     render() {
-        console.log('SocialShare props ', this.props);
+        
         return (
             <div className="jssocials-info Demo__container">
 

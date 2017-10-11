@@ -56,14 +56,6 @@ module.exports = {
                 body += chunk;
             });
             response.on('end', function () {
-
-                // var parsed = {};
-                // try {
-                //     parsed = JSON.parse(body);
-                // } catch (e) {
-                //     return callback('can not get ' + _host + _path, null);
-                // }
-
                 return callback(null, body);
             });
         };
