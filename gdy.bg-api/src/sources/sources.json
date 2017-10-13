@@ -1,35 +1,38 @@
 [
   {
-    "name": "vogue"
+    "name": "Vogue"
   },
   {
-    "name": "glamour"
+    "name": "Glamour"
   },
   {
     "name": "GQ"
   },
   {
-    "name": "stylist"
+    "name": "CNTraveller"
   },
   {
-    "name": "shortlist"
+    "name": "Stylist"
   },
   {
-    "name": "elle"
+    "name": "Shortlist"
   },
   {
-    "name": "emeraldstreet"
+    "name": "Elle"
   },
   {
-    "name": "harpersbazaar"
+    "name": "EmeraldStreet"
   },
   {
-    "name": "idealhome"
+    "name": "HarpersBazaar"
   },
   {
-    "name": "marieclaire"
+    "name": "IdealHome"
   },
   {
-    "name": "mrhyde"
+    "name": "MarieClaire"
+  },
+  {
+    "name": "MrHyde"
   }
 ]
