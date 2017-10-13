@@ -118,10 +118,6 @@ module.exports = {
 					if (err) logger.error(err);
 					// remove any duplicates
 					result = _.uniqBy(result, 'url');
-					// remove any with daysToEnter < 0
-					_.remove(result, function (c) {
-						return c.daysToEnter < 0;
-					});
 					end(null, result);
 				});
 			});

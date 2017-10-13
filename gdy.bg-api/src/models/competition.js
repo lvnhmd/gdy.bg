@@ -11,7 +11,6 @@ Vogels.dynamoDriver(dynamodb);
 
 module.exports = Vogels.define('competition', {
   hashKey: 'uri',
-  // rangeKey: 'daysToEnter',
   // add the timestamp attributes (updatedAt, createdAt) 
   timestamps: true,
 
@@ -22,14 +21,9 @@ module.exports = Vogels.define('competition', {
     source: Joi.string(),
     closesByDate: Joi.date(),
     ttl: Joi.number(),
-    daysToEnter: Joi.number(),
     date: Joi.string(),
     show: Joi.boolean().default(true)
   },
-
-  // indexes: [{
-  //   hashKey: 'uri', rangeKey: 'daysToEnter', type: 'local', name: 'DaysToEnterIndex'
-  // }],
 
   tableName: 'competitions'
 });

@@ -1,5 +1,14 @@
 [
   {
+    "name": "vogue"
+  },
+  {
+    "name": "glamour"
+  },
+  {
+    "name": "GQ"
+  },
+  {
     "name": "stylist"
   },
   {
@@ -10,9 +19,6 @@
   },
   {
     "name": "emeraldstreet"
-  },
-  {
-    "name": "glamour"
   },
   {
     "name": "harpersbazaar"

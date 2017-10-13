@@ -21,7 +21,7 @@ module.exports.updateClosesByDate = function (event) {
 
             // compare the old and the new image and   
             // update only if the date has changed
-            if (newImg.date.S !== oldImg.date.S) {
+            if (oldImg.show.BOOL && newImg.date.S !== oldImg.date.S) {
 
                 var comp = {
                     uri: newImg.uri.S,

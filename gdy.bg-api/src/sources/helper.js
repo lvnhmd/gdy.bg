@@ -152,7 +152,6 @@ module.exports = {
                                     source: comps[i].source,
                                     closesByDate: comps[i].closesByDate,
                                     ttl: comps[i].ttl,
-                                    daysToEnter: comps[i].daysToEnter,
                                     date: comps[i].date,
                                     img: "https://s3-eu-west-1.amazonaws.com/swagbag.club-images/" + key
                                 };
@@ -217,17 +216,20 @@ module.exports = {
     },
 
     setClosingDate: function (date_regex, comp, dateStr) {
-        var date = dateStr.match(date_regex)[0];
-        var format = date.search(/\d{4}/) > -1 ? 'DD/MM/YYYY' : 'DD/MM/YY';
 
-        comp.date = date;
-        // count the current day, add(1,'days')
-        var closesByDate = moment(date, format).add(1, 'days').toDate();
-        comp.closesByDate = closesByDate;
-        comp.ttl = (+closesByDate) / 1000;
-        // calculate days between now and closesByDate
-        // moment loses a day, add it back 
-        comp.daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days') + 1;
+        if (dateStr.match(date_regex)) {
+            var date = dateStr.match(date_regex)[0];
+            var format = date.search(/\d{4}/) > -1 ? 'DD/MM/YYYY' : 'DD/MM/YY';
+
+            comp.date = date;
+            // count the current day, add(1,'days')
+            var closesByDate = moment(date, format).add(1, 'days').toDate();
+            comp.closesByDate = closesByDate;
+            comp.ttl = (+closesByDate) / 1000;
+        }
+        else {
+            this.setDefaultClosingDate(comp);
+        }
     },
 
     setDefaultClosingDate: function (comp) {
@@ -241,9 +243,6 @@ module.exports = {
         var closesByDate = moment(date, 'DD/MM/YYYY').add(1, 'days').toDate();
         comp.closesByDate = closesByDate;
         comp.ttl = (+closesByDate) / 1000;
-        // calculate days between now and closesByDate
-        // moment loses a day, add it back 
-        comp.daysToEnter = moment(closesByDate).diff(moment(new Date()), 'days') + 1;
     }
 
 };

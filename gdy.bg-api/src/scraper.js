@@ -25,7 +25,7 @@ module.exports.scrape = function () {
 
             // logger.info("Inserted source ", result.attrs);
 
-            var source = new require('./sources/' + result.attrs.name);
+            var source = new require('./sources/' + result.attrs.name.toLowerCase());
 
             async.waterfall([
                 function (callback) {

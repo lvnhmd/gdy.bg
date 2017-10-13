@@ -4,17 +4,31 @@ var User = require('./models/user');
 var Entry = require('./models/entry');
 var moment = require('moment');
 var logger = require('./logger');
+var moment = require('moment');
+var _ = require('lodash');
 
 exports.getCompetitions = function (event, cb) {
     logger.info("getCompetitions %j", event);
 
     Competition.scan()
         .where('show').equals(true)
-        // can not use index with scan 
-        // .usingIndex('daysToEnterIndex')
-        // .ascending()
         .exec(function (err, data) {
             if (err) cb(err);
+
+            for (var i in data.Items) {
+
+                var daysToEnter = moment(data.Items[i].attrs.closesByDate)
+                    .diff(moment(new Date()), 'days') + 1;
+
+                data.Items[i].attrs.daysToEnter = daysToEnter;
+
+            }
+
+            // remove any with daysToEnter < 0
+            _.remove(data.Items, function (c) {
+                return c.daysToEnter < 0;
+            });
+
             var result = {
                 body: data.Items
             };
