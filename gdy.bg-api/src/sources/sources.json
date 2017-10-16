@@ -32,65 +32,9 @@
     }
   },
   {
-    "name": "Stylist",
+    "name": "Tatler",
     "xOptions": {
-      "url": "http://www.stylist.co.uk",
-      "scope": "link",
-      "selector": "@href"
-    }
-  },
-  {
-    "name": "Shortlist",
-    "xOptions": {
-      "url": "http://www.shortlist.com",
-      "scope": "link",
-      "selector": "@href"
-    }
-  },
-  {
-    "name": "Elle",
-    "xOptions": {
-      "url": "http://www.elleuk.com/promotion/",
-      "scope": "link",
-      "selector": "@href"
-    }
-  },
-  {
-    "name": "EmeraldStreet",
-    "xOptions": {
-      "url": "http://www.emeraldstreet.com",
-      "scope": "link",
-      "selector": "@href"
-    }
-  },
-  {
-    "name": "HarpersBazaar",
-    "xOptions": {
-      "url": "http://www.harpersbazaar.co.uk/",
-      "scope": "link",
-      "selector": "@href"
-    }
-  },
-  {
-    "name": "IdealHome",
-    "xOptions": {
-      "url": "https://comps.idealhome.co.uk/",
-      "scope": "link",
-      "selector": "@href"
-    }
-  },
-  {
-    "name": "MarieClaire",
-    "xOptions": {
-      "url": "https://comps.marieclaire.co.uk/",
-      "scope": "link",
-      "selector": "@href"
-    }
-  },
-  {
-    "name": "MrHyde",
-    "xOptions": {
-      "url": "http://www.mrhyde.com",
+      "url": "http://condenastonline.co.uk/tatlerprivilegeclub/nov_index.php#prize",
       "scope": "link",
       "selector": "@href"
     }

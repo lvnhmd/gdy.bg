@@ -20,7 +20,7 @@ module.exports = {
         };
 
         function getCompetitions(done) {
-            x('http://www.gq-magazine.co.uk/', '', [{
+            x('http://condenastonline.co.uk/tatlerprivilegeclub/', '', [{
                 url: '',
                 img: '',
                 title: ''
@@ -28,7 +28,7 @@ module.exports = {
                 if (err) logger.error(err);
                 // logger.info(data);
                 for (var i in data) {
-                    data[i].source = 'gq';
+                    data[i].source = 'tatler';
                 }
 
                 done(null, data);
