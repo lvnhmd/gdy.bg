@@ -10,18 +10,6 @@ var logger = require('../logger');
 
 module.exports = {
 
-    meta: function () {
-
-        var xOptions = {
-            url: 'http://www.vogue.co.uk/',
-            scope: 'link',
-            selector: '@href'
-        };
-
-        helper.persistSource('vogue', xOptions);
-
-    },
-
     xray: function (end) {
 
         var x = Xray();
@@ -42,7 +30,7 @@ module.exports = {
                 for (var i in data) {
                     data[i].source = 'vogue';
                 }
-                
+
                 done(null, data);
             });
         };

@@ -11,16 +11,6 @@ var logger = require('../logger');
 
 module.exports = {
 
-	meta: function () {
-		var xOptions = {
-			url: 'http://www.mrhyde.com',
-			scope: 'link',
-			selector: '@href'
-		};
-		helper.persistSource('mrhyde', xOptions);
-	},
-
-
 	xray: function (end) {
 
 		var x = Xray();

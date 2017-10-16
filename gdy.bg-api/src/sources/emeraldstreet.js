@@ -10,15 +10,6 @@ var logger = require('../logger');
 
 module.exports = {
 
-	meta: function () {
-		var xOptions = {
-			url: 'http://www.emeraldstreet.com',
-			scope: 'link',
-			selector: '@href'
-		};
-		helper.persistSource('emeraldstreet', xOptions);
-	},
-
 	xray: function (end) {
 
 		var x = Xray();

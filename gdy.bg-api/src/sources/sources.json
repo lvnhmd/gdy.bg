@@ -1,38 +1,98 @@
 [
   {
-    "name": "Vogue"
+    "name": "Vogue",
+    "xOptions": {
+      "url": "http://www.vogue.co.uk/",
+      "scope": "link",
+      "selector": "@href"
+    }
   },
   {
-    "name": "Glamour"
+    "name": "Glamour",
+    "xOptions": {
+      "url": "http://www.glamourmagazine.co.uk",
+      "scope": "link",
+      "selector": "@href"
+    }
   },
   {
-    "name": "GQ"
+    "name": "GQ",
+    "xOptions": {
+      "url": "http://www.gq-magazine.co.uk/",
+      "scope": "link",
+      "selector": "@href"
+    }
   },
   {
-    "name": "CNTraveller"
+    "name": "CNTraveller",
+    "xOptions": {
+      "url": "http://www.cntraveller.com/news/competitions/",
+      "scope": "link",
+      "selector": "@href"
+    }
   },
   {
-    "name": "Stylist"
+    "name": "Stylist",
+    "xOptions": {
+      "url": "http://www.stylist.co.uk",
+      "scope": "link",
+      "selector": "@href"
+    }
   },
   {
-    "name": "Shortlist"
+    "name": "Shortlist",
+    "xOptions": {
+      "url": "http://www.shortlist.com",
+      "scope": "link",
+      "selector": "@href"
+    }
   },
   {
-    "name": "Elle"
+    "name": "Elle",
+    "xOptions": {
+      "url": "http://www.elleuk.com/promotion/",
+      "scope": "link",
+      "selector": "@href"
+    }
   },
   {
-    "name": "EmeraldStreet"
+    "name": "EmeraldStreet",
+    "xOptions": {
+      "url": "http://www.emeraldstreet.com",
+      "scope": "link",
+      "selector": "@href"
+    }
   },
   {
-    "name": "HarpersBazaar"
+    "name": "HarpersBazaar",
+    "xOptions": {
+      "url": "http://www.harpersbazaar.co.uk/",
+      "scope": "link",
+      "selector": "@href"
+    }
   },
   {
-    "name": "IdealHome"
+    "name": "IdealHome",
+    "xOptions": {
+      "url": "https://comps.idealhome.co.uk/",
+      "scope": "link",
+      "selector": "@href"
+    }
   },
   {
-    "name": "MarieClaire"
+    "name": "MarieClaire",
+    "xOptions": {
+      "url": "https://comps.marieclaire.co.uk/",
+      "scope": "link",
+      "selector": "@href"
+    }
   },
   {
-    "name": "MrHyde"
+    "name": "MrHyde",
+    "xOptions": {
+      "url": "http://www.mrhyde.com",
+      "scope": "link",
+      "selector": "@href"
+    }
   }
 ]

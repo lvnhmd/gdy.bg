@@ -10,16 +10,6 @@ var logger = require('../logger');
 
 module.exports = {
 
-    meta: function () {
-        var xOptions = {
-            url: 'http://www.cntraveller.com/news/competitions/',
-            scope: 'link',
-            selector: '@href'
-
-        };
-        helper.persistSource('CNTraveller', xOptions);
-    },
-
     xray: function (end) {
 
         var x = Xray();

@@ -10,16 +10,6 @@ var logger = require('../logger');
 
 module.exports = {
 
-	meta: function () {
-		var xOptions = {
-			url: 'https://comps.idealhome.co.uk/',
-			scope: 'link',
-			selector: '@href'
-
-		};
-		helper.persistSource('idealhome', xOptions);
-	},
-
 	xray: function (end) {
 
 		var x = Xray();

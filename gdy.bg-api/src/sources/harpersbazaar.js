@@ -10,15 +10,6 @@ var logger = require('../logger');
 
 module.exports = {
 
-	meta: function (done) {
-		var xOptions = {
-			url: 'http://www.harpersbazaar.co.uk/',
-			scope: 'link',
-			selector: '@href'
-		};
-		helper.persistSource('harpersbazaar', xOptions, done);
-	},
-
 	xray: function (end) {
 
 		var x = Xray();

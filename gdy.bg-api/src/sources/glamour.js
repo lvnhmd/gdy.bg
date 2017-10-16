@@ -10,16 +10,6 @@ var logger = require('../logger');
 
 module.exports = {
 
-    meta: function () {
-        var xOptions = {
-            url: 'http://www.glamourmagazine.co.uk',
-            scope: 'link',
-            selector: '@href'
-
-        };
-        helper.persistSource('glamour', xOptions);
-    },
-
     xray: function (end) {
 
         var x = Xray();

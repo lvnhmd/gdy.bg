@@ -20,29 +20,31 @@ module.exports.scrape = function () {
 
         // logger.info("Will try to insert source ", s);
 
-        new Source({ name: s.name,
-                     favicon: s.favicon }).save(function (err, result) {
+        new Source({
+            name: s.name,
+            favicon: s.favicon
+        }).save(function (err, result) {
 
             // logger.info("Inserted source ", result.attrs);
-
-            var source = new require('./sources/' + result.attrs.name.toLowerCase());
+            var source = new require('./sources/' + s.name.toLowerCase());
 
             async.waterfall([
                 function (callback) {
-                    logger.info(' ADD TASK ' + result.attrs.name + '.meta');
-                    source.meta(callback(null, result.attrs.name + '.meta'));
+                    logger.info(' ADD TASK helper.persistSource for ' + s.name);
+                    helper.persistSource(s.name, s.xOptions, callback(null, s.name + '.meta'));
+                    // source.meta(name, s.xOptions, callback(null, s.name + '.meta'));
                 },
                 function (arg1, callback) {
-                    logger.info(' ADD TASK ' + result.attrs.name + '.xray');
+                    logger.info(' ADD TASK ' + s.name + '.xray');
                     // arg1 now equals 'one' and arg2 now equals 'two'
                     source.xray(function (err, res) {
-                        callback(null, res, arg1 + ',' + result.attrs.name + '.xray');
+                        callback(null, res, arg1 + ',' + s.name + '.xray');
                     });
                 },
                 function (arg1, arg2, callback) {
-                    logger.info(' ADD TASK ' + result.attrs.name + '.persistCompetitions');
+                    logger.info(' ADD TASK ' + s.name + '.persistCompetitions');
                     helper.persistCompetitions(arg1, function (err, msg) {
-                        callback(null, arg2 + ',' + result.attrs.name + '.persistCompetitions'
+                        callback(null, arg2 + ',' + s.name + '.persistCompetitions'
                         );
                     });
                 }

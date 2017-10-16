@@ -10,18 +10,6 @@ var logger = require('../logger');
 
 module.exports = {
 
-	meta: function () {
-
-		var xOptions = {
-			url: 'http://www.elleuk.com/promotion/',
-			scope: 'link',
-			selector: '@href'
-		};
-
-		helper.persistSource('elle', xOptions);
-
-	},
-
 	xray: function (end) {
 
 		var x = Xray();

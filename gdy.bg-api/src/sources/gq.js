@@ -10,18 +10,6 @@ var logger = require('../logger');
 
 module.exports = {
 
-    meta: function () {
-
-        var xOptions = {
-            url: 'http://www.gq-magazine.co.uk/',
-            scope: 'link',
-            selector: '@href'
-        };
-
-        helper.persistSource('GQ', xOptions);
-
-    },
-
     xray: function (end) {
 
         var x = Xray();
