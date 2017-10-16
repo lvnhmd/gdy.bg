@@ -1,42 +1,12 @@
 [
+  
   {
-    "name": "Vogue",
+    "name": "House&Garden",
     "xOptions": {
-      "url": "http://www.vogue.co.uk/",
-      "scope": "link",
-      "selector": "@href"
-    }
-  },
-  {
-    "name": "Glamour",
-    "xOptions": {
-      "url": "http://www.glamourmagazine.co.uk",
-      "scope": "link",
-      "selector": "@href"
-    }
-  },
-  {
-    "name": "GQ",
-    "xOptions": {
-      "url": "http://www.gq-magazine.co.uk/",
-      "scope": "link",
-      "selector": "@href"
-    }
-  },
-  {
-    "name": "CNTraveller",
-    "xOptions": {
-      "url": "http://www.cntraveller.com/news/competitions/",
-      "scope": "link",
-      "selector": "@href"
-    }
-  },
-  {
-    "name": "Tatler",
-    "xOptions": {
-      "url": "http://condenastonline.co.uk/tatlerprivilegeclub/nov_index.php#prize",
+      "url": "http://www.houseandgarden.co.uk/",
       "scope": "link",
       "selector": "@href"
     }
   }
+
 ]
