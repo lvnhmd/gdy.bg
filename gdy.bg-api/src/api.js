@@ -25,8 +25,8 @@ exports.getCompetitions = function (event, cb) {
             }
 
             // remove any with daysToEnter < 0
-            _.remove(data.Items, function (c) {
-                return c.daysToEnter < 0;
+            _.remove(data.Items, function (item) {
+                return item.attrs.daysToEnter < 0;
             });
 
             var result = {

@@ -51,8 +51,11 @@ const applyFilters = (competitions, filters, term) => {
         });
 
         if (activeFilters.length) {
+
+            var af = _.map(_.map(activeFilters, 'name'), _.method('toLowerCase'));
+
             comps = _.filter(competitions, function (c) {
-                if (_.indexOf(_.map(activeFilters, 'name'), c.source) > -1)
+                if (_.indexOf(af, c.source) > -1)
                     return c;
             });
         }

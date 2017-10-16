@@ -243,6 +243,19 @@ module.exports = {
         var closesByDate = moment(date, 'DD/MM/YYYY').add(1, 'days').toDate();
         comp.closesByDate = closesByDate;
         comp.ttl = (+closesByDate) / 1000;
+    },
+
+    setClosingDateToYesterday: function (comp) {
+        var d = new Date();
+        var day = d.getDate() + '';
+        var month = d.getMonth() + 1 + '';
+        var date = (day.length > 1 ? day : '0' + day) + "/" + (month.length > 1 ? month : '0' + month) + "/" + d.getFullYear();
+
+        comp.date = date;
+        // count the current day, add(1,'days')
+        var closesByDate = moment(date, 'DD/MM/YYYY').add(-2, 'days').toDate();
+        comp.closesByDate = closesByDate;
+        comp.ttl = (+closesByDate) / 1000;
     }
 
 };
