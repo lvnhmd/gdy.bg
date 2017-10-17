@@ -218,20 +218,6 @@ functions:
 #           Enabled: true  
 #         StreamSpecification:
 #           StreamViewType: NEW_AND_OLD_IMAGES
-    # SourceTable:
-    #   Type: "AWS::DynamoDB::Table"
-    #   DeletionPolicy: Retain
-    #   Properties:
-    #     AttributeDefinitions:
-    #       - AttributeName: name
-    #         AttributeType: S
-    #     KeySchema:
-    #       - AttributeName: name
-    #         KeyType: HASH
-    #     ProvisionedThroughput:
-    #       ReadCapacityUnits: 1
-    #       WriteCapacityUnits: 1
-    #     TableName: "sources"
     # UserTable:
     #   Type: "AWS::DynamoDB::Table"
     #   DeletionPolicy: Retain

@@ -1,5 +1,4 @@
 var Competition = require('./models/competition');
-var Source = require('./models/source');
 var User = require('./models/user');
 var Entry = require('./models/entry');
 var moment = require('moment');
@@ -39,14 +38,11 @@ exports.getCompetitions = function (event, cb) {
 exports.getSources = function (event, cb) {
     logger.info("getSources %j", event);
 
-    Source.scan()
-        .exec(function (err, data) {
-            if (err) cb(err);
-            var result = {
-                body: data.Items
-            };
-            return cb(null, result);
-        });
+    return cb(null, {
+        body: JSON.parse(require('fs').
+            readFileSync(__dirname + '/sources/sources.json', 'utf8'))
+    });
+
 };
 
 exports.postUser = function (event, cb) {

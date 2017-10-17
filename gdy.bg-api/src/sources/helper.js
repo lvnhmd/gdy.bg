@@ -3,7 +3,6 @@
 var http = require('http');
 var https = require('https');
 var Competition = require('../models/competition');
-var Source = require('../models/source');
 var Xray = require('x-ray');
 var x = Xray();
 var _ = require('lodash');
@@ -69,38 +68,6 @@ module.exports = {
 
     },
 
-    persistSource: function (source, xOptions) {
-
-        x(xOptions.url, xOptions.scope, [
-            xOptions.selector
-        ])(function (err, links) {
-
-            // logger.info('>LINKS ' , links);
-
-            links = _.compact(links);
-            // logger.info('links', links);
-
-            if (err) logger.error(err);
-
-            var filtered = _.filter(links, function (link) {
-                return link.match('favicon');
-            });
-
-            //TODO regex to extract icon in img format , not only icon (e.g idealhome)
-            var meta = new Source({
-                name: source,
-                favicon: (filtered[0]) ? filtered[0] : 'favicon'
-            });
-
-            meta.save(function (err, doc) {
-                if (err) logger.error(err);
-                logger.info('PERSIST SOURCE ', doc.attrs);
-            });
-
-        });
-
-    },
-
     persistCompetitions: function (comps, done) {
 
         // logger.info("COMPS |",comps,"|")
@@ -118,9 +85,9 @@ module.exports = {
                 if (null != match) {
                     iName = match[1];
                 }
-                logger.info('img [', img, '] iName [', iName, ']');
+                // logger.info('img [', img, '] iName [', iName, ']');
                 var key = uuidv5(img, uuidv5.URL) + '-' + iName;
-                logger.info('will write [', img, '] to s3 as [', key, ']');
+                // logger.info('will write [', img, '] to s3 as [', key, ']');
 
                 var andUploadToS3 = function (res) {
                     res.setEncoding('binary');

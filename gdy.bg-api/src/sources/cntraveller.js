@@ -112,7 +112,7 @@ module.exports = {
                 if (lastPageURL)
                     limit = lastPageURL.substr(lastPageURL.length - 5, 1);
 
-                logger.info('>PAGINATE ', +limit);
+                // logger.info('>PAGINATE ', +limit);
                 var tasks = [];
 
                 tasks.push(function (done) {
