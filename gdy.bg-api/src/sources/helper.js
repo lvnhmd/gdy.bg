@@ -103,6 +103,8 @@ module.exports = {
 
     persistCompetitions: function (comps, done) {
 
+        // logger.info("COMPS |",comps,"|")
+
         for (var index in comps) {
 
             (function (i) {
@@ -116,9 +118,9 @@ module.exports = {
                 if (null != match) {
                     iName = match[1];
                 }
-
+                logger.info('img [', img, '] iName [', iName, ']');
                 var key = uuidv5(img, uuidv5.URL) + '-' + iName;
-                // logger.info('will write [', img, '] to s3 as [', key, ']');
+                logger.info('will write [', img, '] to s3 as [', key, ']');
 
                 var andUploadToS3 = function (res) {
                     res.setEncoding('binary');

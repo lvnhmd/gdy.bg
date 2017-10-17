@@ -40,6 +40,22 @@
     }
   },
   {
+    "name": "House&Garden",
+    "xOptions": {
+      "url": "http://www.houseandgarden.co.uk/",
+      "scope": "link",
+      "selector": "@href"
+    }
+  },
+  {
+    "name": "Brides",
+    "xOptions": {
+      "url": "http://www.bridesmagazine.co.uk/latest/win-save-book",
+      "scope": "link",
+      "selector": "@href"
+    }
+  },
+  {
     "name": "Stylist",
     "xOptions": {
       "url": "http://www.stylist.co.uk",
