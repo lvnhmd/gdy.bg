@@ -28,8 +28,19 @@ exports.getCompetitions = function (event, cb) {
                 return item.attrs.daysToEnter < 0;
             });
 
+            // remove any competitions which sources are not in sources.json
+            // get just the name of the sources with show=true
+            var sources = _.filter(JSON.parse(require('fs').
+                readFileSync(__dirname + '/sources/sources.json', 'utf8')), function (s) {
+                    return s.show;
+                });
+            var filters = _.map(_.map(sources, 'name'), _.method('toLowerCase'));
+
             var result = {
-                body: data.Items
+                body: _.filter(data.Items, function (c) {
+                    if (_.indexOf(filters, c.attrs.source) > -1)
+                        return c;
+                })
             };
             return cb(null, result);
         });
@@ -39,8 +50,10 @@ exports.getSources = function (event, cb) {
     logger.info("getSources %j", event);
 
     return cb(null, {
-        body: JSON.parse(require('fs').
-            readFileSync(__dirname + '/sources/sources.json', 'utf8'))
+        body: _.filter(JSON.parse(require('fs').
+            readFileSync(__dirname + '/sources/sources.json', 'utf8')), function (s) {
+                return s.show;
+            })
     });
 
 };

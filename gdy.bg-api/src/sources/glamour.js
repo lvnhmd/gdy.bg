@@ -1,123 +1,38 @@
 /*jslint node: true */
 'use strict';
 
-var Xray = require('x-ray');
-var _ = require('lodash');
-var helper = require('./helper');
-var async = require("async");
-var moment = require('moment');
-var logger = require('../logger');
+let Xray = require('x-ray');
+let _ = require('lodash');
+let helper = require('./helper');
+let moment = require('moment');
+let logger = require('../logger');
 
-module.exports = {
+let x = Xray();
 
-    xray: function (end) {
+module.exports.getCompetitionClosingDate = function (sConf, comp, done) {
 
-        var x = Xray();
-        var find_date_regex = /(?:\d{1}|\d{2})([A-Za-z]*[ ]+)*\d{4}/;
-        var date_regex = /(?:\d{1}|\d{2})\/(?:\d{1}|\d{2})\/(?:\d{4}|\d{2})/;
+    helper.setDefaultClosingDate(comp);
 
-        var done = function (err, result) {
-            if (err) logger.error(err);
-            logger.info(result);
-        };
+    x(comp.url, 'iframe@src')(function (err, iSrc) {
+        if (err) logger.error(err);
 
-        function getCompetitionClosingDate(comp, done) {
+        if (typeof iSrc !== 'undefined') {
 
-            x(comp.url, 'iframe@src')(function (err, iSrc) {
-                if (err) logger.error(err);
+            helper.getAsString(iSrc, function (err, iframeContent) {
 
-                if (typeof iSrc !== 'undefined') {
-
-                    helper.getAsString(iSrc, function (err, iframeContent) {
-
-                        var match = find_date_regex.exec(iframeContent);
-
-                        if (null != match) {
-
-                            // logger.info(' >>> EXTRACT CLOSING DATE ', match[0]);
-
-                            var splits = _.split(match[0], ' ');
-
-                            var cd = splits[0].replace(/\D/g, '') + '/' + helper.getMonthFromString(splits[1]) + '/' + splits[2];
-                            // logger.info('Closing date ', cd);
-                            helper.setClosingDate(date_regex, comp, cd);
-
-                            done(null, comp);
-                        }
-                        else {
-                            helper.setDefaultClosingDate(comp);
-                            done(null, comp);
-                        }
-                    });
-
+                var match = new RegExp(sConf.extractDateRegex).exec(iframeContent);
+                if (null != match) {
+                    var splits = _.split(match[0], ' ');
+                    var cd = splits[0].replace(/\D/g, '') + '/' + helper.getMonthFromString(splits[1]) + '/' + splits[2];
+                    helper.setClosingDate(new RegExp(sConf.dateRegex), comp, cd);
                 }
-                else {
-                    helper.setDefaultClosingDate(comp);
-                    done(null, comp);
-                }
+                done(null, comp);
             });
-        };
 
-        function getCompetitions(done) {
-            x('http://www.glamourmagazine.co.uk/topic/competitions/', '.c-card-list__item', [{
-                url: 'a@href',
-                img: 'img@data-srcset',
-                title: 'h3.c-card__title'
-            }])(function (err, data) {
-                if (err) logger.error(err);
+        }
+        else {
+            done(null, comp);
+        }
+    });
+};
 
-                data = _.filter(data, function (c) {
-                    return new RegExp("\\bwin\\b").test(c.title.toLowerCase());
-                });
-
-                for (var i in data) {
-                    data[i].url = data[i].url;
-
-                    var splits = _.split(data[i].img, ',');
-                    data[i].img = _.split(splits[2].trim(), ' ')[0];
-                    data[i].source = 'glamour';
-                    data[i].title = _.trim(data[i].title);
-                }
-
-                data = _.uniqBy(data, 'url');
-                // logger.info('DATA ', data);
-
-                done(null, data);
-
-            });
-        };
-
-        var tasks = [];
-
-        tasks.push(function (done) {
-            getCompetitions(done);
-        });
-
-        async.series(tasks, function (err, result) {
-            if (err) logger.error(err);
-
-            result = _.flattenDeep(result);
-
-            var tasks = [];
-            for (var i in result) {
-                if (result[i]) {
-                    (function (comp) {
-                        tasks.push(function (done) {
-                            getCompetitionClosingDate(comp, done);
-                        });
-                    })(result[i]);
-                }
-            }
-
-            async.series(tasks, function (err, result) {
-                if (err) logger.error(err);
-
-                // remove any duplicates
-                result = _.uniqBy(result, 'url');
-
-                end(null, result);
-
-            });
-        });
-    }
-}

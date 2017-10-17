@@ -56,6 +56,14 @@
     }
   },
   {
+    "name": "GoodHousekeeping",
+    "xOptions": {
+      "url": "https://comps.goodhousekeeping.co.uk/",
+      "scope": "link",
+      "selector": "@href"
+    }
+  },
+  {
     "name": "Stylist",
     "xOptions": {
       "url": "http://www.stylist.co.uk",
