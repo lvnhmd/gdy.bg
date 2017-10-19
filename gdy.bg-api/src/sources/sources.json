@@ -28,8 +28,8 @@
         ]
       }
     ],
-    "dateRegex": "\/(?:\\d{1}|\\d{2})\\\/(?:\\d{1}|\\d{2})\\\/(?:\\d{4}|\\d{2})\/",
-    "extractDateRegex": "\/(?:\\d{1}|\\d{2})([A-Za-z]*[ ]+)*\\d{4}\/"
+    "dateRegex": "(?:\\d{1}|\\d{2})\\\/(?:\\d{1}|\\d{2})\\\/(?:\\d{4}|\\d{2})",
+    "extractDateRegex": "(?:\\d{1}|\\d{2})th([A-Za-z]*[ ]+)*\\d{4}"
   },
   {
     "name": "GQ",
@@ -67,16 +67,47 @@
         ]
       }
     ],
-    "xOptsPgntn": {
+    "xOptsPgntnLimit": {
       "url": "http://www.cntraveller.com/news/competitions/",
+      "scope": "",
       "selector": ".pageCount"
     },
-    "dateRegex": "\/closes.*(?:\\d{1}|\\d{2})([A-Za-z]*[ ]+)*\\d{4}\/",
-    "extractDateRegex": "\/(?:\\d{1}|\\d{2})\\\/(?:\\d{1}|\\d{2})\\\/(?:\\d{4}|\\d{2})\/"
+    "dateRegex": "(?:\\d{1}|\\d{2})\\\/(?:\\d{1}|\\d{2})\\\/(?:\\d{4}|\\d{2})",
+    "extractDateRegex": "closes.*(?:\\d{1}|\\d{2})([A-Za-z]*[ ]+)*\\d{4}"
   },
   {
     "name": "Tatler",
     "show": true,
     "manual": true
+  },
+  {
+    "name": "House&Garden",
+    "show": false
+  },
+  {
+    "name": "Brides",
+    "show": true,
+    "pageSelector": "",
+    "getClosingDate": false,
+    "getImg": false,
+    "dataFilters": [
+      {
+        "property": "title",
+        "regex": "\\bwin\\b"
+      }
+    ],
+    "xOptsComps": [
+      {
+        "url": "http://www.bridesmagazine.co.uk/latest/win-save-book/",
+        "selector": "div.tile",
+        "format": [
+          {
+            "url": "a@href",
+            "img": "img@data-srcsizedata",
+            "title": "h1"
+          }
+        ]
+      }
+    ]
   }
 ]

@@ -2,14 +2,17 @@
 let logger = require('./logger');
 
 let async = require("async");
-let helper = require('./sources/helper');
+let scrapeUtils = require('./utils/scrapeUtils');
+let awsUtils = require('./utils/awsUtils');
+let dateUtils = require('./utils/dateUtils');
+
 let _ = require('lodash');
 let Xray = require('x-ray');
-logger.info('node env ', process.env.NODE_ENV);
+logger.info('Node env ', process.env.NODE_ENV);
 
 module.exports.scrape = function () {
     const time = new Date();
-    logger.info('scraper ran on ' + time);
+    logger.info('Scraper ran on ' + time);
 
     let x = Xray();
 
@@ -18,72 +21,37 @@ module.exports.scrape = function () {
         logger.info(result);
     };
 
-    let getCompetitions = function (conf, limit, xOpts, done) {
-
-        x(xOpts.url, xOpts.selector, xOpts.format)
-            .paginate(conf.pageSelector)
-            .limit(limit)
-            (function (err, data) {
-                if (err) logger.error(err);
-
-                if (conf.dataFilters.length > 0) {
-                    // apply each data filter 
-
-                    for (var i in conf.dataFilters) {
-                        data = _.filter(data, function (c) {
-                            return new RegExp(conf.dataFilters[i].regex)
-                                .test(c[conf.dataFilters[i].property].toLowerCase());
-                        });
-                    }
-                }
-
-                for (var i in data) {
-                    data[i].url = data[i].url;
-                    data[i].img = data[i].img;
-
-                    if (conf.name.toLowerCase() == 'glamour') {
-                        var splits = _.split(data[i].img, ',');
-                        data[i].img = _.split(splits[2].trim(), ' ')[0];
-                    }
-
-                    data[i].source = conf.name.toLowerCase();
-                    data[i].title = _.trim(data[i].title).replace(/\r?\n|\r/g, '');
-                }
-
-                data = _.uniqBy(data, 'url');
-                done(null, data);
-
-            });
-    };
-
-
     let sources = JSON.parse(require('fs')
         .readFileSync(__dirname + '/sources/sources.json', 'utf8'));
 
-    logger.info('Sources : ' + JSON.stringify(sources));
+    logger.info('Sources : ' + JSON.stringify(sources, null, 2));
 
     sources.forEach(function (sConf) {
-
-        if (sConf.show && !sConf.manual) {
-            let source = new require('./sources/' + sConf.name.toLowerCase());
+        if (!sConf.show || sConf.manual) {
+            logger.info('Not scraping source: ' + sConf.name);
+        }
+        else {
+            // let source = {};
+            // if (sConf.required) source = new require('./sources/' + sConf.name.toLowerCase());
             async.waterfall([
                 function (callback) {
-                    logger.info(' ADD TASK ' + sConf.name + '.paginate');
+                    logger.info('Add task getLastPage for ' + sConf.name);
                     if (sConf.paginate) {
-                        source.paginate(sConf.xOptsPgntn,
+                        scrapeUtils.getLastPage(sConf.xOptsPgntnLimit,
                             function (err, limit) {
-                                callback(null, limit, sConf.name + '.paginate');
+                                callback(null, limit, sConf.name + ': [getLastPage');
                             });
-                    } else callback(null, 1, sConf.name + '.paginate');
+                    } else callback(null, 1, sConf.name + ': [getLastPage');
+
                 },
                 function (limit, msg, callback) {
-                    logger.info(' ADD TASK ' + sConf.name + '.xray');
+                    logger.info('Add series of tasks to get competitions for ' + sConf.name);
 
                     let tasks = [];
 
                     sConf.xOptsComps.forEach(function (xOpts) {
                         tasks.push(function (xDone) {
-                            getCompetitions(sConf, limit, xOpts, xDone);
+                            scrapeUtils.getCompetitions(sConf, limit, xOpts, xDone);
                         });
                     });
 
@@ -94,53 +62,57 @@ module.exports.scrape = function () {
 
                         let xTasks = [];
 
-                        if (sConf.getClosingDate) {
-                            for (var i in result) {
+                        for (var i in result) {
 
-                                if (result[i]) {
-                                    (function (comp) {
+                            if (result[i]) {
+                                (function (comp) {
+                                    // add dummy task in case the source does not have any other tasks which can invoke 
+                                    // done and pass the result to the "series finale" callback 
+                                    // xTasks.push(function (xDone) {
+                                    //     xDone(null, comp);
+                                    // });
+                                    if (sConf.getClosingDate)
                                         xTasks.push(function (xDone) {
-                                            source.getCompetitionClosingDate(sConf, comp, xDone);
+                                            var name = sConf.name.toLowerCase();
+                                            if (name === 'glamour') {
+                                                x(comp.url, 'iframe.bb-interactive@src')(function (err, iSrc) {
+                                                    if (err) logger.error(err);
+                                                    dateUtils.getCompetitionClosingDate(iSrc, sConf, comp, xDone);
+                                                });
+                                            }
+                                            else if (name === 'cntraveller') {
+                                                dateUtils.getCompetitionClosingDate(comp.url, sConf, comp, xDone);
+                                            }
+                                            // else source.getCompetitionClosingDate(sConf, comp, xDone);
                                         });
-                                    })(result[i]);
-                                }
-                            }
-                        }
-                        if (sConf.getImg) {
-                            for (var i in result) {
-
-                                if (result[i]) {
-                                    (function (comp) {
+                                    if (sConf.getImg)
                                         xTasks.push(function (xDone) {
-                                            source.getCompetitionImg(comp, xDone);
+                                            scrapeUtils.getCompetitionImg(comp, xDone);
                                         });
-                                    })(result[i]);
-                                }
+                                })(result[i]);
                             }
                         }
 
                         async.series(xTasks, function (err, data) {
                             if (err) logger.error(err);
-                            callback(null, data, msg + ',' + sConf.name + '.xray');
+                            callback(null, data, msg + ',' + 'series of tasks to get competitions')
+                                
                         });
                     });
 
                 },
                 function (data, msg, callback) {
-                    logger.info(' ADD TASK ' + sConf.name + '.persistCompetitions');
-                    helper.persistCompetitions(data, function (err, result) {
-                        callback(null, msg + ',' + sConf.name + '.persistCompetitions'
-                        );
+                    logger.info('Add task persistCompetitions for ' + sConf.name);
+                    awsUtils.persistCompetitions(data, function (err, result) {
+                        callback(null, msg + ',' + 'persistCompetitions]');
                     });
                 }
 
             ], function (err, res) {
                 if (err) logger.error(err);
-                logger.info(' TASKS COMPLETED ', res);
-                return ' TASKS COMPLETED ' + res;
+                logger.info('Tasks completed: ', res);
+                return 'Tasks completed: ' + res;
             });
-        } else {
-            logger.info('NOT SCRAPING SOURCE: ' + sConf.name);
         }
     });
 };

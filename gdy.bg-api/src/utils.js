@@ -1,7 +1,7 @@
 'use strict';
 var logger = require('./logger');
 
-var helper = require('./sources/helper');
+var dateUtils = require('./utils/dateUtils');
 var Competition = require('./models/competition');
 
 module.exports.updateClosesByDate = function (event) {
@@ -32,7 +32,7 @@ module.exports.updateClosesByDate = function (event) {
                     show: newImg.show.BOOL
                 };
 
-                helper.setClosingDate(
+                dateUtils.setClosingDate(
                     /(?:\d{1}|\d{2})\/(?:\d{1}|\d{2})\/(?:\d{4}|\d{2})/,
                     comp,
                     comp.date);
