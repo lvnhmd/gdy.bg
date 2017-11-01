@@ -18,11 +18,11 @@ var setClosingDate = module.exports.setClosingDate = function (date_regex, comp,
         comp.ttl = (+closesByDate) / 1000;
     }
     else {
-        setDefaultClosingDate(comp);
+        setDefaultClosingDate(comp, 1, 'days');
     }
 }
 
-var setDefaultClosingDate = module.exports.setDefaultClosingDate = function (comp) {
+var setDefaultClosingDate = module.exports.setDefaultClosingDate = function (comp, amount, measure) {
     var d = new Date();
     var day = d.getDate() + '';
     var month = d.getMonth() + 1 + '';
@@ -30,24 +30,9 @@ var setDefaultClosingDate = module.exports.setDefaultClosingDate = function (com
 
     comp.date = date;
     // count the current day, add(1,'days')
-    var closesByDate = moment(date, 'DD/MM/YYYY').add(1, 'days').toDate();
+    var closesByDate = moment(date, 'DD/MM/YYYY').add(amount, measure).toDate();
     comp.closesByDate = closesByDate;
-    comp.ttl = (+closesByDate) / 1000;
-}
-
-// set a future closing date for ten years from now becasue the magazines are slow to 
-// update their web pages - I do not want to be scraping and persisting the same expired 
-// competitions again and again
-var setFutureClosingDate = module.exports.setClosingDateToYesterday = function (comp) {
-    var d = new Date();
-    var day = d.getDate() + '';
-    var month = d.getMonth() + 1 + '';
-    var date = (day.length > 1 ? day : '0' + day) + "/" + (month.length > 1 ? month : '0' + month) + "/" + d.getFullYear();
-
-    comp.date = date;
-    // count the current day, add(1,'days')
-    var closesByDate = moment(date, 'DD/MM/YYYY').add(10, 'years').toDate();
-    comp.closesByDate = closesByDate;
+    
     comp.ttl = (+closesByDate) / 1000;
 }
 
@@ -65,34 +50,59 @@ module.exports.getCompetitionClosingDate = function (url, sConf, comp, done) {
     if (typeof url === 'undefined') done(null, comp);
     else {
         httpUtils.getAsString(url, function (err, content) {
+            // logger.info('URL ', url);
+            // logger.info('CONTENT ', content);
+            // set a future closing date for ten years from now becasue the magazines are slow to 
+            // update their web pages - I do not want to be scraping and persisting the same expired 
+            // competitions again and again
             if (content.indexOf('closed') > -1) {
-                setFutureClosingDate(comp);
+                setDefaultClosingDate(comp, 10, 'years');
                 comp.show = false;
                 done(null, comp);
             }
             else {
+
+                if (comp.source === 'goodhousekeeping') {
+                    content = comp.ends;
+                }
 
                 var match = new RegExp(sConf.extractDateRegex).exec(content);
 
                 if (null != match) {
 
                     match[0] = match[0].replace(/&nbsp;/g, ' ');
-                    var splits = _.split(match[0], ' ');
-
-                    var cd;
 
                     if (comp.source === 'cntraveller') {
-                        cd = splits[2].replace(/\D/g, '')
+                        var splits = _.split(match[0], ' ');
+                        var cd = splits[2].replace(/\D/g, '')
                             + '/' + getMonthFromString(splits[3])
                             + '/' + splits[4];
+                        setClosingDate(new RegExp(sConf.dateRegex), comp, cd);
                     }
                     else if (comp.source === 'glamour') {
-                        cd = splits[0].replace(/\D/g, '')
+                        var splits = _.split(match[0], ' ');
+                        var cd = splits[0].replace(/\D/g, '')
                             + '/' + getMonthFromString(splits[1])
                             + '/' + splits[2];
+                        setClosingDate(new RegExp(sConf.dateRegex), comp, cd);
+                    }
+                    else if (comp.source === 'goodhousekeeping') {
+                        var splits = _.split(match[0], '-');
+                        var cd = splits[0].replace(/\D/g, '')
+                            + '/' + getMonthFromString(splits[1])
+                            + '/' + splits[2];
+                        setClosingDate(new RegExp(sConf.dateRegex), comp, cd);
+                    }
+                    else if (comp.source === 'prima') {
+                        logger.info('MATCH ', match[0]);
+                        var splits = _.split(match[0], ' ');
+                        logger.info('SPLIT ', +splits[0]);
+                        // as prima does not have closing date but days left instead,
+                        // extract the days , add them to the current date and construct cd 
+                        setDefaultClosingDate(comp, +splits[0], 'days');
+                        logger.info('AFTER ', comp);
                     }
 
-                    setClosingDate(new RegExp(sConf.dateRegex), comp, cd);
                 }
                 done(null, comp);
             }

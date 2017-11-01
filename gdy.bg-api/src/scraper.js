@@ -8,7 +8,6 @@ let dateUtils = require('./utils/dateUtils');
 
 let _ = require('lodash');
 let Xray = require('x-ray');
-logger.info('Node env ', process.env.NODE_ENV);
 
 module.exports.scrape = function () {
     const time = new Date();
@@ -39,6 +38,7 @@ module.exports.scrape = function () {
                     if (sConf.paginate) {
                         scrapeUtils.getLastPage(sConf.xOptsPgntnLimit,
                             function (err, limit) {
+                                logger.info("Last page ", limit);
                                 callback(null, limit, sConf.name + ': [getLastPage');
                             });
                     } else callback(null, 1, sConf.name + ': [getLastPage');
@@ -63,32 +63,15 @@ module.exports.scrape = function () {
                         let xTasks = [];
 
                         for (var i in result) {
-
                             if (result[i]) {
                                 (function (comp) {
-                                    // add dummy task in case the source does not have any other tasks which can invoke 
-                                    // done and pass the result to the "series finale" callback 
-                                    // xTasks.push(function (xDone) {
-                                    //     xDone(null, comp);
-                                    // });
-                                    if (sConf.getClosingDate)
-                                        xTasks.push(function (xDone) {
-                                            var name = sConf.name.toLowerCase();
-                                            if (name === 'glamour') {
-                                                x(comp.url, 'iframe.bb-interactive@src')(function (err, iSrc) {
-                                                    if (err) logger.error(err);
-                                                    dateUtils.getCompetitionClosingDate(iSrc, sConf, comp, xDone);
-                                                });
-                                            }
-                                            else if (name === 'cntraveller') {
-                                                dateUtils.getCompetitionClosingDate(comp.url, sConf, comp, xDone);
-                                            }
-                                            // else source.getCompetitionClosingDate(sConf, comp, xDone);
-                                        });
-                                    if (sConf.getImg)
-                                        xTasks.push(function (xDone) {
-                                            scrapeUtils.getCompetitionImg(comp, xDone);
-                                        });
+                                    xTasks.push(function (xDone) {
+                                        eval(sConf.getClosingDate);
+                                    });
+                                    xTasks.push(function (xDone) {
+                                        eval(sConf.getImg);
+
+                                    });
                                 })(result[i]);
                             }
                         }
@@ -96,13 +79,14 @@ module.exports.scrape = function () {
                         async.series(xTasks, function (err, data) {
                             if (err) logger.error(err);
                             callback(null, data, msg + ',' + 'series of tasks to get competitions')
-                                
+
                         });
                     });
 
                 },
                 function (data, msg, callback) {
                     logger.info('Add task persistCompetitions for ' + sConf.name);
+                    logger.info('DATA TO PERSIST ', data);
                     awsUtils.persistCompetitions(data, function (err, result) {
                         callback(null, msg + ',' + 'persistCompetitions]');
                     });
