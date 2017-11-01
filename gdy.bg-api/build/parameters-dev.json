@@ -6,7 +6,7 @@
     },
     {
         "ParameterKey": "LambdaBucketKey",
-        "ParameterValue": "swagbag-club.zip",
+        "ParameterValue": "swagbag-club-dev.zip",
         "UsePreviousValue": true
     },
     {
@@ -16,7 +16,7 @@
     },
     {
         "ParameterKey": "APIDomainName",
-        "ParameterValue": "api.swagbag.club",
+        "ParameterValue": "",
         "UsePreviousValue": true
     },
     {

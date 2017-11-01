@@ -11,7 +11,11 @@ var mkdirp = require('mkdirp');
 var path = require('path');
 var logger = require('./src/logger');
 
-function thenReplace() {
+console.log('NODE_ENV : ' + process.env.NODE_ENV);
+
+function processTemplate() {
+
+    var stage = process.env.NODE_ENV;
 
     jsonfile.readFile('.serverless/cloudformation-template-update-stack.json', function (err, json) {
         if (err) logger.error(err);
@@ -106,17 +110,18 @@ function thenReplace() {
             }
         };
 
-        // newJson['Resources']['ApiGatewayBasePathMapping'] = {
-        //     "Type": "AWS::ApiGateway::BasePathMapping",
-        //     "DependsOn": ["ApiStage", "ApiGatewayRestApi", ApiGatewayDeploymentName],
-        //     "Properties": {
-        //         "BasePath": { "Ref": "APIBasePath" },
-        //         "DomainName": { "Ref": "APIDomainName" },
-        //         "RestApiId": { "Ref": "ApiGatewayRestApi" },
-        //         "Stage": { "Ref": "StageName" }
-        //     }
-        // };
-
+        if (stage === 'prod') {
+            newJson['Resources']['ApiGatewayBasePathMapping'] = {
+                "Type": "AWS::ApiGateway::BasePathMapping",
+                "DependsOn": ["ApiStage", "ApiGatewayRestApi", ApiGatewayDeploymentName],
+                "Properties": {
+                    "BasePath": { "Ref": "APIBasePath" },
+                    "DomainName": { "Ref": "APIDomainName" },
+                    "RestApiId": { "Ref": "ApiGatewayRestApi" },
+                    "Stage": { "Ref": "StageName" }
+                }
+            };
+        }
         // newJson['Resources']['ApiStage'] = {
         //     "Type": "AWS::ApiGateway::Stage",
         //     "Properties": {
@@ -196,16 +201,13 @@ function thenReplace() {
 
         });
 
-        mkdirp(path.dirname('build/cloudformation-template-update-stack-param.json'), function (err) {
+        mkdirp(path.dirname('build/cloudformation-template-update-stack-param-' + stage + '.json'), function (err) {
             if (err) logger.error(err);
-            jsonfile.writeFile('build/cloudformation-template-update-stack-param.json', newJson, { spaces: 3 }, function (err) {
+            jsonfile.writeFile('build/cloudformation-template-update-stack-param-' + stage + '.json', newJson, { spaces: 3 }, function (err) {
                 if (err) console.error(err);
-                logger.info('3. Write cloudformation-template-update-stack-param.json');
+                logger.info('3. Write cloudformation-template-update-stack-param-' + stage + '.json');
             });
         });
-
-
-
     });
 }
 
@@ -239,4 +241,4 @@ function pruneEmpty(obj) {
     }(_.cloneDeep(obj));  // Do not modify the original object, create a clone instead
 }
 
-thenReplace();
+processTemplate();

@@ -19,7 +19,7 @@ service: swagbag-club
 
 provider:
   name: aws
-  stage: dev
+  stage: ${opt:stage}
   runtime: nodejs4.3
   region: eu-west-1
 

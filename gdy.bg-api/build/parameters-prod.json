@@ -1,0 +1,28 @@
+[
+    {
+        "ParameterKey": "LambdaBucketName",
+        "ParameterValue": "swagbag.club-source",
+        "UsePreviousValue": true
+    },
+    {
+        "ParameterKey": "LambdaBucketKey",
+        "ParameterValue": "swagbag-club-prod.zip",
+        "UsePreviousValue": true
+    },
+    {
+        "ParameterKey": "StageName",
+        "ParameterValue": "prod",
+        "UsePreviousValue": true
+    },
+    {
+        "ParameterKey": "APIDomainName",
+        "ParameterValue": "api.swagbag.club",
+        "UsePreviousValue": true
+    },
+    {
+        "ParameterKey": "APIBasePath",
+        "ParameterValue": "",
+        "UsePreviousValue": true
+    }
+]
+ 
