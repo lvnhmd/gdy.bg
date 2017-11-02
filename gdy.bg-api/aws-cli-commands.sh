@@ -4,6 +4,7 @@ aws apigateway create-base-path-mapping --domain-name api.swagbag.club
 --rest-api-id 1234123412 --stage prod --base-path v1
 
 # TODO write a script to destroy template, build stuff , upload to s3 bucket and create the template
+# DONE
 DEV
 ./build-dev.sh
 
