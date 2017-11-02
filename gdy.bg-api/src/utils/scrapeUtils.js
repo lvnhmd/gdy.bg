@@ -5,6 +5,7 @@ var x = Xray();
 var _ = require('lodash');
 var logger = require('../logger');
 var dateUtils = require('./dateUtils');
+let sanitiseUtils = require('./sanitiseUtils');
 
 module.exports.getLastPage = function (xOpts, done) {
 
@@ -45,6 +46,7 @@ module.exports.getCompetitions = function (conf, limit, xOpts, done) {
                 eval(conf.sanitiseData);
 
                 dateUtils.setDefaultClosingDate(data[i], 1, 'days');
+                sanitiseUtils.titleToLowerCase(data[i]);
             }
 
             data = _.uniqBy(data, 'url');
