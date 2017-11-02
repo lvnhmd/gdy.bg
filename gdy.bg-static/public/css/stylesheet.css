@@ -439,14 +439,14 @@ img {
 
 body {
   background: #f3f2f2 url(../img/bg-body.png);
-  font-family: 'FuturaBold', sans-serif;
-  font-size: 15px;
+  font-family: 'ITCCaslon-Regular', serif;
+  font-size: 20px;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   color: #000000;
   line-height: 1.6em;
-  font-weight: 400;
+  font-weight: normal;
 }
 
 
@@ -462,7 +462,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'FuturaBold', sans-serif;
+  font-family: 'ITCCaslon-Regular', serif;
   font-weight: normal;
   margin-top: 0;
   margin-bottom: 10px;
@@ -502,7 +502,7 @@ h6 {
   padding: 40px 0 10px;
   /*text-align: center;*/
   margin: 30px 0 0;
-  font-family: 'FuturaBold';
+  font-family: 'ITCCaslon-Regular';
   font-size: 24px;
   color: #000;
 }
@@ -768,7 +768,7 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
   max-width: 100%;
   outline: none;
   font-size: 100%;
-  font-family: 'FuturaBold', sans-serif;
+  font-family: 'ITCCaslon-Regular', serif;
   color: #000000;
 }
 
@@ -826,7 +826,7 @@ textarea {
 }
 
 #logo a {
-  font-family: 'FuturaBold', sans-serif;
+  font-family: 'ITCCaslon-Regular', serif;
   font-size: 36px;
   text-transform: uppercase;
   font-weight: 400;
@@ -964,8 +964,10 @@ ul#nav li {
 }
 
 ul#nav li a {
-  font-family: 'FuturaBold', sans-serif;
-  /*font-size: 16px;*/
+  font-family: 'Nobel-Bold', sans-serif;
+  font-size: .75em;
+  font-weight: 700;
+  /* text-transform: uppercase; */
   color: #fff;
   line-height: 30px;
   display: block;
@@ -994,7 +996,7 @@ ul#nav li:hover .arrow-down:before {
 }
 
 .arrow-down:before {
-  font-family: 'FuturaBold';
+  font-family: 'ITCCaslon-Regular';
   content: "\e602";
   position: relative;
   display: inline-block;
@@ -1049,7 +1051,7 @@ ul#nav li ul li a {
   text-transform: none;
   font-size: 13px! important;
   font-weight: normal;
-  font-family: 'FuturaBold', sans-serif;
+  font-family: 'ITCCaslon-Regular', serif;
   padding: 0 20px;
   display: block;
   height: 30px;
@@ -1316,7 +1318,7 @@ ul#sortme p {
 .product-index .product-info {
   padding: 20px 18px;
   background-color: #fff;
-  min-height: 88px;
+  min-height: 104px;
 }
 
 .blankrow {
@@ -1463,7 +1465,7 @@ ul#sortme p {
 }
 
 #product-description h4, h5 {
-  font-family: 'FuturaBold';
+  font-family: 'ITCCaslon-Regular';
   font-size: 18px;
 }
 
@@ -1483,7 +1485,7 @@ span.compare-price {
 }
 
 .fa-plus, .fa-minus {
-  font-family: 'FuturaBold' !important;
+  font-family: 'ITCCaslon-Regular' !important;
 }
 
 .fa-plus:before {
@@ -1535,13 +1537,13 @@ span.compare-price {
   clear: left;
   float: left;
   width: 40%! important;
-  font-family: FuturaBold;
+  font-family: ITCCaslon-Regular;
   font-size: 18px;
   color: #000;
 }
 
 .product-add .add, input#update-cart, input#checkout {
-  font-family: FuturaBold;
+  font-family: ITCCaslon-Regular;
   font-size: 18px;
   color: #000;
 }
@@ -1698,7 +1700,7 @@ ul.view-more li a:hover {
 
 .accordion li > a:before {
   content: "\e601";
-  font-family: FuturaBold;
+  font-family: ITCCaslon-Regular;
   position: absolute;
   top: 50%;
   margin-top: -8px;
@@ -2073,7 +2075,7 @@ ul#posts li {
 
 #big-footer ul li a:before {
   content: "\e603";
-  font-family: FuturaBold;
+  font-family: ITCCaslon-Regular;
   position: absolute;
   top: 50%;
   margin-top: -4px;
@@ -2639,7 +2641,7 @@ p.ajaxified-cart-feedback.success {
 .slicknav_nav {
   margin: 0;
   padding: 0;
-  font-family: 'FuturaBold', sans-serif;
+  font-family: 'ITCCaslon-Regular', serif;
   font-weight: 400;
   font-size: 16px;
   color: #aaaaaa;
@@ -2690,7 +2692,7 @@ p.ajaxified-cart-feedback.success {
   text-transform: none;
   font-size: 13px! important;
   font-weight: normal;
-  font-family: 'FuturaBold', sans-serif;
+  font-family: 'ITCCaslon-Regular', serif;
 }
 
 div.image-wrapper {
@@ -2903,7 +2905,7 @@ div.errors li {
 
 .menu .huge + ul li:before {
   content: "\e603";
-  font-family: FuturaBold;
+  font-family: ITCCaslon-Regular;
   position: absolute;
   top: 50%;
   margin-top: -4px;
@@ -3078,7 +3080,7 @@ div.errors li {
 }
 
 #shopify-product-reviews .spr-container .spr-header-title {
-  font-family: 'FuturaBold';
+  font-family: 'ITCCaslon-Regular';
   font-size: 18px;
 }
 

@@ -21,8 +21,7 @@ class CompetitionListItem extends React.Component {
                 <div className="product-index-inner">
                     <div className="badge">{comp.daysToEnter}</div>
                     <a onClick={this.click.bind(this)}><div className="img-responsive img-thumbnail ratio-4-3" style={{ backgroundImage: "url('" + comp.img + "')" }} /></a>
-                    <div className="product-info">{comp.title}</div>
-                    {/*{comp.title.toLowerCase().length < 52 ? <div className="blankrow">&nbsp;</div> : ''}*/}
+                    <div className="product-info">{comp.title.substring(0,58)}</div>
                     <SocialShare shareUrl='https://swagbag.club' title={comp.title} img={comp.img} hashtags={comp.hashtags} />
                 </div>
             </div>

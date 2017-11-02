@@ -1,0 +1,11 @@
+/* then for WOFF-capable browsers */
+
+@font-face {
+    font-family: 'ITCCaslon-Regular';
+    src: url('../fonts/vogue/ITCCaslon-Regular.woff2') format('woff');
+}
+
+@font-face {
+    font-family: 'Nobel-Bold';
+    src: url('../fonts/vogue/Nobel-Bold.woff2') format('woff');
+}
