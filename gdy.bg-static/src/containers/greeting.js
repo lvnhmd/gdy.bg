@@ -7,18 +7,29 @@ class Greeting extends Component {
 
     render() {
         if (this.props.isAuthenticated) {
-            return (<ul id="cart" className="desktop-6 tablet-3 mobile-1">
-                <li>
-                    Hi, {this.props.name} <a onClick={() => this.props.signout()}> sign out</a>
-                </li>
-            </ul>)
+            return (
+
+                <div className="n-main__covers">
+                    <div className="n-main__covers__wrapper">
+
+                        <div className="n-main__cover__offer">
+                            Hi, {this.props.name} <a onClick={() => this.props.signout()}> sign out</a>
+                        </div>
+                    </div>
+                </div>
+            )
         }
         else {
-            return (<ul id="cart" className="desktop-6 tablet-3 mobile-1">
-                <li>
-                    Hi, stranger <a onClick={() => this.props.gotoSignin()}> sign in/sign up</a>
-                </li>
-            </ul>
+            return (
+                <div className="n-main__covers">
+                    <div className="n-main__covers__wrapper">
+
+                        <div className="n-main__cover__offer">
+                            Hi, stranger <a onClick={() => this.props.gotoSignin()}> sign in/sign up</a>
+                        </div>
+                    </div>
+                </div>
+
             )
         }
     }

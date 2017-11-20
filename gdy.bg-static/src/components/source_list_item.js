@@ -6,10 +6,24 @@ class SourceListItem extends React.Component {
 
     render() {
         if (this.props.active) {
-            return (<li className='selectedListItem'>{this.props.value}</li>)
+            return (
+                // <li className='selectedListItem'>{this.props.value}</li>
+                <li className="n-main__list-item">
+                    <a className="n-main__nav-link" href="#">
+                        <span>{this.props.value}</span>
+                    </a>
+                </li>
+            )
         }
         else {
-            return (<li>{this.props.value}</li>)
+            return (
+                // <li>{this.props.value}</li>
+                <li className="n-main__list-item">
+                    <a className="n-main__nav-link" href="#">
+                        <span>{this.props.value}</span>
+                    </a>
+                </li>
+            )
         }
 
     }
