@@ -39,7 +39,7 @@ class SourceList extends Component {
                         </ul>
 
 
-                        <div className="n-main__nav-group n-main__nav-group--left">
+                        {/* <div className="n-main__nav-group n-main__nav-group--left">
                             <div className="n-main__nav-logo is-hidden">
                                 <a href="index.html" title="Vogue" className="">
                                     <svg id="vogue-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 351.58 90.02">
@@ -49,7 +49,7 @@ class SourceList extends Component {
                                     </svg>
                                 </a>
                             </div>
-                        </div>
+                        </div> */}
 
                         <div className="n-main__nav-group n-main__nav-group--right">
                             <div className="n-main__nav-hamburger n-visibility--mobile">

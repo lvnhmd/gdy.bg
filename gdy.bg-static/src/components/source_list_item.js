@@ -9,9 +9,9 @@ class SourceListItem extends React.Component {
             return (
                 // <li className='selectedListItem'>{this.props.value}</li>
                 <li className="n-main__list-item">
-                    <a className="n-main__nav-link" href="#">
-                        <span>{this.props.value}</span>
-                    </a>
+                    {/* <a className="n-main__nav-link" href="#"> */}
+                        <span className="n-main__nav-link">{this.props.value}</span>
+                    {/* </a> */}
                 </li>
             )
         }
@@ -19,9 +19,9 @@ class SourceListItem extends React.Component {
             return (
                 // <li>{this.props.value}</li>
                 <li className="n-main__list-item">
-                    <a className="n-main__nav-link" href="#">
-                        <span>{this.props.value}</span>
-                    </a>
+                    {/* <a className="n-main__nav-link" href="#"> */}
+                        <span className="n-main__nav-link">{this.props.value}</span>
+                    {/* </a> */}
                 </li>
             )
         }

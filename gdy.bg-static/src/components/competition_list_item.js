@@ -17,14 +17,53 @@ class CompetitionListItem extends React.Component {
     render() {
         let comp = this.props.value;
         return (
-            <div className="product-index desktop-4 tablet-2 mobile-3">
-                <div className="product-index-inner">
-                    <div className="badge">{comp.daysToEnter}</div>
-                    <a onClick={this.click.bind(this)}><div className="img-responsive img-thumbnail ratio-4-3" style={{ backgroundImage: "url('" + comp.img + "')" }} /></a>
-                    <div className="product-info">{comp.title.substring(0,58)}</div>
-                    <SocialShare shareUrl='https://swagbag.club' title={comp.title} img={comp.img} hashtags={comp.hashtags} />
-                </div>
-            </div>
+            <li className="c-card-list__item js-c-card-list__item ">
+                <article className="c-card c-card--hero">
+                    <a onClick={this.click.bind(this)}
+                        className="c-card__link c-card__link--article ">
+                        {comp.title}
+                    </a>
+
+                    <div className="c-card__obj">
+                        <div className="c-card__obj__header">
+                            <div className="c-card__images">
+
+                                <div className="c-card__image c-card__image--picture ">
+                                    {/* <img src={comp.img} className="global__image img-lazyload" /> */}
+
+                                    <img src={comp.img}/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="c-card__obj__body">
+                            <div className="c-card__header">
+
+                                <h3 className="c-card__title">
+                                    <span>{comp.title}</span>
+                                </h3>
+
+
+                                <hr className="c-card__separator" />
+                            </div>
+
+                            <div className="c-card__footer">
+
+                                <p className="c-card__byline">
+                                    <span className="c-card__byline-prefix">By</span>
+                                    <span className="c-card__byline-name">{comp.source}</span>
+                                </p>
+
+                                <ul className="global__list-reset c-card__meta ">
+                                    <li className="c-card__meta-item  c-card__meta-item--date">
+                                        <span className="">{comp.daysToEnter} days left to enter</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </li>
         );
     }
 }

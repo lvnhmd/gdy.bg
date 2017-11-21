@@ -21,19 +21,25 @@ class CompetitionList extends Component {
 
     render() {
         return (
-            <div className="container">
-                <div id="content" className="row">
-                    <div id="collectionpage">
-                        <div className="collection-description">
-                            <div className="rte"></div>
-                        </div>
-                        <div className="clear"></div>
-                        <div id="product-loop" className="desktop-12 mobile-3">
-                            {this.renderList()}
-                        </div>
-                    </div>
+            // <div className="container">
+            //     <div id="content" className="row">
+            //         <div id="collectionpage">
+            //             <div className="collection-description">
+            //                 <div className="rte"></div>
+            //             </div>
+            //             <div className="clear"></div>
+            //             <div id="product-loop" className="desktop-12 mobile-3">
+            <section className="c-card-section c-card-section--c-curated">
+                <div className="c-card-section__constrain">
+                    <ul className="global__list-reset c-card-list js-c-card-list c-card-list--c-curated">
+                        {this.renderList()}
+                    </ul>
                 </div>
-            </div>
+            </section>
+            //             </div>
+            //         </div>
+            //     </div>
+            // </div>
         );
     }
 };
