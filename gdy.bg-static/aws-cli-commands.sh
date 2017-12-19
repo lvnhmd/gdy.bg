@@ -7,4 +7,8 @@ aws s3 cp s3://mybucket/ s3://mybucket/ --recursive --metadata-directive REPLACE
 
 dev:  npm start
 
+to convert css to radium 
+
+npm install css-to-radium -g
+css-to-radium < ./public/css/page.css > ./public/css/style.js
 

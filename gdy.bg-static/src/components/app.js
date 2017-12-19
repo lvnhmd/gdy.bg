@@ -236,9 +236,9 @@ export default class App extends Component {
                         listStyleType: 'none',
                         paddingLeft: 20
                     },
-                    li: {
-                        margin: '0.4em 0'
-                    },
+                    // li: {
+                    //     margin: '0.4em 0'
+                    // },
                     'ul>li': {
                         position: 'relative'
                     },
@@ -433,23 +433,23 @@ export default class App extends Component {
                     '.n-main__nav-search': {
                         display: 'inline-block',
                         float: 'right',
-                        height: 60,
-                        lineHeight: 60,
+                        height: '60px',
+                        lineHeight: '60px',
                         textAlign: 'center',
-                        width: 60
+                        width: '60px',
                     },
                     '.n-main__nav-search label': {
                         backgroundColor: 'transparent',
                         cursor: 'pointer',
                         display: 'block',
-                        height: 60,
-                        lineHeight: 60,
-                        width: 60
+                        height: '60px',
+                        lineHeight: '60px',
+                        width: '60px',
                     },
                     '.n-main__nav-search svg': {
                         display: 'inline-block',
-                        height: 20,
-                        lineHeight: 60,
+                        height: '20px',
+                        lineHeight: '60px',
                         verticalAlign: 'middle'
                     },
                     '.n-main__nav-search path': {
@@ -469,7 +469,7 @@ export default class App extends Component {
                         paddingRight: 30,
                         WebkitBoxSizing: 'border-box',
                         boxSizing: 'border-box',
-                        height: 60,
+                        height: '60px',
                         paddingTop: 2
                     },
                     '.n-main__dropdown--follow .n-main__dropdown-list-item': {
@@ -488,7 +488,7 @@ export default class App extends Component {
                         backgroundColor: '#EAEAEA',
                         content: '\'\'',
                         display: 'inline-block',
-                        height: 20,
+                        height: '20px',
                         left: -2,
                         margin: '15px 0px',
                         position: 'absolute',
@@ -496,17 +496,17 @@ export default class App extends Component {
                     },
                     '.n-main__dropdown__btn-share': {
                         display: 'inline-block',
-                        height: 50,
-                        lineHeight: 45,
+                        height: '50px',
+                        lineHeight: '45px',
                         paddingBottom: 0,
                         textAlign: 'center',
-                        width: 50,
+                        width: '50px',
                         position: 'relative'
                     },
                     '.n-main__dropdown__btn-share svg': {
                         height: '100%',
                         fill: '#fff',
-                        width: 16,
+                        width: '16px',
                         display: 'block',
                         margin: '0 auto'
                     },

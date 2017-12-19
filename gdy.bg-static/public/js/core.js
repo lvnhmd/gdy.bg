@@ -2858,9 +2858,7 @@
         z = window.innerHeight / 2,
         L = 0;
     h._tmr = null, h.isMuted = !1, f.prototype = {
-
         _init: function() {
-            console.log('>>> INIT');
             Object(b.b)(window, "scroll", this.update.bind(this)), Object(b.b)(document.getElementById("chkNavSearch"), "change", this._onSearchBoxChange.bind(this)), this.hasHeaderLogo && Object(b.b)(window, "resize", Object(b.l)(function() {
                 this.resize(), this.update()
             }, 200, this)), Object(b.b)(document.getElementById("chkNavHamburger"), "change", this._onHamburgerChange.bind(this)), g.c && Object(b.b)(this.el.querySelector(k), "touchstart", function(t) {
@@ -2908,15 +2906,7 @@
             !this._isStuck && t > this._offsets.sticker.top ? (this.stick(), this.hasHeaderLogo && this._displayLogo()) : this._isStuck && t < this._offsets.sticker.top && (this.unstick(), this.hasHeaderLogo && this._hideLogo()), this._galleryScroll(t)
         },
         _displayHamburgerMenu: function() {
-            this._isMenuOpen || 
-            (this._isMenuOpen = !0, L = Object(b.A)(), Object(b.a)
-            (this._hamburgerMenu, "is-visible"), 
-            Object(b.a)(document.documentElement, "has-open-menu"), 
-            Object(b.a)(document.body, "has-open-menu"), 
-            Object(b.a)(this._hamburger.querySelector(".n-main__nav-hamburger__icon"), 
-            "global__hidden"), 
-            Object(b.N)(this._hamburger.querySelector(".n-main__nav-hamburger__close-icon"), 
-            "global__hidden"))
+            this._isMenuOpen || (this._isMenuOpen = !0, L = Object(b.A)(), Object(b.a)(this._hamburgerMenu, "is-visible"), Object(b.a)(document.documentElement, "has-open-menu"), Object(b.a)(document.body, "has-open-menu"), Object(b.a)(this._hamburger.querySelector(".n-main__nav-hamburger__icon"), "global__hidden"), Object(b.N)(this._hamburger.querySelector(".n-main__nav-hamburger__close-icon"), "global__hidden"))
         },
         _hideHamburgerMenu: function() {
             this._isMenuOpen && (this._isMenuOpen = !1, Object(b.N)(this._hamburgerMenu, "is-visible"), Object(b.N)(document.documentElement, "has-open-menu"), Object(b.N)(document.body, "has-open-menu"), window.scrollTo(0, L), Object(b.N)(this._hamburger.querySelector(".n-main__nav-hamburger__icon"), "global__hidden"), Object(b.a)(this._hamburger.querySelector(".n-main__nav-hamburger__close-icon"), "global__hidden"))

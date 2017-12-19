@@ -1,17 +1,23 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { fetchCompetitions, toggleSource, searchTermChanged } from '../actions/index';
-import _ from 'lodash';
-import CompetitionListItem from '../components/competition_list_item';
+const React = require('react');
+const connect = require('react-redux').connect;
+const bindActionCreators = require('redux').bindActionCreators;
+const fetchCompetitions = require('../actions/index').fetchCompetitions;
+const toggleSource = require('../actions/index').toggleSource;
+const searchTermChanged = require('../actions/index').searchTermChanged;
+const _ = require('lodash');
+const CompetitionListItem = require('./competitionListItem');
+const Radium = require('radium');
 
-class CompetitionList extends Component {
+class CompetitionList extends React.Component {
 
     componentDidMount() {
         this.props.fetchCompetitions();
     }
 
     renderList() {
+
+        console.log('render list ', this.props.competitions);
+
         return this.props.competitions.map((competition) => {
             return (
                 <CompetitionListItem key={competition.uri} value={competition} />
@@ -21,14 +27,7 @@ class CompetitionList extends Component {
 
     render() {
         return (
-            // <div className="container">
-            //     <div id="content" className="row">
-            //         <div id="collectionpage">
-            //             <div className="collection-description">
-            //                 <div className="rte"></div>
-            //             </div>
-            //             <div className="clear"></div>
-            //             <div id="product-loop" className="desktop-12 mobile-3">
+
             <section className="c-card-section c-card-section--c-curated">
                 <div className="c-card-section__constrain">
                     <ul className="global__list-reset c-card-list js-c-card-list c-card-list--c-curated">
@@ -36,10 +35,7 @@ class CompetitionList extends Component {
                     </ul>
                 </div>
             </section>
-            //             </div>
-            //         </div>
-            //     </div>
-            // </div>
+
         );
     }
 };
@@ -78,14 +74,17 @@ const applyFilters = (competitions, filters, term) => {
 }
 
 function mapStateToProps(state) {
+    console.log('state ', state);
+    // var comps =
+    //     _.orderBy(applyFilters(state.competitions, state.filters, state.searchTerm),
+    //         ['daysToEnter', 'createdAt'],
+    //         ['asc', 'desc']);
 
-    var comps =
-        _.orderBy(applyFilters(state.competitions, state.filters, state.searchTerm),
-            ['daysToEnter', 'createdAt'],
-            ['asc', 'desc']);
-
+    // return {
+    //     competitions: comps
+    // };
     return {
-        competitions: comps
+        competitions: state.competitions
     };
 }
 
@@ -93,4 +92,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({ fetchCompetitions, toggleSource, searchTermChanged }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CompetitionList);
+// export default connect(mapStateToProps, mapDispatchToProps)(Radium(CompetitionList));
+
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(CompetitionList);
