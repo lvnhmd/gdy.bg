@@ -108,8 +108,18 @@ class Header extends React.Component {
                         {/* <!-- source nav - mobile - end --> */}
                     </nav>
 
+                    {/* <!--  social menu mobile begin --> */}
+                    <div className="n-menu__social">
+                        <h4 className="n-menu__social-title">
+                            <span className='n-menu__social-brand'>Follow </span>
+                        </h4>
+                        <SocialMenu isMobile={true} />
+                    </div>
 
-
+                    <div className="global__a--center">
+                        <a href="newsletters.html" className="n-menu__newsletter-btn">Newsletter Sign Up</a>
+                    </div>
+                    {/* <!--  social menu mobile end --> */}
                 </div>
             </header>
         );

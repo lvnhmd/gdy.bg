@@ -1,262 +1,62 @@
-.btn-single, a.btn-single {
-	border-bottom:none;
-	display:inline-block;
-	text-decoration:none;
-	font-family:Nobel, sans-serif;
-	font-size:.75rem;
-	line-height:1em;
-	letter-spacing:1px;
-	padding:15px;
-	text-transform:uppercase;
-	-webkit-transition:all 0.1s ease-in-out;
-	transition:all 0.1s ease-in-out;
+h3, h4 {
+	color:#111;
+	font-family:"ITC Caslon", Georgia, serif;
+	font-weight:400;
+	line-height:1.2em;
+	letter-spacing:-0.01em;
+	-webkit-font-variant-ligatures:common-ligatures;
+	font-variant-ligatures:common-ligatures;
+	margin:30px 0 20px 0;
 }
 
-.btn-single:hover, a.btn-single:hover {
-	border-bottom:none;
+h4 {
+	font-size:1.0625rem;
+	font-weight:400;
 }
 
-.btn-single--light, a.btn-single--light {
-	border:1px solid #C00000;
-	color:#C00000;
+@media screen and (min-width: 64em) {  h4 {
+	font-size:1.25rem;
 }
-
-.btn-single--light:hover, a.btn-single--light:hover {
-	background-color:#C00000;
-	border:1px solid transparent;
-	color:#fff;
-	text-decoration:none;
 }
-
-.n-main__dropdown {
-	position:relative;
-}
-
-.n-main__dropdown-link:after {
-	border-left:5px solid transparent;
-	border-right:5px solid transparent;
-	border-top:5px solid #000;
-	content:"";
-	display:inline-block;
-	height:0;
-	width:0;
-	left:10px;
-	position:relative;
-	top:-2px;
-}
-
-.n-main__dropdown-list {
-	display:none;
-	position:absolute;
-	text-align:left;
-	top:100%;
-	background-color:#fff;
-	border:1px solid #EAEAEA;
-	border-top:none;
-	-webkit-box-shadow:0px 2px 5px 0px rgba(102, 102, 102, 0.06);
-	box-shadow:0px 2px 5px 0px rgba(102, 102, 102, 0.06);
-}
-
-.n-main__dropdown-list:hover {
-	display:block;
-}
-
-.n-main__dropdown-link:hover+.n-main__dropdown-list {
-	display:block;
-}
-
-.n-main__dropdown-list--right {
-	right:-1px;
-}
-
-.n-main__covers {
-	display:none;
-	position:absolute;
-	top:60px;
-}
-
-@media screen and (min-width: 64em) {  .n-main__covers {
-	display:block;
-}}
-
-.n-main__covers__wrapper {
-	max-width:1440px;
-	padding-left:60px;
-	padding-right:60px;
-	margin:0 auto;
-}
-
-.n-main__cover__offer {
-	display:inline-block;
-	vertical-align:top;
-	font-family:"adobe-caslon-pro", serif;
-	font-size:.75rem;
-	line-height:.9375rem;
-	letter-spacing:normal;
-	color:#666;
-	white-space:pre-line;
-}
-
-.n-main__cover__btn, a.n-main__cover__btn {
-	display:inline-block;
-	font-family:Nobel, sans-serif;
-	font-size:10px;
-	line-height:.625rem;
-	letter-spacing:1px;
-	padding:4px;
-	margin-top:10px;
-	text-transform:uppercase;
-}
-
-.n-main__nav-search {
-	display:inline-block;
-	float:right;
-	height:60px;
-	line-height:60px;
+.global__a--center {
 	text-align:center;
-	width:60px;
 }
 
-.n-main__nav-search label {
-	background-color:transparent;
-	cursor:pointer;
-	display:block;
-	height:60px;
-	line-height:60px;
-	width:60px;
+.n-menu__social {
+	margin:30px 20px 30px 20px;
+	text-align:center;
 }
 
-.n-main__nav-search svg {
-	display:inline-block;
-	height:20px;
-	line-height:60px;
-	vertical-align:middle;
+.n-menu__social ul {
+	font-size:0;
 }
 
-.n-main__nav-search path {
-	fill:#000;
-}
-
-@media screen and (min-width: 64em) {  .n-main__nav-search {
-	border-left:1px solid #EAEAEA;
-}}
-
-.n-main__nav-search:hover svg {
-	fill:#C00000;
-}
-
-@media screen and (min-width: 90.0625em) {  .n-main__nav-search {
-	border-right:1px solid #EAEAEA;
-}}
-
-.n-main__dropdown--follow .n-main__dropdown-link {
+.n-menu__social-title {
 	color:#666;
 	font-family:"adobe-caslon-pro", serif;
 	font-size:.875rem;
 	line-height:.875rem;
 	letter-spacing:normal;
-	font-style:italic;
 	text-transform:capitalize;
-	padding-right:30px;
-	-webkit-box-sizing:border-box;
-	box-sizing:border-box;
-	height:60px;
-	padding-top:2px;
+	font-style:italic;
+	margin:0 0 10px 0;
 }
 
-.n-main__dropdown--follow .n-main__dropdown-list-item {
-	font-size:.75rem;
-	text-align:center;
+li.n-menu__social-item {
+	position:relative;
+	display:inline-block;
 }
 
-.n-main__dropdown--follow__group {
-	font-size:0;
-	margin-top:10px;
-}
-
-.n-main__dropdown--follow__group:last-child {
-	margin-top:23px;
-	padding-bottom:30px;
-}
-
-.n-main__dropdown--follow__group a+a::before {
+li.n-menu__social-item+.n-menu__social-item::before {
 	background-color:#EAEAEA;
 	content:'';
 	display:inline-block;
 	height:20px;
-	left:-2px;
 	margin:15px 0px;
-	position:absolute;
 	width:1px;
 }
 
-.n-main__dropdown__btn-share {
-	display:inline-block;
-	height:50px;
-	line-height:45px;
-	padding-bottom:0;
-	text-align:center;
-	width:50px;
-	position:relative;
-}
-
-.n-main__dropdown__btn-share svg {
-	height:100%;
-	fill:#fff;
-	width:16px;
-	display:block;
-	margin:0 auto;
-}
-
-.n-main__dropdown__btn-share--facebook path {
-	fill:#3B5998;
-}
-
-.n-main__dropdown__btn-share--facebook:hover {
-	background-color:#3B5998;
-}
-
-.n-main__dropdown__btn-share--facebook:hover path {
-	fill:#fff;
-}
-
-.n-main__dropdown__btn-share--instagram path {
-	fill:#833AB4;
-}
-
-.n-main__dropdown__btn-share--instagram:hover {
-	background-color:#833AB4;
-}
-
-.n-main__dropdown__btn-share--instagram:hover path {
-	fill:#fff;
-}
-
-.n-main__dropdown__btn-share--twitter path {
-	fill:#55ACEE;
-}
-
-.n-main__dropdown__btn-share--twitter:hover {
-	background-color:#55ACEE;
-}
-
-.n-main__dropdown__btn-share--twitter:hover path {
-	fill:#fff;
-}
-
-.n-main__dropdown__btn-share--youtube path {
-	fill:#E52D27;
-}
-
-.n-main__dropdown__btn-share--youtube:hover {
-	background-color:#E52D27;
-}
-
-.n-main__dropdown__btn-share--youtube:hover path {
-	fill:#fff;
-}
-
-.n-main__dropdown__btn--newsletter {
+.n-menu__newsletter-btn {
 	border-bottom:none;
 	display:inline-block;
 	text-decoration:none;
@@ -270,9 +70,10 @@
 	transition:all 0.1s ease-in-out;
 	border:1px solid #C00000;
 	color:#C00000;
+	margin-bottom:40px;
 }
 
-.n-main__dropdown__btn--newsletter:hover {
+.n-menu__newsletter-btn:hover {
 	border-bottom:none;
 	background-color:#C00000;
 	border:1px solid transparent;
@@ -280,15 +81,7 @@
 	text-decoration:none;
 }
 
-.n-main__dropdown-list--follow {
-	padding:0 10px 10px 10px;
-	z-index:3;
+h3 {
+	font-size:1.25rem;
+	font-weight:400;
 }
-
-li.n-main__dropdown-list-item {
-	background-color:#fff;
-	font-size:.9375rem;
-	white-space:nowrap;
-	z-index:3;
-}
-
