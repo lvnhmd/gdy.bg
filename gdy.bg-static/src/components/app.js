@@ -1,10 +1,10 @@
-import React from 'react';
-import { Component } from 'react';
+const React = require('react');
 const Radium = require('radium');
 const { Style, StyleRoot } = Radium;
 const Header = require('./header');
+const SearchField = require('./searchField');
 
-export default class App extends Component {
+export default class App extends React.Component {
 
     componentDidMount() {
         const script = document.createElement("script");
@@ -578,14 +578,113 @@ export default class App extends Component {
                         whiteSpace: 'nowrap',
                         zIndex: 3
                     }
+                    ,
+                    // -----------
+                    '.srch-main': {
+                        textAlign: 'center',
+                        width: '100%',
+                        backgroundColor: '#222',
+                        WebkitBoxSizing: 'border-box',
+                        boxSizing: 'border-box',
+                        color: '#fff',
+                        overflow: 'hidden',
+                        padding: '55px 20px'
+                    },
+                    '.srch-textbox': {
+                        textAlign: 'center',
+                        fontFamily: '"ITC Caslon", Georgia, serif',
+                        fontSize: '2.1875rem',
+                        lineHeight: '2.25rem',
+                        letterSpacing: '-0.01em',
+                        WebkitAppearance: 'none',
+                        msAppearance: 'none',
+                        MozAppearance: 'none',
+                        OAppearance: 'none',
+                        appearance: 'none',
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        color: '#fff',
+                        display: 'block',
+                        margin: '0 auto',
+                        maxWidth: 1440,
+                        padding: '10px 20px',
+                        width: '100%'
+                    },
+                    '.srch-main form': {
+                        borderBottom: '1px solid #333'
+                    },
+                    '.srch-textbox::-webkit-input-placeholder': {
+                        color: '#fff'
+                    },
+                    '.srch-textbox:-moz-placeholder': {
+                        color: '#fff'
+                    },
+                    '.srch-textbox::-moz-placeholder': {
+                        color: '#fff'
+                    },
+                    '.srch-textbox:-ms-input-placeholder': {
+                        color: '#fff'
+                    },
+                    '.srch-textbox:focus': {
+                        outline: 'none'
+                    },
+                    '.n-search': {
+                        backgroundColor: 'rgba(17, 17, 17, 0.95)',
+                        display: 'none'
+                    },
+                    '#chkNavSearch:checked ~ .n-search': {
+                        display: 'block'
+                    },
+
+                    '.n-menu__search-textbox input': {
+                        WebkitAppearance: 'none',
+                        msAppearance: 'none',
+                        MozAppearance: 'none',
+                        OAppearance: 'none',
+                        appearance: 'none',
+                        backgroundColor: '#222',
+                        border: 'none',
+                        WebkitBoxSizing: 'border-box',
+                        boxSizing: 'border-box',
+                        color: '#666',
+                        fontFamily: '"ITC Caslon", Georgia, serif',
+                        fontSize: '1.0625rem',
+                        lineHeight: '1.0625rem',
+                        letterSpacing: '-0.01em',
+                        height: 57,
+                        padding: '0 20px',
+                        marginTop: 3,
+                        width: '100%'
+                    },
+                    '.n-menu__search': {
+                        backgroundColor: '#222',
+                        overflow: 'hidden',
+                        position: 'relative'
+                    },
+                    '.n-menu__search path': {
+                        fill: '#fff'
+                    },
+                    '.n-menu__search-textbox': {
+                        display: 'inline-block',
+                        left: 0,
+                        height: 60,
+                        position: 'absolute',
+                        right: 60,
+                        top: 0
+                    },
+                    '.n-menu__search-textbox input:focus': {
+                        outline: 'none',
+                        color: '#fff'
+                    }
+
                 }
-
-
                 }
                 />
                 <input type="checkbox" id="chkNavHamburger" className="n-main__checkbox" hidden />
                 <input type="checkbox" id="chkNavSearch" className="n-main__checkbox" hidden />
                 <Header />
+                <SearchField isMobile={false} />
+                
                 {this.props.children}
             </StyleRoot>
         );
