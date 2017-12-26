@@ -21,23 +21,22 @@ class SearchField extends React.Component {
                         </svg>
                     </div>
                     <div className="n-menu__search-textbox">
-                        <form method="GET" action="/search">
-                            <input type="search" placeholder="Search" name="q" />
-                        </form>
+                        <input type="search" className="srch-textbox" placeholder="Search"
+                            value={this.state.term}
+                            onChange={event => this.onInputChange(event.target.value)} />
                     </div>
                 </div>
                 // <!-- search box mobile end -->
-        );
+            );
         }
         else {
             return (
                 // <!-- search box desktop begin -->
                 <div className="n-search">
                     <div className="srch-main">
-                        <form method="GET" action="/search">
-                            <input type="search" className="srch-textbox" placeholder="Search"
-                                name="q" value="" autoComplete="off" />
-                        </form>
+                        <input type="search" className="srch-textbox" placeholder="Search"
+                            value={this.state.term}
+                            onChange={event => this.onInputChange(event.target.value)} />
                     </div>
                 </div>
                 // <!-- search box desktop end -->
