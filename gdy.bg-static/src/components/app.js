@@ -361,6 +361,9 @@ export default class App extends React.Component {
                         height: 60,
                         lineHeight: '60px'
                     },
+                    '.active a': {
+                        backgroundColor: 'deeppink'
+                    },
                     '.n-main__nav-link:hover': {
                         color: '#C00000'
                     },

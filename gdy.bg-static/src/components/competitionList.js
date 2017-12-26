@@ -75,24 +75,19 @@ const applyFilters = (competitions, filters, term) => {
 
 function mapStateToProps(state) {
     console.log('competition list state ', state);
-    // var comps =
-    //     _.orderBy(applyFilters(state.competitions, state.filters, state.searchTerm),
-    //         ['daysToEnter', 'createdAt'],
-    //         ['asc', 'desc']);
+    var comps =
+        _.orderBy(applyFilters(state.competitions, state.filters, state.searchTerm),
+            ['daysToEnter', 'createdAt'],
+            ['asc', 'desc']);
 
-    // return {
-    //     competitions: comps
-    // };
     return {
-        competitions: state.competitions
+        competitions: comps
     };
+
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ fetchCompetitions, toggleSource, searchTermChanged }, dispatch);
 }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Radium(CompetitionList));
-
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(CompetitionList);

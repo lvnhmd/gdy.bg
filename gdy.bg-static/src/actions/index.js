@@ -19,7 +19,7 @@ const ROOT_URL = process.env.REACT_APP_API_URL;
 
 export function toggleSource(source) {
 
-    console.log('toggleSource ', source);
+    console.log('toggle source ', source);
 
     source.active ? source.active = false : source.active = true;
 

@@ -20,7 +20,7 @@ class CompetitionListItem extends React.Component {
         return (
             <li className="c-card-list__item js-c-card-list__item ">
                 <article className="c-card c-card--hero">
-                    <a href="gallery/the-crown-season-2.html" className="c-card__link c-card__link--article ">
+                    <a onClick={this.click.bind(this)} className="c-card__link c-card__link--article ">
                     {comp.title}</a>
 
                     <div className="c-card__obj">
@@ -107,7 +107,5 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ trackEntry }, dispatch);
 }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Radium(CompetitionListItem));
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(CompetitionListItem);

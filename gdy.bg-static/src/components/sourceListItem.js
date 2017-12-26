@@ -6,31 +6,26 @@ class SourceListItem extends React.Component {
 
     render() {
         if (this.props.isMobile) {
-            // if (this.props.active) {
-            //     return (
-            //         <li className="n-menu__nav-item">
-            //         <div className="n-menu__nav-link"> {this.props.value} </div>
-            //     </li>
-            //     )
-            // }
-            // else {
+            if (this.props.active) {
                 return (
-
-                    
-                        <li className="n-menu__nav-item">
-                            <div className="n-menu__nav-link"> {this.props.value} </div>
-                        </li>
-                    
-
+                    <li className="n-menu__nav-item">
+                        <div className="n-menu__nav-link active"> {this.props.value} </div>
+                    </li>
                 )
-            // }
+            }
+            else {
+                return (
+                    <li className="n-menu__nav-item">
+                        <div className="n-menu__nav-link"> {this.props.value} </div>
+                    </li>
+                )
+            }
         } else {
             if (this.props.active) {
                 return (
                     <li className="n-main__list-item n-main__nav-link">
-                        <span>{this.props.value}</span>
+                        <span className="active">{this.props.value}</span>
                     </li>
-
                 )
             }
             else {
