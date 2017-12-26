@@ -19,6 +19,8 @@ const ROOT_URL = process.env.REACT_APP_API_URL;
 
 export function toggleSource(source) {
 
+    console.log('toggleSource ', source);
+
     source.active ? source.active = false : source.active = true;
 
     var filters = localStorage.getItem('filters');

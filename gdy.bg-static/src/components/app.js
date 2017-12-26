@@ -24,13 +24,13 @@ export default class App extends React.Component {
                     html: {
                         fontSize: 16
                     },
-                    a: {
-                        color: '#C00000',
-                        textDecoration: 'none'
-                    },
-                    'a:hover': {
-                        textDecoration: 'underline'
-                    },
+                    // a: {
+                    //     color: '#C00000',
+                    //     textDecoration: 'none'
+                    // },
+                    // 'a:hover': {
+                    //     textDecoration: 'underline'
+                    // },
                     body: {
                         margin: 0,
                         WebkitTextSizeAdjust: 'none',
@@ -365,8 +365,9 @@ export default class App extends React.Component {
                         color: '#C00000'
                     },
                     '.n-menu__nav .n-menu__nav__wrapper': {
-                        margin: '0 20px',
-                        overflow: 'hidden'
+                        margin: '0 20px'
+                        // ,
+                        // overflow: 'hidden'
                     },
                     '.n-menu__nav a .n-menu__nav-item': {
                         borderBottom: '1px solid #EAEAEA',
@@ -387,6 +388,26 @@ export default class App extends React.Component {
                         letterSpacing: 1,
                         textTransform: 'uppercase',
                         wordBreak: 'break-word'
+                    },
+                    '.n-menu__nav .n-menu__nav-item .n-menu__nav-link a': {
+                        position: 'absolute',
+                        top: '50%',
+                        WebkitTransform: 'translateY(-50%)',
+                        transform: 'translateY(-50%)',
+                        fontFamily: 'Nobel, sans-serif',
+                        fontSize: '.75rem',
+                        fontWeight: 700,
+                        // lineHeight: '.9375rem',
+                        letterSpacing: 1,
+                        textTransform: 'uppercase',
+                        wordBreak: 'break-word'
+                    },
+                    '.n-menu__nav .n-menu__nav-item': {
+                        borderBottom: '1px solid #EAEAEA',
+                        float: 'left',
+                        height: 60,
+                        position: 'relative',
+                        width: '100%'
                     },
                     '.n-menu__nav a .n-menu__nav-item:hover, .n-menu__nav a .n-menu__nav-item:focus': {
                         color: '#C00000'

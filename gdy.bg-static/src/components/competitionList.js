@@ -74,7 +74,7 @@ const applyFilters = (competitions, filters, term) => {
 }
 
 function mapStateToProps(state) {
-    console.log('state ', state);
+    console.log('competition list state ', state);
     // var comps =
     //     _.orderBy(applyFilters(state.competitions, state.filters, state.searchTerm),
     //         ['daysToEnter', 'createdAt'],
