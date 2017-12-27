@@ -6,7 +6,6 @@ const toggleSource = require('../actions/index').toggleSource;
 const searchTermChanged = require('../actions/index').searchTermChanged;
 const _ = require('lodash');
 const CompetitionListItem = require('./competitionListItem');
-const Radium = require('radium');
 
 class CompetitionList extends React.Component {
 
@@ -15,9 +14,6 @@ class CompetitionList extends React.Component {
     }
 
     renderList() {
-
-        console.log('render list ', this.props.competitions);
-
         return this.props.competitions.map((competition) => {
             return (
                 <CompetitionListItem key={competition.uri} value={competition} />
@@ -27,7 +23,6 @@ class CompetitionList extends React.Component {
 
     render() {
         return (
-
             <section className="c-card-section c-card-section--c-curated">
                 <div className="c-card-section__constrain">
                     <ul className="global__list-reset c-card-list js-c-card-list c-card-list--c-curated">
@@ -35,7 +30,6 @@ class CompetitionList extends React.Component {
                     </ul>
                 </div>
             </section>
-
         );
     }
 };
@@ -74,7 +68,7 @@ const applyFilters = (competitions, filters, term) => {
 }
 
 function mapStateToProps(state) {
-    console.log('competition list state ', state);
+
     var comps =
         _.orderBy(applyFilters(state.competitions, state.filters, state.searchTerm),
             ['daysToEnter', 'createdAt'],

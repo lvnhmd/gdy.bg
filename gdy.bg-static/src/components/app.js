@@ -25,7 +25,7 @@ export default class App extends React.Component {
                         fontSize: 16
                     },
                     // a: {
-                    //     color: '#C00000',
+                    //     color: 'deeppink',
                     //     textDecoration: 'none'
                     // },
                     // 'a:hover': {
@@ -266,7 +266,7 @@ export default class App extends React.Component {
                         fill: '#000'
                     },
                     '.n-main__nav-hamburger:hover svg': {
-                        fill: '#C00000'
+                        fill: 'deeppink'
                     },
                     '.n-main__sticker-child': {
                         backgroundColor: '#fff',
@@ -365,12 +365,14 @@ export default class App extends React.Component {
                         backgroundColor: 'deeppink'
                     },
                     '.n-main__nav-link:hover': {
-                        color: '#C00000'
+                        color: 'deeppink'
+                    },
+                    '.active:hover': {
+                        color: '#111'
                     },
                     '.n-menu__nav .n-menu__nav__wrapper': {
-                        margin: '0 20px'
-                        // ,
-                        // overflow: 'hidden'
+                        margin: '0 20px',
+                        overflow: 'hidden'
                     },
                     '.n-menu__nav a .n-menu__nav-item': {
                         borderBottom: '1px solid #EAEAEA',
@@ -413,7 +415,7 @@ export default class App extends React.Component {
                         width: '100%'
                     },
                     '.n-menu__nav a .n-menu__nav-item:hover, .n-menu__nav a .n-menu__nav-item:focus': {
-                        color: '#C00000'
+                        color: 'deeppink'
                     },
                     'btn-single, a.btn-single': {
                         borderBottom: 'none',
@@ -432,11 +434,11 @@ export default class App extends React.Component {
                         borderBottom: 'none'
                     },
                     '.btn-single--light, a.btn-single--light': {
-                        border: '1px solid #C00000',
-                        color: '#C00000'
+                        border: '1px solid deeppink',
+                        color: 'deeppink'
                     },
                     '.btn-single--light:hover, a.btn-single--light:hover': {
-                        backgroundColor: '#C00000',
+                        backgroundColor: 'deeppink',
                         border: '1px solid transparent',
                         color: '#fff',
                         textDecoration: 'none'
@@ -530,7 +532,7 @@ export default class App extends React.Component {
                         fill: '#000'
                     },
                     '.n-main__nav-search:hover svg': {
-                        fill: '#C00000'
+                        fill: 'deeppink'
                     },
                     '.n-main__dropdown--follow .n-main__dropdown-link': {
                         color: '#666',
@@ -632,12 +634,12 @@ export default class App extends React.Component {
                         textTransform: 'uppercase',
                         WebkitTransition: 'all 0.1s ease-in-out',
                         transition: 'all 0.1s ease-in-out',
-                        border: '1px solid #C00000',
-                        color: '#C00000'
+                        border: '1px solid deeppink',
+                        color: 'deeppink'
                     },
                     '.n-main__dropdown__btn--newsletter:hover': {
                         borderBottom: 'none',
-                        backgroundColor: '#C00000',
+                        backgroundColor: 'deeppink',
                         border: '1px solid transparent',
                         color: '#fff',
                         textDecoration: 'none'
@@ -808,13 +810,13 @@ export default class App extends React.Component {
                         textTransform: 'uppercase',
                         WebkitTransition: 'all 0.1s ease-in-out',
                         transition: 'all 0.1s ease-in-out',
-                        border: '1px solid #C00000',
-                        color: '#C00000',
+                        border: '1px solid deeppink',
+                        color: 'deeppink',
                         marginBottom: 40
                     },
                     '.n-menu__newsletter-btn:hover': {
                         borderBottom: 'none',
-                        backgroundColor: '#C00000',
+                        backgroundColor: 'deeppink',
                         border: '1px solid transparent',
                         color: '#fff',
                         textDecoration: 'none'
@@ -940,7 +942,7 @@ export default class App extends React.Component {
                     },
                     '.nl-form__submit': {
                         display: 'block',
-                        backgroundColor: '#C00000',
+                        backgroundColor: 'deeppink',
                         border: '1px solid transparent',
                         color: '#fff',
                         textDecoration: 'none',

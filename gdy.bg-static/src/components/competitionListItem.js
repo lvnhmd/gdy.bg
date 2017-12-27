@@ -44,7 +44,7 @@ class CompetitionListItem extends React.Component {
                                     <noscript>
                                         <img src="https://vg-images.condecdn.net/image/jzbyd6nOVMd/crop/405/landscape" className="global__image img-lazyload " />
                                     </noscript> */}
-                                    <img src={comp.img}/>
+                                    <img src={comp.img} alt=""/>
 
                                 </div>
 

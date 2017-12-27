@@ -1,6 +1,4 @@
 const React = require('react');
-const connect = require('react-redux').connect;
-const _ = require('lodash');
 
 class SocialMenu extends React.Component {
 
@@ -78,7 +76,5 @@ class SocialMenu extends React.Component {
 //     };
 
 // }
-
-// module.exports = connect(mapStateToProps, null)(SourceListItem);
 
 module.exports = SocialMenu;

@@ -6,8 +6,6 @@ const SocialMenu = require('./socialMenu');
 const SearchField = require('./searchField');
 
 const Radium = require('radium');
-const { StyleRoot } = Radium;
-const Style = Radium.Style;
 
 class Header extends React.Component {
 
@@ -25,7 +23,7 @@ class Header extends React.Component {
                     <div className="n-main__header n-visibility--desktop">
                         <div className="n-main__header-logo">
                             <a href="index.html" title="Vogue" className="">
-                                <img src={`${process.env.PUBLIC_URL}/img/logo.png`} />
+                                <img src={`${process.env.PUBLIC_URL}/img/logo.png`} alt=""/>
                             </a>
                         </div>
                     </div>
@@ -42,7 +40,7 @@ class Header extends React.Component {
                                 <div className="n-main__nav-group n-main__nav-group--left">
                                     <div className="n-main__nav-logo is-hidden">
                                         <a href="index.html" title="Vogue" className="">
-                                            <img src={`${process.env.PUBLIC_URL}/img/logo.png`} />
+                                            <img src={`${process.env.PUBLIC_URL}/img/logo.png`} alt=""/>
                                         </a>
                                     </div>
                                 </div>
