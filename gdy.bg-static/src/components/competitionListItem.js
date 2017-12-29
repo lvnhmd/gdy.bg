@@ -72,15 +72,17 @@ class CompetitionListItem extends React.Component {
 
                             <div className="c-card__footer">
 
-                                <p className="c-card__byline">
+                                {/* <p className="c-card__byline">
                                     <span className="c-card__byline-prefix">By&nbsp;</span>
                                     <span className="c-card__byline-name">{comp.source}</span>
-                                </p>
+                                </p> */}
 
-                                <ul className="global__list-reset c-card__meta ">
+                                <ul className="global__list-reset c-card__meta">
                                     <li className="c-card__meta-item  c-card__meta-item--tag">
 
-                                        <span className=""></span>
+                                        {/* <span className=""></span> */}
+                                    <span className="c-card__byline-prefix">By&nbsp;</span>
+                                    <span className="c-card__byline-name">{comp.source}</span>
                                     </li>
                                     <li className="c-card__meta-item  c-card__meta-item--date">
 

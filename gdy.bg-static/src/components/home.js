@@ -223,9 +223,12 @@ export default class Home extends Component {
                         textTransform: 'uppercase'
                     },
                     '.c-card__meta-item--tag': {
-                        color: '#C00000',
+                        color: 'deeppink',
                         letterSpacing: 1,
                         textTransform: 'uppercase'
+                    },
+                    '.c-card__meta-item--date': {
+                        color: 'deeppink'
                     },
                     'li.c-card__meta-item:not(:last-child)': {
                         paddingRight: 8
