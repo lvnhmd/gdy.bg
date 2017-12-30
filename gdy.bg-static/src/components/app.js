@@ -307,7 +307,7 @@ export default class App extends React.Component {
                         fontWeight: 'normal',
                         lineHeight: 'normal',
                         listStyle: 'none',
-                        //margin: 0,
+                        margin: 0,
                         padding: 0
                     },
                     '.global__list-reset>li:before': {
