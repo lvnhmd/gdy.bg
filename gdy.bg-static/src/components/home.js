@@ -54,10 +54,10 @@ export default class Home extends Component {
                                 fontSize: '.6875rem'
                             },
                             '.c-card__meta': {
-                                borderTop: '1px solid #EAEAEA',
+                                borderBottom: '1px solid #EAEAEA',
                                 fontSize: '.6875rem',
                                 lineHeight: '1.25rem',
-                                paddingTop: 8
+                                // paddingTop: 8
                             },
                             '.c-card--hero .c-card__image--picture': {
                                 paddingTop: '100%'
@@ -173,12 +173,14 @@ export default class Home extends Component {
                         margin: '6px 0 8px 0'
                     },
                     '.c-card__meta': {
+                        borderBottom: '1px solid #EAEAEA',
                         fontSize: '.625rem',
                         color: '#666',
                         fontFamily: 'Nobel, sans-serif',
                         lineHeight: '1rem',
-                        letterSpacing: '0.025em',
-                        display: 'inline-block'
+                        letterSpacing: '0.025em'
+                        // ,
+                        // display: 'inline-block'
                     },
                     'li.c-card__meta-item': {
                         display: 'inline-block'
@@ -297,7 +299,7 @@ export default class Home extends Component {
                         margin: '0 -20px'
                     },
                     '.c-card-list--c-curated .c-card-list__item': {
-                        padding: '0 20px'
+                        padding: '20px 20px'
                         // ,
                         // width: '100%'
                     },
