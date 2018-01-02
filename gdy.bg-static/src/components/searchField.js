@@ -45,6 +45,7 @@ class SearchField extends React.Component {
     }
 
     onInputChange(term) {
+        console.log('term changed : ', term);
         this.setState({ term });
         this.props.searchTermChanged(term);
     }
