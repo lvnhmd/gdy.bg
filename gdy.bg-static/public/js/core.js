@@ -2912,25 +2912,6 @@
             this._isMenuOpen && (this._isMenuOpen = !1, Object(b.N)(this._hamburgerMenu, "is-visible"), Object(b.N)(document.documentElement, "has-open-menu"), Object(b.N)(document.body, "has-open-menu"), window.scrollTo(0, L), Object(b.N)(this._hamburger.querySelector(".n-main__nav-hamburger__icon"), "global__hidden"), Object(b.a)(this._hamburger.querySelector(".n-main__nav-hamburger__close-icon"), "global__hidden"))
         },
         _hideSearchOverlay: function() {
-            var _srchTextbox = document.getElementsByClassName('srch-textbox')[1];
-            _srchTextbox.value="BOOM";
-            // _srchTextbox.emit("search","");
-            // var __event = document.createEvent("HTMLEvents");
-            // __event.initEvent("change", false, true);
-            // _srchTextbox.dispatchEvent(__event);
-            // _srchTextbox.fireEvent("onchange");
-            // if (document.createEvent) {     // all browsers except IE before version 9
-            //     var __event = document.createEvent("Event");
-            //     __event.initEvent ("change", true, false);
-            //     _srchTextbox.dispatchEvent (__event);
-            // }
-            // else {
-            //     alert ("Your browser does not support the createEvent method!");
-            // }
-
-            var __event = new Event('change', { bubbles: true });
-            _srchTextbox.dispatchEvent(__event);
-
             Object(b.B)(this._searchOverlay, "has-overlay") && (Object(b.N)(this._searchOverlay, "has-overlay"), Object(b.N)(this._search.querySelector(".n-main__nav-search__icon"), "global__hidden"), Object(b.a)(this._search.querySelector(".n-main__nav-search__close-icon"), "global__hidden"))
         },
         _displaySearchOverlay: function(t) {

@@ -65,16 +65,4 @@ class SocialMenu extends React.Component {
     }
 }
 
-// function mapStateToProps(state, ownProps) {
-
-//     var name = ownProps.value.props.children[1];
-
-//     return {
-//         active: _.result(_.find(state.filters, function (f) {
-//             return f.name === name;
-//         }), 'active')
-//     };
-
-// }
-
 module.exports = SocialMenu;

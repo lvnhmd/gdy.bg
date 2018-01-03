@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import SocialLogin from 'react-social-login';
-import { signin } from '../actions/index';
+import { signin, displayPolicy } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 class Signin extends Component {
+
+
+    click() {
+        this.props.displayPolicy();
+    }
 
     responseSocialLogin = (user, err) => {
         if (err)
@@ -33,7 +38,7 @@ class Signin extends Component {
                     </SocialLogin>
 
                     <div className='nl-main__footer'>Will be used in accordance with our&nbsp;
-                    <a href='http://www.condenast.co.uk/privacy' className='nl-main__privacy'>Privacy Policy</a>
+                    <a onClick={this.click.bind(this)} className='nl-main__privacy'>Privacy Policy</a>
                     </div>
                 </div>
             </main>
@@ -46,7 +51,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ signin }, dispatch);
+    return bindActionCreators({ signin, displayPolicy }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signin);

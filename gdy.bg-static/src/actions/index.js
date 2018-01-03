@@ -191,3 +191,17 @@ export function error(error) {
         payload: error
     };
 }
+
+export function displayPolicy() {
+    return function (dispatch) {
+        browserHistory.push('/privacy');
+    }
+
+}
+
+export function goHome() {
+    return function (dispatch) {
+        browserHistory.push('/');
+    }
+
+}

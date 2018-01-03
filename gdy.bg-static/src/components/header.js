@@ -1,14 +1,16 @@
 const React = require('react');
-
+const connect = require('react-redux').connect;
+const bindActionCreators = require('redux').bindActionCreators;
+const goHome = require('../actions/index').goHome;
 const Greeting = require('./greeting');
 const SourceList = require('./sourceList');
 const SocialMenu = require('./socialMenu');
 const SearchField = require('./searchField');
 
-const Radium = require('radium');
-
 class Header extends React.Component {
-
+    click() {
+        this.props.goHome();
+    }
     render() {
 
         return (
@@ -22,8 +24,8 @@ class Header extends React.Component {
                     {/* <!-- middle logo desktop begin --> */}
                     <div className="n-main__header n-visibility--desktop">
                         <div className="n-main__header-logo">
-                            <a href="index.html" title="Vogue" className="">
-                                <img src={`${process.env.PUBLIC_URL}/img/logo.png`} alt=""/>
+                            <a onClick={this.click.bind(this)} title="Vogue" className="">
+                                <img src={`${process.env.PUBLIC_URL}/img/logo.png`} alt="" />
                             </a>
                         </div>
                     </div>
@@ -39,8 +41,8 @@ class Header extends React.Component {
                                 {/* <!-- small logo mobile begin --> */}
                                 <div className="n-main__nav-group n-main__nav-group--left">
                                     <div className="n-main__nav-logo is-hidden">
-                                        <a href="index.html" title="Vogue" className="">
-                                            <img src={`${process.env.PUBLIC_URL}/img/logo.png`} alt=""/>
+                                        <a onClick={this.click.bind(this)} title="Vogue" className="">
+                                            <img src={`${process.env.PUBLIC_URL}/img/logo.png`} alt="" />
                                         </a>
                                     </div>
                                 </div>
@@ -68,7 +70,7 @@ class Header extends React.Component {
                                     <ul className="global__list-reset n-main__list n-visibility--desktop">
 
                                         <li className="n-main__list-item n-main__dropdown n-main__dropdown--follow">
-                                            <a href="index.html#" className="n-main__nav-link n-main__dropdown-link">
+                                            <a onClick={this.click.bind(this)} className="n-main__nav-link n-main__dropdown-link">
                                                 <span>Follow</span>
                                             </a>
                                             <SocialMenu isMobile={false} />
@@ -124,4 +126,13 @@ class Header extends React.Component {
     }
 }
 
-module.exports = Radium(Header);
+
+function mapStateToProps(state) {
+    return state;
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ goHome }, dispatch);
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Header);

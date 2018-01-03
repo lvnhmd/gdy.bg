@@ -10,6 +10,7 @@ import reducers from './reducers';
 import App from './components/app';
 import Home from './components/home';
 import Signin from './components/signin';
+import PrivacyPolicy from './components/privacyPolicy';
 import { AUTH_USER, APPLY_FILTERS } from './actions/types';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise, ReduxThunk)(createStore);
@@ -36,6 +37,7 @@ ReactDOM.render(
         <Route path="/" component={App} >
           <IndexRoute component={Home} />
           <Route path="signin" component={Signin} />
+          <Route path="privacy" component={PrivacyPolicy} />
         </Route>
       </div>
     </Router>

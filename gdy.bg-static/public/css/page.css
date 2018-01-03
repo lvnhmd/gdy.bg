@@ -1,256 +1,220 @@
-h1, h3, h4 {
-	color:#111;
-	font-family:"ITC Caslon", Georgia, serif;
-	font-weight:400;
-	line-height:1.2em;
-	letter-spacing:-0.01em;
-	-webkit-font-variant-ligatures:common-ligatures;
-	font-variant-ligatures:common-ligatures;
-	margin:30px 0 20px 0;
+@import url(https://fonts.googleapis.com/css?family=Volkhov:400,700);
+.firstList {
+	counter-reset: chapter
+}
+
+ol.clauses,
+ol.parties,
+ol.recitals {
+	margin-left: 0;
+	padding: 0 0 0 2em
+}
+
+ol.clauses ol,
+ol.parties ol,
+ol.recitals ol {
+	margin-left: 0;
+	padding: 0 0 0 2em
+}
+
+ol.clauses li,
+ol.parties li,
+ol.recitals li {
+	font-size: 15px !important;
+	margin-top: .5em;
+	margin-bottom: .5em
+}
+
+ol.clauses>li>ol>li {
+	list-style: lower-alpha !important
+}
+
+ol.clauses>li>ol>li>ol>li {
+	list-style: lower-roman
+}
+
+ol.clauses>li,
+ol.parties>li {
+	list-style-type: none;
+	counter-increment: chapter
+}
+
+ol.parties>li:before,
+ol.clauses>li:before {
+	width: 2em;
+	margin-left: -2em;
+	display: inline-block
+}
+
+ol.clauses>li:before {
+	content: counter(chapter) ".    "
+}
+
+ol.parties>li:before {
+	content: "(" counter(chapter) ") "
+}
+
+ol.recitals {
+	list-style: upper-alpha !important
+}
+
+ol.clausesNested,
+ol.clausesNested ol {
+	counter-reset: item;
+	margin-left: 0;
+	padding-left: 0
+}
+
+ol.clausesNested {
+	padding: 0 5em 0 5em
+}
+
+ol.clausesNested li {
+	font-weight: bold
+}
+
+ol.clausesNested li p,
+ol.clausesNested li li {
+	font-weight: normal
+}
+
+ol.clausesNested li ol>li {
+	margin-top: 1em;
+	margin-bottom: 1em
+}
+
+ol.clausesNested li p {
+	margin-top: 0
+}
+
+ol.clausesNested>li,
+ol.clausesNested ol>li {
+	display: block;
+	position: relative
+}
+
+ol.clausesNested>li:before,
+ol.clausesNested ol>li:before {
+	display: inline-block;
+	content: counters(item, ".") ". ";
+	counter-increment: item;
+	width: 4em;
+	margin-left: -4em
+}
+
+body {
+	font-family: 'Volkhov', serif !important;
+	font-size: 15px !important;
+	margin: 2em 4em 4em 4em !important
 }
 
 h1 {
-	font-size:2.1875rem;
-	font-weight:400;
+	font-family: 'Volkhov', serif !important;
+	font-size: x-large !important;
+	margin-top: 1em !important;
+	margin-bottom: 1.5em !important;
+	text-align: center !important;
+	font-weight: bold !important
 }
 
-@media screen and (min-width: 64em) {  h1 {
-	font-size:3.125rem;
-}
-}
-.global__button-reset {
-	-webkit-appearance:none;
-	-ms-appearance:none;
-	-moz-appearance:none;
-	-o-appearance:none;
-	appearance:none;
-	background:transparent;
-	border:none;
-	border-radius:0;
-	cursor:pointer;
-	padding:0;
+h2 {
+	font-size: 15px !important;
+	font-family: 'Volkhov', serif !important;
+	margin-top: 2em !important;
+	font-weight: bold !important
 }
 
-.nl-main__wrapper {
-	margin:0 auto;
-	max-width:560px;
-	padding-left:20px;
-	padding-right:20px;
+h3 {
+	font-weight: bold;
+	font-size: 15px;
+	margin-top: 2em
 }
 
-@media screen and (min-width: 43.75em) {  .nl-main__wrapper {
-	padding-left:60px;
-	padding-right:60px;
-}
-}
-@media screen and (min-width: 64em) {  .nl-main__wrapper {
-	padding-left:60px;
-	padding-right:60px;
-}
-}
-.nl-main__title {
-	font-family:"ITC Caslon", Georgia, serif;
-	font-size:2.1875rem;
-	line-height:2.25rem;
-	letter-spacing:-0.01em;
-	margin:40px 0 15px 0;
-	text-align:center;
+table.definitions,
+div.schedule table {
+	border-collapse: collapse !important;
+	margin: 1em 0 2em -2em !important
 }
 
-@media screen and (min-width: 64em) {  .nl-main__title {
-	font-size:3.125rem;
-	line-height:3.125rem;
-	margin:60px 0 20px 0;
-}
-}
-.nl-main__content {
-	color:#666;
-	font-family:"adobe-caslon-pro", serif;
-	font-size:1rem;
-	line-height:1.25rem;
-	letter-spacing:normal;
-	margin:15px 0 30px 0;
-	text-align:center;
+table.definitions tr:nth-child(odd),
+div.schedule table tr:nth-child(odd) {
+	background-color: #eee
 }
 
-@media screen and (min-width: 64em) {  .nl-main__content {
-	font-size:1.125rem;
-	line-height:1.5625rem;
-	margin:20px 0 50px 0;
-}
-}
-.nl-form__option {
-	border-bottom:1px solid #EAEAEA;
-}
-
-.nl-form__checkbox {
-	display:none;
+table.definitions td,
+table.definitions th,
+div.schedule table td,
+div.schedule table th {
+	border-top: 1px solid black !important;
+	border-bottom: 1px solid black !important;
+	padding: 5px !important;
+	vertical-align: top !important;
+	text-align: left !important
 }
 
-.nl-form__checkbox:checked+.nl-form__checkbox-box {
-	background-position-x:-20px;
+table.definitions th,
+div.schedule table th {
+	width: 25% !important
 }
 
-.nl-form__label {
-	cursor:pointer;
-	display:block;
+table.signature,
+table.signature2,
+div.signature table {
+	margin-top: 1em !important;
+	margin-bottom: 1em !important
 }
 
-.nl-form__checkbox-box {
-	background-image:url("https://www.vogue.co.uk/static/img/newsletter_checkbox.png");
-	background-size:40px 20px;
-	border:1px solid #E0E0E0;
-	display:block;
-	float:left;
-	height:20px;
-	width:20px;
+table.signature th,
+table.signature td,
+table.signature2 th,
+table.signature2 td,
+div.signature table th,
+div.signature table td {
+	padding: 1em 0 0 0 !important
 }
 
-.nl-form__checkbox-title {
-	font-family:"ITC Caslon", Georgia, serif;
-	font-size:1.5rem;
-	line-height:1.75rem;
-	letter-spacing:-0.01em;
-	margin-bottom:10px;
-	margin-left:50px;
+table.signature th,
+table.signature2 th,
+div.signature table th {
+	font-weight: normal !important;
+	text-align: right !important;
+	padding-right: 1em !important;
+	min-width: 90px
 }
 
-@media screen and (min-width: 64em) {  .nl-form__checkbox-title {
-	font-size:1.8125rem;
-	line-height:2rem;
-}
-}
-.nl-form__checkbox-content {
-	font-family:"adobe-caslon-pro", serif;
-	font-size:1rem;
-	line-height:1.5rem;
-	letter-spacing:normal;
-	margin-bottom:25px;
-	margin-left:50px;
+table.signature td.signatureBox,
+table.signature2 td.signatureBox,
+div.signature table td.signatureBox {
+	border-bottom: 1px solid black !important;
+	min-width: 300px
 }
 
-@media screen and (min-width: 64em) {  .nl-form__checkbox-content {
-	margin-bottom:30px;
-}
-}
-.nl-form__email {
-	background-color:#F9F9F9;
-	border:1px solid #E0E0E0;
-	-webkit-box-sizing:border-box;
-	box-sizing:border-box;
-	display:block;
-	font-family:Nobel, sans-serif;
-	font-size:.875rem;
-	line-height:.9375rem;
-	letter-spacing:0.025em;
-	height:45px;
-	margin:25px 0 10px 0;
-	padding:15px;
-	width:100%;
+.witness table th,
+.witness table td {
+	border: none;
+	vertical-align: text-top
 }
 
-@media screen and (min-width: 64em) {  .nl-form__email {
-	display:inline-block;
-	margin-bottom:30px;
-	margin-right:10px;
-	margin-top:0;
-	width:420px;
-}
-}
-.nl-form__email-label {
-	display:block;
-	font-family:Nobel, sans-serif;
-	font-size:.9375rem;
-	font-weight:700;
-	line-height:.9375rem;
-	letter-spacing:0.025em;
-	margin-top:40px;
-	margin-bottom:25px;
-	text-transform:uppercase;
+.witness table th {
+	font-weight: normal
 }
 
-@media screen and (min-width: 64em) {  .nl-form__email-label {
-	margin-top:60px;
-}
-}
-
-.nl-form__submit {
-	display:block;
-	background-color:#C00000;
-	border:1px solid transparent;
-	color:#fff;
-	text-decoration:none;
-	margin-top:10px;
-	margin-bottom:30px;
-	text-transform:uppercase;
-	width:100%;
+ol.letterList {
+	list-style: lower-alpha !important
 }
 
-@media screen and (min-width: 64em) {  .nl-form__submit {
-	display:inline-block;
-	margin-bottom:30px;
-	margin-top:0;
-	width:120px;
-}
-}
-.nl-form__checkbox-small {
-	display:none;
+div.schedule {
+	border-top: 1px solid black
 }
 
-.nl-form__checkbox-small:checked+.nl-form__checkbox-small-box {
-	background-position-x:-16px;
+div.schedule h2 {
+	text-align: center;
+	text-transform: uppercase;
+	margin-bottom: 1em
 }
 
-.nl-form__checkbox-small-box {
-	background-image:url("https://www.vogue.co.uk/static/img/newsletter_checkbox.png");
-	background-size:32px 16px;
-	border:1px solid #E0E0E0;
-	display:block;
-	float:left;
-	height:16px;
-	width:16px;
+div.schedule h3 {
+	margin-top: 1em;
+	text-align: center;
+	margin-bottom: 3em
 }
-
-.nl-form__checkbox-small-content {
-	color:#666;
-	font-family:"adobe-caslon-pro", serif;
-	font-size:.75rem;
-	line-height:1.125rem;
-	letter-spacing:normal;
-	margin:0;
-	margin-bottom:20px;
-	margin-left:31px;
-}
-
-.nl-main__separator {
-	background-color:#EAEAEA;
-	height:1px;
-	margin-top:10px;
-	margin-bottom:20px;
-	width:100%;
-}
-
-@media screen and (min-width: 64em) {  .nl-main__separator {
-	margin-top:40px;
-}
-}
-.nl-main__footer {
-	color:#BDBDBD;
-	font-family:Nobel, sans-serif;
-	font-size:.6875rem;
-	line-height:1.125rem;
-	letter-spacing:0.025em;
-	margin-bottom:40px;
-}
-
-@media screen and (min-width: 64em) {  .nl-main__footer {
-	margin-bottom:60px;
-}
-}
-.nl-main__privacy {
-	color:inherit;
-	font-weight:700;
-}
-
-
-

@@ -2,8 +2,6 @@ const React = require('react');
 const connect = require('react-redux').connect;
 const bindActionCreators = require('redux').bindActionCreators;
 const trackEntry = require('../actions/index').trackEntry;
-// const Radium = require('radium');
-// import SocialShare from '../components/social_share';
 
 class CompetitionListItem extends React.Component {
 

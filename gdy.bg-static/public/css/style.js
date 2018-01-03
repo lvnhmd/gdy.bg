@@ -1,226 +1,155 @@
 {
-	'h1, h3, h4': {
-		color: '#111',
-		fontFamily: '"ITC Caslon", Georgia, serif',
-		fontWeight: 400,
-		lineHeight: '1.2em',
-		letterSpacing: '-0.01em',
-		WebkitFontVariantLigatures: 'common-ligatures',
-		fontVariantLigatures: 'common-ligatures',
-		margin: '30px 0 20px 0'
+	'.firstList': {
+		counterReset: 'chapter'
+	},
+	'ol.clauses, ol.parties, ol.recitals': {
+		marginLeft: 0,
+		padding: '0 0 0 2em'
+	},
+	'ol.clauses ol, ol.parties ol, ol.recitals ol': {
+		marginLeft: 0,
+		padding: '0 0 0 2em'
+	},
+	'ol.clauses li, ol.parties li, ol.recitals li': {
+		fontSize: 15,
+		marginTop: '.5em',
+		marginBottom: '.5em'
+	},
+	'ol.clauses>li>ol>li': {
+		listStyle: 'lower-alpha'
+	},
+	'ol.clauses>li>ol>li>ol>li': {
+		listStyle: 'lower-roman'
+	},
+	'ol.clauses>li, ol.parties>li': {
+		listStyleType: 'none',
+		counterIncrement: 'chapter'
+	},
+	'ol.parties>li:before, ol.clauses>li:before': {
+		width: '2em',
+		marginLeft: '-2em',
+		display: 'inline-block'
+	},
+	'ol.clauses>li:before': {
+		content: 'counter(chapter) ".    "'
+	},
+	'ol.parties>li:before': {
+		content: '"(" counter(chapter) ") "'
+	},
+	'ol.recitals': {
+		listStyle: 'upper-alpha'
+	},
+	'ol.clausesNested, ol.clausesNested ol': {
+		counterReset: 'item',
+		marginLeft: 0,
+		paddingLeft: 0
+	},
+	'ol.clausesNested': {
+		padding: '0 5em 0 5em'
+	},
+	'ol.clausesNested li': {
+		fontWeight: 'bold'
+	},
+	'ol.clausesNested li p, ol.clausesNested li li': {
+		fontWeight: 'normal'
+	},
+	'ol.clausesNested li ol>li': {
+		marginTop: '1em',
+		marginBottom: '1em'
+	},
+	'ol.clausesNested li p': {
+		marginTop: 0
+	},
+	'ol.clausesNested>li, ol.clausesNested ol>li': {
+		display: 'block',
+		position: 'relative'
+	},
+	'ol.clausesNested>li:before, ol.clausesNested ol>li:before': {
+		display: 'inline-block',
+		content: 'counters(item, ".") ". "',
+		counterIncrement: 'item',
+		width: '4em',
+		marginLeft: '-4em'
+	},
+	body: {
+		fontFamily: '\'Volkhov\', serif',
+		fontSize: 15,
+		margin: '2em 4em 4em 4em'
 	},
 	h1: {
-		fontSize: '2.1875rem',
-		fontWeight: 400
+		fontFamily: '\'Volkhov\', serif',
+		fontSize: 'x-large',
+		marginTop: '1em',
+		marginBottom: '1.5em',
+		textAlign: 'center',
+		fontWeight: 'bold'
 	},
-	mediaQueries: {
-		'screen and (min-width: 64em)': {
-			h1: {
-				fontSize: '3.125rem'
-			},
-			'.nl-main__wrapper': {
-				paddingLeft: 60,
-				paddingRight: 60
-			},
-			'.nl-main__title': {
-				fontSize: '3.125rem',
-				lineHeight: '3.125rem',
-				margin: '60px 0 20px 0'
-			},
-			'.nl-main__content': {
-				fontSize: '1.125rem',
-				lineHeight: '1.5625rem',
-				margin: '20px 0 50px 0'
-			},
-			'.nl-form__checkbox-title': {
-				fontSize: '1.8125rem',
-				lineHeight: '2rem'
-			},
-			'.nl-form__checkbox-content': {
-				marginBottom: 30
-			},
-			'.nl-form__email': {
-				display: 'inline-block',
-				marginBottom: 30,
-				marginRight: 10,
-				marginTop: 0,
-				width: 420
-			},
-			'.nl-form__email-label': {
-				marginTop: 60
-			},
-			'.nl-form__submit': {
-				display: 'inline-block',
-				marginBottom: 30,
-				marginTop: 0,
-				width: 120
-			},
-			'.nl-main__separator': {
-				marginTop: 40
-			},
-			'.nl-main__footer': {
-				marginBottom: 60
-			}
-		},
-		'screen and (min-width: 43.75em)': {
-			'.nl-main__wrapper': {
-				paddingLeft: 60,
-				paddingRight: 60
-			}
-		}
+	h2: {
+		fontSize: 15,
+		fontFamily: '\'Volkhov\', serif',
+		marginTop: '2em',
+		fontWeight: 'bold'
 	},
-	'.global__button-reset': {
-		WebkitAppearance: 'none',
-		msAppearance: 'none',
-		MozAppearance: 'none',
-		OAppearance: 'none',
-		appearance: 'none',
-		background: 'transparent',
+	h3: {
+		fontWeight: 'bold',
+		fontSize: 15,
+		marginTop: '2em'
+	},
+	'table.definitions, div.schedule table': {
+		borderCollapse: 'collapse',
+		margin: '1em 0 2em -2em'
+	},
+	'table.definitions tr:nth-child(odd), div.schedule table tr:nth-child(odd)': {
+		backgroundColor: '#eee'
+	},
+	'table.definitions td, table.definitions th, div.schedule table td, div.schedule table th': {
+		borderTop: '1px solid black',
+		borderBottom: '1px solid black',
+		padding: 5,
+		verticalAlign: 'top',
+		textAlign: 'left'
+	},
+	'table.definitions th, div.schedule table th': {
+		width: '25%'
+	},
+	'table.signature, table.signature2, div.signature table': {
+		marginTop: '1em',
+		marginBottom: '1em'
+	},
+	'table.signature th, table.signature td, table.signature2 th, table.signature2 td, div.signature table th, div.signature table td': {
+		padding: '1em 0 0 0'
+	},
+	'table.signature th, table.signature2 th, div.signature table th': {
+		fontWeight: 'normal',
+		textAlign: 'right',
+		paddingRight: '1em',
+		minWidth: 90
+	},
+	'table.signature td.signatureBox, table.signature2 td.signatureBox, div.signature table td.signatureBox': {
+		borderBottom: '1px solid black',
+		minWidth: 300
+	},
+	'.witness table th, .witness table td': {
 		border: 'none',
-		borderRadius: 0,
-		cursor: 'pointer',
-		padding: 0
+		verticalAlign: 'text-top'
 	},
-	'.nl-main__wrapper': {
-		margin: '0 auto',
-		maxWidth: 560,
-		paddingLeft: 20,
-		paddingRight: 20
+	'.witness table th': {
+		fontWeight: 'normal'
 	},
-	'.nl-main__title': {
-		fontFamily: '"ITC Caslon", Georgia, serif',
-		fontSize: '2.1875rem',
-		lineHeight: '2.25rem',
-		letterSpacing: '-0.01em',
-		margin: '40px 0 15px 0',
-		textAlign: 'center'
+	'ol.letterList': {
+		listStyle: 'lower-alpha'
 	},
-	'.nl-main__content': {
-		color: '#666',
-		fontFamily: '"adobe-caslon-pro", serif',
-		fontSize: '1rem',
-		lineHeight: '1.25rem',
-		letterSpacing: 'normal',
-		margin: '15px 0 30px 0',
-		textAlign: 'center'
+	'div.schedule': {
+		borderTop: '1px solid black'
 	},
-	'.nl-form__option': {
-		borderBottom: '1px solid #EAEAEA'
-	},
-	'.nl-form__checkbox': {
-		display: 'none'
-	},
-	'.nl-form__checkbox:checked+.nl-form__checkbox-box': {
-		backgroundPositionX: -20
-	},
-	'.nl-form__label': {
-		cursor: 'pointer',
-		display: 'block'
-	},
-	'.nl-form__checkbox-box': {
-		backgroundImage: 'url("https://www.vogue.co.uk/static/img/newsletter_checkbox.png")',
-		backgroundSize: '40px 20px',
-		border: '1px solid #E0E0E0',
-		display: 'block',
-		float: 'left',
-		height: 20,
-		width: 20
-	},
-	'.nl-form__checkbox-title': {
-		fontFamily: '"ITC Caslon", Georgia, serif',
-		fontSize: '1.5rem',
-		lineHeight: '1.75rem',
-		letterSpacing: '-0.01em',
-		marginBottom: 10,
-		marginLeft: 50
-	},
-	'.nl-form__checkbox-content': {
-		fontFamily: '"adobe-caslon-pro", serif',
-		fontSize: '1rem',
-		lineHeight: '1.5rem',
-		letterSpacing: 'normal',
-		marginBottom: 25,
-		marginLeft: 50
-	},
-	'.nl-form__email': {
-		backgroundColor: '#F9F9F9',
-		border: '1px solid #E0E0E0',
-		WebkitBoxSizing: 'border-box',
-		boxSizing: 'border-box',
-		display: 'block',
-		fontFamily: 'Nobel, sans-serif',
-		fontSize: '.875rem',
-		lineHeight: '.9375rem',
-		letterSpacing: '0.025em',
-		height: 45,
-		margin: '25px 0 10px 0',
-		padding: 15,
-		width: '100%'
-	},
-	'.nl-form__email-label': {
-		display: 'block',
-		fontFamily: 'Nobel, sans-serif',
-		fontSize: '.9375rem',
-		fontWeight: 700,
-		lineHeight: '.9375rem',
-		letterSpacing: '0.025em',
-		marginTop: 40,
-		marginBottom: 25,
-		textTransform: 'uppercase'
-	},
-	'.nl-form__submit': {
-		display: 'block',
-		backgroundColor: '#C00000',
-		border: '1px solid transparent',
-		color: '#fff',
-		textDecoration: 'none',
-		marginTop: 10,
-		marginBottom: 30,
+	'div.schedule h2': {
+		textAlign: 'center',
 		textTransform: 'uppercase',
-		width: '100%'
+		marginBottom: '1em'
 	},
-	'.nl-form__checkbox-small': {
-		display: 'none'
-	},
-	'.nl-form__checkbox-small:checked+.nl-form__checkbox-small-box': {
-		backgroundPositionX: -16
-	},
-	'.nl-form__checkbox-small-box': {
-		backgroundImage: 'url("https://www.vogue.co.uk/static/img/newsletter_checkbox.png")',
-		backgroundSize: '32px 16px',
-		border: '1px solid #E0E0E0',
-		display: 'block',
-		float: 'left',
-		height: 16,
-		width: 16
-	},
-	'.nl-form__checkbox-small-content': {
-		color: '#666',
-		fontFamily: '"adobe-caslon-pro", serif',
-		fontSize: '.75rem',
-		lineHeight: '1.125rem',
-		letterSpacing: 'normal',
-		margin: 0,
-		marginBottom: 20,
-		marginLeft: 31
-	},
-	'.nl-main__separator': {
-		backgroundColor: '#EAEAEA',
-		height: 1,
-		marginTop: 10,
-		marginBottom: 20,
-		width: '100%'
-	},
-	'.nl-main__footer': {
-		color: '#BDBDBD',
-		fontFamily: 'Nobel, sans-serif',
-		fontSize: '.6875rem',
-		lineHeight: '1.125rem',
-		letterSpacing: '0.025em',
-		marginBottom: 40
-	},
-	'.nl-main__privacy': {
-		color: 'inherit',
-		fontWeight: 700
+	'div.schedule h3': {
+		marginTop: '1em',
+		textAlign: 'center',
+		marginBottom: '3em'
 	}
 }
