@@ -119,6 +119,7 @@ class Header extends React.Component {
                     <div className="global__a--center">
                         <a href="newsletters.html" className="n-menu__newsletter-btn">Newsletter Sign Up</a>
                     </div>
+                    <Greeting isMobile={true}/>
                     {/* <!--  social menu mobile end --> */}
                 </div>
             </header>
