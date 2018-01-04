@@ -3,6 +3,7 @@ const Radium = require('radium');
 const { Style, StyleRoot } = Radium;
 const Header = require('./header');
 const SearchField = require('./searchField');
+const CookieWarning = require('./cookieWarning');
 
 export default class App extends React.Component {
 
@@ -217,6 +218,13 @@ export default class App extends React.Component {
                             },
                             '.nl-main__footer': {
                                 marginBottom: 60
+                            },
+                            p: {
+                                fontSize: '1.25rem'
+                            },
+                            '.c-cookie-warning': {
+                                left: 60,
+                                width: 360
                             }
                         },
                         'screen and (min-width: 92.5em)': {
@@ -1149,13 +1157,85 @@ export default class App extends React.Component {
                         marginTop: '1em',
                         textAlign: 'center',
                         marginBottom: '3em'
+                    },
+                    // cookie warning
+                    p: {
+                        color: '#333',
+                        fontFamily: '"adobe-caslon-pro", serif',
+                        fontSize: '1.125rem',
+                        fontWeight: 400,
+                        lineHeight: '1.5em',
+                        letterSpacing: 'normal'
+                    },
+                    '.c-cookie-warning': {
+                        bottom: 0,
+                        WebkitBoxSizing: 'border-box',
+                        boxSizing: 'border-box',
+                        left: 0,
+                        position: 'fixed',
+                        width: '100%',
+                        zIndex: 2,
+                        backgroundColor: '#FFF',
+                        border: '2px solid #EAEAEA',
+                        borderRadius: '4px 4px 0 0',
+                        WebkitBoxShadow: '0px 2px 6px 2px rgba(102, 102, 102, 0.06)',
+                        boxShadow: '0px 2px 6px 2px rgba(102, 102, 102, 0.06)',
+                        padding: '16px 20px'
+                    },
+                    '.c-cookie-warning.is-hidden': {
+                        display: 'none'
+                    },
+                    '.c-cookie-warning__table': {
+                        display: 'table',
+                        tableLayout: 'fixed',
+                        width: '100%'
+                    },
+                    '.c-cookie-warning__table-cell': {
+                        display: 'table-cell'
+                    },
+                    '.c-cookie-warning__table-cell--cta': {
+                        textAlign: 'right',
+                        width: 30
+                    },
+                    '.c-cookie-warning__message': {
+                        display: 'inline-block',
+                        verticalAlign: 'middle',
+                        color: '#666',
+                        fontFamily: 'Nobel, sans-serif',
+                        fontSize: '.75rem',
+                        lineHeight: '1rem',
+                        letterSpacing: '0.025em',
+                        marginBottom: 0,
+                        marginTop: 0
+                    },
+                    '.c-cookie-warning__button': {
+                        display: 'inline-block',
+                        height: 22,
+                        verticalAlign: 'middle',
+                        width: 22,
+                        backgroundColor: 'transparent',
+                        border: '1px solid #666',
+                        borderRadius: '50%',
+                        padding: 0
+                    },
+                    '.c-cookie-warning__message a': {
+                        color: 'inherit',
+                        textDecoration: 'underline'
+                    },
+                    '.c-cookie-warning__button svg': {
+                        display: 'inline-block',
+                        height: 10,
+                        margin: '0 auto',
+                        width: 8
                     }
+
                 }}
                 />
                 <input type="checkbox" id="chkNavHamburger" className="n-main__checkbox" hidden />
                 <input type="checkbox" id="chkNavSearch" className="n-main__checkbox" hidden />
                 <Header />
                 <SearchField isMobile={false} />
+                <CookieWarning />
 
                 {this.props.children}
             </StyleRoot>

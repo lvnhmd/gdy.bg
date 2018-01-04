@@ -1,220 +1,127 @@
-@import url(https://fonts.googleapis.com/css?family=Volkhov:400,700);
-.firstList {
-	counter-reset: chapter
+
+p {
+    color: #333;
+    font-family: "adobe-caslon-pro", serif;
+    font-size: 18px;
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.5em;
+    letter-spacing: normal
 }
 
-ol.clauses,
-ol.parties,
-ol.recitals {
-	margin-left: 0;
-	padding: 0 0 0 2em
+@media screen and (min-width: 64em) {
+    p {
+        font-size: 20px;
+        font-size: 1.25rem
+    }
 }
 
-ol.clauses ol,
-ol.parties ol,
-ol.recitals ol {
-	margin-left: 0;
-	padding: 0 0 0 2em
+.global__button-reset {
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    padding: 0
 }
 
-ol.clauses li,
-ol.parties li,
-ol.recitals li {
-	font-size: 15px !important;
-	margin-top: .5em;
-	margin-bottom: .5em
+.c-cookie-warning {
+    bottom: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 2
 }
 
-ol.clauses>li>ol>li {
-	list-style: lower-alpha !important
+@media screen and (min-width: 64em) {
+    .c-cookie-warning {
+        left: 60px;
+        width: 360px
+    }
 }
 
-ol.clauses>li>ol>li>ol>li {
-	list-style: lower-roman
+.c-cookie-warning.is-hidden {
+    display: none
 }
 
-ol.clauses>li,
-ol.parties>li {
-	list-style-type: none;
-	counter-increment: chapter
+.c-cookie-warning__table {
+    display: table;
+    table-layout: fixed;
+    width: 100%
 }
 
-ol.parties>li:before,
-ol.clauses>li:before {
-	width: 2em;
-	margin-left: -2em;
-	display: inline-block
+.c-cookie-warning__table-cell {
+    display: table-cell
 }
 
-ol.clauses>li:before {
-	content: counter(chapter) ".    "
+.c-cookie-warning__table-cell--cta {
+    text-align: right;
+    width: 20px
 }
 
-ol.parties>li:before {
-	content: "(" counter(chapter) ") "
+.c-cookie-warning__message {
+    display: inline-block;
+    vertical-align: middle
 }
 
-ol.recitals {
-	list-style: upper-alpha !important
+.c-cookie-warning__button {
+    display: inline-block;
+    height: 20px;
+    vertical-align: middle;
+    width: 20px
 }
 
-ol.clausesNested,
-ol.clausesNested ol {
-	counter-reset: item;
-	margin-left: 0;
-	padding-left: 0
+.c-cookie-warning {
+    background-color: #FFF;
+    border: 2px solid #EAEAEA;
+    border-radius: 4px 4px 0 0;
+    -webkit-box-shadow: 0px 2px 6px 2px rgba(102, 102, 102, 0.06);
+    box-shadow: 0px 2px 6px 2px rgba(102, 102, 102, 0.06);
+    padding: 16px 20px
 }
 
-ol.clausesNested {
-	padding: 0 5em 0 5em
+.c-cookie-warning__table-cell--cta {
+    width: 30px
 }
 
-ol.clausesNested li {
-	font-weight: bold
+.c-cookie-warning__message {
+    color: #666;
+    font-family: Nobel, sans-serif;
+    font-size: 12px;
+    font-size: .75rem;
+    line-height: 16px;
+    line-height: 1rem;
+    letter-spacing: 0.025em;
+    margin-bottom: 0;
+    margin-top: 0
 }
 
-ol.clausesNested li p,
-ol.clausesNested li li {
-	font-weight: normal
+.c-cookie-warning__message a {
+    color: inherit;
+    text-decoration: underline
 }
 
-ol.clausesNested li ol>li {
-	margin-top: 1em;
-	margin-bottom: 1em
+.c-cookie-warning__button {
+    background-color: transparent;
+    border: 1px solid #666;
+    border-radius: 50%;
+    height: 22px;
+    padding: 0;
+    width: 22px
 }
 
-ol.clausesNested li p {
-	margin-top: 0
+.c-cookie-warning__button svg {
+    display: inline-block;
+    height: 10px;
+    margin: 0 auto;
+    width: 8px
 }
 
-ol.clausesNested>li,
-ol.clausesNested ol>li {
-	display: block;
-	position: relative
-}
 
-ol.clausesNested>li:before,
-ol.clausesNested ol>li:before {
-	display: inline-block;
-	content: counters(item, ".") ". ";
-	counter-increment: item;
-	width: 4em;
-	margin-left: -4em
-}
-
-body {
-	font-family: 'Volkhov', serif !important;
-	font-size: 15px !important;
-	margin: 2em 4em 4em 4em !important
-}
-
-h1 {
-	font-family: 'Volkhov', serif !important;
-	font-size: x-large !important;
-	margin-top: 1em !important;
-	margin-bottom: 1.5em !important;
-	text-align: center !important;
-	font-weight: bold !important
-}
-
-h2 {
-	font-size: 15px !important;
-	font-family: 'Volkhov', serif !important;
-	margin-top: 2em !important;
-	font-weight: bold !important
-}
-
-h3 {
-	font-weight: bold;
-	font-size: 15px;
-	margin-top: 2em
-}
-
-table.definitions,
-div.schedule table {
-	border-collapse: collapse !important;
-	margin: 1em 0 2em -2em !important
-}
-
-table.definitions tr:nth-child(odd),
-div.schedule table tr:nth-child(odd) {
-	background-color: #eee
-}
-
-table.definitions td,
-table.definitions th,
-div.schedule table td,
-div.schedule table th {
-	border-top: 1px solid black !important;
-	border-bottom: 1px solid black !important;
-	padding: 5px !important;
-	vertical-align: top !important;
-	text-align: left !important
-}
-
-table.definitions th,
-div.schedule table th {
-	width: 25% !important
-}
-
-table.signature,
-table.signature2,
-div.signature table {
-	margin-top: 1em !important;
-	margin-bottom: 1em !important
-}
-
-table.signature th,
-table.signature td,
-table.signature2 th,
-table.signature2 td,
-div.signature table th,
-div.signature table td {
-	padding: 1em 0 0 0 !important
-}
-
-table.signature th,
-table.signature2 th,
-div.signature table th {
-	font-weight: normal !important;
-	text-align: right !important;
-	padding-right: 1em !important;
-	min-width: 90px
-}
-
-table.signature td.signatureBox,
-table.signature2 td.signatureBox,
-div.signature table td.signatureBox {
-	border-bottom: 1px solid black !important;
-	min-width: 300px
-}
-
-.witness table th,
-.witness table td {
-	border: none;
-	vertical-align: text-top
-}
-
-.witness table th {
-	font-weight: normal
-}
-
-ol.letterList {
-	list-style: lower-alpha !important
-}
-
-div.schedule {
-	border-top: 1px solid black
-}
-
-div.schedule h2 {
-	text-align: center;
-	text-transform: uppercase;
-	margin-bottom: 1em
-}
-
-div.schedule h3 {
-	margin-top: 1em;
-	text-align: center;
-	margin-bottom: 3em
-}
+/*# sourceMappingURL=page.min.css.map */
