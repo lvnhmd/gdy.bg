@@ -30,3 +30,5 @@ module.exports.postUser = (event, context, cb) => api.postUser(event, cbw(cb));
 module.exports.trackEntry = (event, context, cb) => api.trackEntry(event, cbw(cb));
 
 module.exports.updateClosesByDate = (event, context, cb) => utils.updateClosesByDate(event);
+
+module.exports.newsletterSignup = (event, context, cb) => api.newsletterSignup(event, cbw(cb));

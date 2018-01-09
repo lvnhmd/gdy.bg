@@ -37,7 +37,7 @@ class Signin extends Component {
                         <button className='global__button-reset btn-single btn-single--light nl-form__submit'>Sign-in with Google</button>
                     </SocialLogin>
 
-                    <div className='nl-main__footer'>Will be used in accordance with our&nbsp;
+                    <div className='nl-main__footer'>Read our&nbsp;
                     <a onClick={this.click.bind(this)} className='nl-main__privacy'>Privacy Policy</a>
                     </div>
                 </div>
@@ -46,12 +46,8 @@ class Signin extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return state;
-}
-
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ signin, displayPolicy }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Signin);
+export default connect(null, mapDispatchToProps)(Signin);

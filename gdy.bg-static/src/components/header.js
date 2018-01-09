@@ -2,15 +2,22 @@ const React = require('react');
 const connect = require('react-redux').connect;
 const bindActionCreators = require('redux').bindActionCreators;
 const goHome = require('../actions/index').goHome;
+const goToNewsletterSignup = require('../actions/index').goToNewsletterSignup;
 const Greeting = require('./greeting');
 const SourceList = require('./sourceList');
 const SocialMenu = require('./socialMenu');
 const SearchField = require('./searchField');
 
 class Header extends React.Component {
+    
     click() {
         this.props.goHome();
     }
+    
+    goToNewsletterSignup() {
+        this.props.goToNewsletterSignup();
+    }
+    
     render() {
 
         return (
@@ -117,7 +124,7 @@ class Header extends React.Component {
                     </div>
 
                     <div className="global__a--center">
-                        <a href="newsletters.html" className="n-menu__newsletter-btn">Newsletter Sign Up</a>
+                        <a onClick={this.goToNewsletterSignup.bind(this)} className="n-menu__newsletter-btn">Newsletter Sign Up</a>
                     </div>
                     <Greeting isMobile={true}/>
                     {/* <!--  social menu mobile end --> */}
@@ -128,12 +135,8 @@ class Header extends React.Component {
 }
 
 
-function mapStateToProps(state) {
-    return state;
-}
-
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ goHome }, dispatch);
+    return bindActionCreators({ goHome, goToNewsletterSignup }, dispatch);
 }
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(Header);
+module.exports = connect(null, mapDispatchToProps)(Header);

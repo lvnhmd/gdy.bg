@@ -1,6 +1,13 @@
 const React = require('react');
+const { connect } = require('react-redux');
+const bindActionCreators = require('redux').bindActionCreators;
+const goToNewsletterSignup = require('../actions/index').goToNewsletterSignup;
 
 class SocialMenu extends React.Component {
+
+    click() {
+        this.props.goToNewsletterSignup();
+    }
 
     render() {
         if (this.props.isMobile) {
@@ -57,7 +64,7 @@ class SocialMenu extends React.Component {
                             </a>
                         </div>
                         <div className="n-main__dropdown--follow__group">
-                            <a href="newsletters.html" className="n-main__dropdown__btn n-main__dropdown__btn--newsletter ">Newsletter Sign Up</a>
+                            <a onClick={this.click.bind(this)} className="n-main__dropdown__btn n-main__dropdown__btn--newsletter ">Newsletter Sign Up</a>
                         </div>
                     </li>
                 </ul>)
@@ -65,4 +72,9 @@ class SocialMenu extends React.Component {
     }
 }
 
-module.exports = SocialMenu;
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ goToNewsletterSignup }, dispatch);
+}
+
+module.exports = connect(null, mapDispatchToProps)(SocialMenu);

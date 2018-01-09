@@ -11,6 +11,8 @@ import App from './components/app';
 import Home from './components/home';
 import Signin from './components/signin';
 import PrivacyPolicy from './components/privacyPolicy';
+import Newsletter from './components/newsletter';
+
 import { AUTH_USER, APPLY_FILTERS } from './actions/types';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise, ReduxThunk)(createStore);
@@ -38,6 +40,7 @@ ReactDOM.render(
           <IndexRoute component={Home} />
           <Route path="signin" component={Signin} />
           <Route path="privacy" component={PrivacyPolicy} />
+          <Route path="newsletter" component={Newsletter} />
         </Route>
       </div>
     </Router>

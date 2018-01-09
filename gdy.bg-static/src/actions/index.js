@@ -12,7 +12,8 @@ import {
     DEAUTH_USER,
     TRACK_ENTRY,
     ERROR,
-    APPLY_FILTERS
+    APPLY_FILTERS,
+    NEWSLETTER_SIGNUP
 } from './types';
 
 const ROOT_URL = process.env.REACT_APP_API_URL;
@@ -204,4 +205,28 @@ export function goHome() {
         browserHistory.push('/');
     }
 
+}
+
+export function goToNewsletterSignup() {
+    return function (dispatch) {
+        browserHistory.push('/newsletter');
+    }
+
+}
+
+export function newsletterSignup(email) {
+    return function (dispatch) {
+        console.log('newsletter signup ', email);
+
+        axios.post(`${ROOT_URL}/newsletterSignup`, email)
+            .then(response => {
+                console.log('newsletter signup : success');
+                dispatch({ type: NEWSLETTER_SIGNUP, payload: true }) ;
+            })
+            .catch(response => {
+                console.log('newsletter signup : an error occured');
+                return { type: NEWSLETTER_SIGNUP, payload: false };
+            });
+
+    }
 }

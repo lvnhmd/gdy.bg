@@ -1,6 +1,7 @@
 var Competition = require('./models/competition');
 var User = require('./models/user');
 var Entry = require('./models/entry');
+var NewsletterSignup = require('./models/newsletterSignup');
 var moment = require('moment');
 var logger = require('./logger');
 var moment = require('moment');
@@ -107,6 +108,22 @@ exports.trackEntry = function (event, cb) {
     var entry = event.body;
 
     Entry.create(entry, { overwrite: true },
+        function (err, data) {
+            if (err) cb(err);
+
+            var result = {
+                body: data
+            };
+
+        });
+};
+
+exports.newsletterSignup = function (event, cb) {
+    logger.info("newsletterSignup  %j", event);
+
+    var email = event.body;
+
+    NewsletterSignup.create(email, { overwrite: true },
         function (err, data) {
             if (err) cb(err);
 

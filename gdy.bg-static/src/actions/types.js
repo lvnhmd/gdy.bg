@@ -7,3 +7,4 @@ export const DEAUTH_USER = 'DEAUTH_USER';
 export const TRACK_ENTRY = 'TRACK_ENTRY';
 export const ERROR = 'ERROR';
 export const APPLY_FILTERS = 'APPLY_FILTERS';
+export const NEWSLETTER_SIGNUP = 'NEWSLETTER_SIGNUP';
