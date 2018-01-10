@@ -1,10 +1,8 @@
 /* eslint-disable react/prefer-stateless-function */
-import React, { Component } from 'react';
-import {
-    ShareButtons,
-    ShareCounts,
-    generateShareIcon,
-} from 'react-share';
+const React = require('react');
+const ShareButtons = require('react-share').ShareButtons;
+const ShareCounts = require('react-share').ShareCounts;
+const generateShareIcon = require('react-share').generateShareIcon;
 
 const {
     FacebookShareButton,
@@ -15,7 +13,7 @@ const {
 } = ShareButtons;
 
 const {
-  FacebookShareCount,
+    FacebookShareCount,
     GooglePlusShareCount,
     PinterestShareCount
 } = ShareCounts;
@@ -26,10 +24,10 @@ const GooglePlusIcon = generateShareIcon('google');
 const PinterestIcon = generateShareIcon('pinterest');
 const WhatsappIcon = generateShareIcon('whatsapp');
 
-class SocialShare extends Component {
+class SocialShare extends React.Component {
 
     render() {
-        
+
         return (
             <div className="jssocials-info Demo__container">
 
@@ -132,4 +130,6 @@ class SocialShare extends Component {
     }
 }
 
-export default SocialShare;
+// export default SocialShare;
+module.exports = SocialShare;
+

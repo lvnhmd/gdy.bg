@@ -1,28 +1,18 @@
 {
-	'.btn-single': {
-		borderBottom: 'none',
+	'.Demo__some-network': {
+		verticalAlign: 'top',
 		display: 'inline-block',
-		textDecoration: 'none',
-		fontFamily: 'Nobel, sans-serif',
-		fontSize: '.75rem',
-		lineHeight: '1em',
-		letterSpacing: 1,
-		padding: 15,
-		textTransform: 'uppercase',
-		WebkitTransition: 'all 0.1s ease-in-out',
-		transition: 'all 0.1s ease-in-out'
+		marginRight: 30,
+		textAlign: 'center'
 	},
-	'.btn-single:hover': {
-		borderBottom: 'none'
+	'.Demo__some-network__share-count': {
+		marginTop: 3,
+		fontSize: 12
 	},
-	'.btn-single--light': {
-		border: '1px solid #C00000',
-		color: '#C00000'
+	'.Demo__some-network__share-button': {
+		cursor: 'pointer'
 	},
-	'.btn-single--light:hover': {
-		backgroundColor: '#C00000',
-		border: '1px solid transparent',
-		color: '#fff',
-		textDecoration: 'none'
+	'.Demo__some-network__share-button:hover:not(:active)': {
+		opacity: 0.75
 	}
 }

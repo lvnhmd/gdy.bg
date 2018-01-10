@@ -190,8 +190,8 @@ functions:
 
 # TODO - do not let vogels mess with the tables   
 # run this only the first time - when the tables do not exist    
-resources:
-  Resources:
+# resources:
+#   Resources:
 #     CompetitionsTable:
 #       Type: "AWS::DynamoDB::Table"
 #       DeletionPolicy: Retain
@@ -256,20 +256,20 @@ resources:
     #       ReadCapacityUnits: 1
     #       WriteCapacityUnits: 1
     #     TableName: "entry"
-    NewsletterSignupTable:
-      Type: "AWS::DynamoDB::Table"
-      DeletionPolicy: Retain
-      Properties:
-        AttributeDefinitions:
-          - AttributeName: email
-            AttributeType: S
-        KeySchema:
-          - AttributeName: email
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: "newsletterSignup"
+    # NewsletterSignupTable:
+    #   Type: "AWS::DynamoDB::Table"
+    #   DeletionPolicy: Retain
+    #   Properties:
+    #     AttributeDefinitions:
+    #       - AttributeName: email
+    #         AttributeType: S
+    #     KeySchema:
+    #       - AttributeName: email
+    #         KeyType: HASH
+    #     ProvisionedThroughput:
+    #       ReadCapacityUnits: 1
+    #       WriteCapacityUnits: 1
+    #     TableName: "newsletterSignup"
     
 
       

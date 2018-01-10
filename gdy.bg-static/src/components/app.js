@@ -1227,9 +1227,30 @@ export default class App extends React.Component {
                         height: 10,
                         margin: '0 auto',
                         width: 8
+                    },
+                    '.Demo__container': {
+                        textAlign:'right'
+                    },
+                    '.Demo__some-network': {
+                        margin:'10px',
+                        verticalAlign: 'top',
+                        display: 'inline-block',
+                        marginRight: 30,
+                        textAlign: 'center'
+                    },
+                    '.Demo__some-network__share-count': {
+                        marginTop: 3,
+                        fontSize: 12
+                    },
+                    '.Demo__some-network__share-button': {
+                        cursor: 'pointer'
+                    },
+                    '.Demo__some-network__share-button:hover:not(:active)': {
+                        opacity: 0.75
                     }
+                }
 
-                }}
+                }
                 />
                 <input type="checkbox" id="chkNavHamburger" className="n-main__checkbox" hidden />
                 <input type="checkbox" id="chkNavSearch" className="n-main__checkbox" hidden />
