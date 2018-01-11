@@ -1,0 +1,32 @@
+[
+    {
+        "name": "GoodHousekeeping",
+        "show": true,
+        "paginate": true,
+        "pageSelector": "li.next a@href",
+        "getClosingDate": "dateUtils.getCompetitionClosingDate(comp.url, sConf, comp, xDone);",
+        "sanitiseData": "data[i].ends = _.trim(data[i].ends).replace(\/\\r?\\n|\\r\/g, '').replace(\/\\s\/g, '');",
+        "dataFilters": [],
+        "xOptsComps": [
+            {
+                "url": "https://comps.goodhousekeeping.co.uk/",
+                "selector": ".competitionPreview",
+                "format": [
+                    {
+                        "url": "a@href",
+                        "img": "img@src",
+                        "title": "img@title",
+                        "ends": ".datelist"
+                    }
+                ]
+            }
+        ],
+        "xOptsPgntnLimit": {
+            "url": "https://comps.goodhousekeeping.co.uk/",
+            "scope": "li.last",
+            "selector": "a@href"
+        },
+        "dateRegex": "(?:\\d{1}|\\d{2})\\\/(?:\\d{1}|\\d{2})\\\/(?:\\d{4}|\\d{2})",
+        "extractDateRegex": "\\d{2}-[A-Za-z]+-\\d{4}"
+    }
+]

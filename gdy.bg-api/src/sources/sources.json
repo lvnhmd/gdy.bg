@@ -133,7 +133,7 @@
         }
       ],
       "xOptsPgntnLimit": {
-        "url": "https://comps.idealhome.co.uk/",
+        "url": "https://comps.goodhousekeeping.co.uk/",
         "scope": "li.last",
         "selector": "a@href"
       },

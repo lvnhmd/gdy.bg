@@ -55,3 +55,7 @@ therefore I configured a rule to clean up after 3 months -> maybe it is worthwhi
 To test scraping locally but with my aws account's dynamo
 
 export NODE_ENV=prod && node scrape.js
+
+To test scraping locally but with my aws account's dynamo AND to use test.json instead of sources.json
+
+export NODE_ENV=prod && node scrape.js test

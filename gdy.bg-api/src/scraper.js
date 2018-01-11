@@ -23,6 +23,14 @@ module.exports.scrape = function () {
     let sources = JSON.parse(require('fs')
         .readFileSync(__dirname + '/sources/sources.json', 'utf8'));
 
+    console.log(process.argv);
+
+    if (process.argv[2] == 'test') {
+        sources = JSON.parse(require('fs')
+            .readFileSync(__dirname + '/sources/test.json', 'utf8'));
+    }
+
+
     logger.info('Sources : ' + JSON.stringify(sources, null, 2));
 
     sources.forEach(function (sConf) {
@@ -59,7 +67,7 @@ module.exports.scrape = function () {
                         if (err) logger.error(err);
 
                         result = _.flattenDeep(result);
-
+                        logger.info('RESULT ', result);
                         let xTasks = [];
 
                         for (var i in result) {
@@ -68,10 +76,12 @@ module.exports.scrape = function () {
                                     xTasks.push(function (xDone) {
                                         eval(sConf.getClosingDate);
                                     });
-                                    xTasks.push(function (xDone) {
-                                        eval(sConf.getImg);
+                                    if (sConf.getImg) {
+                                        xTasks.push(function (xDone) {
+                                            eval(sConf.getImg);
 
-                                    });
+                                        });
+                                    }
                                 })(result[i]);
                             }
                         }
