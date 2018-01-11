@@ -1,186 +1,174 @@
 [
-    {
-      "name": "Vogue",
-      "show": false
-    },
-    {
-      "name": "Glamour",
-      "show": true,
-      "paginate": false,
-      "pageSelector": "",
-      "getClosingDate": "dateUtils.getCompetitionClosingDate(comp.url, sConf, comp, xDone);",
-      "dataFilters": [
-        {
-          "property": "title",
-          "regex": "\\bwin\\b"
-        }
-      ],
-      "xOptsComps": [
-        {
-          "url": "http://www.glamourmagazine.co.uk/topic/competitions/",
-          "selector": ".c-card-list__item",
-          "format": [
-            {
-              "url": "a@href",
-              "img": "img@data-srcset",
-              "title": "h3.c-card__title"
-            }
-          ]
-        }
-      ],
-      "dateRegex": "(?:\\d{1}|\\d{2})\\\/(?:\\d{1}|\\d{2})\\\/(?:\\d{4}|\\d{2})",
-      "extractDateRegex": "(?:\\d{1}|\\d{2})th([A-Za-z]*[ ]+)*\\d{4}"
-    },
-    {
-      "name": "GQ",
-      "show": false
-    },
-    {
-      "name": "CNTraveller",
-      "show": true,
-      "paginate": true,
-      "pageSelector": "a.nextPage@href",
-      "getClosingDate": "dateUtils.getCompetitionClosingDate(comp.url, sConf, comp, xDone);",
-      "sanitiseData": "data[i].img = data[i].img.replace(\/^http:\\\/\\\/\/i, 'https://');",
-      "getImg": "x(comp.url, '.competition', 'img@src')(function (err, img) {if (err) logger.error(err);comp.img = img;xDone(null, comp);});",
-      "dataFilters": [],
-      "xOptsComps": [
-        {
-          "url": "http://www.cntraveller.com/news/competitions/",
-          "selector": ".largeArticle",
-          "format": [
-            {
-              "url": "a@href",
-              "img": "img@src",
-              "title": "h3"
-            }
-          ]
-        },
-        {
-          "url": "http://www.cntraveller.com/news/competitions/",
-          "selector": ".smallArticle",
-          "format": [
-            {
-              "url": "a@href",
-              "img": "img@src",
-              "title": "h3"
-            }
-          ]
-        }
-      ],
-      "xOptsPgntnLimit": {
-        "url": "http://www.cntraveller.com/news/competitions/",
-        "scope": "",
-        "selector": ".pageCount"
-      },
-      "dateRegex": "(?:\\d{1}|\\d{2})\\\/(?:\\d{1}|\\d{2})\\\/(?:\\d{4}|\\d{2})",
-      "extractDateRegex": "closes.*(?:\\d{1}|\\d{2})([A-Za-z]*[ ]+)*\\d{4}"
-    },
-    {
-      "name": "Tatler",
-      "show": true,
-      "manual": true
-    },
-    {
-      "name": "House&Garden",
-      "show": false
-    },
-    {
-      "name": "Brides",
-      "show": true,
-      "pageSelector": "",
-      "sanitiseData": "var splits = _.split(data[i].img, ','); var imgUrl = splits[splits.length - 1]; for (var s in splits) { if (splits[s].includes('width')) { var width = +(\/\\d{3}\/.exec(splits[s]));  if (width > 600) { imgUrl = splits[+s + 2]; } } } data[i].img = imgUrl.substring(imgUrl.indexOf('http'), imgUrl.lastIndexOf('\"'));",
-      "dataFilters": [
-        {
-          "property": "title",
-          "regex": "\\bwin\\b"
-        }
-      ],
-      "xOptsComps": [
-        {
-          "url": "http://www.bridesmagazine.co.uk/latest/win-save-book/",
-          "selector": "div.tile",
-          "format": [
-            {
-              "url": "a@href",
-              "img": "img@data-srcsizedata",
-              "title": "h1"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "GoodHousekeeping",
-      "show": true,
-      "paginate": true,
-      "pageSelector": "li.next a@href",
-      "getClosingDate": "dateUtils.getCompetitionClosingDate(comp.url, sConf, comp, xDone);",
-      "sanitiseData": "data[i].ends = _.trim(data[i].ends).replace(\/\\r?\\n|\\r\/g, '').replace(\/\\s\/g, '');",
-      "dataFilters": [],
-      "xOptsComps": [
-        {
-          "url": "https://comps.goodhousekeeping.co.uk/",
-          "selector": ".competitionPreview",
-          "format": [
-            {
-              "url": "a@href",
-              "img": "img@src",
-              "title": "img@title",
-              "ends": ".datelist"
-            }
-          ]
-        }
-      ],
-      "xOptsPgntnLimit": {
+  {
+    "name": "Vogue",
+    "show": false
+  },
+  {
+    "name": "Glamour",
+    "show": true,
+    "paginate": false,
+    "pageSelector": "",
+    "getClosingDate": "dateUtils.getCompetitionClosingDate(comp.url, sConf, comp, xDone);",
+    "dataFilters": [
+      {
+        "property": "title",
+        "regex": "\\bwin\\b"
+      }
+    ],
+    "xOptsComps": [
+      {
+        "url": "http://www.glamourmagazine.co.uk/topic/competitions/",
+        "selector": ".c-card-list__item",
+        "format": [
+          {
+            "url": "a@href",
+            "img": "img@data-srcset",
+            "title": "h3.c-card__title"
+          }
+        ]
+      }
+    ],
+    "dateRegex": "(?:\\d{1}|\\d{2})\\\/(?:\\d{1}|\\d{2})\\\/(?:\\d{4}|\\d{2})",
+    "extractDateRegex": "(?:\\d{1}|\\d{2})th([A-Za-z]*[ ]+)*\\d{4}"
+  },
+  {
+    "name": "GQ",
+    "show": false
+  },
+  {
+    "name": "CNTraveller",
+    "show": true,
+    "sanitiseData": "var splits = _.split(data[i].img, ','); data[i].img = _.split(splits[splits.length - 1].trim(),' ')[0];",
+    "paginate": false,
+    "getClosingDate": "dateUtils.getCompetitionClosingDate(comp.url, sConf, comp, xDone);",
+    "dataFilters": [
+      {
+        "property": "tag",
+        "regex": "competitions"
+      }
+    ],
+    "xOptsComps": [
+      {
+        "url": "http://www.cntraveller.com/topic/competitions",
+        "selector": ".c-card",
+        "format": [
+          {
+            "url": "a@href",
+            "img": "img@data-srcset",
+            "title": "a",
+            "tag": ".c-card__tag"
+          }
+        ]
+      }
+    ],
+    "dateRegex": "(?:\\d{1}|\\d{2})\\\/(?:\\d{1}|\\d{2})\\\/(?:\\d{4}|\\d{2})",
+    "extractDateRegex": "closes.*(?:\\d{1}|\\d{2})([A-Za-z]*[ ]+)*\\d{4}"
+  },
+  {
+    "name": "Tatler",
+    "show": true,
+    "manual": true
+  },
+  {
+    "name": "House&Garden",
+    "show": false
+  },
+  {
+    "name": "Brides",
+    "show": true,
+    "pageSelector": "",
+    "sanitiseData": "var splits = _.split(data[i].img, ','); var imgUrl = splits[splits.length - 1]; for (var s in splits) { if (splits[s].includes('width')) { var width = +(\/\\d{3}\/.exec(splits[s]));  if (width > 600) { imgUrl = splits[+s + 2]; } } } data[i].img = imgUrl.substring(imgUrl.indexOf('http'), imgUrl.lastIndexOf('\"'));",
+    "dataFilters": [
+      {
+        "property": "title",
+        "regex": "\\bwin\\b"
+      }
+    ],
+    "xOptsComps": [
+      {
+        "url": "http://www.bridesmagazine.co.uk/latest/win-save-book/",
+        "selector": "div.tile",
+        "format": [
+          {
+            "url": "a@href",
+            "img": "img@data-srcsizedata",
+            "title": "h1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "GoodHousekeeping",
+    "show": true,
+    "paginate": true,
+    "pageSelector": "li.next a@href",
+    "getClosingDate": "dateUtils.getCompetitionClosingDate(comp.url, sConf, comp, xDone);",
+    "sanitiseData": "data[i].ends = _.trim(data[i].ends).replace(\/\\r?\\n|\\r\/g, '').replace(\/\\s\/g, '');",
+    "dataFilters": [],
+    "xOptsComps": [
+      {
         "url": "https://comps.goodhousekeeping.co.uk/",
-        "scope": "li.last",
-        "selector": "a@href"
-      },
-      "dateRegex": "(?:\\d{1}|\\d{2})\\\/(?:\\d{1}|\\d{2})\\\/(?:\\d{4}|\\d{2})",
-      "extractDateRegex": "\\d{2}-[A-Za-z]+-\\d{4}"
+        "selector": ".competitionPreview",
+        "format": [
+          {
+            "url": "a@href",
+            "img": "img@src",
+            "title": "img@title",
+            "ends": ".datelist"
+          }
+        ]
+      }
+    ],
+    "xOptsPgntnLimit": {
+      "url": "https://comps.goodhousekeeping.co.uk/",
+      "scope": "li.last",
+      "selector": "a@href"
     },
-    {
-      "name": "Prima",
-      "show": true,
-      "paginate": true,
-      "pageSelector": "li.next a@href",
-      "getClosingDate": "dateUtils.getCompetitionClosingDate(comp.url, sConf, comp, xDone);",
-      "sanitiseData": "data[i].url = data[i].url.replace(\/^http:\\\/\\\/\/i, 'https://');",
-      "getImg": "x(comp.url, '.feature-image', 'img@src')(function (err, img) {if (err) logger.error(err);comp.img = img;xDone(null, comp);});",
-      "dataFilters": [
-        {
-          "property": "title",
-          "regex": "\\bwin\\b"
-        }
-      ],
-      "xOptsComps": [
-        {
-          "url": "http://comps.prima.co.uk/allcompetitions.php",
-          "selector": "a",
-          "format": [
-            {
-              "url": "@href",
-              "img": "img@src",
-              "title": "strong"
-            }
-          ]
-        }
-      ],
-      "xOptsPgntnLimit": {
+    "dateRegex": "(?:\\d{1}|\\d{2})\\\/(?:\\d{1}|\\d{2})\\\/(?:\\d{4}|\\d{2})",
+    "extractDateRegex": "\\d{2}-[A-Za-z]+-\\d{4}"
+  },
+  {
+    "name": "Prima",
+    "show": true,
+    "paginate": true,
+    "pageSelector": "li.next a@href",
+    "getClosingDate": "dateUtils.getCompetitionClosingDate(comp.url, sConf, comp, xDone);",
+    "sanitiseData": "data[i].url = data[i].url.replace(\/^http:\\\/\\\/\/i, 'https://');",
+    "getImg": "x(comp.url, '.feature-image', 'img@src')(function (err, img) {if (err) logger.error(err);comp.img = img;xDone(null, comp);});",
+    "dataFilters": [
+      {
+        "property": "title",
+        "regex": "\\bwin\\b"
+      }
+    ],
+    "xOptsComps": [
+      {
         "url": "http://comps.prima.co.uk/allcompetitions.php",
-        "scope": "li.last",
-        "selector": "a@href"
-      },
-      "extractDateRegex": "(?:\\d{1}|\\d{2}) days left"
+        "selector": "a",
+        "format": [
+          {
+            "url": "@href",
+            "img": "img@src",
+            "title": "strong"
+          }
+        ]
+      }
+    ],
+    "xOptsPgntnLimit": {
+      "url": "http://comps.prima.co.uk/allcompetitions.php",
+      "scope": "li.last",
+      "selector": "a@href"
     },
-    {
-      "name": "Red",
-      "show": false,
-      "xOptsComps": [
-        {
-          "url": "http://www.redonline.co.uk/comps"
-        }
-      ]
-    }
-  ]
+    "extractDateRegex": "(?:\\d{1}|\\d{2}) days left"
+  },
+  {
+    "name": "Red",
+    "show": false,
+    "xOptsComps": [
+      {
+        "url": "http://www.redonline.co.uk/comps"
+      }
+    ]
+  }
+]

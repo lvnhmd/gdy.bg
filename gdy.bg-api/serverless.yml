@@ -73,7 +73,7 @@ functions:
     timeout: 300
     memorySize: 512
     events:
-      - schedule: cron(0 0 15 1/1 * ? *)
+      - schedule: cron(0 15 * * ? *)
       - timeout:  5 min
   getCompetitions:
     handler: handler.getCompetitions

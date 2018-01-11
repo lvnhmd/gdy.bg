@@ -26,7 +26,7 @@ module.exports.getCompetitions = function (conf, limit, xOpts, done) {
         .limit(limit)
         (function (err, data) {
             if (err) logger.error(err);
-            // logger.info('DATA ', data);
+            logger.info('DATA ', data);
             if (conf.dataFilters.length > 0) {
                 for (var i in conf.dataFilters) {
                     data = _.filter(data, function (c) {

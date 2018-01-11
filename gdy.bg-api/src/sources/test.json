@@ -1,32 +1,31 @@
 [
     {
-        "name": "GoodHousekeeping",
+        "name": "CNTraveller",
         "show": true,
-        "paginate": true,
-        "pageSelector": "li.next a@href",
+        "sanitiseData": "var splits = _.split(data[i].img, ','); data[i].img = _.split(splits[splits.length - 1].trim(),' ')[0];",
+        "paginate": false,
         "getClosingDate": "dateUtils.getCompetitionClosingDate(comp.url, sConf, comp, xDone);",
-        "sanitiseData": "data[i].ends = _.trim(data[i].ends).replace(\/\\r?\\n|\\r\/g, '').replace(\/\\s\/g, '');",
-        "dataFilters": [],
+        "dataFilters": [
+            {
+                "property": "tag",
+                "regex": "competitions"
+            }
+        ],
         "xOptsComps": [
             {
-                "url": "https://comps.goodhousekeeping.co.uk/",
-                "selector": ".competitionPreview",
+                "url": "http://www.cntraveller.com/topic/competitions",
+                "selector": ".c-card",
                 "format": [
                     {
                         "url": "a@href",
-                        "img": "img@src",
-                        "title": "img@title",
-                        "ends": ".datelist"
+                        "img": "img@data-srcset",
+                        "title": "a",
+                        "tag": ".c-card__tag"
                     }
                 ]
             }
         ],
-        "xOptsPgntnLimit": {
-            "url": "https://comps.goodhousekeeping.co.uk/",
-            "scope": "li.last",
-            "selector": "a@href"
-        },
         "dateRegex": "(?:\\d{1}|\\d{2})\\\/(?:\\d{1}|\\d{2})\\\/(?:\\d{4}|\\d{2})",
-        "extractDateRegex": "\\d{2}-[A-Za-z]+-\\d{4}"
+        "extractDateRegex": "closes.*(?:\\d{1}|\\d{2})([A-Za-z]*[ ]+)*\\d{4}"
     }
 ]
