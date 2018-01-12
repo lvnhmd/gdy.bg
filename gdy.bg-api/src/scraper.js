@@ -73,13 +73,19 @@ module.exports.scrape = function () {
                         for (var i in result) {
                             if (result[i]) {
                                 (function (comp) {
-                                    xTasks.push(function (xDone) {
-                                        eval(sConf.getClosingDate);
-                                    });
+                                    if (!sConf.getClosingDate && !sConf.getImg) {
+                                        xTasks.push(function (xDone) {
+                                            xDone(null, comp);
+                                        });
+                                    }
+                                    if (sConf.getClosingDate) {
+                                        xTasks.push(function (xDone) {
+                                            eval(sConf.getClosingDate);
+                                        });
+                                    }
                                     if (sConf.getImg) {
                                         xTasks.push(function (xDone) {
                                             eval(sConf.getImg);
-
                                         });
                                     }
                                 })(result[i]);

@@ -1,31 +1,27 @@
 [
     {
-        "name": "CNTraveller",
+        "name": "Brides",
         "show": true,
-        "sanitiseData": "var splits = _.split(data[i].img, ','); data[i].img = _.split(splits[splits.length - 1].trim(),' ')[0];",
-        "paginate": false,
-        "getClosingDate": "dateUtils.getCompetitionClosingDate(comp.url, sConf, comp, xDone);",
+        "pageSelector": "",
+        "sanitiseData": "var splits = _.split(data[i].img, ','); var imgUrl = splits[splits.length - 1]; for (var s in splits) { if (splits[s].includes('width')) { var width = +(\/\\d{3}\/.exec(splits[s]));  if (width > 600) { imgUrl = splits[+s + 2]; } } } data[i].img = imgUrl.substring(imgUrl.indexOf('http'), imgUrl.lastIndexOf('\"'));",
         "dataFilters": [
             {
-                "property": "tag",
-                "regex": "competitions"
+                "property": "title",
+                "regex": "\\bwin\\b"
             }
         ],
         "xOptsComps": [
             {
-                "url": "http://www.cntraveller.com/topic/competitions",
-                "selector": ".c-card",
+                "url": "http://www.bridesmagazine.co.uk/latest/win-save-book/",
+                "selector": "div.tile",
                 "format": [
                     {
                         "url": "a@href",
-                        "img": "img@data-srcset",
-                        "title": "a",
-                        "tag": ".c-card__tag"
+                        "img": "img@data-srcsizedata",
+                        "title": "h1"
                     }
                 ]
             }
-        ],
-        "dateRegex": "(?:\\d{1}|\\d{2})\\\/(?:\\d{1}|\\d{2})\\\/(?:\\d{4}|\\d{2})",
-        "extractDateRegex": "closes.*(?:\\d{1}|\\d{2})([A-Za-z]*[ ]+)*\\d{4}"
+        ]
     }
 ]
