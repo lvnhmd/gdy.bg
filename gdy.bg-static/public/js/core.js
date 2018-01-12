@@ -2558,8 +2558,6 @@
     }
 
     function h() {
-        // var t = ["%c", " _    _                             _     _      _             ", "| |  | |                           | |   (_)    (_)            ", "| |  | | ___      __ _ _ __ ___    | |__  _ _ __ _ _ __   __ _ ", "| |/\\| |/ _ \\    / _` | '__/ _ \\   | '_ \\| | '__| | '_ \\ / _` |", "\\  /\\  /  __/   | (_| | | |  __/   | | | | | |  | | | | | (_| |", " \\/  \\/ \\___|    \\__,_|_|  \\___|   |_| |_|_|_|  |_|_| |_|\\__, |", "                                                          __/ |", "                                                         |___/ ", "%c", "Are you an awesome software engineer? Join the team in London", "that builds Wired, Vogue, GQ, Glamour and more.", "", "https://code.condenast.co.uk/jobs", "https://code.condenast.co.uk/home", "", "https://www.condenast.co.uk"];
-        // console.log(t.join("\n"), "color: #f0f;font-weight:bold;text-shadow:0 0 10px #f0f;", "color: #000;")
     }
 
     function f(t) {
@@ -2629,9 +2627,9 @@
 }, function(t, e, n) {
     "use strict";
     var i = {
-        abbr: "vg",
-        name: "Vogue",
-        promo_name: "vogue"
+        abbr: "sc",
+        name: "SwagbagClub",
+        promo_name: "SwagbagClub"
     };
     e.a = i
 }, , function(t, e, n) {

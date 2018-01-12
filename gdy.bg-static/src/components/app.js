@@ -898,7 +898,7 @@ export default class App extends React.Component {
                         display: 'block'
                     },
                     '.nl-form__checkbox-box': {
-                        backgroundImage: 'url("https://www.vogue.co.uk/static/img/newsletter_checkbox.png")',
+                        backgroundImage: 'url("https://s3-eu-west-1.amazonaws.com/swagbag.club/img/newsletter_checkbox.png")',
                         backgroundSize: '40px 20px',
                         border: '1px solid #E0E0E0',
                         display: 'block',
@@ -967,7 +967,7 @@ export default class App extends React.Component {
                         backgroundPositionX: -16
                     },
                     '.nl-form__checkbox-small-box': {
-                        backgroundImage: 'url("https://www.vogue.co.uk/static/img/newsletter_checkbox.png")',
+                        backgroundImage: 'url("https://s3-eu-west-1.amazonaws.com/swagbag.club/img/newsletter_checkbox.png")',
                         backgroundSize: '32px 16px',
                         border: '1px solid #E0E0E0',
                         display: 'block',

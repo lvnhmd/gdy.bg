@@ -31,7 +31,7 @@ class Header extends React.Component {
                     {/* <!-- middle logo desktop begin --> */}
                     <div className="n-main__header n-visibility--desktop">
                         <div className="n-main__header-logo">
-                            <a onClick={this.click.bind(this)} title="Vogue" className="">
+                            <a onClick={this.click.bind(this)} title="Swagbag.club" className="">
                                 <img src={`${process.env.PUBLIC_URL}/img/logo.png`} alt="" />
                             </a>
                         </div>
@@ -48,7 +48,7 @@ class Header extends React.Component {
                                 {/* <!-- small logo mobile begin --> */}
                                 <div className="n-main__nav-group n-main__nav-group--left">
                                     <div className="n-main__nav-logo is-hidden">
-                                        <a onClick={this.click.bind(this)} title="Vogue" className="">
+                                        <a onClick={this.click.bind(this)} title="Swagbag.club" className="">
                                             <img src={`${process.env.PUBLIC_URL}/img/logo.png`} alt="" />
                                         </a>
                                     </div>
