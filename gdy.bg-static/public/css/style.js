@@ -1,18 +1,18 @@
 {
-	'.Demo__some-network': {
-		verticalAlign: 'top',
-		display: 'inline-block',
-		marginRight: 30,
-		textAlign: 'center'
+	'.item': {
+		position: 'relative',
+		paddingTop: 20,
+		display: 'inline-block'
 	},
-	'.Demo__some-network__share-count': {
-		marginTop: 3,
-		fontSize: 12
-	},
-	'.Demo__some-network__share-button': {
-		cursor: 'pointer'
-	},
-	'.Demo__some-network__share-button:hover:not(:active)': {
-		opacity: 0.75
+	'.notify-badge': {
+		position: 'absolute',
+		right: -20,
+		top: 10,
+		background: 'red',
+		textAlign: 'center',
+		borderRadius: '30px 30px 30px 30px',
+		color: 'white',
+		padding: '5px 10px',
+		fontSize: 20
 	}
 }

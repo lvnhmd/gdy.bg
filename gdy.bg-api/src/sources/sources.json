@@ -170,5 +170,10 @@
         "url": "http://www.redonline.co.uk/comps"
       }
     ]
+  },
+  {
+    "name": "new",
+    "show": true,
+    "manual": true
   }
 ]

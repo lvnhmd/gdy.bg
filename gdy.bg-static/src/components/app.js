@@ -1229,10 +1229,10 @@ export default class App extends React.Component {
                         width: 8
                     },
                     '.Demo__container': {
-                        textAlign:'right'
+                        textAlign: 'right'
                     },
                     '.Demo__some-network': {
-                        margin:'10px',
+                        margin: '10px',
                         verticalAlign: 'top',
                         display: 'inline-block',
                         marginRight: 30,
@@ -1247,6 +1247,24 @@ export default class App extends React.Component {
                     },
                     '.Demo__some-network__share-button:hover:not(:active)': {
                         opacity: 0.75
+                    },
+                    '.item': {
+                        position: 'relative',
+                        paddingTop: 20,
+                        display: 'inline-block'
+                    },
+                    '.notify-badge': {
+                        position: 'absolute',
+                        zIndex:10,
+                        right: -20,
+                        top: 10,
+                        background: 'deeppink',
+                        textAlign: 'center',
+                        // borderRadius: '30px 30px 30px 30px',
+                        color: 'white',
+                        padding: '5px 10px',
+                        textTransform: 'lowercase',
+                        fontStyle: 'italic'
                     }
                 }
 

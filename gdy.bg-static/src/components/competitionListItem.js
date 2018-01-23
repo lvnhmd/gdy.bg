@@ -4,6 +4,7 @@ const bindActionCreators = require('redux').bindActionCreators;
 const trackEntry = require('../actions/index').trackEntry;
 
 const SocialShare = require('./socialShare');
+const Badge = require('./badge');
 
 class CompetitionListItem extends React.Component {
 
@@ -26,8 +27,9 @@ class CompetitionListItem extends React.Component {
                     <div className="c-card__obj">
                         <div className="c-card__obj__header">
                             <div className="c-card__images">
-                                <div className="c-card__image c-card__image--picture ">
-                                    <img src={comp.img} alt="" />
+                                <div className="c-card__image c-card__image--picture item">
+                                    <Badge isNew={comp.isNew} />
+                                    <img src={comp.img} alt={comp.title} />
                                 </div>
                             </div>
                         </div>

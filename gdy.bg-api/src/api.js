@@ -4,7 +4,6 @@ var Entry = require('./models/entry');
 var NewsletterSignup = require('./models/newsletterSignup');
 var moment = require('moment');
 var logger = require('./logger');
-var moment = require('moment');
 var _ = require('lodash');
 
 exports.getCompetitions = function (event, cb) {
@@ -21,6 +20,12 @@ exports.getCompetitions = function (event, cb) {
                     .diff(moment(new Date()), 'days') + 1;
 
                 data.Items[i].attrs.daysToEnter = daysToEnter;
+
+                data.Items[i].attrs.isNew = true;
+
+                if (moment.duration(moment(new Date()).
+                        diff(data.Items[i].attrs.createdAt)).asHours() > 24)
+                    data.Items[i].attrs.isNew = false;
 
             }
 

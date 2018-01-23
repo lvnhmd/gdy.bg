@@ -37,15 +37,19 @@ class CompetitionList extends React.Component {
 const applyFilters = (competitions, filters, term) => {
 
     var comps = competitions;
-
+    let filterByNew = false;
     if (filters.length) {
 
+        console.log('FILTERS ', filters);
         var activeFilters = _.filter(filters, function (f) {
             if (f.active) {
-                return f;
+                if (f.name.toLowerCase() != 'new')
+                    return f;
+                if (f.name.toLowerCase() == 'new')
+                    filterByNew = true;
             }
         });
-
+        console.log('filterByNew ', filterByNew);
         if (activeFilters.length) {
 
             var af = _.map(_.map(activeFilters, 'name'), _.method('toLowerCase'));
@@ -63,7 +67,11 @@ const applyFilters = (competitions, filters, term) => {
             return c.title.toLowerCase().match(term);
         });
     }
-
+    if (filterByNew) {
+        comps = _.filter(comps, function (c) {
+            return c.isNew;
+        });
+    }
     return comps;
 }
 
