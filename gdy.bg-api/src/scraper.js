@@ -57,18 +57,18 @@ module.exports.scrape = function () {
 
                     let tasks = [];
 
-                    if (sConf.parseJson) {
-                        tasks.push(function (xDone) {
-                            scrapeUtils.parseJson(sConf, xDone);
-                        });
-                    }
-                    else {
-                        sConf.xOptsComps.forEach(function (xOpts) {
+                    sConf.xOptsComps.forEach(function (xOpts) {
+                        if (sConf.parseJson) {
+                            tasks.push(function (xDone) {
+                                scrapeUtils.parseJson(sConf, xOpts, xDone);
+                            });
+                        } else {
                             tasks.push(function (xDone) {
                                 scrapeUtils.getCompetitions(sConf, limit, xOpts, xDone);
                             });
-                        });
-                    }
+                        }
+                    });
+
                     async.series(tasks, function (err, result) {
                         if (err) logger.error(err);
 

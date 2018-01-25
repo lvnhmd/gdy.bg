@@ -57,9 +57,9 @@ module.exports.getCompetitions = function (conf, limit, xOpts, done) {
         });
 }
 
-module.exports.parseJson = function (conf, done) {
+module.exports.parseJson = function (conf, xOpts, done) {
 
-    httpUtils.getAsString('https://www.stylist.co.uk/win', function (err, content) {
+    httpUtils.getAsString(xOpts.url, function (err, content) {
         var regexp = /window.__ASYNC_PROPS__ = \[{\"data\":\[(.*)\]}\]<\/script>/i;
         if (content.indexOf('window.__ASYNC_PROPS__ = ') > -1) {
             var match = regexp.exec(content);
@@ -72,7 +72,7 @@ module.exports.parseJson = function (conf, done) {
                     var url = json.acf.widgets[i].posts[j].link;
                     if (typeof json.acf.widgets[i].posts[j].acf.category.name !== 'undefined' &&
                         json.acf.widgets[i].posts[j].acf.category.name.toLowerCase() == 'win') {
-                        comp.url = url.startsWith('http') ? url : 'https://www.stylist.co.uk' + url;
+                        comp.url = url.startsWith('http') ? url : conf.urlPrefix + url;
                         comp.img = json.acf.widgets[i].posts[j].acf.hero_images[0].url;
                         comp.source = conf.name.toLowerCase();
                         comp.title = _.trim(json.acf.widgets[i].posts[j].title.rendered).replace(/\r?\n|\r/g, '').substr(0, 95);
@@ -93,7 +93,7 @@ module.exports.parseJson = function (conf, done) {
             }
 
             data = _.uniqBy(data, 'url');
-            // logger.info('DATA ', data);
+            logger.info('DATA ', data);
             done(null, data);
 
         }
