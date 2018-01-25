@@ -172,7 +172,13 @@
     ]
   },
   {
-    "name": "new",
+    "name": "Stylist",
+    "show": true,
+    "sanitiseData": "",
+    "parseJson": true
+  },
+  {
+    "name": "New",
     "show": true,
     "manual": true
   }

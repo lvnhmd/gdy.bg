@@ -57,12 +57,18 @@ module.exports.scrape = function () {
 
                     let tasks = [];
 
-                    sConf.xOptsComps.forEach(function (xOpts) {
+                    if (sConf.parseJson) {
                         tasks.push(function (xDone) {
-                            scrapeUtils.getCompetitions(sConf, limit, xOpts, xDone);
+                            scrapeUtils.parseJson(sConf, xDone);
                         });
-                    });
-
+                    }
+                    else {
+                        sConf.xOptsComps.forEach(function (xOpts) {
+                            tasks.push(function (xDone) {
+                                scrapeUtils.getCompetitions(sConf, limit, xOpts, xDone);
+                            });
+                        });
+                    }
                     async.series(tasks, function (err, result) {
                         if (err) logger.error(err);
 

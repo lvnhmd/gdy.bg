@@ -55,7 +55,7 @@ module.exports.getCompetitionClosingDate = function (url, sConf, comp, done) {
             // set a future closing date for ten years from now becasue the magazines are slow to 
             // update their web pages - I do not want to be scraping and persisting the same expired 
             // competitions again and again
-            if (content.indexOf('closed') > -1) {
+            if (content.indexOf('closed') > -1 && comp.source !== 'stylist') {
                 setDefaultClosingDate(comp, 10, 'years');
                 comp.show = false;
                 done(null, comp);
@@ -94,13 +94,19 @@ module.exports.getCompetitionClosingDate = function (url, sConf, comp, done) {
                         setClosingDate(new RegExp(sConf.dateRegex), comp, cd);
                     }
                     else if (comp.source === 'prima') {
-                        logger.info('MATCH ', match[0]);
+                        // logger.info('MATCH ', match[0]);
                         var splits = _.split(match[0], ' ');
-                        logger.info('SPLIT ', +splits[0]);
+                        // logger.info('SPLIT ', +splits[0]);
                         // as prima does not have closing date but days left instead,
                         // extract the days , add them to the current date and construct cd 
                         setDefaultClosingDate(comp, +splits[0], 'days');
-                        logger.info('AFTER ', comp);
+                        // logger.info('AFTER ', comp);
+                    }
+                    else if (comp.source === 'stylist') {
+                        // logger.info('stylist match ', match[0]);
+                        var splits = _.split(match[0], ' ');
+                        // logger.info('stylist date ', splits[4]);
+                        setClosingDate(new RegExp(sConf.dateRegex), comp, splits[4]);
                     }
 
                 }

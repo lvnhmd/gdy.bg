@@ -6,6 +6,7 @@ const toggleSource = require('../actions/index').toggleSource;
 const searchTermChanged = require('../actions/index').searchTermChanged;
 const _ = require('lodash');
 const CompetitionListItem = require('./competitionListItem');
+var htmlToText = require('html-to-text');
 
 class CompetitionList extends React.Component {
 
@@ -81,6 +82,14 @@ function mapStateToProps(state) {
         _.orderBy(applyFilters(state.competitions, state.filters, state.searchTerm),
             ['daysToEnter', 'createdAt'],
             ['asc', 'desc']);
+    // convert html to text
+    
+    comps.forEach(function (c) {
+        c.title = htmlToText.fromString(c.title, {
+            wordwrap: false
+        });
+    });
+
 
     return {
         competitions: comps

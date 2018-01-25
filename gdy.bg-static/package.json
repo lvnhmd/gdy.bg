@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.16.2",
     "classnames": "^2.2.5",
+    "html-to-text": "^3.3.0",
     "radium": "^0.19.6",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
