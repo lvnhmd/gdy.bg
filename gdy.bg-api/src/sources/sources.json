@@ -224,6 +224,21 @@
     "extractDateRegex": "closes.*(?:\\d{1}|\\d{2})\/\\d{2}\/\\d{2}"
   },
   {
+    "name": "MrHyde",
+    "show": true,
+    "sanitiseData": "",
+    "urlPrefix": "https://www.mrhyde.com",
+    "parseJson": true,
+    "xOptsComps": [
+      {
+        "url": "https://www.mrhyde.com/competitions"
+      }
+    ],
+    "getClosingDate": "dateUtils.getCompetitionClosingDate(comp.url, sConf, comp, xDone);",
+    "dateRegex": "(?:\\d{1}|\\d{2})\/\\d{2}\/\\d{2}",
+    "extractDateRegex": "closes.*(?:\\d{1}|\\d{2})\/\\d{2}\/\\d{2}"
+  },
+  {
     "name": "Elle",
     "show": false
   },

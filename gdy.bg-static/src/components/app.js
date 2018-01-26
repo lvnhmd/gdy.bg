@@ -69,11 +69,11 @@ export default class App extends React.Component {
                         height: '100%'
                     },
                     '.n-main__nav': {
-                        position: 'relative',
+                        // position: 'relative',
                         backgroundColor: '#fff',
-                        height: 60,
-                        margin: '0 auto',
-                        maxWidth: 1440
+                        height: 120,
+                        margin: '0 0',
+                        maxWidth: 1100
                     },
                     '.n-main__sticker': {
                         position: 'relative',
@@ -500,7 +500,7 @@ export default class App extends React.Component {
                         top: '100%',
                         backgroundColor: '#fff',
                         border: '1px solid #EAEAEA',
-                        borderTop: 'none',
+                        // borderTop: 'none',
                         WebkitBoxShadow: '0px 2px 5px 0px rgba(102, 102, 102, 0.06)',
                         boxShadow: '0px 2px 5px 0px rgba(102, 102, 102, 0.06)'
                     },

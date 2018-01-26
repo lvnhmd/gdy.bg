@@ -58,7 +58,8 @@ module.exports.getCompetitionClosingDate = function (url, sConf, comp, done) {
             if (content.indexOf('closed') > -1
                 && comp.source !== 'stylist'
                 && comp.source !== 'shortlist'
-                && comp.source !== 'emeraldstreet') {
+                && comp.source !== 'emeraldstreet'
+                && comp.source !== 'mrhyde') {
                 setDefaultClosingDate(comp, 10, 'years');
                 comp.show = false;
                 done(null, comp);
@@ -117,6 +118,10 @@ module.exports.getCompetitionClosingDate = function (url, sConf, comp, done) {
                     else if (comp.source === 'emeraldstreet') {
                         // emeraldstreet does not have closing dates actually 
                         logger.info('emeraldstreet match ', match[0]);
+                    }
+                    else if (comp.source === 'mrhyde') {
+                        // mrhyde does not have closing dates actually 
+                        logger.info('mrhyde match ', match[0]);
                     }
 
                 }
