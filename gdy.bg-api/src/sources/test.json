@@ -1,6 +1,6 @@
 [
   {
-    "name": "IdealHome",
+    "name": "MarieClaire",
     "show": true,
     "paginate": true,
     "pageSelector": "li.next a@href",
@@ -9,7 +9,7 @@
     "dataFilters": [],
     "xOptsComps": [
       {
-        "url": "https://comps.idealhome.co.uk/",
+        "url": "https://comps.marieclaire.co.uk/",
         "selector": ".competitionPreview",
         "format": [
           {
