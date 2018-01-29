@@ -59,17 +59,25 @@ module.exports.getCompetitionClosingDate = function (url, sConf, comp, done) {
                 && comp.source !== 'stylist'
                 && comp.source !== 'shortlist'
                 && comp.source !== 'emeraldstreet'
-                && comp.source !== 'mrhyde') {
+                && comp.source !== 'mrhyde'
+                && comp.source !== 'idealhome') {
                 setDefaultClosingDate(comp, 10, 'years');
                 comp.show = false;
                 done(null, comp);
             }
             else {
-
-                if (comp.source === 'goodhousekeeping') {
+                if (comp.source === 'goodhousekeeping'
+                    || comp.source === 'idealhome') {
                     content = comp.ends;
+                    if (content.indexOf('Runsuntilwon') > -1) {
+                        setDefaultClosingDate(comp, 30, 'days');
+                    }
                 }
-
+                else if (comp.source === 'emeraldstreet'
+                    || comp.source === 'mrhyde') {
+                    // emeraldstreet and mrhyde do not have closing dates actually 
+                    setDefaultClosingDate(comp, 7, 'days');
+                }
                 var match = new RegExp(sConf.extractDateRegex).exec(content);
 
                 if (null != match) {
@@ -90,11 +98,13 @@ module.exports.getCompetitionClosingDate = function (url, sConf, comp, done) {
                             + '/' + splits[2];
                         setClosingDate(new RegExp(sConf.dateRegex), comp, cd);
                     }
-                    else if (comp.source === 'goodhousekeeping') {
+                    else if (comp.source === 'goodhousekeeping'
+                        || comp.source === 'idealhome') {
                         var splits = _.split(match[0], '-');
                         var cd = splits[0].replace(/\D/g, '')
-                            + '/' + getMonthFromString(splits[1])
+                            + '/' + (comp.source === 'idealhome' ? splits[1] : getMonthFromString(splits[1]))
                             + '/' + splits[2];
+                        // console.log('>>> DATE ', cd);
                         setClosingDate(new RegExp(sConf.dateRegex), comp, cd);
                     }
                     else if (comp.source === 'prima') {
@@ -115,14 +125,7 @@ module.exports.getCompetitionClosingDate = function (url, sConf, comp, done) {
                         //     logger.info('shortlist date ', splits[4]);
                         setClosingDate(new RegExp(sConf.dateRegex), comp, splits[4]);
                     }
-                    else if (comp.source === 'emeraldstreet') {
-                        // emeraldstreet does not have closing dates actually 
-                        logger.info('emeraldstreet match ', match[0]);
-                    }
-                    else if (comp.source === 'mrhyde') {
-                        // mrhyde does not have closing dates actually 
-                        logger.info('mrhyde match ', match[0]);
-                    }
+
 
                 }
                 done(null, comp);
