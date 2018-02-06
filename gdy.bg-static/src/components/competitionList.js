@@ -44,9 +44,9 @@ const applyFilters = (competitions, filters, term) => {
         console.log('FILTERS ', filters);
         var activeFilters = _.filter(filters, function (f) {
             if (f.active) {
-                if (f.name.toLowerCase() != 'new')
+                if (f.name.toLowerCase() !== 'new')
                     return f;
-                if (f.name.toLowerCase() == 'new')
+                if (f.name.toLowerCase() === 'new')
                     filterByNew = true;
             }
         });

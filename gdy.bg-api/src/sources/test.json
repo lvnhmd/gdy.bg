@@ -1,6 +1,6 @@
 [
   {
-    "name": "MarieClaire",
+    "name": "Cosmopolitan",
     "show": true,
     "paginate": true,
     "pageSelector": "li.next a@href",
@@ -9,7 +9,7 @@
     "dataFilters": [],
     "xOptsComps": [
       {
-        "url": "https://comps.marieclaire.co.uk/",
+        "url": "http://comps.cosmopolitan.co.uk/",
         "selector": ".competitionPreview",
         "format": [
           {

@@ -48,3 +48,23 @@ module.exports.updateClosesByDate = function (event) {
     });
 
 };
+
+module.exports.sendEmail = function (event) {
+
+    // Give SES the details and let it construct the message for you.
+    client.sendEmail({
+        to: 'ali.elvin+aws@gmail.com'
+        // from is 'swagbag.club@swagbag.club' only because I want swagbag.club 
+        // to appear in the from line as opposed to swagbag only
+        , from: 'swagbag.club@swagbag.club'
+        , subject: 'Hey You!'
+        , message: '<h3>DO YOU REMEMBER ME ?</h3>'
+        , altText: 'DO YOU REMEMBER ME ?'
+        , replyTo: 'swagbag@swagbag.club'
+    }, function (err, data, res) {
+        if(err) logger.error(' err ', err);
+        logger.info(' sent an email to make sure I am not forgotten ');
+        logger.info(' data ', data);
+        
+    });
+};
