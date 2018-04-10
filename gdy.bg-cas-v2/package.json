@@ -1,0 +1,22 @@
+{
+  "name": "gdy.bg-cas-v2",
+  "version": "1.0.0",
+  "description": "Build CAS with curl and elasticsearch",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lvnhmd/gdy.bg.git"
+  },
+  "author": "elvin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lvnhmd/gdy.bg/issues"
+  },
+  "homepage": "https://github.com/lvnhmd/gdy.bg#readme",
+  "dependencies": {
+    "request": "^2.85.0"
+  }
+}
