@@ -1,3 +1,5 @@
+import { isUndefined } from "util";
+
 var Crawler = require("simplecrawler");
 var cheerio = require("cheerio");
 
@@ -10,6 +12,7 @@ var config = JSON.parse(require('fs')
 //                 data[i].source = 'stylist';
 //                 data[i].title = _.trim(data[i].title).replace(/\r?\n|\r/g, '').substr(0, 95);
 //                 ClosingDate
+// /json">(.+)<\/script>/U
 var crawler = Crawler("https://www.stylist.co.uk/win")
     .on("fetchcomplete", function (queueItem, responseBuffer, response) {
 
@@ -20,7 +23,11 @@ var crawler = Crawler("https://www.stylist.co.uk/win")
             let $ = cheerio.load(responseStr);
             
             console.log($(config['stylist'].title).text());
-            console.log($(config['stylist'].img).attr("src"));
+            let img = $(config['stylist'].img).attr("src")
+            console.log(img);
+            if(isUndefined(img)) {
+                // extract 
+            }
             // check the page for a form
             // console.log($(config['stylist'].entryForm).text());
             // this means that we have an entry form therefore is a viable competition 

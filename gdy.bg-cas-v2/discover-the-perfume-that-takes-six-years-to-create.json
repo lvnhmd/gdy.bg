@@ -1,0 +1,49 @@
+{
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "headline": "Discover the perfume that takes six years to create",
+    "description": "Escape to the raw beauty of the American West with Arizona, the debut fragrance from Proenza Schouler exclusive to Selfridges",
+    "url": "https://www.stylist.co.uk/beauty/discover-the-perfume-that-takes-six-years-to-create/188904",
+    "mainEntityOfPage": "https://www.stylist.co.uk/beauty/discover-the-perfume-that-takes-six-years-to-create/188904",
+    "author": {
+        "@type": "Person",
+        "name": "Stylist Team"
+    },
+    "image": [
+        "https://stylist-assets.imgix.net/app/uploads/2018/02/23184642/capture_0221_rt_lr-1120x1120.jpg?w=1200&h=1200&fit=max&auto=format%2Ccompress",
+        "https://stylist-assets.imgix.net/app/uploads/2018/02/23184642/capture_0221_rt_lr-1680x1120.jpg?w=1600&h=1200&fit=max&auto=format%2Ccompress",
+        "https://stylist-assets.imgix.net/app/uploads/2018/02/23184642/capture_0221_rt_lr-1680x880.jpg?w=1600&h=900&fit=max&auto=format%2Ccompress"
+    ],
+    "publisher": {
+        "@type": "Organization",
+        "name": "Stylist",
+        "sameAs": [
+            "https://www.facebook.com/StylistMagazine",
+            "https://www.twitter.com/stylistmagazine",
+            "https://www.instagram.com/stylistmagazine",
+            "https://www.youtube.com/StylistMagazine"
+        ],
+        "logo": {
+            "@type": "ImageObject",
+            "height": 60,
+            "width": 248,
+            "url": "https://www.stylist.co.uk/public/st/publisher-logo.png"
+        }
+    },
+    "dateModified": "2018-03-26T16:31:22Z",
+    "datePublished": "2018-03-01T17:02:37Z",
+    "creator": [
+        "Stylist Team"
+    ],
+    "articleSection": "Beauty",
+    "keywords": [
+        "Sponsored",
+        "Beauty",
+        "Perfume",
+        "Fragrance",
+        "Event"
+    ],
+    "thumbnailUrl": "https://stylist-assets.imgix.net/app/uploads/2018/02/23184642/capture_0221_rt_lr-1680x880.jpg?w=400&h=1&fit=max&auto=format%2Ccompress",
+    "metadata": "{\"id\":188904,\"sell\":\"Escape to the raw beauty of the American West with Arizona, the debut fragrance from Proenza Schouler exclusive to Selfridges\",\"short_headline\":\"Discover the perfume that takes six years to create\",\"author_slug\":\"stylistteam\",\"category_slug\":\"beauty\",\"sponsor_name\":\"Arizona by Proenza Schouler \",\"sponsor_link\":\"https://www.eventbrite.co.uk/e/disconnect-with-arizona-tickets-43402558220\",\"sponsor_type\":\"plus\",\"image\":{\"alt\":\"\",\"height\":1391,\"width\":2048,\"sizes\":{\"landscape\":\"https://assets-cdn.stylist.co.uk/app/uploads/2018/02/23184642/capture_0221_rt_lr-1680x1120.jpg\",\"landscape-height\":1120,\"landscape-width\":1680,\"letterbox\":\"https://assets-cdn.stylist.co.uk/app/uploads/2018/02/23184642/capture_0221_rt_lr-1680x880.jpg\",\"letterbox-height\":880,\"letterbox-width\":1680}}}",
+    "dateCreated": "2018-03-01T17:02:37Z"
+}
