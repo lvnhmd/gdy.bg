@@ -1,0 +1,71 @@
+{
+    "stylist": {
+        "regex": {
+            "urlMatcher": ".+(get-|win-).+\\d\\d+$",
+            "newLineMatcher": "\r?\n|\r",
+            "jsonMatcher": "([^>]*NewsArticle[^<]*)",
+            "jsonMatcherFlags": "i",
+            "closingDateMatcher": "closes.*((?:\\d{1}|\\d{2})\\/\\d{2}\\/\\d{2})"
+        },
+        "keywords": [
+            "Win",
+            "Sponsored",
+            "Events",
+            "Offers"
+        ],
+        "crawlUrl": "https://www.stylist.co.uk/win/",
+        "crawlDepth": 2,
+        "properties": {
+            "url": "url",
+            "img": "image",
+            "title": "headline"
+        }
+    },
+    "shortlist": {
+        "regex": {
+            "urlMatcher": ".+(\/win|get-|win-).+\\d\\d+$",
+            "newLineMatcher": "\r?\n|\r",
+            "jsonMatcher": "([^>]*NewsArticle[^<]*)",
+            "jsonMatcherFlags": "i",
+            "closingDateMatcher": "closes.*((?:\\d{1}|\\d{2})\/\\d{2}\/\\d{2})"
+        },
+        "keywords": [
+            "Win",
+            "Sponsored",
+            "Events",
+            "Offers"
+        ],
+        "crawlUrl": "https://www.shortlist.com/win/",
+        "crawlDepth": 2,
+        "properties": {
+            "url": "url",
+            "img": "image",
+            "title": "headline"
+        }
+    },
+    "mrhyde": {
+        "regex": {
+            "urlMatcher": ".+(competitions|offers).+\\d\\d+$",
+            "newLineMatcher": "\r?\n|\r",
+            "jsonMatcher": "([^>]*\"@type\": \"Article\"[^<]*)",
+            "jsonMatcherFlags": "i",
+            "closingDateMatcher": "closes.*((?:\\d{1}|\\d{2})\/\\d{2}\/\\d{2})"
+        },
+        "keywords": [
+            "Win",
+            "Sponsored",
+            "Events",
+            "Offers",
+            "No Tag",
+            "Competition",
+            "Competitions"
+        ],
+        "crawlUrl": "https://www.mrhyde.com/",
+        "crawlDepth": 2,
+        "properties": {
+            "url": "url",
+            "img": "thumbnailUrl",
+            "title": "headline"
+        }
+    }
+}
