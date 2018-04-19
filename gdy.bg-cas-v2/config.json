@@ -4,8 +4,7 @@
             "urlMatcher": ".+(get-|win-).+\\d\\d+$",
             "newLineMatcher": "\r?\n|\r",
             "jsonMatcher": "([^>]*NewsArticle[^<]*)",
-            "jsonMatcherFlags": "i",
-            "closingDateMatcher": "closes.*((?:\\d{1}|\\d{2})\\/\\d{2}\\/\\d{2})"
+            "closingDateMatcher": "closes.*(\\d{1,2}\\/\\d{2}\\/\\d{2})"
         },
         "keywords": [
             "Win",
@@ -26,8 +25,7 @@
             "urlMatcher": ".+(\/win|get-|win-).+\\d\\d+$",
             "newLineMatcher": "\r?\n|\r",
             "jsonMatcher": "([^>]*NewsArticle[^<]*)",
-            "jsonMatcherFlags": "i",
-            "closingDateMatcher": "closes.*((?:\\d{1}|\\d{2})\/\\d{2}\/\\d{2})"
+            "closingDateMatcher": "closes.*(\\d{1,2}\/\\d{2}\/\\d{2})"
         },
         "keywords": [
             "Win",
@@ -48,8 +46,7 @@
             "urlMatcher": ".+(competitions|offers).+\\d\\d+$",
             "newLineMatcher": "\r?\n|\r",
             "jsonMatcher": "([^>]*\"@type\": \"Article\"[^<]*)",
-            "jsonMatcherFlags": "i",
-            "closingDateMatcher": "closes.*((?:\\d{1}|\\d{2})\/\\d{2}\/\\d{2})"
+            "closingDateMatcher": "(\\d{1,2}\\s+(Jan(uary)?|Feb(ruary)?|Mar(ch)?|Apr(il)?|May|Jun(e)?|Jul(y)?|Aug(ust)?|Sep(tember)?|Oct(ober)?|Nov(ember)?|Dec(ember)?)\\s+\\d{4})"
         },
         "keywords": [
             "Win",
