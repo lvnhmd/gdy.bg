@@ -1,17 +1,18 @@
-var Crawler = require("simplecrawler");
-var cheerio = require("cheerio");
-// https://stackoverflow.com/questions/7163061/is-there-a-require-for-json-in-node-js?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-var config = require('./config.json')
+'use strict';
 
-// let publisher = 'stylist';
-// let publisher = 'shortlist';
-// let publisher = 'mrhyde';
+let Crawler = require("simplecrawler");
+const cheerio = require("cheerio");
+const config = require('./config.json')
 
-var start = new Date();
-console.log("BEGIN CRAWLING @" + start);
+module.exports.crawl = function (event, callback) {
 
-['stylist', 'shortlist', 'mrhyde'].forEach(publisher => {
-    var crawler = Crawler(config[publisher].crawlUrl)
+    let publisher = event.publisher;
+
+    let start = new Date();
+    console.log("BEGIN CRAWLING @" + start);
+
+    let crawler = Crawler(config[publisher].crawlUrl)
+
         .on("fetchcomplete", function (queueItem, responseBuffer, response) {
 
             let r = config[publisher].regex;
@@ -53,4 +54,5 @@ console.log("BEGIN CRAWLING @" + start);
     });
 
     crawler.start();
-});
+
+};

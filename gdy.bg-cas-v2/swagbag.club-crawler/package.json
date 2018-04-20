@@ -1,0 +1,30 @@
+{
+  "name": "swagbag.club-crawler",
+  "version": "1.0.0",
+  "description": "Swagbag.club crawler with simplecrawler ",
+  "main": "n/a",
+  "scripts": {
+    "test": "n/a"
+  },
+  "repository": {
+    "type": "git",
+    "url": "n/a"
+  },
+  "keywords": [
+    "swagbag.club",
+    "crawler"
+  ],
+  "author": "elvin",
+  "license": "ISC",
+  "bugs": {
+    "url": "n/a"
+  },
+  "homepage": "swagbag.club",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "simplecrawler": "^1.1.6"
+  },
+  "devDependencies": {
+    "serverless-plugin-simulate": "0.0.17"
+  }
+}
