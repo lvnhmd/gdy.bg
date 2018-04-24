@@ -59,7 +59,8 @@
 # lambda-local -f user/removeCard.js -e events/user/removeCardEventSuccess.json && \
 echo '---------------------------TEST crawl---------------------------' && \
 # lambda-local -f testCrawl.js -e events/crawlEvent.json 
-lambda-local -l ../swagbag.club-crawler/crawler.js -h ../swagbag.club-crawler/handler.js -e events/crawlEvent.json
+# lambda-local -l ../swagbag.club-crawler/crawler.js -e ./events/crawlEvent.json -t 300
+lambda-local -l ../swagbag.club-crawler/handler.js -h crawl -e ./events/crawlEvent.json -t 20
 
 # && \
 # echo '---------------------------TEST postOrder---------------------------' && \
