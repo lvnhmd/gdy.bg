@@ -51,7 +51,7 @@ module.exports.crawl = function (event, callback) {
     crawler.on('complete', function () {
         let now = new Date();
         console.log("END CRAWLING @" + now + ", execution time in sec :" + (now - start) / 1000 + 's');
-        callback(null, "some success message");
+        callback(null, "COMPLETED CRAWLING @" + now + ", execution time in sec :" + (now - start) / 1000 + 's');
     });
 
     crawler.start();
