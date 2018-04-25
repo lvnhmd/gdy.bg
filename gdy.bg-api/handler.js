@@ -1,8 +1,8 @@
 'use strict';
 
 const api = require('./src/api.js');
-const scraper = require('./src/scraper.js');
 const utils = require('./src/utils.js');
+const Crawler = require('./src/crawler.js');
 
 function cbw(cb) {
     return function (err, res) {
@@ -23,7 +23,17 @@ module.exports.getSources = (event, context, cb) => api.getSources(event, cbw(cb
 
 module.exports.getCompetitions = (event, context, cb) => api.getCompetitions(event, cbw(cb));
 
-module.exports.scrape = (event, context, cb) => scraper.scrape();
+module.exports.crawlStylist = function (event, context, cb) {
+    Crawler.crawl(event, cb);
+}
+
+module.exports.crawlShortlist = function (event, context, cb) {
+    Crawler.crawl(event, cb);
+}
+
+module.exports.crawlMrhyde = function (event, context, cb) {
+    Crawler.crawl(event, cb);
+}
 
 module.exports.postUser = (event, context, cb) => api.postUser(event, cbw(cb));
 

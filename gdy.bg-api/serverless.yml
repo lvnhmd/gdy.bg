@@ -20,7 +20,7 @@ service: swagbag-club
 provider:
   name: aws
   stage: ${opt:stage}
-  runtime: nodejs4.3
+  runtime: nodejs8.10
   region: eu-west-1
 
 # you can overwrite defaults here
@@ -68,13 +68,30 @@ package:
     - node_modules/**
 
 functions:
-  scrape:
-    handler: handler.scrape
+  crawlStylist:
+    handler: handler.crawlStylist
     timeout: 300
     memorySize: 512
     events:
       - schedule: cron(0 15 * * ? *)
-      - timeout:  5 min
+    input: 
+      publisher: stylist
+  crawlShortlist:        
+    handler: handler.crawlShortlist
+    timeout: 300
+    memorySize: 512
+    events:
+      - schedule: cron(0 15 * * ? *)
+    input: 
+      publisher: shortlist
+  crawlMrhyde:        
+    handler: handler.crawlMrhyde
+    timeout: 300
+    memorySize: 512
+    events:
+      - schedule: cron(0 15 * * ? *)
+    input: 
+      publisher: mrhyde      
   getCompetitions:
     handler: handler.getCompetitions
     timeout: 30
