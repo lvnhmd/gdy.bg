@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "jsonfile": "^2.4.0",
+    "lambda-local": "^1.4.7",
     "lodash": "^4.17.4",
     "mkdirp": "^0.5.1",
     "traverse": "^0.6.6"

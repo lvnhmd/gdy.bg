@@ -73,25 +73,31 @@ functions:
     timeout: 300
     memorySize: 512
     events:
-      - schedule: cron(0 15 * * ? *)
-    input: 
-      publisher: stylist
+      - schedule:
+          rate: cron(0 15 * * ? *)
+          enabled: false
+          input:
+            publisher: stylist
   crawlShortlist:        
     handler: handler.crawlShortlist
     timeout: 300
     memorySize: 512
     events:
-      - schedule: cron(0 15 * * ? *)
-    input: 
-      publisher: shortlist
+      - schedule:
+          rate: cron(0 15 * * ? *)
+          enabled: false
+          input:
+            publisher: shortlist
   crawlMrhyde:        
     handler: handler.crawlMrhyde
     timeout: 300
     memorySize: 512
     events:
-      - schedule: cron(0 15 * * ? *)
-    input: 
-      publisher: mrhyde      
+      - schedule:
+          rate: cron(0 15 * * ? *)
+          enabled: false
+          input:
+            publisher: mrhyde      
   getCompetitions:
     handler: handler.getCompetitions
     timeout: 30
